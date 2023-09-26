@@ -3,14 +3,15 @@
 import React, { useState } from "react";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TodayIcon from "@mui/icons-material/Today";
 
 import Button from "./components/button/Button";
 import Calendar from "./components/calendar/Calendar";
-import Select from "./components/select/Select";
 
 import { daysOfWeek, months, years } from "./data";
+import Card from "./components/card/Card";
 
 export default function Home() {
   const today = new Date();
@@ -21,32 +22,6 @@ export default function Home() {
     year: today.getFullYear(),
     weekday: today.getDay(),
   });
-
-  const handleMonthChange = (month) => {
-    let monthIndex = 0;
-
-    for (let i = 0; i < months.length; i++) {
-      if (months[i] === month) {
-        monthIndex = i;
-      }
-    }
-
-    setSelectedDate({
-      month: monthIndex,
-      date: 1,
-      year: selectedDate.year,
-      weekday: new Date(selectedDate.year, monthIndex, 1).getDay(),
-    });
-  };
-
-  const handleYearChange = (year) => {
-    setSelectedDate({
-      month: selectedDate.month,
-      date: 1,
-      year: year,
-      weekday: new Date(year, selectedDate.month, 1).getDay(),
-    });
-  };
 
   const handleTodayClick = () => {
     setSelectedDate({ month: today.getMonth(), date: today.getDate(), year: today.getFullYear(), weekday: today.getDay() });
@@ -80,33 +55,32 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col gap-2 p-4">
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-row gap-2">
-          <Select
-            title="Months"
-            options={months}
-            value={months[selectedDate.month]}
-            onChange={(e) => handleMonthChange(e.target.value)}
-          />
-          <Select title="Years" options={years} value={selectedDate.year} onChange={(e) => handleYearChange(e.target.value)} />
+    <Card>
+      <div className="flex flex-col gap-4 p-4">
+        <div className="flex flex-row justify-between align-middle">
+          <div className="flex flex-row gap-4">
+            <p className="text-3xl">{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
+            <Button>
+              <ArrowDropDownIcon />
+            </Button>
+          </div>
+          <div className="flex flex-row gap-4">
+            <Button onClick={() => handleTodayClick()}>
+              <TodayIcon />
+            </Button>
+            <Button onClick={() => handlePreviousButtonClick()}>
+              <ArrowBackIcon />
+            </Button>
+            <Button onClick={() => handleNextButtonClick()}>
+              <ArrowForwardIcon />
+            </Button>
+          </div>
         </div>
-        <div className="flex flex-row gap-2">
-          <Button onClick={() => handleTodayClick()}>
-            <TodayIcon />
-          </Button>
-          <Button onClick={() => handlePreviousButtonClick()}>
-            <ArrowBackIcon />
-          </Button>
-          <Button onClick={() => handleNextButtonClick()}>
-            <ArrowForwardIcon />
-          </Button>
-        </div>
+        <Calendar today={today} selectedDate={selectedDate} onSelectDay={handleSelectDay} />
+        <p className="text-lg text-slate-700">
+          {`${daysOfWeek[selectedDate.weekday]}, ${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`}
+        </p>
       </div>
-      <Calendar today={today} selectedDate={selectedDate} onSelectDay={handleSelectDay} />
-      <p className="text-md">
-        {`${daysOfWeek[selectedDate.weekday]}, ${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year} `}
-      </p>
-    </div>
+    </Card>
   );
 }

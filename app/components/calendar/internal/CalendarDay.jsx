@@ -5,13 +5,17 @@ import React from "react";
 const CalendarDay = ({ day, isToday, isNotInMonth, isSelected, onClick }) => {
   return (
     <td
-      className={`border border-collapse h-24 ${isSelected ? "border-2 border-blue-900" : "border-solid border-black"} ${
-        isToday ? "bg-blue-100" : isNotInMonth ? "bg-stone-300" : "bg-white"
-      }`}
+      className={`border border-separate text-slate-700 h-32 ${
+        isSelected ? "border-2 border-slate-700" : "border-solid border-slate-500"
+      } ${isNotInMonth ? "bg-slate-100" : "bg-white"}`}
       onClick={onClick}
     >
-      <div className="flex flex-col p-2">
-        <div>{day}</div>
+      <div className="flex flex-col justify-between p-2 h-full">
+        <span
+          className={`flex items-center justify-center rounded-full w-12 h-12 ${isToday ? "bg-slate-700 text-white" : null}`}
+        >
+          {day}
+        </span>
       </div>
     </td>
   );

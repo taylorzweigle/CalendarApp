@@ -25,7 +25,7 @@ const Calendar = ({ today, selectedDate, onSelectDay }) => {
     const dayOfWeekOfMonthStart = getDayOfWeekOfMonthStart(year, month);
 
     for (let i = dayOfWeekOfMonthStart - 1; i >= 0; i--) {
-      calendarDays.push({ key: `${month - 1 < 10 ? "0" : ""}${month - 1}${prevMonthLength - i}`, day: "" });
+      calendarDays.push({ key: `${month - 1 < 10 ? "0" : ""}${month === 0 ? 11 : month - 1}${prevMonthLength - i}`, day: "" });
     }
 
     for (let i = 1; i <= monthLength; i++) {
@@ -50,7 +50,7 @@ const Calendar = ({ today, selectedDate, onSelectDay }) => {
   };
 
   return (
-    <table className="w-full table-fixed border border-collapse border-black">
+    <table className="w-full table-fixed">
       <thead>
         <tr>
           {daysOfWeek.map((day) => (
