@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -12,10 +12,6 @@ import { months } from "../../data";
 
 const DatePicker = ({ selectedMonth, selectedYear, isVisible, onChange }) => {
   const [year, setYear] = useState(selectedYear);
-
-  useEffect(() => {
-    setYear(selectedYear);
-  });
 
   return (
     <div className={`absolute ${isVisible ? "block" : "hidden"}`}>

@@ -5,6 +5,8 @@ import React from "react";
 import CalendarDay from "./internal/CalendarDay";
 import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
+//import EventCard from "../card/EventCard";
+
 import { daysOfWeek } from "../../data";
 
 const Calendar = ({ today, selectedDate, onSelectDay }) => {
@@ -62,18 +64,20 @@ const Calendar = ({ today, selectedDate, onSelectDay }) => {
         {populateCalendar(selectedDate.year, selectedDate.month).map((week) => (
           <tr key={week.week}>
             {week.days.map((day) => (
-              <CalendarDay
-                key={day.key}
-                day={day.day}
-                isToday={
-                  selectedDate.month === today.getMonth() &&
-                  selectedDate.year === today.getFullYear() &&
-                  day.day === today.getDate()
-                }
-                isNotInMonth={parseInt(day.key.slice(0, 2)) !== selectedDate.month}
-                isSelected={selectedDate.date === day.day}
-                onClick={day.day > 0 ? () => onSelectDay(selectedDate.year, selectedDate.month, day.day) : null}
-              />
+              <>
+                <CalendarDay
+                  key={day.key}
+                  day={day.day}
+                  isToday={
+                    selectedDate.month === today.getMonth() &&
+                    selectedDate.year === today.getFullYear() &&
+                    day.day === today.getDate()
+                  }
+                  isNotInMonth={parseInt(day.key.slice(0, 2)) !== selectedDate.month}
+                  isSelected={selectedDate.date === day.day}
+                  onClick={day.day > 0 ? () => onSelectDay(selectedDate.year, selectedDate.month, day.day) : null}
+                ></CalendarDay>
+              </>
             ))}
           </tr>
         ))}

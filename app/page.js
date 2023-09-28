@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TodayIcon from "@mui/icons-material/Today";
 
@@ -92,7 +93,7 @@ export default function Home() {
             <p className="text-3xl">{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
             <div>
               <Button onClick={() => setDropDownIsVisible(!dropDownIsVisible)}>
-                <ArrowDropDownIcon />
+                {dropDownIsVisible ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
               </Button>
               <DatePicker
                 isVisible={dropDownIsVisible}
