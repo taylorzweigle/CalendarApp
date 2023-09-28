@@ -9,11 +9,14 @@ import TodayIcon from "@mui/icons-material/Today";
 
 import Button from "./components/button/Button";
 import Calendar from "./components/calendar/Calendar";
+import DatePicker from "./components/datePicker/DatePicker";
 
-import { daysOfWeek, months, years } from "./data";
+import { daysOfWeek, months } from "./data";
 import Card from "./components/card/Card";
 
 export default function Home() {
+  const [dropDownIsVisible, setDropDownIsVisible] = useState(false);
+
   const today = new Date();
 
   const [selectedDate, setSelectedDate] = useState({
@@ -23,8 +26,29 @@ export default function Home() {
     weekday: today.getDay(),
   });
 
+  const handleDatePickerChange = (year, month) => {
+    let monthIndex = 0;
+
+    for (let i = 0; i < months.length; i++) {
+      if (month === months[i]) {
+        monthIndex = i;
+      }
+    }
+
+    setSelectedDate({
+      month: monthIndex,
+      date: 1,
+      year: year,
+      weekday: new Date(selectedDate.year, selectedDate.month, 1).getDay(),
+    });
+
+    setDropDownIsVisible(false);
+  };
+
   const handleTodayClick = () => {
     setSelectedDate({ month: today.getMonth(), date: today.getDate(), year: today.getFullYear(), weekday: today.getDay() });
+
+    setDropDownIsVisible(false);
   };
 
   const handlePreviousButtonClick = () => {
@@ -34,6 +58,8 @@ export default function Home() {
       year: selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year,
       weekday: new Date(selectedDate.year, selectedDate.month - 1, 1).getDay(),
     });
+
+    setDropDownIsVisible(false);
   };
 
   const handleNextButtonClick = () => {
@@ -43,6 +69,8 @@ export default function Home() {
       year: selectedDate.month === 11 ? selectedDate.year + 1 : selectedDate.year,
       weekday: new Date(selectedDate.year, selectedDate.month + 1, 1).getDay(),
     });
+
+    setDropDownIsVisible(false);
   };
 
   const handleSelectDay = (year, month, day) => {
@@ -52,17 +80,27 @@ export default function Home() {
       year: year,
       weekday: new Date(year, month, day).getDay(),
     });
+
+    setDropDownIsVisible(false);
   };
 
   return (
     <Card>
       <div className="flex flex-col gap-4 p-4">
-        <div className="flex flex-row justify-between align-middle">
+        <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row gap-4">
             <p className="text-3xl">{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
-            <Button>
-              <ArrowDropDownIcon />
-            </Button>
+            <div>
+              <Button onClick={() => setDropDownIsVisible(!dropDownIsVisible)}>
+                <ArrowDropDownIcon />
+              </Button>
+              <DatePicker
+                isVisible={dropDownIsVisible}
+                selectedMonth={selectedDate.month}
+                selectedYear={selectedDate.year}
+                onChange={(year, month) => handleDatePickerChange(year, month)}
+              />
+            </div>
           </div>
           <div className="flex flex-row gap-4">
             <Button onClick={() => handleTodayClick()}>
