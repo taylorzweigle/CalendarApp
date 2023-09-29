@@ -1,3 +1,5 @@
+//Taylor Zweigle, 2023
+
 "use client";
 
 import React from "react";
@@ -5,11 +7,11 @@ import React from "react";
 import CalendarDay from "./internal/CalendarDay";
 import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
-//import EventCard from "../card/EventCard";
+import EventCard from "../card/EventCard";
 
-import { daysOfWeek } from "../../data";
+import { daysOfWeek } from "./internal/data";
 
-const Calendar = ({ today, selectedDate, onSelectDay }) => {
+const Calendar = ({ data, today, selectedDate, onSelectDay }) => {
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
 
   const getDayOfWeekOfMonthStart = (year, month) => new Date(year, month).getDay();
@@ -64,9 +66,8 @@ const Calendar = ({ today, selectedDate, onSelectDay }) => {
         {populateCalendar(selectedDate.year, selectedDate.month).map((week) => (
           <tr key={week.week}>
             {week.days.map((day) => (
-              <>
+              <React.Fragment key={day.key}>
                 <CalendarDay
-                  key={day.key}
                   day={day.day}
                   isToday={
                     selectedDate.month === today.getMonth() &&
@@ -76,8 +77,34 @@ const Calendar = ({ today, selectedDate, onSelectDay }) => {
                   isNotInMonth={parseInt(day.key.slice(0, 2)) !== selectedDate.month}
                   isSelected={selectedDate.date === day.day}
                   onClick={day.day > 0 ? () => onSelectDay(selectedDate.year, selectedDate.month, day.day) : null}
-                ></CalendarDay>
-              </>
+                >
+                  <div className="flex flex-col gap-2 h-full">
+                    {data
+                      .filter(
+                        (item) =>
+                          selectedDate.month === item.date.getMonth() &&
+                          selectedDate.year === item.date.getFullYear() &&
+                          day.day === item.date.getDate()
+                      )
+                      .map((event) => (
+                        <EventCard
+                          key={event.id}
+                          event={event.event}
+                          user={event.user}
+                          tag={event.tag}
+                          time={`${
+                            event.date.getHours() === 0
+                              ? ""
+                              : `${event.date.getHours() % 12}:${
+                                  event.date.getMinutes() === 0 ? "00" : event.date.getMinutes()
+                                } ${event.date.getHours() > 11 ? "PM" : "AM"}`
+                          } 
+                          `}
+                        />
+                      ))}
+                  </div>
+                </CalendarDay>
+              </React.Fragment>
             ))}
           </tr>
         ))}

@@ -1,3 +1,5 @@
+//Taylor Zweigle, 2023
+
 "use client";
 
 import React, { useState } from "react";
@@ -12,8 +14,10 @@ import Button from "./components/button/Button";
 import Calendar from "./components/calendar/Calendar";
 import DatePicker from "./components/datePicker/DatePicker";
 
-import { daysOfWeek, months } from "./data";
+import { daysOfWeek, months } from "./components/calendar/internal/data";
 import Card from "./components/card/Card";
+
+import { db } from "./db/db";
 
 export default function Home() {
   const [dropDownIsVisible, setDropDownIsVisible] = useState(false);
@@ -115,7 +119,7 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <Calendar today={today} selectedDate={selectedDate} onSelectDay={handleSelectDay} />
+        <Calendar data={db} today={today} selectedDate={selectedDate} onSelectDay={handleSelectDay} />
         <p className="text-lg text-slate-700">
           {`${daysOfWeek[selectedDate.weekday]}, ${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`}
         </p>

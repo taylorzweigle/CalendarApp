@@ -1,3 +1,5 @@
+//Taylor Zweigle, 2023
+
 export const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export const months = [

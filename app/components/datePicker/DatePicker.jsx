@@ -1,3 +1,5 @@
+//Taylor Zweigle, 2023
+
 "use client";
 
 import React, { useState } from "react";
@@ -8,7 +10,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Card from "../card/Card";
 import Chip from "../chip/Chip";
 
-import { months } from "../../data";
+import { months } from "../calendar/internal/data";
 
 const DatePicker = ({ selectedMonth, selectedYear, isVisible, onChange }) => {
   const [year, setYear] = useState(selectedYear);

@@ -1,3 +1,5 @@
+//Taylor Zweigle, 2023
+
 import "./globals.css";
 
 export const metadata = {
