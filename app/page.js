@@ -4,15 +4,19 @@
 
 import React, { useState } from "react";
 
+import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import SettingsIcon from "@mui/icons-material/Settings";
 import TodayIcon from "@mui/icons-material/Today";
 
+import Avatar from "./components/avatar/Avatar";
 import Button from "./components/button/Button";
 import Calendar from "./components/calendar/Calendar";
 import DatePicker from "./components/datePicker/DatePicker";
+import Legend from "./components/legend/Legend";
 
 import { daysOfWeek, months } from "./components/calendar/internal/data";
 import Card from "./components/card/Card";
@@ -91,38 +95,62 @@ export default function Home() {
 
   return (
     <Card>
-      <div className="flex flex-col gap-4 p-4">
-        <div className="flex flex-row justify-between items-center">
-          <div className="flex flex-row gap-4">
-            <p className="text-3xl">{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
-            <div>
-              <Button onClick={() => setDropDownIsVisible(!dropDownIsVisible)}>
-                {dropDownIsVisible ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-              </Button>
-              <DatePicker
-                isVisible={dropDownIsVisible}
-                selectedMonth={selectedDate.month}
-                selectedYear={selectedDate.year}
-                onChange={(year, month) => handleDatePickerChange(year, month)}
-              />
+      <div className="grid grid-cols-4">
+        <div className="flex flex-col gap-8 border-r border-slate-300 p-8">
+          <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row items-center gap-2">
+              <Avatar user="T" />
+              <p className="text-xl">Taylor Zweigle</p>
             </div>
+            <Button onClick={() => {}}>
+              <SettingsIcon />
+            </Button>
           </div>
-          <div className="flex flex-row gap-4">
-            <Button onClick={() => handleTodayClick()}>
-              <TodayIcon />
-            </Button>
-            <Button onClick={() => handlePreviousButtonClick()}>
-              <ArrowBackIcon />
-            </Button>
-            <Button onClick={() => handleNextButtonClick()}>
-              <ArrowForwardIcon />
-            </Button>
+          <Button onClick={() => {}}>
+            <AddIcon />
+            Add Event
+          </Button>
+          <p className="text-lg text-slate-700">
+            {`${daysOfWeek[selectedDate.weekday]}, ${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`}
+          </p>
+          <div className="flex flex-col gap-2">
+            <Legend color="emerald" label="Me" />
+            <Legend color="indigo" label="Wife" />
+            <Legend color="blue" label="Us" />
+            <Legend color="slate" label="Calendar" />
           </div>
         </div>
-        <Calendar data={db} today={today} selectedDate={selectedDate} onSelectDay={handleSelectDay} />
-        <p className="text-lg text-slate-700">
-          {`${daysOfWeek[selectedDate.weekday]}, ${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`}
-        </p>
+        <div className="flex flex-col gap-4 p-8 col-span-3">
+          <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row gap-4">
+              <p className="text-3xl">{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
+              <div>
+                <Button onClick={() => setDropDownIsVisible(!dropDownIsVisible)}>
+                  {dropDownIsVisible ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                </Button>
+                <DatePicker
+                  isVisible={dropDownIsVisible}
+                  selectedMonth={selectedDate.month}
+                  selectedYear={selectedDate.year}
+                  onChange={(year, month) => handleDatePickerChange(year, month)}
+                />
+              </div>
+            </div>
+            <div className="flex flex-row gap-4">
+              <Button onClick={() => handleTodayClick()}>
+                <TodayIcon />
+              </Button>
+              <Button onClick={() => handlePreviousButtonClick()}>
+                <ArrowBackIcon />
+              </Button>
+              <Button onClick={() => handleNextButtonClick()}>
+                <ArrowForwardIcon />
+              </Button>
+            </div>
+          </div>
+
+          <Calendar data={db} today={today} selectedDate={selectedDate} onSelectDay={handleSelectDay} />
+        </div>
       </div>
     </Card>
   );
