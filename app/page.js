@@ -1,24 +1,24 @@
 //Taylor Zweigle, 2023
-
 "use client";
 
 import React, { useState } from "react";
 
-import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import SettingsIcon from "@mui/icons-material/Settings";
 import TodayIcon from "@mui/icons-material/Today";
 
-import Avatar from "./components/avatar/Avatar";
 import Button from "./components/button/Button";
 import Calendar from "./components/calendar/Calendar";
 import DatePicker from "./components/datePicker/DatePicker";
-import Legend from "./components/legend/Legend";
+import Typography from "./components/typography/Typography";
 
-import { daysOfWeek, months } from "./components/calendar/internal/data";
+import DetailsLayout from "./layouts/DetailsLayout";
+import HeaderLayout from "./layouts/HeaderLayout";
+import LegendLayout from "./layouts/LegendLayout";
+
+import { months } from "./components/calendar/internal/data";
 import Card from "./components/card/Card";
 
 import { db } from "./db/db";
@@ -96,34 +96,15 @@ export default function Home() {
   return (
     <Card>
       <div className="grid grid-cols-4">
-        <div className="flex flex-col gap-8 border-r border-slate-300 p-8">
-          <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-row items-center gap-2">
-              <Avatar user="T" />
-              <p className="text-xl">Taylor Zweigle</p>
-            </div>
-            <Button onClick={() => {}}>
-              <SettingsIcon />
-            </Button>
-          </div>
-          <Button onClick={() => {}}>
-            <AddIcon />
-            Add Event
-          </Button>
-          <p className="text-lg text-slate-700">
-            {`${daysOfWeek[selectedDate.weekday]}, ${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`}
-          </p>
-          <div className="flex flex-col gap-2">
-            <Legend color="emerald" label="Me" />
-            <Legend color="indigo" label="Wife" />
-            <Legend color="blue" label="Us" />
-            <Legend color="slate" label="Calendar" />
-          </div>
+        <div className="border-r border-slate-300">
+          <HeaderLayout user="Taylor Zweigle" />
+          <DetailsLayout selectedDate={selectedDate} />
+          <LegendLayout />
         </div>
         <div className="flex flex-col gap-4 p-8 col-span-3">
           <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-row gap-4">
-              <p className="text-3xl">{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
+            <div className="flex flex-row gap-4 items-center">
+              <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
               <div>
                 <Button onClick={() => setDropDownIsVisible(!dropDownIsVisible)}>
                   {dropDownIsVisible ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
@@ -148,7 +129,6 @@ export default function Home() {
               </Button>
             </div>
           </div>
-
           <Calendar data={db} today={today} selectedDate={selectedDate} onSelectDay={handleSelectDay} />
         </div>
       </div>

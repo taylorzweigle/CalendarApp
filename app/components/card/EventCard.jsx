@@ -1,5 +1,4 @@
 //Taylor Zweigle, 2023
-
 "use client";
 
 import React from "react";
@@ -13,6 +12,8 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import SportsBaseballIcon from "@mui/icons-material/SportsBaseball";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import SportsScoreIcon from "@mui/icons-material/SportsScore";
+
+import Typography from "../typography/Typography";
 
 const EventCard = ({ event, user, time, tag }) => {
   const colors = {
@@ -62,8 +63,12 @@ const EventCard = ({ event, user, time, tag }) => {
         {icons[tag]}
       </div>
       <div className="flex flex-col gap-0 p-2">
-        <div className={`text-sm font-bold ${colors[user].textColor}`}>{event}</div>
-        <div className={`text-xs ${colors[user].textColor}`}>{time}</div>
+        <Typography variant="body2" color={colors[user].textColor} isBold>
+          {event}
+        </Typography>
+        <Typography variant="caption" color={colors[user].textColor}>
+          {time}
+        </Typography>
       </div>
     </div>
   );
