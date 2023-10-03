@@ -10,7 +10,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TodayIcon from "@mui/icons-material/Today";
 
 import Button from "./components/button/Button";
-import Calendar from "./components/calendar/Calendar";
+import Calendar, { months } from "./components/calendar/Calendar";
 import DatePicker from "./components/datePicker/DatePicker";
 import Typography from "./components/typography/Typography";
 
@@ -18,7 +18,6 @@ import DetailsLayout from "./layouts/DetailsLayout";
 import HeaderLayout from "./layouts/HeaderLayout";
 import LegendLayout from "./layouts/LegendLayout";
 
-import { months } from "./components/calendar/internal/data";
 import Card from "./components/card/Card";
 
 import { db } from "./db/db";
@@ -117,16 +116,10 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className="flex flex-row gap-4">
-              <Button onClick={() => handleTodayClick()}>
-                <TodayIcon />
-              </Button>
-              <Button onClick={() => handlePreviousButtonClick()}>
-                <ArrowBackIcon />
-              </Button>
-              <Button onClick={() => handleNextButtonClick()}>
-                <ArrowForwardIcon />
-              </Button>
+            <div className="flex flex-row gap-4 items-center">
+              <Button prefix={<TodayIcon />} onClick={() => handleTodayClick()} />
+              <Button prefix={<ArrowBackIcon />} onClick={() => handlePreviousButtonClick()} />
+              <Button prefix={<ArrowForwardIcon />} onClick={() => handleNextButtonClick()} />
             </div>
           </div>
           <Calendar data={db} today={today} selectedDate={selectedDate} onSelectDay={handleSelectDay} />

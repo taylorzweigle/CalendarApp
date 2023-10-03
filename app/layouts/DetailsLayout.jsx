@@ -3,7 +3,7 @@
 
 import React from "react";
 
-import { daysOfWeek, months } from "../components/calendar/internal/data";
+import { daysOfWeek, months } from "../components/calendar/Calendar";
 import Typography from "../components/typography/Typography";
 
 const DetailsLayout = ({ selectedDate }) => {

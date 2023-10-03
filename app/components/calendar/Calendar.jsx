@@ -1,5 +1,4 @@
 //Taylor Zweigle, 2023
-
 "use client";
 
 import React from "react";
@@ -9,7 +8,22 @@ import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
 import EventCard from "../card/EventCard";
 
-import { daysOfWeek } from "./internal/data";
+export const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+export const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 const Calendar = ({ data, today, selectedDate, onSelectDay }) => {
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();

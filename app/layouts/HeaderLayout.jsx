@@ -18,12 +18,9 @@ const HeaderLayout = ({ user }) => {
           <Avatar user={user.slice(0, 1)} />
           <Typography variant="heading">{user}</Typography>
         </div>
-        <Button onClick={() => {}}>
-          <SettingsIcon />
-        </Button>
+        <Button prefix={<SettingsIcon />} onClick={() => {}} />
       </div>
-      <Button onClick={() => {}}>
-        <AddIcon />
+      <Button prefix={<AddIcon />} onClick={() => {}}>
         Add Event
       </Button>
     </div>
