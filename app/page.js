@@ -20,6 +20,7 @@ import LegendLayout from "./layouts/LegendLayout";
 
 import Card from "./components/card/Card";
 
+import { calendars } from "./db/calendars";
 import { db } from "./db/db";
 
 export default function Home() {
@@ -122,7 +123,7 @@ export default function Home() {
               <Button prefix={<ArrowForwardIcon />} onClick={() => handleNextButtonClick()} />
             </div>
           </div>
-          <Calendar data={db} today={today} selectedDate={selectedDate} onSelectDay={handleSelectDay} />
+          <Calendar data={db} calendars={calendars} today={today} selectedDate={selectedDate} onSelectDay={handleSelectDay} />
         </div>
       </div>
     </Card>

@@ -15,34 +15,7 @@ import SportsScoreIcon from "@mui/icons-material/SportsScore";
 
 import Typography from "../typography/Typography";
 
-const EventCard = ({ event, user, time, tag }) => {
-  const colors = {
-    Me: {
-      bgColor: "bg-emerald-50",
-      borderColor: "border-emerald-500",
-      iconColor: "bg-emerald-500",
-      textColor: "text-emerald-700",
-    },
-    Wife: {
-      bgColor: "bg-indigo-50",
-      borderColor: "border-indigo-500",
-      iconColor: "bg-indigo-500",
-      textColor: "text-indigo-700",
-    },
-    Us: {
-      bgColor: "bg-blue-50",
-      borderColor: "border-blue-500",
-      iconColor: "bg-blue-500",
-      textColor: "text-blue-700",
-    },
-    Calendar: {
-      bgColor: "bg-slate-50",
-      borderColor: "border-slate-500",
-      iconColor: "bg-slate-500",
-      textColor: "text-slate-700",
-    },
-  };
-
+const EventCard = ({ event, time, color, tag }) => {
   const icons = {
     baseball: <SportsBaseballIcon fontSize="small" />,
     chores: <ConstructionIcon fontSize="small" />,
@@ -57,16 +30,14 @@ const EventCard = ({ event, user, time, tag }) => {
 
   return (
     <div
-      className={`flex flex-row justify-start items-center h-14 ${colors[user].bgColor} border ${colors[user].borderColor} rounded-md overflow-clip px-2`}
+      className={`flex flex-row justify-start items-center h-14 bg-${color}-50 border border-${color}-500 rounded-md overflow-clip px-2`}
     >
-      <div className={`flex justify-center items-center ${colors[user].iconColor} text-white rounded w-6 h-6`}>
-        {icons[tag]}
-      </div>
+      <div className={`flex justify-center items-center bg-${color}-500 text-white rounded w-6 h-6`}>{icons[tag]}</div>
       <div className="flex flex-col gap-0 p-2">
-        <Typography variant="body2" color={colors[user].textColor} isBold>
+        <Typography variant="body2" color={`text-${color}-700`} isBold>
           {event}
         </Typography>
-        <Typography variant="caption" color={colors[user].textColor}>
+        <Typography variant="caption" color={`text-${color}-700`}>
           {time}
         </Typography>
       </div>

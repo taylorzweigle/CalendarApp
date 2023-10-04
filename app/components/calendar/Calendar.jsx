@@ -25,7 +25,7 @@ export const months = [
   "December",
 ];
 
-const Calendar = ({ data, today, selectedDate, onSelectDay }) => {
+const Calendar = ({ data, calendars, today, selectedDate, onSelectDay }) => {
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
 
   const getDayOfWeekOfMonthStart = (year, month) => new Date(year, month).getDay();
@@ -104,7 +104,7 @@ const Calendar = ({ data, today, selectedDate, onSelectDay }) => {
                         <EventCard
                           key={event.id}
                           event={event.event}
-                          user={event.user}
+                          color={calendars.find((calendar) => calendar.user === event.user).color}
                           tag={event.tag}
                           time={`${
                             event.date.getHours() === 0
