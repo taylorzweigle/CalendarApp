@@ -114,6 +114,7 @@ const Calendar = ({ data, calendars, today, selectedDate, onSelectDay }) => {
                                 } ${event.date.getHours() > 11 ? "PM" : "AM"}`
                           } 
                           `}
+                          isCondensed
                         />
                       ))}
                   </div>

@@ -12,10 +12,11 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import SportsBaseballIcon from "@mui/icons-material/SportsBaseball";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import SportsScoreIcon from "@mui/icons-material/SportsScore";
+import WorkIcon from "@mui/icons-material/Work";
 
 import Typography from "../typography/Typography";
 
-const EventCard = ({ event, time, color, tag }) => {
+const EventCard = ({ event, time, color, tag, isCondensed }) => {
   const icons = {
     baseball: <SportsBaseballIcon fontSize="small" />,
     chores: <ConstructionIcon fontSize="small" />,
@@ -26,20 +27,27 @@ const EventCard = ({ event, time, color, tag }) => {
     personal: <FaceIcon fontSize="small" />,
     racing: <SportsScoreIcon fontSize="small" />,
     serve: <EscalatorWarningIcon fontSize="small" />,
+    work: <WorkIcon fontSize="small" />,
   };
 
   return (
     <div
-      className={`flex flex-row justify-start items-center h-14 bg-${color}-50 border border-${color}-500 rounded-md overflow-clip px-2`}
+      className={`flex flex-row justify-start items-center ${
+        isCondensed ? "h-8" : "h-14"
+      } bg-${color}-50 border border-${color}-500 rounded-md overflow-clip ${isCondensed ? "px-0" : "px-2"}`}
     >
-      <div className={`flex justify-center items-center bg-${color}-500 text-white rounded w-6 h-6`}>{icons[tag]}</div>
+      {isCondensed ? null : (
+        <div className={`flex justify-center items-center bg-${color}-500 text-white rounded w-6 h-6`}>{icons[tag]}</div>
+      )}
       <div className="flex flex-col gap-0 p-2">
         <Typography variant="body2" color={`text-${color}-700`} isBold>
           {event}
         </Typography>
-        <Typography variant="caption" color={`text-${color}-700`}>
-          {time}
-        </Typography>
+        {isCondensed ? null : (
+          <Typography variant="caption" color={`text-${color}-700`}>
+            {time}
+          </Typography>
+        )}
       </div>
     </div>
   );

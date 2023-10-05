@@ -10,12 +10,14 @@ import Avatar from "../components/avatar/Avatar";
 import Button from "../components/button/Button";
 import Typography from "../components/typography/Typography";
 
+import image from "../img/Me.png";
+
 const HeaderLayout = ({ user }) => {
   return (
     <div className="flex flex-col gap-8 border-b border-slate-300 p-8">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row items-center gap-2">
-          <Avatar user={user.slice(0, 1)} />
+          <Avatar image={image} user={user.slice(0, 1)} />
           <Typography variant="heading">{user}</Typography>
         </div>
         <Button prefix={<SettingsIcon />} onClick={() => {}} />

@@ -2,12 +2,13 @@
 "use client";
 
 import React from "react";
-import Typography from "../typography/Typography";
 
-const Avatar = ({ user }) => {
+import Image from "next/image";
+
+const Avatar = ({ image, user }) => {
   return (
     <div className="flex justify-center items-center bg-slate-200 w-12 h-12 rounded-full">
-      <Typography variant="heading">{user}</Typography>
+      <Image className="rounded-full" src={image} alt={user} />
     </div>
   );
 };

@@ -98,7 +98,7 @@ export default function Home() {
       <div className="grid grid-cols-4">
         <div className="border-r border-slate-300">
           <HeaderLayout user="Taylor Zweigle" />
-          <DetailsLayout selectedDate={selectedDate} />
+          <DetailsLayout data={db} calendars={calendars} selectedDate={selectedDate} />
           <LegendLayout />
         </div>
         <div className="flex flex-col gap-4 p-8 col-span-3">

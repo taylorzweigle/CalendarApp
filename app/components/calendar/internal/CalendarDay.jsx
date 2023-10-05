@@ -6,7 +6,7 @@ import React from "react";
 const CalendarDay = ({ day, isToday, isNotInMonth, isSelected, onClick, children }) => {
   return (
     <td
-      className={`border border-separate text-slate-700 h-52 ${
+      className={`border border-separate text-slate-700 h-44 ${
         isSelected ? "border-2 border-slate-700" : "border-solid border-slate-500"
       } ${isNotInMonth ? "bg-slate-100" : "bg-white cursor-pointer"}`}
       onClick={onClick}

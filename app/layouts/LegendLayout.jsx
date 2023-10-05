@@ -15,7 +15,7 @@ const LegendLayout = () => {
         <Typography variant="subheading">Calendars</Typography>
         <div className="flex flex-col gap-2">
           {calendars.map((calendar) => (
-            <Legend color={calendar.color} label={calendar.user} />
+            <Legend key={calendar.id} color={calendar.color} label={calendar.user} />
           ))}
         </div>
       </div>
