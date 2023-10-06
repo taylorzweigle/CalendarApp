@@ -1,5 +1,5 @@
 //Taylor Zweigle, 2023
-"use-client";
+"use client";
 
 import React from "react";
 
