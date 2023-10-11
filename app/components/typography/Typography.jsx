@@ -3,7 +3,7 @@
 
 import React from "react";
 
-const Typography = ({ variant, color, isBold, children }) => {
+const Typography = ({ variant, color, bold, children }) => {
   let variantClass = "text-base";
 
   switch (variant) {
@@ -27,7 +27,11 @@ const Typography = ({ variant, color, isBold, children }) => {
       break;
   }
 
-  return <p className={`${variantClass} ${color ? color : "text-slate-700"} ${isBold ? "font-bold" : null}`}>{children}</p>;
+  return (
+    <p className={`${variantClass} ${color ? color : "text-slate-700 dark:text-white"} ${bold ? "font-bold" : null}`}>
+      {children}
+    </p>
+  );
 };
 
 export default Typography;

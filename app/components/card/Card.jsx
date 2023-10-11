@@ -3,9 +3,15 @@
 
 import React from "react";
 
-const Card = ({ isOnCard, children }) => {
+const Card = ({ border, children }) => {
   return (
-    <div className={`bg-white rounded-lg shadow-md ${isOnCard ? "border border-slate-700 shadow-lg" : null}`}>{children}</div>
+    <div
+      className={`bg-white dark:bg-slate-800 ${
+        border ? "border border-slate-300 dark:border-slate-600" : null
+      } rounded-lg shadow-md`}
+    >
+      {children}
+    </div>
   );
 };
 

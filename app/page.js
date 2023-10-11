@@ -96,7 +96,7 @@ export default function Home() {
   return (
     <Card>
       <div className="grid grid-cols-4">
-        <div className="border-r border-slate-300">
+        <div className="border-r border-slate-300 dark:border-slate-600">
           <HeaderLayout user="Taylor Zweigle" />
           <DetailsLayout data={db} calendars={calendars} selectedDate={selectedDate} />
           <LegendLayout />
@@ -106,11 +106,12 @@ export default function Home() {
             <div className="flex flex-row gap-4 items-center">
               <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
               <div>
-                <Button onClick={() => setDropDownIsVisible(!dropDownIsVisible)}>
-                  {dropDownIsVisible ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-                </Button>
+                <Button
+                  prefix={dropDownIsVisible ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                  onClick={() => setDropDownIsVisible(!dropDownIsVisible)}
+                ></Button>
                 <DatePicker
-                  isVisible={dropDownIsVisible}
+                  open={dropDownIsVisible}
                   selectedMonth={selectedDate.month}
                   selectedYear={selectedDate.year}
                   onChange={(year, month) => handleDatePickerChange(year, month)}

@@ -5,5 +5,5 @@
 @tailwind utilities;
 
 html {
-  @apply bg-slate-200 p-12;
+  @apply bg-slate-200 dark:bg-slate-950 p-12;
 }

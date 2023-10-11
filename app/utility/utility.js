@@ -14,30 +14,30 @@ import WorkIcon from "@mui/icons-material/Work";
 
 export const getColors = (color) => {
   let colorObject = {
-    bg: "bg-slate-50",
-    bgSolid: "bg-slate-500",
-    border: "border-slate-500",
-    text: "text-slate-700",
+    bg: "bg-slate-50 dark:bg-slate-700",
+    bgSolid: "bg-slate-500 dark:bg-slate-700",
+    border: "border-slate-500 dark:border-slate-200",
+    text: "text-slate-700 dark:text-slate-50",
   };
 
   switch (color) {
     case "emerald":
-      colorObject.bg = "bg-emerald-50";
-      colorObject.bgSolid = "bg-emerald-500";
-      colorObject.border = "border-emerald-500";
-      colorObject.text = "text-emerald-700";
+      colorObject.bg = "bg-emerald-50 dark:bg-emerald-700";
+      colorObject.bgSolid = "bg-emerald-500 dark:bg-emerald-700";
+      colorObject.border = "border-emerald-500 dark:border-emerald-200";
+      colorObject.text = "text-emerald-700 dark:text-emerald-50";
       break;
     case "indigo":
-      colorObject.bg = "bg-indigo-50";
-      colorObject.bgSolid = "bg-indigo-500";
-      colorObject.border = "border-indigo-500";
-      colorObject.text = "text-indigo-700";
+      colorObject.bg = "bg-indigo-50 dark:bg-indigo-700";
+      colorObject.bgSolid = "bg-indigo-500 dark:bg-indigo-700";
+      colorObject.border = "border-indigo-500 dark:border-indigo-200";
+      colorObject.text = "text-indigo-700 dark:text-indigo-50";
       break;
-    case "blue":
-      colorObject.bg = "bg-blue-50";
-      colorObject.bgSolid = "bg-blue-500";
-      colorObject.border = "border-blue-500";
-      colorObject.text = "text-blue-700";
+    case "sky":
+      colorObject.bg = "bg-sky-50 dark:bg-sky-700";
+      colorObject.bgSolid = "bg-sky-500 dark:bg-sky-700";
+      colorObject.border = "border-sky-500 dark:border-sky-200";
+      colorObject.text = "text-sky-700 dark:text-sky-50";
       break;
   }
 

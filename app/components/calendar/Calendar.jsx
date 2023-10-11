@@ -83,13 +83,13 @@ const Calendar = ({ data, calendars, today, selectedDate, onSelectDay }) => {
               <React.Fragment key={day.key}>
                 <CalendarDay
                   day={day.day}
-                  isToday={
+                  today={
                     selectedDate.month === today.getMonth() &&
                     selectedDate.year === today.getFullYear() &&
                     day.day === today.getDate()
                   }
-                  isNotInMonth={parseInt(day.key.slice(0, 2)) !== selectedDate.month}
-                  isSelected={selectedDate.date === day.day}
+                  outOfMonth={parseInt(day.key.slice(0, 2)) !== selectedDate.month}
+                  selected={selectedDate.date === day.day}
                   onClick={day.day > 0 ? () => onSelectDay(selectedDate.year, selectedDate.month, day.day) : null}
                 >
                   <div className="flex flex-col gap-2 h-full">
@@ -114,7 +114,7 @@ const Calendar = ({ data, calendars, today, selectedDate, onSelectDay }) => {
                                 } ${event.date.getHours() > 11 ? "PM" : "AM"}`
                           } 
                           `}
-                          isCondensed
+                          condensed
                         />
                       ))}
                   </div>
