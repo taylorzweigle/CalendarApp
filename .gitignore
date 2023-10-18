@@ -2,4 +2,5 @@
 /.next/
 /build
 
-.env.local
+/app/api/node_modules
+.env
