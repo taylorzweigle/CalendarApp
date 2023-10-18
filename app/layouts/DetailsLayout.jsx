@@ -28,14 +28,7 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
             event={event.event}
             color={calendars.find((calendar) => calendar.user === event.user).color}
             tag={event.tag}
-            time={`${
-              event.date.getHours() === 0
-                ? ""
-                : `${event.date.getHours() % 12}:${event.date.getMinutes() === 0 ? "00" : event.date.getMinutes()} ${
-                    event.date.getHours() > 11 ? "PM" : "AM"
-                  }`
-            } 
-            `}
+            time={event.date}
           />
         ))}
         {itemsForSelectedDay.length > 0 ? null : <EmptyState />}

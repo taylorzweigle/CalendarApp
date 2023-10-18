@@ -1,5 +1,4 @@
 //Taylor Zweigle, 2023
-
 export const db = [
   { id: 1, user: "Us", event: "Football", tag: "football", date: new Date(2023, 8, 2, 11, 0) },
   { id: 2, user: "Me", event: "Fantasy Draft", tag: "friends", date: new Date(2023, 8, 2, 21, 0) },
@@ -32,11 +31,12 @@ export const db = [
   { id: 29, user: "Wife", event: "Facetime", tag: "friends", date: new Date(2023, 9, 17, 17, 0) },
   { id: 30, user: "Us", event: "Community", tag: "friends", date: new Date(2023, 9, 19, 19, 0) },
   { id: 31, user: "Me", event: "Basketball", tag: "friends", date: new Date(2023, 9, 21, 9, 0) },
-  { id: 32, user: "Us", event: "Family Dinner", tag: "friends", date: new Date(2023, 9, 22, 17, 0) },
-  { id: 33, user: "Wife", event: "Happy Hour", tag: "friends", date: new Date(2023, 9, 23, 17, 0) },
-  { id: 34, user: "Me", event: "Serve", tag: "serve", date: new Date(2023, 9, 24, 19, 0) },
-  { id: 35, user: "Us", event: "Date Night", tag: "fun", date: new Date(2023, 9, 25, 18, 0) },
-  { id: 36, user: "Us", event: "Community", tag: "friends", date: new Date(2023, 9, 26, 19, 0) },
-  { id: 37, user: "Us", event: "Hiking", tag: "fun", date: new Date(2023, 9, 28, 7, 0) },
-  { id: 38, user: "Us", event: "Halloween", tag: "fun", date: new Date(2023, 9, 31, 16, 0) },
+  { id: 32, user: "Us", event: "Concert", tag: "fun", date: new Date(2023, 9, 21, 17, 0) },
+  { id: 33, user: "Us", event: "Family Dinner", tag: "friends", date: new Date(2023, 9, 22, 17, 0) },
+  { id: 34, user: "Wife", event: "Happy Hour", tag: "friends", date: new Date(2023, 9, 23, 17, 0) },
+  { id: 35, user: "Me", event: "Serve", tag: "serve", date: new Date(2023, 9, 24, 19, 0) },
+  { id: 36, user: "Us", event: "Date Night", tag: "fun", date: new Date(2023, 9, 25, 18, 0) },
+  { id: 37, user: "Us", event: "Community", tag: "friends", date: new Date(2023, 9, 26, 19, 0) },
+  { id: 38, user: "Us", event: "Hiking", tag: "fun", date: new Date(2023, 9, 28, 7, 0) },
+  { id: 39, user: "Us", event: "Halloween", tag: "fun", date: new Date(2023, 9, 31, 16, 0) },
 ];

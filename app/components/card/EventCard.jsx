@@ -27,7 +27,16 @@ const EventCard = ({ event, time, color, tag, condensed }) => {
         </Typography>
         {condensed ? null : (
           <Typography variant="caption" color={colors.text}>
-            {time}
+            {`${
+              time.getHours() === 0
+                ? "All Day"
+                : `${time.getHours() % 12}:${time.getMinutes() === 0 ? "00" : time.getMinutes()} ${
+                    time.getHours() > 11 ? "PM" : "AM"
+                  } - ${(time.getHours() % 12) + 1}:${time.getMinutes() === 0 ? "00" : time.getMinutes()} ${
+                    time.getHours() > 11 ? "PM" : "AM"
+                  }`
+            }
+            `}
           </Typography>
         )}
       </div>
