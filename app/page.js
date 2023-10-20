@@ -5,13 +5,13 @@ import React, { useState } from "react";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TodayIcon from "@mui/icons-material/Today";
 
 import Button from "./components/button/Button";
 import Calendar, { months } from "./components/calendar/Calendar";
 import DatePicker from "./components/datePicker/DatePicker";
+import Menu from "./components/menu/Menu";
 import Typography from "./components/typography/Typography";
 
 import DetailsLayout from "./layouts/DetailsLayout";
@@ -24,8 +24,6 @@ import { calendars } from "./db/calendars";
 import { db } from "./db/db";
 
 export default function Home() {
-  const [dropDownIsVisible, setDropDownIsVisible] = useState(false);
-
   const today = new Date();
 
   const [selectedDate, setSelectedDate] = useState({
@@ -50,14 +48,10 @@ export default function Home() {
       year: year,
       weekday: new Date(selectedDate.year, selectedDate.month, 1).getDay(),
     });
-
-    setDropDownIsVisible(false);
   };
 
   const handleTodayClick = () => {
     setSelectedDate({ month: today.getMonth(), date: today.getDate(), year: today.getFullYear(), weekday: today.getDay() });
-
-    setDropDownIsVisible(false);
   };
 
   const handlePreviousButtonClick = () => {
@@ -67,8 +61,6 @@ export default function Home() {
       year: selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year,
       weekday: new Date(selectedDate.year, selectedDate.month - 1, 1).getDay(),
     });
-
-    setDropDownIsVisible(false);
   };
 
   const handleNextButtonClick = () => {
@@ -78,8 +70,6 @@ export default function Home() {
       year: selectedDate.month === 11 ? selectedDate.year + 1 : selectedDate.year,
       weekday: new Date(selectedDate.year, selectedDate.month + 1, 1).getDay(),
     });
-
-    setDropDownIsVisible(false);
   };
 
   const handleSelectDay = (year, month, day) => {
@@ -89,8 +79,6 @@ export default function Home() {
       year: year,
       weekday: new Date(year, month, day).getDay(),
     });
-
-    setDropDownIsVisible(false);
   };
 
   return (
@@ -105,18 +93,16 @@ export default function Home() {
           <div className="flex flex-row justify-between items-center">
             <div className="flex flex-row gap-4 items-center">
               <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
-              <div>
-                <Button
-                  prefix={dropDownIsVisible ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-                  onClick={() => setDropDownIsVisible(!dropDownIsVisible)}
-                ></Button>
-                <DatePicker
-                  open={dropDownIsVisible}
-                  selectedMonth={selectedDate.month}
-                  selectedYear={selectedDate.year}
-                  onChange={(year, month) => handleDatePickerChange(year, month)}
-                />
-              </div>
+              <Menu
+                button={<ArrowDropDownIcon />}
+                content={
+                  <DatePicker
+                    selectedMonth={selectedDate.month}
+                    selectedYear={selectedDate.year}
+                    onChange={(year, month) => handleDatePickerChange(year, month)}
+                  />
+                }
+              />
             </div>
             <div className="flex flex-row gap-4 items-center">
               <Button prefix={<TodayIcon />} onClick={() => handleTodayClick()} />

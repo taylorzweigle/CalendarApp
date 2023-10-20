@@ -8,9 +8,11 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 import Avatar from "../components/avatar/Avatar";
 import Button from "../components/button/Button";
+import ToggleSwitch from "../components/toggleSwitch/ToggleSwitch";
 import Typography from "../components/typography/Typography";
 
 import image from "../img/Me.png";
+import Menu from "../components/menu/Menu";
 
 const HeaderLayout = ({ user }) => {
   return (
@@ -20,7 +22,14 @@ const HeaderLayout = ({ user }) => {
           <Avatar image={image} user={user.slice(0, 1)} />
           <Typography variant="heading">{user}</Typography>
         </div>
-        <Button prefix={<SettingsIcon />} onClick={() => {}} />
+        <Menu
+          button={<SettingsIcon />}
+          content={
+            <div className="flex flex-col gap-4 w-56 p-8">
+              <ToggleSwitch label="Dark Mode" />
+            </div>
+          }
+        />
       </div>
       <Button prefix={<AddIcon />} onClick={() => {}}>
         Add Event
