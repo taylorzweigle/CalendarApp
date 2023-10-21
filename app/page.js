@@ -12,6 +12,7 @@ import Button from "./components/button/Button";
 import Calendar, { months } from "./components/calendar/Calendar";
 import DatePicker from "./components/datePicker/DatePicker";
 import Menu from "./components/menu/Menu";
+import Modal from "./components/modal/Modal";
 import Typography from "./components/typography/Typography";
 
 import DetailsLayout from "./layouts/DetailsLayout";
@@ -28,6 +29,7 @@ export default function Home() {
   const today = new Date();
 
   const [events, setEvents] = useState(null);
+  const [createModal, setCreateModal] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -93,43 +95,46 @@ export default function Home() {
   };
 
   return (
-    <Card>
-      <div className="grid grid-cols-4">
-        <div className="border-r border-slate-300 dark:border-slate-600">
-          <HeaderLayout user="Taylor Zweigle" />
-          <DetailsLayout data={events} calendars={calendars} selectedDate={selectedDate} />
-          <LegendLayout />
-        </div>
-        <div className="flex flex-col gap-4 p-8 col-span-3">
-          <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-row gap-4 items-center">
-              <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
-              <Menu
-                button={<ArrowDropDownIcon />}
-                content={
-                  <DatePicker
-                    selectedMonth={selectedDate.month}
-                    selectedYear={selectedDate.year}
-                    onChange={(year, month) => handleDatePickerChange(year, month)}
-                  />
-                }
-              />
-            </div>
-            <div className="flex flex-row gap-4 items-center">
-              <Button prefix={<TodayIcon />} onClick={() => handleTodayClick()} />
-              <Button prefix={<ArrowBackIcon />} onClick={() => handlePreviousButtonClick()} />
-              <Button prefix={<ArrowForwardIcon />} onClick={() => handleNextButtonClick()} />
-            </div>
+    <>
+      <Modal title="Add New Event" open={createModal} onClose={() => setCreateModal(false)} />
+      <Card>
+        <div className="grid grid-cols-4">
+          <div className="border-r border-slate-300 dark:border-slate-600">
+            <HeaderLayout user="Taylor Zweigle" onAddEventClick={() => setCreateModal(true)} />
+            <DetailsLayout data={events} calendars={calendars} selectedDate={selectedDate} />
+            <LegendLayout />
           </div>
-          <Calendar
-            data={events}
-            calendars={calendars}
-            today={today}
-            selectedDate={selectedDate}
-            onSelectDay={handleSelectDay}
-          />
+          <div className="flex flex-col gap-4 p-8 col-span-3">
+            <div className="flex flex-row justify-between items-center">
+              <div className="flex flex-row gap-4 items-center">
+                <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
+                <Menu
+                  button={<ArrowDropDownIcon />}
+                  content={
+                    <DatePicker
+                      selectedMonth={selectedDate.month}
+                      selectedYear={selectedDate.year}
+                      onChange={(year, month) => handleDatePickerChange(year, month)}
+                    />
+                  }
+                />
+              </div>
+              <div className="flex flex-row gap-4 items-center">
+                <Button prefix={<TodayIcon />} onClick={() => handleTodayClick()} />
+                <Button prefix={<ArrowBackIcon />} onClick={() => handlePreviousButtonClick()} />
+                <Button prefix={<ArrowForwardIcon />} onClick={() => handleNextButtonClick()} />
+              </div>
+            </div>
+            <Calendar
+              data={events}
+              calendars={calendars}
+              today={today}
+              selectedDate={selectedDate}
+              onSelectDay={handleSelectDay}
+            />
+          </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </>
   );
 }
