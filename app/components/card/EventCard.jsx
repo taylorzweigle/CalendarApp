@@ -7,7 +7,7 @@ import Typography from "../typography/Typography";
 
 import { getColors, getIcons } from "../../utility/utility";
 
-const EventCard = ({ event, time, color, tag, condensed }) => {
+const EventCard = ({ event, startTime, endTime, color, tag, condensed }) => {
   const colors = getColors(color);
 
   const icon = getIcons(tag);
@@ -27,16 +27,11 @@ const EventCard = ({ event, time, color, tag, condensed }) => {
         </Typography>
         {condensed ? null : (
           <Typography variant="caption" color={colors.text}>
-            {`${
-              time.getHours() === 0
-                ? "All Day"
-                : `${time.getHours() % 12}:${time.getMinutes() === 0 ? "00" : time.getMinutes()} ${
-                    time.getHours() > 11 ? "PM" : "AM"
-                  } - ${(time.getHours() % 12) + 1}:${time.getMinutes() === 0 ? "00" : time.getMinutes()} ${
-                    time.getHours() > 11 ? "PM" : "AM"
-                  }`
-            }
-            `}
+            {`${startTime.getHours() % 12 === 0 ? 12 : startTime.getHours() % 12}:${
+              startTime.getMinutes() === 0 ? "00" : startTime.getMinutes()
+            } ${startTime.getHours() > 11 ? "PM" : "AM"} - ${endTime.getHours() % 12 === 0 ? 12 : endTime.getHours() % 12}:${
+              endTime.getMinutes() === 0 ? "00" : endTime.getMinutes()
+            } ${endTime.getHours() > 11 ? "PM" : "AM"}`}
           </Typography>
         )}
       </div>

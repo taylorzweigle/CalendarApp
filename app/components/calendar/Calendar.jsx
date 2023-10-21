@@ -97,9 +97,9 @@ const Calendar = ({ data, calendars, today, selectedDate, onSelectDay }) => {
                       data
                         .filter(
                           (item) =>
-                            selectedDate.month === new Date(item.date).getMonth() &&
-                            selectedDate.year === new Date(item.date).getFullYear() &&
-                            day.day === new Date(item.date).getDate()
+                            selectedDate.month === new Date(item.startTime).getMonth() &&
+                            selectedDate.year === new Date(item.startTime).getFullYear() &&
+                            day.day === new Date(item.startTime).getDate()
                         )
                         .map((event) => (
                           <EventCard
@@ -107,12 +107,12 @@ const Calendar = ({ data, calendars, today, selectedDate, onSelectDay }) => {
                             event={event.event}
                             color={calendars.find((calendar) => calendar.user === event.user).color}
                             tag={event.tag}
-                            time={`${
-                              new Date(event.date).getHours() === 0
+                            startTime={`${
+                              new Date(event.startTime).getHours() === 0
                                 ? ""
-                                : `${new Date(event.date).getHours() % 12}:${
-                                    new Date(event.date).getMinutes() === 0 ? "00" : new Date(event.date).getMinutes()
-                                  } ${new Date(event.date).getHours() > 11 ? "PM" : "AM"}`
+                                : `${new Date(event.startTime).getHours() % 12}:${
+                                    new Date(event.startTime).getMinutes() === 0 ? "00" : new Date(event.startTime).getMinutes()
+                                  } ${new Date(event.startTime).getHours() > 11 ? "PM" : "AM"}`
                             } 
                           `}
                             condensed

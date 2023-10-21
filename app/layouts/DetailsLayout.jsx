@@ -12,9 +12,9 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
   const itemsForSelectedDay = data
     ? data.filter(
         (item) =>
-          selectedDate.month === new Date(item.date).getMonth() &&
-          selectedDate.year === new Date(item.date).getFullYear() &&
-          selectedDate.date === new Date(item.date).getDate()
+          selectedDate.month === new Date(item.startTime).getMonth() &&
+          selectedDate.year === new Date(item.startTime).getFullYear() &&
+          selectedDate.date === new Date(item.startTime).getDate()
       )
     : [];
 
@@ -30,7 +30,8 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
             event={event.event}
             color={calendars.find((calendar) => calendar.user === event.user).color}
             tag={event.tag}
-            time={new Date(event.date)}
+            startTime={new Date(event.startTime)}
+            endTime={new Date(event.endTime)}
           />
         ))}
         {itemsForSelectedDay.length > 0 ? null : <EmptyState />}
