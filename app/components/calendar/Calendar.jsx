@@ -93,30 +93,31 @@ const Calendar = ({ data, calendars, today, selectedDate, onSelectDay }) => {
                   onClick={day.day > 0 ? () => onSelectDay(selectedDate.year, selectedDate.month, day.day) : null}
                 >
                   <div className="flex flex-col gap-2 h-full">
-                    {data
-                      .filter(
-                        (item) =>
-                          selectedDate.month === item.date.getMonth() &&
-                          selectedDate.year === item.date.getFullYear() &&
-                          day.day === item.date.getDate()
-                      )
-                      .map((event) => (
-                        <EventCard
-                          key={event.id}
-                          event={event.event}
-                          color={calendars.find((calendar) => calendar.user === event.user).color}
-                          tag={event.tag}
-                          time={`${
-                            event.date.getHours() === 0
-                              ? ""
-                              : `${event.date.getHours() % 12}:${
-                                  event.date.getMinutes() === 0 ? "00" : event.date.getMinutes()
-                                } ${event.date.getHours() > 11 ? "PM" : "AM"}`
-                          } 
+                    {data &&
+                      data
+                        .filter(
+                          (item) =>
+                            selectedDate.month === new Date(item.date).getMonth() &&
+                            selectedDate.year === new Date(item.date).getFullYear() &&
+                            day.day === new Date(item.date).getDate()
+                        )
+                        .map((event) => (
+                          <EventCard
+                            key={event.id}
+                            event={event.event}
+                            color={calendars.find((calendar) => calendar.user === event.user).color}
+                            tag={event.tag}
+                            time={`${
+                              new Date(event.date).getHours() === 0
+                                ? ""
+                                : `${new Date(event.date).getHours() % 12}:${
+                                    new Date(event.date).getMinutes() === 0 ? "00" : new Date(event.date).getMinutes()
+                                  } ${new Date(event.date).getHours() > 11 ? "PM" : "AM"}`
+                            } 
                           `}
-                          condensed
-                        />
-                      ))}
+                            condensed
+                          />
+                        ))}
                   </div>
                 </CalendarDay>
               </React.Fragment>

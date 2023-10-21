@@ -1,5 +1,4 @@
 //Taylor Zweigle, 2023
-
 export const calendars = [
   { id: 1, user: "Me", color: "emerald" },
   { id: 2, user: "Wife", color: "indigo" },

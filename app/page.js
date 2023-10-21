@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2023
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -20,11 +20,22 @@ import LegendLayout from "./layouts/LegendLayout";
 
 import Card from "./components/card/Card";
 
-import { calendars } from "./db/calendars";
-import { db } from "./db/db";
+import { calendars } from "./utility/calendars";
+
+import { useEvents } from "./hooks/useEvents";
 
 export default function Home() {
   const today = new Date();
+
+  const [events, setEvents] = useState(null);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setEvents(await useEvents());
+    };
+
+    fetchEvents();
+  }, []);
 
   const [selectedDate, setSelectedDate] = useState({
     month: today.getMonth(),
@@ -86,7 +97,7 @@ export default function Home() {
       <div className="grid grid-cols-4">
         <div className="border-r border-slate-300 dark:border-slate-600">
           <HeaderLayout user="Taylor Zweigle" />
-          <DetailsLayout data={db} calendars={calendars} selectedDate={selectedDate} />
+          <DetailsLayout data={events} calendars={calendars} selectedDate={selectedDate} />
           <LegendLayout />
         </div>
         <div className="flex flex-col gap-4 p-8 col-span-3">
@@ -110,7 +121,13 @@ export default function Home() {
               <Button prefix={<ArrowForwardIcon />} onClick={() => handleNextButtonClick()} />
             </div>
           </div>
-          <Calendar data={db} calendars={calendars} today={today} selectedDate={selectedDate} onSelectDay={handleSelectDay} />
+          <Calendar
+            data={events}
+            calendars={calendars}
+            today={today}
+            selectedDate={selectedDate}
+            onSelectDay={handleSelectDay}
+          />
         </div>
       </div>
     </Card>

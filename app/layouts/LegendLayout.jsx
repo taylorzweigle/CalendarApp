@@ -6,7 +6,7 @@ import React from "react";
 import Legend from "../components/legend/Legend";
 import Typography from "../components/typography/Typography";
 
-import { calendars } from "../db/calendars";
+import { calendars } from "../utility/calendars";
 
 const LegendLayout = () => {
   return (

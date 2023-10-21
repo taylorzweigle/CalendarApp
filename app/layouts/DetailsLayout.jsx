@@ -9,12 +9,14 @@ import EventCard from "../components/card/EventCard";
 import Typography from "../components/typography/Typography";
 
 const DetailsLayout = ({ data, calendars, selectedDate }) => {
-  const itemsForSelectedDay = data.filter(
-    (item) =>
-      selectedDate.month === item.date.getMonth() &&
-      selectedDate.year === item.date.getFullYear() &&
-      selectedDate.date === item.date.getDate()
-  );
+  const itemsForSelectedDay = data
+    ? data.filter(
+        (item) =>
+          selectedDate.month === new Date(item.date).getMonth() &&
+          selectedDate.year === new Date(item.date).getFullYear() &&
+          selectedDate.date === new Date(item.date).getDate()
+      )
+    : [];
 
   return (
     <div className="flex flex-col gap-8 border-b border-slate-300 dark:border-slate-600 p-8">
@@ -28,7 +30,7 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
             event={event.event}
             color={calendars.find((calendar) => calendar.user === event.user).color}
             tag={event.tag}
-            time={event.date}
+            time={new Date(event.date)}
           />
         ))}
         {itemsForSelectedDay.length > 0 ? null : <EmptyState />}

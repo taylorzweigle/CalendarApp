@@ -24,11 +24,7 @@ const HeaderLayout = ({ user }) => {
         </div>
         <Menu
           button={<SettingsIcon />}
-          content={
-            <div className="flex flex-col gap-4 w-56 p-8">
-              <ToggleSwitch label="Dark Mode" />
-            </div>
-          }
+          content={<div className="flex flex-col gap-4 w-56 p-8">{/**<ToggleSwitch label="Dark Mode" />**/}</div>}
         />
       </div>
       <Button prefix={<AddIcon />} onClick={() => {}}>
