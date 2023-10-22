@@ -11,6 +11,8 @@ import SportsScoreIcon from "@mui/icons-material/SportsScore";
 import TodayIcon from "@mui/icons-material/Today";
 import WorkIcon from "@mui/icons-material/Work";
 
+import { daysOfWeek, months } from "../components/calendar/Calendar";
+
 export const getColors = (color) => {
   let colorObject = {
     bg: "bg-slate-50 dark:bg-slate-700",
@@ -82,4 +84,14 @@ export const getIcons = (tag) => {
   }
 
   return icon;
+};
+
+export const formatTime = (date) => {
+  return `${date.getHours() % 12 === 0 ? 12 : date.getHours() % 12}:${date.getMinutes() === 0 ? "00" : date.getMinutes()} ${
+    date.getHours() > 11 ? "PM" : "AM"
+  }`;
+};
+
+export const formatDate = (date) => {
+  return `${daysOfWeek[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 };

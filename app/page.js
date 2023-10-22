@@ -15,21 +15,22 @@ import Menu from "./components/menu/Menu";
 import Modal from "./components/modal/Modal";
 import Typography from "./components/typography/Typography";
 
-import DetailsLayout from "./layouts/DetailsLayout";
-import HeaderLayout from "./layouts/HeaderLayout";
-import LegendLayout from "./layouts/LegendLayout";
+import DetailsLayout from "./recipes/DetailsLayout";
+import HeaderLayout from "./recipes/HeaderLayout";
+import LegendLayout from "./recipes/LegendLayout";
 
 import Card from "./components/card/Card";
 
 import { calendars } from "./utility/calendars";
 
 import { useEvents } from "./hooks/useEvents";
+import AddNewEventModal from "./recipes/AddNewEventModal";
 
 export default function Home() {
   const today = new Date();
 
   const [events, setEvents] = useState(null);
-  const [createModal, setCreateModal] = useState(false);
+  const [addModal, setAddModal] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -96,11 +97,11 @@ export default function Home() {
 
   return (
     <>
-      <Modal title="Add New Event" open={createModal} onClose={() => setCreateModal(false)} />
+      <AddNewEventModal open={addModal} onSaveClick={() => setAddModal(false)} onCancelClick={() => setAddModal(false)} />
       <Card>
         <div className="grid grid-cols-4">
           <div className="border-r border-slate-300 dark:border-slate-600">
-            <HeaderLayout user="Taylor Zweigle" onAddEventClick={() => setCreateModal(true)} />
+            <HeaderLayout user="Taylor Zweigle" onAddEventClick={() => setAddModal(true)} />
             <DetailsLayout data={events} calendars={calendars} selectedDate={selectedDate} />
             <LegendLayout />
           </div>

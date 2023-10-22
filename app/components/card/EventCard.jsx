@@ -5,18 +5,19 @@ import React from "react";
 
 import Typography from "../typography/Typography";
 
-import { getColors, getIcons } from "../../utility/utility";
+import { formatTime, getColors, getIcons } from "../../utility/utility";
 
-const EventCard = ({ event, startTime, endTime, color, tag, condensed }) => {
+const EventCard = ({ event, startTime, endTime, color, tag, condensed, onClick }) => {
   const colors = getColors(color);
 
   const icon = getIcons(tag);
 
   return (
     <div
-      className={`flex flex-row justify-start items-center ${condensed ? "h-8" : "h-14"} ${colors.bg} border ${
+      className={`flex flex-row justify-start items-center cursor-pointer ${condensed ? "h-8" : "h-14"} ${colors.bg} border ${
         colors.border
       } rounded-md overflow-clip ${condensed ? "px-0" : "px-2"}`}
+      onClick={onClick}
     >
       {condensed ? null : (
         <div className={`flex justify-center items-center ${colors.bgSolid} text-white rounded w-6 h-6`}>{icon}</div>
@@ -27,11 +28,7 @@ const EventCard = ({ event, startTime, endTime, color, tag, condensed }) => {
         </Typography>
         {condensed ? null : (
           <Typography variant="caption" color={colors.text}>
-            {`${startTime.getHours() % 12 === 0 ? 12 : startTime.getHours() % 12}:${
-              startTime.getMinutes() === 0 ? "00" : startTime.getMinutes()
-            } ${startTime.getHours() > 11 ? "PM" : "AM"} - ${endTime.getHours() % 12 === 0 ? 12 : endTime.getHours() % 12}:${
-              endTime.getMinutes() === 0 ? "00" : endTime.getMinutes()
-            } ${endTime.getHours() > 11 ? "PM" : "AM"}`}
+            {`${formatTime(startTime)} - ${formatTime(endTime)}`}
           </Typography>
         )}
       </div>
