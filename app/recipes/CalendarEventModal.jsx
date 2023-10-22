@@ -3,54 +3,30 @@
 
 import React from "react";
 
+import Divider from "../components/divider/Divider";
+import List from "../components/list/List";
 import Modal from "../components/modal/Modal";
-import Typography from "../components/typography/Typography";
 
 import { formatDate, formatTime } from "../utility/utility";
 
 const CalendarEventModal = ({ open, eventDetails, onDeleteClick, onCancelClick }) => {
   return (
     <Modal title="View Calendar Event" open={open} action="Delete" onAction={onDeleteClick} onClose={onCancelClick}>
-      {eventDetails ? (
+      {eventDetails && (
         <div className="flex flex-col gap-4">
-          <div className="flex flex-row justify-between items-center">
-            <Typography variant="body2" color="text-slate-500 dark:text-slate-400">
-              Event
-            </Typography>
-            <Typography variant="subheading">{eventDetails && eventDetails.event}</Typography>
-          </div>
-          <div className="flex flex-row justify-between items-center">
-            <Typography variant="body2" color="text-slate-500 dark:text-slate-400">
-              User
-            </Typography>
-            <Typography variant="subheading">{eventDetails && eventDetails.user}</Typography>
-          </div>
-          <div className="flex flex-row justify-between items-center">
-            <Typography variant="body2" color="text-slate-500 dark:text-slate-400">
-              Type
-            </Typography>
-            <Typography variant="subheading">{eventDetails && eventDetails.tag}</Typography>
-          </div>
-          <div className="flex flex-row justify-between items-center">
-            <Typography variant="body2" color="text-slate-500 dark:text-slate-400">
-              Date
-            </Typography>
-            <Typography variant="subheading">{eventDetails && formatDate(new Date(eventDetails.startTime))}</Typography>
-          </div>
-          <div className="flex flex-row justify-between items-center">
-            <Typography variant="body2" color="text-slate-500 dark:text-slate-400">
-              Start Time
-            </Typography>
-            <Typography variant="subheading">{eventDetails && formatTime(new Date(eventDetails.startTime))}</Typography>
-          </div>
-          <div className="flex flex-row justify-between items-center">
-            <Typography variant="body2" color="text-slate-500 dark:text-slate-400">
-              End Time
-            </Typography>
-            <Typography variant="subheading">{eventDetails && formatTime(new Date(eventDetails.endTime))}</Typography>
-          </div>
+          <List label="Event" value={eventDetails.event} />
+          <Divider />
+          <List label="User" value={eventDetails.user} />
+          <Divider />
+          <List label="Tag" value={eventDetails.tag} />
+          <Divider />
+          <List label="Date" value={formatDate(new Date(eventDetails.startTime))} />
+          <Divider />
+          <List label="Start Time" value={formatTime(new Date(eventDetails.startTime))} />
+          <Divider />
+          <List label="End Time" value={formatTime(new Date(eventDetails.endTime))} />
         </div>
-      ) : null}
+      )}
     </Modal>
   );
 };
