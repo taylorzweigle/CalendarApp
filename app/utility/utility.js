@@ -34,6 +34,12 @@ export const getColors = (color) => {
       colorObject.border = "border-indigo-500 dark:border-indigo-400";
       colorObject.text = "text-indigo-700 dark:text-indigo-50";
       break;
+    case "purple":
+      colorObject.bg = "bg-purple-50 dark:bg-purple-700";
+      colorObject.bgSolid = "bg-purple-500 dark:bg-purple-700";
+      colorObject.border = "border-purple-500 dark:border-purple-400";
+      colorObject.text = "text-purple-700 dark:text-purple-50";
+      break;
     case "sky":
       colorObject.bg = "bg-sky-50 dark:bg-sky-700";
       colorObject.bgSolid = "bg-sky-500 dark:bg-sky-700";

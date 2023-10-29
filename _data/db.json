@@ -313,12 +313,12 @@
       "endTime": "2023-10-28T15:00:00.000Z"
     },
     {
-        "id": 40, 
-        "user": "Calendar", 
-        "event": "Halloween", 
-        "tag": "holiday", 
-        "startTime": "2023-11-01T00:00:00.000Z", 
-        "endTime": "2023-11-01T00:00:00.000Z"
+      "id": 40,
+      "user": "Calendar",
+      "event": "Halloween",
+      "tag": "holiday",
+      "startTime": "2023-11-01T00:00:00.000Z",
+      "endTime": "2023-11-01T00:00:00.000Z"
     }
   ]
 }
