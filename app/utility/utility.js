@@ -95,3 +95,19 @@ export const formatTime = (date) => {
 export const formatDate = (date) => {
   return `${daysOfWeek[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 };
+
+export const compareStartAndEndTimes = (start, end) => {
+  let result = false;
+
+  if (
+    start.getDate() === end.getDate() &&
+    start.getMonth() === end.getMonth() &&
+    start.getFullYear() === end.getFullYear() &&
+    start.getHours() === end.getHours() &&
+    start.getMinutes() === end.getMinutes()
+  ) {
+    result = true;
+  }
+
+  return result;
+};

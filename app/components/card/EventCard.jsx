@@ -5,7 +5,7 @@ import React from "react";
 
 import Typography from "../typography/Typography";
 
-import { formatTime, getColors, getIcons } from "../../utility/utility";
+import { compareStartAndEndTimes, formatTime, getColors, getIcons } from "../../utility/utility";
 
 const EventCard = ({ event, startTime, endTime, color, tag, condensed, onClick }) => {
   const colors = getColors(color);
@@ -26,11 +26,13 @@ const EventCard = ({ event, startTime, endTime, color, tag, condensed, onClick }
         <Typography variant="body2" color={colors.text} bold>
           {event}
         </Typography>
-        {condensed ? null : (
-          <Typography variant="caption" color={colors.text}>
-            {`${formatTime(startTime)} - ${formatTime(endTime)}`}
-          </Typography>
-        )}
+        {condensed
+          ? null
+          : !compareStartAndEndTimes(startTime, endTime) && (
+              <Typography variant="caption" color={colors.text}>
+                {`${formatTime(startTime)} - ${formatTime(endTime)}`}
+              </Typography>
+            )}
       </div>
     </div>
   );

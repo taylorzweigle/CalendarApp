@@ -12,7 +12,6 @@ import Button from "./components/button/Button";
 import Calendar, { months } from "./components/calendar/Calendar";
 import DatePicker from "./components/datePicker/DatePicker";
 import Menu from "./components/menu/Menu";
-import Modal from "./components/modal/Modal";
 import Typography from "./components/typography/Typography";
 
 import DetailsLayout from "./recipes/DetailsLayout";
@@ -23,7 +22,7 @@ import Card from "./components/card/Card";
 
 import { calendars } from "./utility/calendars";
 
-import { useEvents } from "./hooks/useEvents";
+import { getEvents } from "./api/events";
 import AddNewEventModal from "./recipes/AddNewEventModal";
 
 export default function Home() {
@@ -34,7 +33,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      setEvents(await useEvents());
+      setEvents(await getEvents());
     };
 
     fetchEvents();

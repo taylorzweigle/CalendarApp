@@ -7,11 +7,17 @@ import Divider from "../components/divider/Divider";
 import List from "../components/list/List";
 import Modal from "../components/modal/Modal";
 
-import { formatDate, formatTime } from "../utility/utility";
+import { compareStartAndEndTimes, formatDate, formatTime } from "../utility/utility";
 
 const CalendarEventModal = ({ open, eventDetails, onDeleteClick, onCancelClick }) => {
   return (
-    <Modal title="View Calendar Event" open={open} action="Delete" onAction={onDeleteClick} onClose={onCancelClick}>
+    <Modal
+      title="View Calendar Event"
+      open={open}
+      action="Delete"
+      onAction={() => onDeleteClick(eventDetails)}
+      onClose={onCancelClick}
+    >
       {eventDetails && (
         <div className="flex flex-col gap-4">
           <List label="Event" value={eventDetails.event} />
@@ -21,10 +27,14 @@ const CalendarEventModal = ({ open, eventDetails, onDeleteClick, onCancelClick }
           <List label="Tag" value={eventDetails.tag} />
           <Divider />
           <List label="Date" value={formatDate(new Date(eventDetails.startTime))} />
-          <Divider />
-          <List label="Start Time" value={formatTime(new Date(eventDetails.startTime))} />
-          <Divider />
-          <List label="End Time" value={formatTime(new Date(eventDetails.endTime))} />
+          {!compareStartAndEndTimes(new Date(eventDetails.startTime), new Date(eventDetails.endTime)) && (
+            <>
+              <Divider />
+              <List label="Start Time" value={formatTime(new Date(eventDetails.startTime))} />
+              <Divider />
+              <List label="End Time" value={formatTime(new Date(eventDetails.endTime))} />
+            </>
+          )}
         </div>
       )}
     </Modal>

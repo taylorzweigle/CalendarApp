@@ -10,6 +10,8 @@ import Typography from "../components/typography/Typography";
 
 import CalendarEventModal from "./CalendarEventModal";
 
+import { deleteEvent, getEvent } from "../api/events";
+
 const DetailsLayout = ({ data, calendars, selectedDate }) => {
   const [eventModal, setEventModal] = useState(false);
   const [eventDetails, setEventDetails] = useState(null);
@@ -23,9 +25,18 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
       )
     : [];
 
-  const handleEventCardClick = (event) => {
-    setEventDetails(event);
+  const handleEventCardClick = async (event) => {
+    const res = await getEvent(event);
+
+    setEventDetails(res);
+
     setEventModal(true);
+  };
+
+  const handleDeleteEvent = (event) => {
+    deleteEvent(event);
+
+    setEventModal(false);
   };
 
   return (
@@ -33,7 +44,7 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
       <CalendarEventModal
         open={eventModal}
         eventDetails={eventDetails}
-        onDeleteClick={() => setEventModal(false)}
+        onDeleteClick={(event) => handleDeleteEvent(event)}
         onCancelClick={() => setEventModal(false)}
       />
       <div className="flex flex-col gap-8 border-b border-slate-300 dark:border-slate-600 p-8">
