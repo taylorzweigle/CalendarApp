@@ -22,7 +22,7 @@ import Card from "./components/card/Card";
 
 import { calendars } from "./utility/calendars";
 
-import { getEvents } from "./hooks/events";
+import { getEvents } from "./api/events";
 import AddNewEventModal from "./recipes/AddNewEventModal";
 
 export default function Home() {

@@ -10,7 +10,7 @@ import Typography from "../components/typography/Typography";
 
 import CalendarEventModal from "./CalendarEventModal";
 
-import { deleteEvent, getEvent } from "../hooks/events";
+import { deleteEvent, getEvent } from "../api/events";
 
 const DetailsLayout = ({ data, calendars, selectedDate }) => {
   const [eventModal, setEventModal] = useState(false);
