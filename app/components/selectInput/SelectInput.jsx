@@ -4,12 +4,9 @@
 import React from "react";
 import Typography from "../typography/Typography";
 
-const SelectInput = ({ label, value, items, onChange }) => {
-  return (
-    <div className="flex flex-col gap-2">
-      <Typography variant="body1" color="text-slate-500 dark:text-slate-400">
-        {label}
-      </Typography>
+const SelectInput = ({ label, value, items, showLabel, onChange }) => {
+  const select = () => {
+    return (
       <select
         id={label}
         value={value}
@@ -23,7 +20,18 @@ const SelectInput = ({ label, value, items, onChange }) => {
           </option>
         ))}
       </select>
+    );
+  };
+
+  return showLabel ? (
+    <div className="flex flex-col gap-2">
+      <Typography variant="body1" color="text-slate-500 dark:text-slate-400">
+        {label}
+      </Typography>
+      {select()}
     </div>
+  ) : (
+    select()
   );
 };
 

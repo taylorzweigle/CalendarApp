@@ -2,6 +2,8 @@
 "use client";
 
 import React from "react";
+
+import SelectInput from "../selectInput/SelectInput";
 import Typography from "../typography/Typography";
 
 const TimeInput = ({ label, hour, minutes, period, onHourChange, onMinutesChange, onPeriodChange }) => {
@@ -11,33 +13,14 @@ const TimeInput = ({ label, hour, minutes, period, onHourChange, onMinutesChange
         {label}
       </Typography>
       <div className="flex flex-row gap-4">
-        <input
-          type="number"
-          id="hour"
+        <SelectInput
+          label="hour"
           value={hour}
+          items={["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]}
           onChange={onHourChange}
-          className="bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-600 text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12"
         />
-        <select
-          id="minutes"
-          value={minutes}
-          onChange={onMinutesChange}
-          className="bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-600 text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12"
-        >
-          <option value="">{""}</option>
-          <option value="00">{"00"}</option>
-          <option value="30">{"30"}</option>
-        </select>
-        <select
-          id="minutes"
-          value={period}
-          onChange={onPeriodChange}
-          className="bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-600 text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12"
-        >
-          <option value="">{""}</option>
-          <option value="AM">{"AM"}</option>
-          <option value="PM">{"PM"}</option>
-        </select>
+        <SelectInput label="minutes" value={minutes} items={["", "00", "30"]} onChange={onMinutesChange} />
+        <SelectInput label="period" value={period} items={["", "AM", "PM"]} onChange={onPeriodChange} />
       </div>
     </div>
   );
