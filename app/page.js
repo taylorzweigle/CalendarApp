@@ -10,10 +10,11 @@ import TodayIcon from "@mui/icons-material/Today";
 
 import Button from "./components/button/Button";
 import Calendar, { months } from "./components/calendar/Calendar";
-import DatePicker from "./components/datePicker/DatePicker";
+import MonthPicker from "./components/datePicker/MonthPicker";
 import Menu from "./components/menu/Menu";
 import Typography from "./components/typography/Typography";
 
+import AddNewEventModal from "./recipes/AddNewEventModal";
 import DetailsLayout from "./recipes/DetailsLayout";
 import HeaderLayout from "./recipes/HeaderLayout";
 import LegendLayout from "./recipes/LegendLayout";
@@ -23,7 +24,6 @@ import Card from "./components/card/Card";
 import { calendars } from "./utility/calendars";
 
 import { getEvents } from "./api/events";
-import AddNewEventModal from "./recipes/AddNewEventModal";
 
 export default function Home() {
   const today = new Date();
@@ -46,7 +46,7 @@ export default function Home() {
     weekday: today.getDay(),
   });
 
-  const handleDatePickerChange = (year, month) => {
+  const handleMonthPickerChange = (month) => {
     let monthIndex = 0;
 
     for (let i = 0; i < months.length; i++) {
@@ -58,7 +58,7 @@ export default function Home() {
     setSelectedDate({
       month: monthIndex,
       date: 1,
-      year: year,
+      year: selectedDate.year,
       weekday: new Date(selectedDate.year, selectedDate.month, 1).getDay(),
     });
   };
@@ -96,7 +96,12 @@ export default function Home() {
 
   return (
     <>
-      <AddNewEventModal open={addModal} onSaveClick={() => setAddModal(false)} onCancelClick={() => setAddModal(false)} />
+      <AddNewEventModal
+        open={addModal}
+        selectedDate={selectedDate}
+        onSaveClick={() => setAddModal(false)}
+        onCancelClick={() => setAddModal(false)}
+      />
       <Card>
         <div className="grid grid-cols-4">
           <div className="border-r border-slate-300 dark:border-slate-600">
@@ -111,11 +116,7 @@ export default function Home() {
                 <Menu
                   button={<ArrowDropDownIcon />}
                   content={
-                    <DatePicker
-                      selectedMonth={selectedDate.month}
-                      selectedYear={selectedDate.year}
-                      onChange={(year, month) => handleDatePickerChange(year, month)}
-                    />
+                    <MonthPicker selectedMonth={selectedDate.month} onChange={(month) => handleMonthPickerChange(month)} />
                   }
                 />
               </div>

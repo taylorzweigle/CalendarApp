@@ -13,7 +13,6 @@ const SelectInput = ({ label, value, items, showLabel, onChange }) => {
         onChange={onChange}
         className="bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-600 text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12"
       >
-        <option value="">{""}</option>
         {items.map((item) => (
           <option key={item} value={item}>
             {item}

@@ -24,6 +24,8 @@ const CalendarEventModal = ({ open, eventDetails, onDeleteClick, onCancelClick }
           <Divider />
           <List label="User" value={eventDetails.user} />
           <Divider />
+          <List label="Tag" value={eventDetails.tag} />
+          <Divider />
           <List label="Date" value={formatDate(new Date(eventDetails.startTime))} />
           {!compareStartAndEndTimes(new Date(eventDetails.startTime), new Date(eventDetails.endTime)) && (
             <>
