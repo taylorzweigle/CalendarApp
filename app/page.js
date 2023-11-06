@@ -10,7 +10,7 @@ import TodayIcon from "@mui/icons-material/Today";
 
 import Button from "./components/button/Button";
 import Calendar, { months } from "./components/calendar/Calendar";
-import MonthPicker from "./components/datePicker/MonthPicker";
+import MonthPicker from "./components/monthPicker/MonthPicker";
 import Menu from "./components/menu/Menu";
 import Typography from "./components/typography/Typography";
 
@@ -18,6 +18,7 @@ import AddNewEventModal from "./recipes/AddNewEventModal";
 import DetailsLayout from "./recipes/DetailsLayout";
 import HeaderLayout from "./recipes/HeaderLayout";
 import LegendLayout from "./recipes/LegendLayout";
+import StatsLayout from "./recipes/StatsLayout";
 
 import Card from "./components/card/Card";
 
@@ -108,6 +109,7 @@ export default function Home() {
             <HeaderLayout user="Taylor Zweigle" onAddEventClick={() => setAddModal(true)} />
             <DetailsLayout data={events} calendars={calendars} selectedDate={selectedDate} />
             <LegendLayout />
+            <StatsLayout />
           </div>
           <div className="flex flex-col gap-4 p-8 col-span-3">
             <div className="flex flex-row justify-between items-center">

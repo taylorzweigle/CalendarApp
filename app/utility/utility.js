@@ -23,28 +23,24 @@ export const getColors = (color) => {
 
   switch (color) {
     case "emerald":
-      colorObject.bg = "bg-emerald-50 dark:bg-emerald-700";
-      colorObject.bgSolid = "bg-emerald-500 dark:bg-emerald-700";
-      colorObject.border = "border-emerald-500 dark:border-emerald-400";
-      colorObject.text = "text-emerald-700 dark:text-emerald-50";
+      colorObject.bg = "bg-emerald-600 dark:bg-emerald-700";
+      colorObject.border = "border-emerald-600 dark:border-emerald-400";
+      colorObject.text = "text-white dark:text-emerald-50";
       break;
     case "indigo":
-      colorObject.bg = "bg-indigo-50 dark:bg-indigo-700";
-      colorObject.bgSolid = "bg-indigo-500 dark:bg-indigo-700";
-      colorObject.border = "border-indigo-500 dark:border-indigo-400";
-      colorObject.text = "text-indigo-700 dark:text-indigo-50";
+      colorObject.bg = "bg-indigo-600 dark:bg-indigo-700";
+      colorObject.border = "border-indigo-600 dark:border-indigo-400";
+      colorObject.text = "text-white dark:text-indigo-50";
       break;
     case "purple":
-      colorObject.bg = "bg-purple-50 dark:bg-purple-700";
-      colorObject.bgSolid = "bg-purple-500 dark:bg-purple-700";
-      colorObject.border = "border-purple-500 dark:border-purple-400";
-      colorObject.text = "text-purple-700 dark:text-purple-50";
+      colorObject.bg = "bg-purple-600 dark:bg-purple-700";
+      colorObject.border = "border-purple-600 dark:border-purple-400";
+      colorObject.text = "text-white dark:text-purple-50";
       break;
     case "sky":
-      colorObject.bg = "bg-sky-50 dark:bg-sky-700";
-      colorObject.bgSolid = "bg-sky-500 dark:bg-sky-700";
-      colorObject.border = "border-sky-500 dark:border-sky-400";
-      colorObject.text = "text-sky-700 dark:text-sky-50";
+      colorObject.bg = "bg-sky-600 dark:bg-sky-700";
+      colorObject.border = "border-sky-600 dark:border-sky-400";
+      colorObject.text = "text-white dark:text-sky-50";
       break;
   }
 

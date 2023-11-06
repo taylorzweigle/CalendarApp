@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from "react";
 
+import Checkbox from "../components/checkbox/Checkbox";
 import Modal from "../components/modal/Modal";
 import SelectInput from "../components/selectInput/SelectInput";
 import TextInput from "../components/textInput/TextInput";
@@ -83,10 +84,7 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
               </Typography>
               <Typography variant="body1">{date}</Typography>
             </div>
-            <div className="flex flex-row items-center gap-2">
-              <input type="checkbox" onClick={() => setAllDay(!allDay)} />
-              <Typography variant="body1">All Day</Typography>
-            </div>
+            <Checkbox onClick={() => setAllDay(!allDay)} />
           </div>
           <TextInput label="Event" value={event} onChange={(e) => setEvent(e.target.value)} />
           <SelectInput
