@@ -15,7 +15,7 @@ const Checkbox = ({ onClick }) => {
 
   return (
     <div className="flex flex-row items-center gap-2 cursor-pointer" onClick={handleClick}>
-      <input className="h-5 w-5" type="checkbox" checked={selected} />
+      <input className="h-5 w-5" type="checkbox" />
       <Typography variant="body1">All Day</Typography>
     </div>
   );
