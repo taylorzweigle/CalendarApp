@@ -20,7 +20,7 @@ const TimeInput = ({ label, hour, minutes, period, onHourChange, onMinutesChange
           onChange={onHourChange}
         />
         <SelectInput label="minutes" value={minutes} items={["00", "30"]} onChange={onMinutesChange} />
-        <SelectInput label="period" value={period} items={["PM", "AM"]} onChange={onPeriodChange} />
+        <SelectInput label="period" value={period} items={["AM", "PM"]} onChange={onPeriodChange} />
       </div>
     </div>
   );

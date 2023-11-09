@@ -3,6 +3,8 @@
 
 import React, { useState } from "react";
 
+import { useEventsContext } from "../hooks/useEventsContext";
+
 import { daysOfWeek, months } from "../components/calendar/Calendar";
 import EmptyState from "../components/emptyState/EmptyState";
 import EventCard from "../components/card/EventCard";
@@ -13,6 +15,8 @@ import CalendarEventModal from "./CalendarEventModal";
 import { deleteEvent, getEvent } from "../api/events";
 
 const DetailsLayout = ({ data, calendars, selectedDate }) => {
+  const { dispatch } = useEventsContext();
+
   const [eventModal, setEventModal] = useState(false);
   const [eventDetails, setEventDetails] = useState(null);
 
@@ -35,6 +39,8 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
 
   const handleDeleteEvent = (event) => {
     deleteEvent(event);
+
+    dispatch({ type: "DELETE_EVENT", payload: event });
 
     setEventModal(false);
   };

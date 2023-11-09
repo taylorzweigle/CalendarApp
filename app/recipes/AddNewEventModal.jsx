@@ -3,6 +3,8 @@
 
 import React, { useState, useEffect } from "react";
 
+import { useEventsContext } from "../hooks/useEventsContext";
+
 import Checkbox from "../components/checkbox/Checkbox";
 import Modal from "../components/modal/Modal";
 import SelectInput from "../components/selectInput/SelectInput";
@@ -15,6 +17,8 @@ import { months } from "../components/calendar/Calendar";
 import { createEvent } from "../api/events";
 
 const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) => {
+  const { dispatch } = useEventsContext();
+
   const [allDay, setAllDay] = useState(false);
 
   const [event, setEvent] = useState("");
@@ -38,6 +42,7 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
     e.preventDefault();
 
     const newEvent = {
+      id: Math.floor(Math.random() * 1001),
       event: event,
       user: user,
       tag: tag,
@@ -50,6 +55,8 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
     };
 
     createEvent(newEvent);
+
+    dispatch({ type: "CREATE_EVENT", payload: newEvent });
 
     clearForm();
     onSaveClick();
