@@ -11,17 +11,15 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TodayIcon from "@mui/icons-material/Today";
 
 import Button from "../components/button/Button";
+import Card from "../components/card/Card";
 import Calendar, { months } from "../components/calendar/Calendar";
 import MonthPicker from "../components/monthPicker/MonthPicker";
-import Menu from "../components/menu/Menu";
 import Typography from "../components/typography/Typography";
 
 import AddNewEventModal from "../recipes/AddNewEventModal";
 import DetailsLayout from "../recipes/DetailsLayout";
 import HeaderLayout from "../recipes/HeaderLayout";
 import LegendLayout from "../recipes/LegendLayout";
-
-import Card from "../components/card/Card";
 
 import { calendars } from "../utility/calendars";
 
@@ -32,15 +30,14 @@ const CalendarCard = () => {
 
   const { events, dispatch } = useEventsContext();
 
-  //const [events, setEvents] = useState(null);
   const [addModal, setAddModal] = useState(false);
+  const [monthPicker, setMonthPicker] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
       const events = await getEvents();
 
       dispatch({ type: "SET_EVENTS", payload: events });
-      //setEvents(await getEvents());
     };
 
     fetchEvents();
@@ -68,6 +65,8 @@ const CalendarCard = () => {
       year: selectedDate.year,
       weekday: new Date(selectedDate.year, selectedDate.month, 1).getDay(),
     });
+
+    setMonthPicker(false);
   };
 
   const handleTodayClick = () => {
@@ -109,23 +108,33 @@ const CalendarCard = () => {
         onSaveClick={() => setAddModal(false)}
         onCancelClick={() => setAddModal(false)}
       />
-      <Card>
-        <div className="grid grid-cols-4">
-          <div className="border-r border-slate-300 dark:border-slate-600">
-            <HeaderLayout user="Taylor Zweigle" onAddEventClick={() => setAddModal(true)} />
-            <DetailsLayout data={events} calendars={calendars} selectedDate={selectedDate} />
-            <LegendLayout />
+      <Card border>
+        <div className="grid grid-cols-12 m-auto w-full">
+          <div className="sm:col-span-12 md:col-span-3 border-r border-slate-300 dark:border-slate-600">
+            <div className="grid grid-cols-12 m-auto w-full">
+              <div className="sm:col-span-12 md:col-span-12">
+                <HeaderLayout user="Taylor Zweigle" onAddEventClick={() => setAddModal(true)} />
+              </div>
+              <div className="sm:col-span-6 md:col-span-12">
+                <DetailsLayout data={events} calendars={calendars} selectedDate={selectedDate} />
+              </div>
+              <div className="sm:col-span-6 md:col-span-12">
+                <LegendLayout />
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col gap-4 p-8 col-span-3">
+          <div className="sm:col-span-12 md:col-span-9 flex flex-col gap-4 p-8">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row gap-4 items-center">
                 <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
-                <Menu
-                  button={<ArrowDropDownIcon />}
-                  content={
-                    <MonthPicker selectedMonth={selectedDate.month} onChange={(month) => handleMonthPickerChange(month)} />
-                  }
-                />
+                <div>
+                  <Button prefix={<ArrowDropDownIcon />} onClick={() => setMonthPicker(!monthPicker)} />
+                  <div className={`absolute ${monthPicker ? "block" : "hidden"}`}>
+                    <Card border>
+                      <MonthPicker selectedMonth={selectedDate.month} onChange={(month) => handleMonthPickerChange(month)} />
+                    </Card>
+                  </div>
+                </div>
               </div>
               <div className="flex flex-row gap-4 items-center">
                 <Button prefix={<TodayIcon />} onClick={() => handleTodayClick()} />

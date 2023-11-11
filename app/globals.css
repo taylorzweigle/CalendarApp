@@ -4,6 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+body {
   @apply bg-slate-200 dark:bg-slate-950 p-12;
 }
