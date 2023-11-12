@@ -16,31 +16,35 @@ import { daysOfWeek, months } from "../components/calendar/Calendar";
 export const getColors = (color) => {
   let colorObject = {
     bg: "bg-slate-50 dark:bg-slate-700",
-    bgSolid: "bg-slate-500 dark:bg-slate-700",
     border: "border-slate-500 dark:border-slate-400",
     text: "text-slate-700 dark:text-slate-50",
+    icon: "text-slate-700 dark:text-slate-50",
   };
 
   switch (color) {
     case "emerald":
-      colorObject.bg = "bg-emerald-600 dark:bg-emerald-700";
+      colorObject.bg = "bg-emerald-100 dark:bg-emerald-700";
       colorObject.border = "border-emerald-600 dark:border-emerald-400";
-      colorObject.text = "text-white dark:text-emerald-50";
+      colorObject.text = "text-emerald-700 dark:text-emerald-50";
+      colorObject.icon = "text-emerald-700 dark:text-white";
       break;
     case "indigo":
-      colorObject.bg = "bg-indigo-600 dark:bg-indigo-700";
+      colorObject.bg = "bg-indigo-100 dark:bg-indigo-700";
       colorObject.border = "border-indigo-600 dark:border-indigo-400";
-      colorObject.text = "text-white dark:text-indigo-50";
+      colorObject.text = "text-indigo-700 dark:text-indigo-50";
+      colorObject.icon = "text-indigo-700 dark:text-indigo-50";
       break;
     case "purple":
-      colorObject.bg = "bg-purple-600 dark:bg-purple-700";
+      colorObject.bg = "bg-purple-100 dark:bg-purple-700";
       colorObject.border = "border-purple-600 dark:border-purple-400";
-      colorObject.text = "text-white dark:text-purple-50";
+      colorObject.text = "text-purple-700 dark:text-purple-50";
+      colorObject.icon = "text-purple-700 dark:text-purple-50";
       break;
     case "sky":
-      colorObject.bg = "bg-sky-600 dark:bg-sky-700";
+      colorObject.bg = "bg-sky-100 dark:bg-sky-700";
       colorObject.border = "border-sky-600 dark:border-sky-400";
-      colorObject.text = "text-white dark:text-sky-50";
+      colorObject.text = "text-sky-700 dark:text-sky-50";
+      colorObject.icon = "text-sky-700 dark:text-sky-50";
       break;
   }
 

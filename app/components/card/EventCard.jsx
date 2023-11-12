@@ -19,7 +19,7 @@ const EventCard = ({ event, startTime, endTime, color, tag, condensed, onClick }
       } rounded-md overflow-clip ${condensed ? "px-0" : "px-2"}`}
       onClick={onClick}
     >
-      {condensed ? null : <div className={`flex justify-center items-center text-white rounded w-6 h-6`}>{icon}</div>}
+      {condensed ? null : <div className={`flex justify-center items-center ${colors.icon} rounded w-6 h-6`}>{icon}</div>}
       <div className="flex flex-col gap-0 p-2">
         <Typography variant="body2" color={colors.text} bold>
           {event}
