@@ -9,12 +9,14 @@ import Typography from "../typography/Typography";
 
 import { getColors } from "../../utility/utility";
 
-const Legend = ({ color, label }) => {
+const Legend = ({ color, label, onClick }) => {
   const [selected, setSelected] = useState(true);
 
   const colors = getColors(color);
 
   const handleLegendClick = () => {
+    onClick({ label: label, selected: !selected });
+
     setSelected(!selected);
   };
 

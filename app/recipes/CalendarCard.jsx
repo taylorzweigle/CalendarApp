@@ -33,6 +33,8 @@ const CalendarCard = () => {
   const [addModal, setAddModal] = useState(false);
   const [monthPicker, setMonthPicker] = useState(false);
 
+  const [visibleCalendars, setVisibleCalendars] = useState([]);
+
   useEffect(() => {
     const fetchEvents = async () => {
       const events = await getEvents();
@@ -41,6 +43,10 @@ const CalendarCard = () => {
     };
 
     fetchEvents();
+  }, []);
+
+  useEffect(() => {
+    setVisibleCalendars(calendars.map((calendar) => calendar.user));
   }, []);
 
   const [selectedDate, setSelectedDate] = useState({
@@ -67,6 +73,22 @@ const CalendarCard = () => {
     });
 
     setMonthPicker(false);
+  };
+
+  const handleLegendChange = (calendar) => {
+    if (calendar.selected) {
+      if (!visibleCalendars.includes(calendar.label)) {
+        visibleCalendars.push(calendar.label);
+      }
+    } else {
+      if (visibleCalendars.includes(calendar.label)) {
+        const index = visibleCalendars.indexOf(calendar.label);
+
+        visibleCalendars.splice(index, 1);
+      }
+    }
+
+    //TODO: Filter events
   };
 
   const handleTodayClick = () => {
@@ -119,7 +141,7 @@ const CalendarCard = () => {
                 <DetailsLayout data={events} calendars={calendars} selectedDate={selectedDate} />
               </div>
               <div className="sm:col-span-6 md:col-span-12">
-                <LegendLayout />
+                <LegendLayout onClick={handleLegendChange} />
               </div>
             </div>
           </div>
