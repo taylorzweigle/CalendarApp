@@ -6,6 +6,22 @@ The app allows for navigating to the previous and next months using arrow button
 
 ## Screenshots
 
-![Home_Page](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_01.png)
-![Event_Details](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_02.png)
-![Create_Event](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_03.png)
+### Dark Theme
+
+![Home_Page](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Dark.png)
+
+### Light Theme
+
+![Home_Page](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Light.png)
+
+### Add Event
+
+![Create_Event](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Add_Event.png)
+
+### View Event
+
+![Event_Details](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Event.png)
+
+### Mobile
+
+![Event_Details](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Mobile.png)
