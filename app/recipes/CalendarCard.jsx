@@ -33,20 +33,14 @@ const CalendarCard = () => {
   const [addModal, setAddModal] = useState(false);
   const [monthPicker, setMonthPicker] = useState(false);
 
-  const [visibleCalendars, setVisibleCalendars] = useState([]);
-
   useEffect(() => {
     const fetchEvents = async () => {
       const events = await getEvents();
 
-      dispatch({ type: "SET_EVENTS", payload: events });
+      dispatch({ type: "GET_EVENTS", payload: events });
     };
 
     fetchEvents();
-  }, []);
-
-  useEffect(() => {
-    setVisibleCalendars(calendars.map((calendar) => calendar.user));
   }, []);
 
   const [selectedDate, setSelectedDate] = useState({
@@ -73,22 +67,6 @@ const CalendarCard = () => {
     });
 
     setMonthPicker(false);
-  };
-
-  const handleLegendChange = (calendar) => {
-    if (calendar.selected) {
-      if (!visibleCalendars.includes(calendar.label)) {
-        visibleCalendars.push(calendar.label);
-      }
-    } else {
-      if (visibleCalendars.includes(calendar.label)) {
-        const index = visibleCalendars.indexOf(calendar.label);
-
-        visibleCalendars.splice(index, 1);
-      }
-    }
-
-    //TODO: Filter events
   };
 
   const handleTodayClick = () => {
@@ -137,11 +115,11 @@ const CalendarCard = () => {
               <div className="sm:col-span-12 md:col-span-12">
                 <HeaderLayout user="Taylor Zweigle" onAddEventClick={() => setAddModal(true)} />
               </div>
-              <div className="sm:col-span-6 md:col-span-12">
+              <div className="sm:col-span-12 md:col-span-12">
                 <DetailsLayout data={events} calendars={calendars} selectedDate={selectedDate} />
               </div>
-              <div className="sm:col-span-6 md:col-span-12">
-                <LegendLayout onClick={handleLegendChange} />
+              <div className="sm:hidden md:block sm:col-span-12 md:col-span-12">
+                <LegendLayout />
               </div>
             </div>
           </div>
@@ -171,6 +149,9 @@ const CalendarCard = () => {
               selectedDate={selectedDate}
               onSelectDay={handleSelectDay}
             />
+          </div>
+          <div className="sm:block md:hidden sm:col-span-12 md:col-span-12 border-t border-slate-300 dark:border-slate-600">
+            <LegendLayout row />
           </div>
         </div>
       </Card>

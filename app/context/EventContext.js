@@ -5,7 +5,7 @@ export const EventsContext = createContext();
 
 export const eventsReducer = (state, action) => {
   switch (action.type) {
-    case "SET_EVENTS":
+    case "GET_EVENTS":
       return {
         events: action.payload,
       };

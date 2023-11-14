@@ -22,7 +22,8 @@ const EventCard = ({ event, startTime, endTime, color, tag, condensed, onClick }
       {condensed ? null : <div className={`flex justify-center items-center ${colors.icon} rounded w-6 h-6`}>{icon}</div>}
       <div className="flex flex-col gap-0 p-2">
         <Typography variant="body2" color={colors.text} bold>
-          {event}
+          <span className="sm:block md:hidden">{condensed ? icon : event}</span>
+          <span className="sm:hidden md:block">{event}</span>
         </Typography>
         {condensed
           ? null
