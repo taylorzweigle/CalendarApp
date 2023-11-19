@@ -117,3 +117,17 @@ export const compareStartAndEndTimes = (start, end) => {
 
   return result;
 };
+
+export const sortEvents = (events) => {
+  if (events.length > 1) {
+    events.sort((eventA, eventB) => {
+      if (new Date(eventA.startTime) - new Date(eventB.startTime) > 0) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  return events;
+};

@@ -112,7 +112,7 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
             <>
               <TimeInput
                 label="Start Time"
-                hours={startHours}
+                hour={startHours}
                 minutes={startMinutes}
                 period={startPeriod}
                 onHourChange={(e) => setStartHours(e.target.value)}
@@ -121,7 +121,7 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
               />
               <TimeInput
                 label="End Time"
-                hours={endHours}
+                hour={endHours}
                 minutes={endMinutes}
                 period={endPeriod}
                 onHourChange={(e) => setEndHours(e.target.value)}

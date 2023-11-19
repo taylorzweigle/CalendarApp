@@ -8,6 +8,8 @@ import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
 import EventCard from "../card/EventCard";
 
+import { sortEvents } from "@/app/utility/utility";
+
 export const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export const months = [
@@ -94,30 +96,30 @@ const Calendar = ({ data, calendars, today, selectedDate, onSelectDay }) => {
                 >
                   <div className="flex flex-col gap-2 h-full">
                     {data &&
-                      data
-                        .filter(
+                      sortEvents(
+                        data.filter(
                           (item) =>
                             selectedDate.month === new Date(item.startTime).getMonth() &&
                             selectedDate.year === new Date(item.startTime).getFullYear() &&
                             day.day === new Date(item.startTime).getDate()
                         )
-                        .map((event) => (
-                          <EventCard
-                            key={event.id}
-                            event={event.event}
-                            color={calendars.find((calendar) => calendar.user === event.user).color}
-                            tag={event.tag}
-                            startTime={`${
-                              new Date(event.startTime).getHours() === 0
-                                ? ""
-                                : `${new Date(event.startTime).getHours() % 12}:${
-                                    new Date(event.startTime).getMinutes() === 0 ? "00" : new Date(event.startTime).getMinutes()
-                                  } ${new Date(event.startTime).getHours() > 11 ? "PM" : "AM"}`
-                            } 
+                      ).map((event) => (
+                        <EventCard
+                          key={event.id}
+                          event={event.event}
+                          color={calendars.find((calendar) => calendar.user === event.user).color}
+                          tag={event.tag}
+                          startTime={`${
+                            new Date(event.startTime).getHours() === 0
+                              ? ""
+                              : `${new Date(event.startTime).getHours() % 12}:${
+                                  new Date(event.startTime).getMinutes() === 0 ? "00" : new Date(event.startTime).getMinutes()
+                                } ${new Date(event.startTime).getHours() > 11 ? "PM" : "AM"}`
+                          } 
                           `}
-                            condensed
-                          />
-                        ))}
+                          condensed
+                        />
+                      ))}
                   </div>
                 </CalendarDay>
               </React.Fragment>

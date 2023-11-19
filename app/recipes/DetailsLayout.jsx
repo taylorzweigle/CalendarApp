@@ -12,6 +12,8 @@ import Typography from "../components/typography/Typography";
 
 import CalendarEventModal from "./CalendarEventModal";
 
+import { sortEvents } from "../utility/utility";
+
 import { deleteEvent, getEvent } from "../api/events";
 
 const DetailsLayout = ({ data, calendars, selectedDate }) => {
@@ -58,7 +60,7 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
           {`${daysOfWeek[selectedDate.weekday]}, ${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`}
         </Typography>
         <div className="flex flex-col gap-4">
-          {itemsForSelectedDay.map((event) => (
+          {sortEvents(itemsForSelectedDay).map((event) => (
             <EventCard
               key={event.id}
               event={event.event}

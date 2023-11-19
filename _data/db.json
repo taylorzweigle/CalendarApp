@@ -449,14 +449,6 @@
       "id": 56
     },
     {
-      "event": "Football",
-      "user": "Us",
-      "tag": "football",
-      "startTime": "2023-11-18T17:00:00.000Z",
-      "endTime": "2023-11-18T20:30:00.000Z",
-      "id": 57
-    },
-    {
       "event": "Hiking",
       "user": "Us",
       "tag": "fun",
@@ -511,6 +503,14 @@
       "tag": "friends",
       "startTime": "2023-11-11T19:00:00.000Z",
       "endTime": "2023-11-11T20:00:00.000Z"
+    },
+    {
+      "id": 569,
+      "event": "Football",
+      "user": "Us",
+      "tag": "football",
+      "startTime": "2023-11-18T20:30:00.000Z",
+      "endTime": "2023-11-19T00:00:00.000Z"
     }
   ]
 }
