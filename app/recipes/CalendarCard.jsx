@@ -22,6 +22,7 @@ import HeaderLayout from "../recipes/HeaderLayout";
 import LegendLayout from "../recipes/LegendLayout";
 
 import { calendars } from "../utility/calendars";
+import { filterEvents } from "../utility/utility";
 
 import { getEvents } from "../api/events";
 
@@ -33,6 +34,8 @@ const CalendarCard = () => {
   const [addModal, setAddModal] = useState(false);
   const [monthPicker, setMonthPicker] = useState(false);
 
+  const [visibleCalendars, setVisibleCalendars] = useState([]);
+
   useEffect(() => {
     const fetchEvents = async () => {
       const events = await getEvents();
@@ -41,6 +44,10 @@ const CalendarCard = () => {
     };
 
     fetchEvents();
+  }, []);
+
+  useEffect(() => {
+    setVisibleCalendars(calendars.map((calendar) => calendar.user));
   }, []);
 
   const [selectedDate, setSelectedDate] = useState({
@@ -67,6 +74,24 @@ const CalendarCard = () => {
     });
 
     setMonthPicker(false);
+  };
+
+  const handleLegendChange = (calendar) => {
+    let calendars = [...visibleCalendars];
+
+    if (calendar.selected) {
+      if (!calendars.includes(calendar.label)) {
+        calendars.push(calendar.label);
+      }
+    } else {
+      if (calendars.includes(calendar.label)) {
+        const index = calendars.indexOf(calendar.label);
+
+        calendars.splice(index, 1);
+      }
+    }
+
+    setVisibleCalendars(calendars);
   };
 
   const handleTodayClick = () => {
@@ -116,10 +141,14 @@ const CalendarCard = () => {
                 <HeaderLayout user="Taylor Zweigle" onAddEventClick={() => setAddModal(true)} />
               </div>
               <div className="sm:col-span-12 md:col-span-12">
-                <DetailsLayout data={events} calendars={calendars} selectedDate={selectedDate} />
+                <DetailsLayout
+                  data={filterEvents(visibleCalendars, events)}
+                  calendars={calendars}
+                  selectedDate={selectedDate}
+                />
               </div>
-              <div className="sm:hidden md:block sm:col-span-12 md:col-span-12">
-                <LegendLayout />
+              <div className="sm:col-span-12 md:col-span-12">
+                <LegendLayout row={false} onClick={handleLegendChange} />
               </div>
             </div>
           </div>
@@ -143,15 +172,12 @@ const CalendarCard = () => {
               </div>
             </div>
             <Calendar
-              data={events}
+              data={filterEvents(visibleCalendars, events)}
               calendars={calendars}
               today={today}
               selectedDate={selectedDate}
               onSelectDay={handleSelectDay}
             />
-          </div>
-          <div className="sm:block md:hidden sm:col-span-12 md:col-span-12 border-t border-slate-300 dark:border-slate-600">
-            <LegendLayout row />
           </div>
         </div>
       </Card>

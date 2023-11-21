@@ -131,3 +131,21 @@ export const sortEvents = (events) => {
 
   return events;
 };
+
+export const filterEvents = (query, array) => {
+  if (array) {
+    let filteredArray = [];
+
+    for (let i = 0; i < array.length; i++) {
+      for (let j = 0; j < query.length; j++) {
+        if (array[i].user === query[j]) {
+          filteredArray = [...filteredArray, array[i]];
+        }
+      }
+    }
+
+    return filteredArray;
+  }
+
+  return array;
+};
