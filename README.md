@@ -23,8 +23,8 @@ The app allows for navigating to the previous and next months using arrow button
 
 ### Filter Calendars
 
-![Filter](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Event_Dark.png)
-![Filter](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Event_Light.png)
+![Filter](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Filter_Dark.png)
+![Filter](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Filter_Light.png)
 
 ### Mobile
 
