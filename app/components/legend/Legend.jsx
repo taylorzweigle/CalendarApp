@@ -21,7 +21,7 @@ const Legend = ({ color, label, onClick }) => {
   };
 
   return (
-    <div className="flex flex-row justify-between items-center h-8 cursor-pointer" onClick={handleLegendClick}>
+    <div className="flex flex-row justify-between items-center w-full h-8 cursor-pointer" onClick={handleLegendClick}>
       <div className="flex flex-row items-center gap-2">
         <div
           className={`${selected ? colors.bg : "bg-white dark:bg-slate-800"} border ${

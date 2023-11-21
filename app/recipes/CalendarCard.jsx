@@ -148,7 +148,7 @@ const CalendarCard = () => {
                 />
               </div>
               <div className="sm:col-span-12 md:col-span-12">
-                <LegendLayout row={false} onClick={handleLegendChange} />
+                <LegendLayout onClick={handleLegendChange} />
               </div>
             </div>
           </div>

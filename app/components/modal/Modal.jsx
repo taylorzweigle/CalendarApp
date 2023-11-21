@@ -12,7 +12,7 @@ const Modal = ({ children, open, title, action, onAction, onClose }) => {
     <div
       className={`${
         open ? "block" : "hidden"
-      } fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-white/25 dark:bg-slate-500/50 drop-shadow-md`}
+      } fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-slate-950/50 dark:bg-slate-500/50 drop-shadow-md`}
     >
       <div className="m-auto p-8 sm:w-4/5 md:w-2/5">
         <Card>

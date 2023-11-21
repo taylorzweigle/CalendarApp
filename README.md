@@ -6,22 +6,27 @@ The app allows for navigating to the previous and next months using arrow button
 
 ## Screenshots
 
-### Dark Theme
+### App
 
 ![Home_Page](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Dark.png)
-
-### Light Theme
-
 ![Home_Page](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Light.png)
 
 ### Add Event
 
-![Create_Event](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Add_Event.png)
+![Create_Event](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Add_Event_Dark.png)
+![Create_Event](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Add_Event_Light.png)
 
 ### View Event
 
-![Event_Details](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Event.png)
+![Event_Details](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Event_Dark.png)
+![Event_Details](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Event_Light.png)
+
+### Filter Calendars
+
+![Filter](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Event_Dark.png)
+![Filter](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Event_Light.png)
 
 ### Mobile
 
-![Event_Details](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Mobile.png)
+![Mobile](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Mobile_Dark.png)
+![Mobile](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Mobile_Light.png)
