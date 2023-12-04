@@ -68,6 +68,7 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
   };
 
   const clearForm = () => {
+    setAllDay(false);
     setEvent("");
     setUser("");
     setTag("");
@@ -91,7 +92,7 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
               </Typography>
               <Typography variant="body1">{date}</Typography>
             </div>
-            <Checkbox onClick={() => setAllDay(!allDay)} />
+            <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
           </div>
           <TextInput label="Event" value={event} onChange={(e) => setEvent(e.target.value)} />
           <SelectInput
@@ -104,7 +105,21 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
           <SelectInput
             label="Tag"
             value={tag}
-            items={["", "baseball", "chores", "football", "fun", "friends", "holiday", "personal", "racing", "serve", "work"]}
+            items={[
+              "",
+              "baseball",
+              "basketball",
+              "chores",
+              "football",
+              "fun",
+              "friends",
+              "hockey",
+              "holiday",
+              "personal",
+              "racing",
+              "serve",
+              "work",
+            ]}
             showLabel
             onChange={(e) => setTag(e.target.value)}
           />

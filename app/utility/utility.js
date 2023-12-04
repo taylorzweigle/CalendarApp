@@ -6,7 +6,9 @@ import EscalatorWarningIcon from "@mui/icons-material/EscalatorWarning";
 import FaceIcon from "@mui/icons-material/Face";
 import GroupsIcon from "@mui/icons-material/Groups";
 import SportsBaseballIcon from "@mui/icons-material/SportsBaseball";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import SportsScoreIcon from "@mui/icons-material/SportsScore";
 import TodayIcon from "@mui/icons-material/Today";
 import WorkIcon from "@mui/icons-material/Work";
@@ -60,6 +62,9 @@ export const getIcons = (tag) => {
     case "baseball":
       icon = <SportsBaseballIcon fontSize={size} />;
       break;
+    case "basketball":
+      icon = <SportsBasketballIcon fontSize={size} />;
+      break;
     case "chores":
       icon = <ConstructionIcon fontSize={size} />;
       break;
@@ -71,6 +76,9 @@ export const getIcons = (tag) => {
       break;
     case "friends":
       icon = <GroupsIcon fontSize={size} />;
+      break;
+    case "hockey":
+      icon = <SportsHockeyIcon fontSize={size} />;
       break;
     case "holiday":
       icon = <CalendarMonthIcon fontSize={size} />;
