@@ -157,3 +157,15 @@ export const filterEvents = (query, array) => {
 
   return array;
 };
+
+export const getRandomId = (ids) => {
+  let id = Math.floor(Math.random() * 1001);
+
+  let idArray = ids.map((event) => event.id);
+
+  if (idArray.includes(id)) {
+    id = Math.floor(Math.random() * 1001);
+  }
+
+  return id;
+};

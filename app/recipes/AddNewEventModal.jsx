@@ -14,10 +14,12 @@ import Typography from "../components/typography/Typography";
 
 import { months } from "../components/calendar/Calendar";
 
+import { getRandomId } from "../utility/utility";
+
 import { createEvent } from "../api/events";
 
 const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) => {
-  const { dispatch } = useEventsContext();
+  const { events, dispatch } = useEventsContext();
 
   const [allDay, setAllDay] = useState(false);
 
@@ -42,7 +44,7 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
     e.preventDefault();
 
     const newEvent = {
-      id: Math.floor(Math.random() * 1001),
+      id: getRandomId(events),
       event: event,
       user: user,
       tag: tag,

@@ -535,6 +535,158 @@
       "tag": "holiday",
       "startTime": "2023-12-25T06:00:00.000Z",
       "endTime": "2023-12-25T06:00:00.000Z"
+    },
+    {
+      "id": 718,
+      "event": "Aquarium",
+      "user": "Us",
+      "tag": "fun",
+      "startTime": "2023-12-02T19:00:00.000Z",
+      "endTime": "2023-12-02T22:00:00.000Z"
+    },
+    {
+      "id": 322,
+      "event": "Zoo",
+      "user": "Us",
+      "tag": "fun",
+      "startTime": "2023-12-03T16:00:00.000Z",
+      "endTime": "2023-12-03T19:00:00.000Z"
+    },
+    {
+      "id": 541,
+      "event": "Eye Doctor",
+      "user": "Husband",
+      "tag": "chores",
+      "startTime": "2023-12-07T18:00:00.000Z",
+      "endTime": "2023-12-07T18:30:00.000Z"
+    },
+    {
+      "id": 365,
+      "event": "Haircut",
+      "user": "Wife",
+      "tag": "chores",
+      "startTime": "2023-12-05T21:00:00.000Z",
+      "endTime": "2023-12-05T23:00:00.000Z"
+    },
+    {
+      "id": 728,
+      "event": "Christmas Party",
+      "user": "Us",
+      "tag": "friends",
+      "startTime": "2023-12-09T22:00:00.000Z",
+      "endTime": "2023-12-10T01:00:00.000Z"
+    },
+    {
+      "id": 844,
+      "event": "Christmas Lights",
+      "user": "Us",
+      "tag": "fun",
+      "startTime": "2023-12-10T02:00:00.000Z",
+      "endTime": "2023-12-10T02:30:00.000Z"
+    },
+    {
+      "id": 890,
+      "event": "Serve",
+      "user": "Wife",
+      "tag": "serve",
+      "startTime": "2023-12-10T15:00:00.000Z",
+      "endTime": "2023-12-10T16:30:00.000Z"
+    },
+    {
+      "id": 139,
+      "event": "Christmas Party",
+      "user": "Us",
+      "tag": "fun",
+      "startTime": "2023-12-10T23:00:00.000Z",
+      "endTime": "2023-12-11T01:30:00.000Z"
+    },
+    {
+      "id": 859,
+      "event": "Happy Hour",
+      "user": "Wife",
+      "tag": "work",
+      "startTime": "2023-12-13T23:00:00.000Z",
+      "endTime": "2023-12-14T00:00:00.000Z"
+    },
+    {
+      "id": 535,
+      "event": "Community",
+      "user": "Us",
+      "tag": "friends",
+      "startTime": "2023-12-15T01:00:00.000Z",
+      "endTime": "2023-12-15T03:00:00.000Z"
+    },
+    {
+      "id": 518,
+      "event": "Christmas Lights",
+      "user": "Us",
+      "tag": "fun",
+      "startTime": "2023-12-16T00:00:00.000Z",
+      "endTime": "2023-12-16T01:00:00.000Z"
+    },
+    {
+      "id": 929,
+      "event": "Family Lunch",
+      "user": "Us",
+      "tag": "friends",
+      "startTime": "2023-12-17T18:00:00.000Z",
+      "endTime": "2023-12-17T20:00:00.000Z"
+    },
+    {
+      "id": 860,
+      "event": "Family Dinner",
+      "user": "Us",
+      "tag": "friends",
+      "startTime": "2023-12-23T23:00:00.000Z",
+      "endTime": "2023-12-24T01:00:00.000Z"
+    },
+    {
+      "id": 881,
+      "event": "Date Day",
+      "user": "Us",
+      "tag": "fun",
+      "startTime": "2023-12-24T15:00:00.000Z",
+      "endTime": "2023-12-24T17:00:00.000Z"
+    },
+    {
+      "id": 273,
+      "event": "Christmas Service",
+      "user": "Us",
+      "tag": "fun",
+      "startTime": "2023-12-24T20:00:00.000Z",
+      "endTime": "2023-12-24T21:00:00.000Z"
+    },
+    {
+      "id": 986,
+      "event": "Happy Hour",
+      "user": "Wife",
+      "tag": "friends",
+      "startTime": "2023-12-27T17:00:00.000Z",
+      "endTime": "2023-12-27T19:00:00.000Z"
+    },
+    {
+      "id": 818,
+      "event": "Serve",
+      "user": "Us",
+      "tag": "serve",
+      "startTime": "2023-12-12T01:00:00.000Z",
+      "endTime": "2023-12-12T03:00:00.000Z"
+    },
+    {
+      "id": 804,
+      "event": "Haircut",
+      "user": "Husband",
+      "tag": "chores",
+      "startTime": "2023-12-23T15:00:00.000Z",
+      "endTime": "2023-12-23T15:30:00.000Z"
+    },
+    {
+      "id": 856,
+      "event": "Happy Hour",
+      "user": "Wife",
+      "tag": "friends",
+      "startTime": "2023-12-20T23:00:00.000Z",
+      "endTime": "2023-12-21T01:00:00.000Z"
     }
   ]
 }
