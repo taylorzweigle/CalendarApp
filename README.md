@@ -1,6 +1,6 @@
 # Schedule App
 
-Web app using Next.js, json-server, and Tailwind CSS to create and manage events in a calendar view.
+Web app using React, MongoDb, Express, NodeJS, and Tailwind CSS to create and manage events in a calendar view.
 
 The app allows for navigating to the previous and next months using arrow buttons and a today button to jump to the current date. A month picker also allows for quick navigation to a specific month. The selected date will be the date an event is created for using the add event modal. Clicking an event will show event details and allow for the deletion of that event.
 

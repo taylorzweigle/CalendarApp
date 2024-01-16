@@ -1,0 +1,8 @@
+/** Taylor Zweigle, 2024 ***/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-slate-200 dark:bg-slate-950 p-12;
+}
