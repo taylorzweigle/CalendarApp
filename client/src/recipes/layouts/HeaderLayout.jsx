@@ -12,7 +12,7 @@ import Typography from "../../components/typography/Typography";
 import image from "../../img/Me.png";
 
 const HeaderLayout = ({ user, onAddEventClick }) => {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   const handleThemeButton = () => {
     setDarkMode(!darkMode);
@@ -27,7 +27,7 @@ const HeaderLayout = ({ user, onAddEventClick }) => {
           <Avatar image={image} user={user.slice(0, 1)} />
           <Typography variant="heading">{user}</Typography>
         </div>
-        <Button prefix={darkMode ? <ModeNightIcon /> : <LightModeIcon />} onClick={handleThemeButton} />
+        <Button prefix={darkMode ? <LightModeIcon /> : <ModeNightIcon />} onClick={handleThemeButton} />
       </div>
       <Button prefix={<AddIcon />} onClick={onAddEventClick}>
         Add Event
