@@ -2,25 +2,45 @@
 export const getEvents = async () => {
   const res = await fetch("/api/events");
 
-  return res.json();
+  const json = await res.json();
+
+  if (res.ok) {
+    return json;
+  }
 };
 
 export const getEvent = async (event) => {
-  const res = await fetch(`/api/events/${event.id}`);
+  const res = await fetch(`/api/events/${event._id}`);
 
-  return res.json();
+  const json = await res.json();
+
+  if (res.ok) {
+    return json;
+  }
 };
 
 export const createEvent = async (body) => {
-  await fetch("/api/events", {
+  const res = await fetch("/api/events", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
+
+  const json = await res.json();
+
+  if (res.ok) {
+    return json;
+  }
 };
 
 export const deleteEvent = async (event) => {
-  await fetch(`/api/events/${event.id}`, {
+  const res = await fetch(`/api/events/${event._id}`, {
     method: "DELETE",
   });
+
+  const json = await res.json();
+
+  if (res.ok) {
+    return json;
+  }
 };

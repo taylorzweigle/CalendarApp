@@ -1,9 +1,9 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-import Divider from "../../components/divider/Divider";
-import List from "../../components/list/List";
-import Modal from "../../components/modal/Modal";
+import Divider from "../../core/divider/Divider";
+import List from "../../core/list/List";
+import Modal from "../../core/modal/Modal";
 
 import { compareStartAndEndTimes, formatDate, formatTime } from "../../utility/utility";
 

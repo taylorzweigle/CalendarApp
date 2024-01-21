@@ -1,8 +1,8 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-import Legend from "../../components/legend/Legend";
-import Typography from "../../components/typography/Typography";
+import Legend from "../../core/legend/Legend";
+import Typography from "../../core/typography/Typography";
 
 import { calendars } from "../../utility/calendars";
 

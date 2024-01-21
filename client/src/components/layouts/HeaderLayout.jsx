@@ -5,9 +5,9 @@ import AddIcon from "@mui/icons-material/Add";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import ModeNightIcon from "@mui/icons-material/ModeNight";
 
-import Avatar from "../../components/avatar/Avatar";
-import Button from "../../components/button/Button";
-import Typography from "../../components/typography/Typography";
+import Avatar from "../../core/avatar/Avatar";
+import Button from "../../core/button/Button";
+import Typography from "../../core/typography/Typography";
 
 import image from "../../img/Me.png";
 

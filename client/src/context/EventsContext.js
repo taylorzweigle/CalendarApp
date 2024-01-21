@@ -10,7 +10,9 @@ export const eventsReducer = (state, action) => {
     case Actions.GET_EVENTS:
       return { events: action.payload };
     case Actions.CREATE_EVENT:
-      return { events: [...action.payload, ...state.events] };
+      return { events: [action.payload, ...state.events] };
+    case Actions.DELETE_EVENT:
+      return { events: state.events.filter((event) => event._id !== action.payload._id) };
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-import Typography from "../../components/typography/Typography";
+import Typography from "../../core/typography/Typography";
 
 import { compareStartAndEndTimes, formatTime, getColors, getIcons } from "../../utility/utility";
 

@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-import Chip from "../chip/Chip";
+import Chip from "../../core/chip/Chip";
 
 const MonthPicker = ({ selectedMonth, onChange }) => {
   const months = [

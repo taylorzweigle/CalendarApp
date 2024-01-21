@@ -1,10 +1,12 @@
 //Taylor Zweigle, 2024
 import React, { useState } from "react";
 
+import * as Actions from "../../actions";
+
 import { useEventsContext } from "../../hooks/useEventsContext";
 
-import EmptyState from "../../components/emptyState/EmptyState";
-import Typography from "../../components/typography/Typography";
+import EmptyState from "../../core/emptyState/EmptyState";
+import Typography from "../../core/typography/Typography";
 
 import EventCard from "../cards/EventCard";
 
@@ -54,12 +56,14 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
     setEventModal(true);
   };
 
-  const handleDeleteEvent = (event) => {
-    deleteEvent(event);
+  const handleDeleteEvent = async (event) => {
+    const json = await deleteEvent(event);
 
-    dispatch({ type: "DELETE_EVENT", payload: event });
+    if (json) {
+      dispatch({ type: Actions.DELETE_EVENT, payload: json });
 
-    setEventModal(false);
+      setEventModal(false);
+    }
   };
 
   return (
@@ -77,7 +81,7 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
         <div className="flex flex-col gap-4">
           {sortEvents(itemsForSelectedDay).map((event) => (
             <EventCard
-              key={event.id}
+              key={event._id}
               event={event.event}
               color={calendars.find((calendar) => calendar.user === event.user).color}
               tag={event.tag}

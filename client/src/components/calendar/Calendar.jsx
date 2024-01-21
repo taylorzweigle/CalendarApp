@@ -4,7 +4,7 @@ import React from "react";
 import CalendarDay from "./internal/CalendarDay";
 import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
-import EventCard from "../../recipes/cards/EventCard";
+import EventCard from "../cards/EventCard";
 
 import { sortEvents } from "../../utility/utility";
 
@@ -88,7 +88,7 @@ const Calendar = ({ data, calendars, today, selectedDate, onSelectDay }) => {
                         )
                       ).map((event) => (
                         <EventCard
-                          key={event.id}
+                          key={event._id}
                           event={event.event}
                           color={calendars.find((calendar) => calendar.user === event.user).color}
                           tag={event.tag}

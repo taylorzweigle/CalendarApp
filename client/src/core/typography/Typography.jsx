@@ -2,7 +2,7 @@
 import React from "react";
 
 const Typography = ({ variant, color, bold, children }) => {
-  let variantClass = "text-base";
+  let variantClass = "";
 
   switch (variant) {
     case "title":
@@ -23,6 +23,8 @@ const Typography = ({ variant, color, bold, children }) => {
     case "caption":
       variantClass = "text-xs";
       break;
+    default:
+      variantClass = "text-base";
   }
 
   return (

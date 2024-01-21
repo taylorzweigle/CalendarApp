@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2023
+//Taylor Zweigle, 2024
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ConstructionIcon from "@mui/icons-material/Construction";
@@ -14,12 +14,7 @@ import TodayIcon from "@mui/icons-material/Today";
 import WorkIcon from "@mui/icons-material/Work";
 
 export const getColors = (color) => {
-  let colorObject = {
-    bg: "bg-slate-50 dark:bg-slate-700",
-    border: "border-slate-500 dark:border-slate-400",
-    text: "text-slate-700 dark:text-slate-50",
-    icon: "text-slate-700 dark:text-slate-50",
-  };
+  let colorObject = { bg: "", border: "", text: "", icon: "" };
 
   switch (color) {
     case "emerald":
@@ -46,6 +41,12 @@ export const getColors = (color) => {
       colorObject.text = "text-sky-700 dark:text-sky-50";
       colorObject.icon = "text-sky-700 dark:text-sky-50";
       break;
+    default:
+      colorObject.bg = "bg-slate-50 dark:bg-slate-700";
+      colorObject.border = "border-slate-500 dark:border-slate-400";
+      colorObject.text = "text-slate-700 dark:text-slate-50";
+      colorObject.icon = "text-slate-700 dark:text-slate-50";
+      break;
   }
 
   return colorObject;
@@ -54,7 +55,7 @@ export const getColors = (color) => {
 export const getIcons = (tag) => {
   const size = "small";
 
-  let icon = <TodayIcon fontSize={size} />;
+  let icon = null;
 
   switch (tag) {
     case "baseball":
@@ -92,6 +93,9 @@ export const getIcons = (tag) => {
       break;
     case "work":
       icon = <WorkIcon fontSize={size} />;
+      break;
+    default:
+      icon = <TodayIcon fontSize={size} />;
       break;
   }
 
@@ -171,16 +175,4 @@ export const filterEvents = (query, array) => {
   }
 
   return array;
-};
-
-export const getRandomId = (ids) => {
-  let id = Math.floor(Math.random() * 1001);
-
-  let idArray = ids.map((event) => event.id);
-
-  if (idArray.includes(id)) {
-    id = Math.floor(Math.random() * 1001);
-  }
-
-  return id;
 };

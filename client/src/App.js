@@ -12,16 +12,16 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TodayIcon from "@mui/icons-material/Today";
 
-import Button from "./components/button/Button";
-import Card from "./components/card/Card";
-import Calendar from "./components/calendar/Calendar";
-import MonthPicker from "./components/monthPicker/MonthPicker";
-import Typography from "./components/typography/Typography";
+import Button from "./core/button/Button";
+import Card from "./core/card/Card";
+import Typography from "./core/typography/Typography";
 
-import AddNewEventModal from "./recipes/modals/AddNewEventModal";
-import DetailsLayout from "./recipes/layouts/DetailsLayout";
-import HeaderLayout from "./recipes/layouts/HeaderLayout";
-import LegendLayout from "./recipes/layouts/LegendLayout";
+import AddNewEventModal from "./components/modals/AddNewEventModal";
+import Calendar from "./components/calendar/Calendar";
+import DetailsLayout from "./components/layouts/DetailsLayout";
+import HeaderLayout from "./components/layouts/HeaderLayout";
+import LegendLayout from "./components/layouts/LegendLayout";
+import MonthPicker from "./components/monthPicker/MonthPicker";
 
 import { calendars } from "./utility/calendars";
 import { filterEvents } from "./utility/utility";

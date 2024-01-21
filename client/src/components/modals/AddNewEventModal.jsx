@@ -1,21 +1,21 @@
 //Taylor Zweigle, 2024
 import React, { useState, useEffect } from "react";
 
+import * as Actions from "../../actions";
+
 import { useEventsContext } from "../../hooks/useEventsContext";
 
-import Checkbox from "../../components/checkbox/Checkbox";
-import Modal from "../../components/modal/Modal";
-import SelectInput from "../../components/selectInput/SelectInput";
-import TextInput from "../../components/textInput/TextInput";
-import TimeInput from "../../components/timeInput/TimeInput";
-import Typography from "../../components/typography/Typography";
-
-import { getRandomId } from "../../utility/utility";
+import Checkbox from "../../core/checkbox/Checkbox";
+import Modal from "../../core/modal/Modal";
+import SelectInput from "../../core/selectInput/SelectInput";
+import TextInput from "../../core/textInput/TextInput";
+import TimeInput from "../../core/timeInput/TimeInput";
+import Typography from "../../core/typography/Typography";
 
 import { createEvent } from "../../api/events";
 
 const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) => {
-  const { events, dispatch } = useEventsContext();
+  const { dispatch } = useEventsContext();
 
   const [allDay, setAllDay] = useState(false);
 
@@ -51,32 +51,43 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
     setDate(defaultDate);
   }, [defaultDate]);
 
-  const handleOnSave = (e) => {
+  const handleOnSave = async (e) => {
     e.preventDefault();
 
     const newEvent = {
-      id: getRandomId(events),
       event: event,
       user: user,
       tag: tag,
       startTime: allDay
         ? new Date(date)
-        : new Date(`${date} ${startPeriod === "PM" ? (parseInt(startHours) + 12).toString() : startHours}:${startMinutes}:00`),
+        : new Date(
+            `${date} ${
+              startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
+            }:${startMinutes}:00`
+          ),
       endTime: allDay
         ? new Date(date)
-        : new Date(`${date} ${endPeriod === "PM" ? (parseInt(endHours) + 12).toString() : endHours}:${endMinutes}:00`),
+        : new Date(
+            `${date} ${
+              endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
+            }:${endMinutes}:00`
+          ),
     };
 
-    createEvent(newEvent);
+    const json = await createEvent(newEvent);
 
-    dispatch({ type: "CREATE_EVENT", payload: newEvent });
+    if (json) {
+      dispatch({ type: Actions.CREATE_EVENT, payload: json });
 
-    clearForm();
-    onSaveClick();
+      clearForm();
+
+      onSaveClick();
+    }
   };
 
   const handleOnCancel = () => {
     clearForm();
+
     onCancelClick();
   };
 
