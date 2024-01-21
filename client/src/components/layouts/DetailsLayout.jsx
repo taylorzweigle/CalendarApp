@@ -8,6 +8,8 @@ import { useEventsContext } from "../../hooks/useEventsContext";
 import EmptyState from "../../core/emptyState/EmptyState";
 import Typography from "../../core/typography/Typography";
 
+import { daysOfWeek, months } from "../calendar/Calendar";
+
 import EventCard from "../cards/EventCard";
 
 import CalendarEventModal from "../modals/CalendarEventModal";
@@ -21,23 +23,6 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
 
   const [eventModal, setEventModal] = useState(false);
   const [eventDetails, setEventDetails] = useState(null);
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   const itemsForSelectedDay = data
     ? data.filter(

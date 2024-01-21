@@ -12,6 +12,8 @@ import TextInput from "../../core/textInput/TextInput";
 import TimeInput from "../../core/timeInput/TimeInput";
 import Typography from "../../core/typography/Typography";
 
+import { months } from "../calendar/Calendar";
+
 import { createEvent } from "../../api/events";
 
 const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) => {
@@ -29,21 +31,6 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
   const [endHours, setEndHours] = useState("");
   const [endMinutes, setEndMinutes] = useState("");
   const [endPeriod, setEndPeriod] = useState("");
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
   const defaultDate = `${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`;
 
@@ -96,7 +83,6 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
     setEvent("");
     setUser("");
     setTag("");
-    setDate("");
     setStartHours("");
     setStartMinutes("");
     setStartPeriod("");

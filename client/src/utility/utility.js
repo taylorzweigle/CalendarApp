@@ -13,6 +13,8 @@ import SportsScoreIcon from "@mui/icons-material/SportsScore";
 import TodayIcon from "@mui/icons-material/Today";
 import WorkIcon from "@mui/icons-material/Work";
 
+import { daysOfWeek, months } from "../components/calendar/Calendar";
+
 export const getColors = (color) => {
   let colorObject = { bg: "", border: "", text: "", icon: "" };
 
@@ -109,23 +111,6 @@ export const formatTime = (date) => {
 };
 
 export const formatDate = (date) => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
   return `${daysOfWeek[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 };
 

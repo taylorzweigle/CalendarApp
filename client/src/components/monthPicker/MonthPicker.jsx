@@ -3,22 +3,9 @@ import React from "react";
 
 import Chip from "../../core/chip/Chip";
 
-const MonthPicker = ({ selectedMonth, onChange }) => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+import { months } from "../calendar/Calendar";
 
+const MonthPicker = ({ selectedMonth, onChange }) => {
   return (
     <div className="flex flex-col gap-4 w-96 p-8">
       <div className="flex flex-wrap justify-center align-middle gap-4">

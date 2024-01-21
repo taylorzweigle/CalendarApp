@@ -17,7 +17,7 @@ import Card from "./core/card/Card";
 import Typography from "./core/typography/Typography";
 
 import AddNewEventModal from "./components/modals/AddNewEventModal";
-import Calendar from "./components/calendar/Calendar";
+import Calendar, { months } from "./components/calendar/Calendar";
 import DetailsLayout from "./components/layouts/DetailsLayout";
 import HeaderLayout from "./components/layouts/HeaderLayout";
 import LegendLayout from "./components/layouts/LegendLayout";
@@ -35,21 +35,6 @@ const App = () => {
   const [monthPicker, setMonthPicker] = useState(false);
 
   const [visibleCalendars, setVisibleCalendars] = useState([]);
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
   useEffect(() => {
     const fetchEvents = async () => {

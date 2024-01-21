@@ -44,3 +44,17 @@ export const deleteEvent = async (event) => {
     return json;
   }
 };
+
+export const updateEvent = async (event, body) => {
+  const res = await fetch(`/api/events/${event._id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  const json = await res.json();
+
+  if (res.ok) {
+    return json;
+  }
+};
