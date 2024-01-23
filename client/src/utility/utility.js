@@ -4,12 +4,9 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import EscalatorWarningIcon from "@mui/icons-material/EscalatorWarning";
 import FaceIcon from "@mui/icons-material/Face";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import GroupsIcon from "@mui/icons-material/Groups";
-import SportsBaseballIcon from "@mui/icons-material/SportsBaseball";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsFootballIcon from "@mui/icons-material/SportsFootball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsScoreIcon from "@mui/icons-material/SportsScore";
+import StadiumIcon from "@mui/icons-material/Stadium";
 import TodayIcon from "@mui/icons-material/Today";
 import WorkIcon from "@mui/icons-material/Work";
 
@@ -22,32 +19,32 @@ export const getColors = (color) => {
     case "emerald":
       colorObject.bg = "bg-emerald-100 dark:bg-emerald-700";
       colorObject.border = "border-emerald-600 dark:border-emerald-400";
-      colorObject.text = "text-emerald-700 dark:text-emerald-50";
+      colorObject.text = "text-emerald-700 dark:text-white";
       colorObject.icon = "text-emerald-700 dark:text-white";
-      break;
-    case "indigo":
-      colorObject.bg = "bg-indigo-100 dark:bg-indigo-700";
-      colorObject.border = "border-indigo-600 dark:border-indigo-400";
-      colorObject.text = "text-indigo-700 dark:text-indigo-50";
-      colorObject.icon = "text-indigo-700 dark:text-indigo-50";
       break;
     case "purple":
       colorObject.bg = "bg-purple-100 dark:bg-purple-700";
       colorObject.border = "border-purple-600 dark:border-purple-400";
-      colorObject.text = "text-purple-700 dark:text-purple-50";
-      colorObject.icon = "text-purple-700 dark:text-purple-50";
+      colorObject.text = "text-purple-700 dark:text-white";
+      colorObject.icon = "text-purple-700 dark:text-white";
       break;
     case "sky":
       colorObject.bg = "bg-sky-100 dark:bg-sky-700";
       colorObject.border = "border-sky-600 dark:border-sky-400";
-      colorObject.text = "text-sky-700 dark:text-sky-50";
-      colorObject.icon = "text-sky-700 dark:text-sky-50";
+      colorObject.text = "text-sky-700 dark:text-white";
+      colorObject.icon = "text-sky-700 dark:text-white";
+      break;
+    case "amber":
+      colorObject.bg = "bg-amber-100 dark:bg-amber-800";
+      colorObject.border = "border-amber-600 dark:border-amber-600";
+      colorObject.text = "text-amber-700 dark:text-white";
+      colorObject.icon = "text-amber-700 dark:text-white";
       break;
     default:
       colorObject.bg = "bg-slate-50 dark:bg-slate-700";
       colorObject.border = "border-slate-500 dark:border-slate-400";
-      colorObject.text = "text-slate-700 dark:text-slate-50";
-      colorObject.icon = "text-slate-700 dark:text-slate-50";
+      colorObject.text = "text-slate-700 dark:text-white";
+      colorObject.icon = "text-slate-700 dark:text-white";
       break;
   }
 
@@ -60,26 +57,17 @@ export const getIcons = (tag) => {
   let icon = null;
 
   switch (tag) {
-    case "baseball":
-      icon = <SportsBaseballIcon fontSize={size} />;
-      break;
-    case "basketball":
-      icon = <SportsBasketballIcon fontSize={size} />;
-      break;
     case "chores":
       icon = <ConstructionIcon fontSize={size} />;
       break;
-    case "football":
-      icon = <SportsFootballIcon fontSize={size} />;
-      break;
-    case "fun":
-      icon = <CameraAltIcon fontSize={size} />;
+    case "family":
+      icon = <FavoriteIcon fontSize={size} />;
       break;
     case "friends":
       icon = <GroupsIcon fontSize={size} />;
       break;
-    case "hockey":
-      icon = <SportsHockeyIcon fontSize={size} />;
+    case "fun":
+      icon = <CameraAltIcon fontSize={size} />;
       break;
     case "holiday":
       icon = <CalendarMonthIcon fontSize={size} />;
@@ -87,8 +75,8 @@ export const getIcons = (tag) => {
     case "personal":
       icon = <FaceIcon fontSize={size} />;
       break;
-    case "racing":
-      icon = <SportsScoreIcon fontSize={size} />;
+    case "sports":
+      icon = <StadiumIcon fontSize={size} />;
       break;
     case "serve":
       icon = <EscalatorWarningIcon fontSize={size} />;

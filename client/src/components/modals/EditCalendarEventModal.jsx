@@ -14,6 +14,8 @@ import { months } from "../calendar/Calendar";
 
 import { getEvents, deleteEvent, updateEvent } from "../../api/events";
 
+import { tags } from "../../utility/calendars";
+
 const EditCalendarEventModal = ({ open, eventDetails, onSaveClick, onDeleteClick, onCancelClick }) => {
   const { dispatch } = useEventsContext();
 
@@ -146,27 +148,7 @@ const EditCalendarEventModal = ({ open, eventDetails, onSaveClick, onDeleteClick
             showLabel
             onChange={(e) => setUser(e.target.value)}
           />
-          <SelectInput
-            label="Tag"
-            value={tag}
-            items={[
-              "",
-              "baseball",
-              "basketball",
-              "chores",
-              "football",
-              "fun",
-              "friends",
-              "hockey",
-              "holiday",
-              "personal",
-              "racing",
-              "serve",
-              "work",
-            ]}
-            showLabel
-            onChange={(e) => setTag(e.target.value)}
-          />
+          <SelectInput label="Tag" value={tag} items={tags} showLabel onChange={(e) => setTag(e.target.value)} />
           {!allDay && (
             <>
               <TimeInput
