@@ -5,7 +5,7 @@ import Button from "../button/Button";
 import Card from "../card/Card";
 import Typography from "../typography/Typography";
 
-const Modal = ({ children, open, title, action, onAction, onClose }) => {
+const Modal = ({ children, open, title, action, secondaryAction, onAction, onSecondaryAction, onClose }) => {
   return (
     <div
       className={`${
@@ -17,9 +17,14 @@ const Modal = ({ children, open, title, action, onAction, onClose }) => {
           <div className="flex flex-col gap-8 p-8">
             <Typography variant="heading">{title}</Typography>
             {children}
-            <div className="flex flex-row justify-end gap-4">
-              <Button onClick={onClose}>Cancel</Button>
-              <Button onClick={onAction}>{action}</Button>
+            <div className="flex flex-row justify-between">
+              <div className="flex flex-row justify-end gap-4">
+                {secondaryAction && <Button onClick={onSecondaryAction}>{secondaryAction}</Button>}
+              </div>
+              <div className="flex flex-row justify-end gap-4">
+                <Button onClick={onClose}>Cancel</Button>
+                <Button onClick={onAction}>{action}</Button>
+              </div>
             </div>
           </div>
         </Card>
