@@ -14,11 +14,11 @@ import Typography from "../../core/typography/Typography";
 
 import { months } from "../calendar/Calendar";
 
-import { createEvent } from "../../api/events";
+import { getEvents, createEvent, deleteEvent, updateEvent } from "../../api/events";
 
 import { tags } from "../../utility/calendars";
 
-const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) => {
+const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, onDeleteClick, onCancelClick }) => {
   const { dispatch } = useEventsContext();
 
   const [allDay, setAllDay] = useState(false);
@@ -39,6 +39,35 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
   useEffect(() => {
     setDate(defaultDate);
   }, [defaultDate]);
+
+  useEffect(() => {
+    if (eventDetails) {
+      setAllDay(eventDetails.startTime === eventDetails.endTime ? true : false);
+
+      setEvent(eventDetails.event);
+      setUser(eventDetails.user);
+      setTag(eventDetails.tag);
+      setDate(
+        `${months[new Date(eventDetails.startTime).getMonth()]} ${new Date(eventDetails.startTime).getDate()}, ${new Date(
+          eventDetails.startTime
+        ).getFullYear()}`
+      );
+      setStartHours(
+        new Date(eventDetails.startTime).getHours() % 12 === 0
+          ? "12"
+          : (new Date(eventDetails.startTime).getHours() % 12).toString()
+      );
+      setStartMinutes(new Date(eventDetails.startTime).getMinutes() === 0 ? "00" : "30");
+      setStartPeriod(new Date(eventDetails.startTime).getHours() >= 12 ? "PM" : "AM");
+      setEndHours(
+        new Date(eventDetails.endTime).getHours() % 12 === 0
+          ? "12"
+          : (new Date(eventDetails.endTime).getHours() % 12).toString()
+      );
+      setEndMinutes(new Date(eventDetails.endTime).getMinutes() === 0 ? "00" : "30");
+      setEndPeriod(new Date(eventDetails.endTime).getHours() >= 12 ? "PM" : "AM");
+    }
+  }, [eventDetails]);
 
   const handleOnSave = async (e) => {
     e.preventDefault();
@@ -74,6 +103,54 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
     }
   };
 
+  const handleOnUpdate = async (e) => {
+    e.preventDefault();
+
+    const newEvent = {
+      event: event,
+      user: user,
+      tag: tag,
+      startTime: allDay
+        ? new Date(date)
+        : new Date(
+            `${date} ${
+              startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
+            }:${startMinutes}:00`
+          ),
+      endTime: allDay
+        ? new Date(date)
+        : new Date(
+            `${date} ${
+              endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
+            }:${endMinutes}:00`
+          ),
+    };
+
+    const json = await updateEvent(eventDetails, newEvent);
+
+    if (json) {
+      const events = await getEvents();
+
+      if (events) {
+        dispatch({ type: Actions.GET_EVENTS, payload: events });
+      }
+
+      clearForm();
+
+      onSaveClick();
+    }
+  };
+
+  const handleOnDelete = async () => {
+    const json = await deleteEvent(eventDetails);
+
+    if (json) {
+      dispatch({ type: Actions.DELETE_EVENT, payload: json });
+
+      onDeleteClick();
+    }
+  };
+
   const handleOnCancel = () => {
     clearForm();
 
@@ -94,8 +171,16 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
   };
 
   return (
-    <Modal title="Add New Event" open={open} action="Save" onAction={handleOnSave} onClose={handleOnCancel}>
-      <form onSubmit={handleOnSave}>
+    <Modal
+      title={`${type} Calendar Event`}
+      open={open}
+      action={type === "Edit" ? "Update" : "Save"}
+      secondaryAction={type === "Edit" ? "Delete" : ""}
+      onAction={type === "Edit" ? handleOnUpdate : handleOnSave}
+      onSecondaryAction={type === "Edit" ? handleOnDelete : null}
+      onClose={handleOnCancel}
+    >
+      <form onSubmit={type === "Edit" ? handleOnUpdate : handleOnSave}>
         <div className="flex flex-col gap-4">
           <div className="flex flex-row justify-between items-center">
             <div className="flex flex-col gap-0">
@@ -143,4 +228,4 @@ const AddNewEventModal = ({ open, selectedDate, onSaveClick, onCancelClick }) =>
   );
 };
 
-export default AddNewEventModal;
+export default EventFormModal;

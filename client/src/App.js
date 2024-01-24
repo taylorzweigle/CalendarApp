@@ -16,9 +16,9 @@ import Button from "./core/button/Button";
 import Card from "./core/card/Card";
 import Typography from "./core/typography/Typography";
 
-import AddNewEventModal from "./components/modals/AddNewEventModal";
 import Calendar, { months } from "./components/calendar/Calendar";
 import DetailsLayout from "./components/layouts/DetailsLayout";
+import EventFormModal from "./components/modals/EventFormModal";
 import HeaderLayout from "./components/layouts/HeaderLayout";
 import LegendLayout from "./components/layouts/LegendLayout";
 import MonthPicker from "./components/monthPicker/MonthPicker";
@@ -127,8 +127,9 @@ const App = () => {
 
   return (
     <>
-      <AddNewEventModal
+      <EventFormModal
         open={addModal}
+        type="Add"
         selectedDate={selectedDate}
         onSaveClick={() => setAddModal(false)}
         onCancelClick={() => setAddModal(false)}

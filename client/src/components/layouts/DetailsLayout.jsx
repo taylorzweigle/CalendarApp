@@ -8,8 +8,7 @@ import { daysOfWeek, months } from "../calendar/Calendar";
 
 import EventCard from "../cards/EventCard";
 
-//import CalendarEventModal from "../modals/CalendarEventModal";
-import EditCalendarEventModal from "../modals/EditCalendarEventModal";
+import EventFormModal from "../modals/EventFormModal";
 
 import { sortEvents } from "../../utility/utility";
 
@@ -38,15 +37,11 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
 
   return (
     <>
-      {/**<CalendarEventModal
+      <EventFormModal
         open={eventModal}
+        type="Edit"
         eventDetails={eventDetails}
-        onDeleteClick={(event) => handleDeleteEvent(event)}
-        onCancelClick={() => setEventModal(false)}
-  />**/}
-      <EditCalendarEventModal
-        open={eventModal}
-        eventDetails={eventDetails}
+        selectedDate={selectedDate}
         onSaveClick={() => setEventModal(false)}
         onDeleteClick={() => setEventModal(false)}
         onCancelClick={() => setEventModal(false)}
