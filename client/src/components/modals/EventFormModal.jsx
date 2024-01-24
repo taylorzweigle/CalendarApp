@@ -34,6 +34,12 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
   const [endMinutes, setEndMinutes] = useState("");
   const [endPeriod, setEndPeriod] = useState("");
 
+  const [eventError, setEventError] = useState("");
+  const [userError, setUserError] = useState("");
+  const [tagError, setTagError] = useState("");
+  const [startTimeError, setStartTimeError] = useState("");
+  const [endTimeError, setEndTimeError] = useState("");
+
   const defaultDate = `${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`;
 
   useEffect(() => {
@@ -72,6 +78,8 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
   const handleOnSave = async (e) => {
     e.preventDefault();
 
+    clearErrors();
+
     const newEvent = {
       event: event,
       user: user,
@@ -94,8 +102,26 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
 
     const json = await createEvent(newEvent);
 
-    if (json) {
-      dispatch({ type: Actions.CREATE_EVENT, payload: json });
+    if (json.error) {
+      if (json.error.includes("event")) {
+        setEventError("Event is required");
+      }
+      if (json.error.includes("user")) {
+        setUserError("User is required");
+      }
+      if (json.error.includes("tag")) {
+        setTagError("Tag is required");
+      }
+      if (json.error.includes("startTime")) {
+        setStartTimeError("Start Time is required");
+      }
+      if (json.error.includes("endTime")) {
+        setEndTimeError("End Time is required");
+      }
+    }
+
+    if (json.json) {
+      dispatch({ type: Actions.CREATE_EVENT, payload: json.json });
 
       clearForm();
 
@@ -128,11 +154,11 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
 
     const json = await updateEvent(eventDetails, newEvent);
 
-    if (json) {
+    if (json.json) {
       const events = await getEvents();
 
-      if (events) {
-        dispatch({ type: Actions.GET_EVENTS, payload: events });
+      if (events.json) {
+        dispatch({ type: Actions.GET_EVENTS, payload: events.json });
       }
 
       clearForm();
@@ -144,8 +170,8 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
   const handleOnDelete = async () => {
     const json = await deleteEvent(eventDetails);
 
-    if (json) {
-      dispatch({ type: Actions.DELETE_EVENT, payload: json });
+    if (json.json) {
+      dispatch({ type: Actions.DELETE_EVENT, payload: json.json });
 
       onDeleteClick();
     }
@@ -168,6 +194,16 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
     setEndHours("");
     setEndMinutes("");
     setEndPeriod("");
+
+    clearErrors();
+  };
+
+  const clearErrors = () => {
+    setEventError("");
+    setUserError("");
+    setTagError("");
+    setStartTimeError("");
+    setEndTimeError("");
   };
 
   return (
@@ -191,15 +227,23 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
             </div>
             <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
           </div>
-          <TextInput label="Event" value={event} onChange={(e) => setEvent(e.target.value)} />
+          <TextInput label="Event" error={eventError} value={event} onChange={(e) => setEvent(e.target.value)} />
           <SelectInput
             label="User"
             value={user}
+            error={userError}
             items={["", "Husband", "Wife", "Us", "Calendar"]}
             showLabel
             onChange={(e) => setUser(e.target.value)}
           />
-          <SelectInput label="Tag" value={tag} items={tags} showLabel onChange={(e) => setTag(e.target.value)} />
+          <SelectInput
+            label="Tag"
+            value={tag}
+            error={tagError}
+            items={tags}
+            showLabel
+            onChange={(e) => setTag(e.target.value)}
+          />
           {!allDay && (
             <>
               <TimeInput
@@ -207,6 +251,7 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
                 hour={startHours}
                 minutes={startMinutes}
                 period={startPeriod}
+                error={startTimeError}
                 onHourChange={(e) => setStartHours(e.target.value)}
                 onMinutesChange={(e) => setStartMinutes(e.target.value)}
                 onPeriodChange={(e) => setStartPeriod(e.target.value)}
@@ -216,6 +261,7 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
                 hour={endHours}
                 minutes={endMinutes}
                 period={endPeriod}
+                error={endTimeError}
                 onHourChange={(e) => setEndHours(e.target.value)}
                 onMinutesChange={(e) => setEndMinutes(e.target.value)}
                 onPeriodChange={(e) => setEndPeriod(e.target.value)}

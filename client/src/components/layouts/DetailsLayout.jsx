@@ -30,7 +30,7 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
   const handleEventCardClick = async (event) => {
     const res = await getEvent(event);
 
-    setEventDetails(res);
+    setEventDetails(res.json);
 
     setEventModal(true);
   };

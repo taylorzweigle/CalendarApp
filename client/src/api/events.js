@@ -4,8 +4,11 @@ export const getEvents = async () => {
 
   const json = await res.json();
 
+  if (!res.ok) {
+    return { json: null, error: json.error };
+  }
   if (res.ok) {
-    return json;
+    return { json: json, error: "" };
   }
 };
 
@@ -14,8 +17,11 @@ export const getEvent = async (event) => {
 
   const json = await res.json();
 
+  if (!res.ok) {
+    return { json: null, error: json.error };
+  }
   if (res.ok) {
-    return json;
+    return { json: json, error: "" };
   }
 };
 
@@ -28,8 +34,11 @@ export const createEvent = async (body) => {
 
   const json = await res.json();
 
+  if (!res.ok) {
+    return { json: null, error: json.error };
+  }
   if (res.ok) {
-    return json;
+    return { json: json, error: "" };
   }
 };
 
@@ -40,8 +49,11 @@ export const deleteEvent = async (event) => {
 
   const json = await res.json();
 
+  if (!res.ok) {
+    return { json: null, error: json.error };
+  }
   if (res.ok) {
-    return json;
+    return { json: json, error: "" };
   }
 };
 
@@ -54,7 +66,10 @@ export const updateEvent = async (event, body) => {
 
   const json = await res.json();
 
+  if (!res.ok) {
+    return { json: null, error: json.error };
+  }
   if (res.ok) {
-    return json;
+    return { json: json, error: "" };
   }
 };

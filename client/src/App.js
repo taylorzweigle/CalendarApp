@@ -40,7 +40,7 @@ const App = () => {
     const fetchEvents = async () => {
       const events = await getEvents();
 
-      dispatch({ type: Actions.GET_EVENTS, payload: events });
+      dispatch({ type: Actions.GET_EVENTS, payload: events.json });
     };
 
     fetchEvents();

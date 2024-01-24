@@ -1,14 +1,21 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
+import CheckIcon from "@mui/icons-material/Check";
+
 const Checkbox = ({ selected, onClick }) => {
   return (
-    <div className="flex flex-row items-center gap-2 cursor-pointer">
-      <input id="checkbox" className="h-5 w-5 cursor-pointer" type="checkbox" checked={selected} onChange={onClick} />
-      <label htmlFor="checkbox" className="text-base text-slate-700 dark:text-white cursor-pointer">
-        All Day
-      </label>
-    </div>
+    <label className="block relative pl-8 text-base text-slate-700 dark:text-white cursor-pointer">
+      All Day
+      <input type="checkbox" className="absolute opacity-0 h-0 w-0" checked={selected} onChange={onClick} />
+      <span
+        className={`absolute flex justify-center items-center top-0 left-0 h-7 w-7 border-2 border-slate-400 dark:border-slate-600 rounded-lg ${
+          selected ? "bg-blue-500 dark:bg-blue-600" : "bg-white dark:bg-slate-950"
+        } `}
+      >
+        {selected && <CheckIcon className="text-white" fontSize="small" />}
+      </span>
+    </label>
   );
 };
 
