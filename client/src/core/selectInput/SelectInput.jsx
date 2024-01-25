@@ -10,7 +10,7 @@ const SelectInput = ({ label, value, error, items, showLabel, onChange }) => {
         id={label}
         value={value}
         onChange={onChange}
-        className="bg-white dark:bg-slate-950 border border-slate-400 dark:border-slate-600 text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12"
+        className="bg-white dark:bg-slate-950 border-2 border-slate-400 dark:border-slate-600 text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12"
       >
         {items.map((item) => (
           <option key={item} value={item}>

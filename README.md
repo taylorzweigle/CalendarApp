@@ -13,8 +13,9 @@ The app allows for navigating to the previous and next months using arrow button
 
 ### Add Event
 
-![Create_Event](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Add_Event_Dark.png)
-![Create_Event](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Add_Event_Light.png)
+| Dark Theme                                                                                                   | Light Theme                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| ![Create_Event](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Add_Event_Dark.png) | ![Create_Event](https://github.com/taylorzweigle/Schedule-App/blob/main/img/Schedule_App_Add_Event_Light.png) |
 
 ### View Event
 
