@@ -5,6 +5,7 @@ import ConstructionIcon from "@mui/icons-material/Construction";
 import EscalatorWarningIcon from "@mui/icons-material/EscalatorWarning";
 import FaceIcon from "@mui/icons-material/Face";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FlightIcon from "@mui/icons-material/Flight";
 import GroupsIcon from "@mui/icons-material/Groups";
 import StadiumIcon from "@mui/icons-material/Stadium";
 import TodayIcon from "@mui/icons-material/Today";
@@ -80,6 +81,9 @@ export const getIcons = (tag) => {
       break;
     case "serve":
       icon = <EscalatorWarningIcon fontSize={size} />;
+      break;
+    case "travel":
+      icon = <FlightIcon fontSize={size} />;
       break;
     case "work":
       icon = <WorkIcon fontSize={size} />;

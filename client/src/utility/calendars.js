@@ -6,4 +6,4 @@ export const calendars = [
   { id: 4, user: "Calendar", color: "amber" },
 ];
 
-export const tags = ["", "chores", "family", "friends", "fun", "holiday", "personal", "sports", "serve", "work"];
+export const tags = ["", "chores", "family", "friends", "fun", "holiday", "personal", "sports", "serve", "travel", "work"];
