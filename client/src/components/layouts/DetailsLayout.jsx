@@ -47,7 +47,7 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
         onCancelClick={() => setEventModal(false)}
       />
       <div className="flex flex-col gap-8 border-b border-slate-300 dark:border-slate-600 p-8">
-        <Typography variant="subheading">
+        <Typography variant="subheading" center>
           {`${daysOfWeek[selectedDate.weekday]}, ${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`}
         </Typography>
         <div className="flex flex-col gap-4">

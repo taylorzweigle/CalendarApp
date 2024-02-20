@@ -26,7 +26,9 @@ const HeaderLayout = ({ user, onAddEventClick }) => {
         <div className="flex flex-row items-center gap-2">
           <Avatar image={image} user={user.slice(0, 1)} />
           <span className="sm:block md:hidden lg:block">
-            <Typography variant="heading">{user}</Typography>
+            <Typography variant="heading" truncate>
+              {user}
+            </Typography>
           </span>
         </div>
         <Button prefix={darkMode ? <LightModeIcon /> : <ModeNightIcon />} onClick={handleThemeButton} />

@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-const Typography = ({ variant, color, bold, children }) => {
+const Typography = ({ variant, color, bold, truncate, center, children }) => {
   let variantClass = "";
 
   switch (variant) {
@@ -28,7 +28,11 @@ const Typography = ({ variant, color, bold, children }) => {
   }
 
   return (
-    <p className={`${variantClass} ${color ? color : "text-slate-700 dark:text-white"} ${bold ? "font-bold" : null}`}>
+    <p
+      className={`${variantClass} ${color ? color : "text-slate-700 dark:text-white"} ${bold ? "font-bold" : null} ${
+        truncate && "line-clamp-1"
+      } ${center && "text-center"}`}
+    >
       {children}
     </p>
   );
