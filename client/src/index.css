@@ -4,5 +4,5 @@
 @tailwind utilities;
 
 body {
-  @apply bg-slate-200 dark:bg-slate-950 p-12;
+  @apply bg-slate-200 dark:bg-slate-950 p-0 sm:p-8 md:p-12;
 }

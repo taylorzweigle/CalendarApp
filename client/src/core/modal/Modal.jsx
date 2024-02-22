@@ -9,10 +9,10 @@ const Modal = ({ children, open, title, action, secondaryAction, onAction, onSec
   return (
     <div
       className={`${
-        open ? "block" : "hidden"
+        open ? "flex" : "hidden"
       } fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-slate-950/50 dark:bg-slate-500/50 drop-shadow-md`}
     >
-      <div className="m-auto p-8 sm:w-4/5 md:w-2/5">
+      <div className="m-auto p-8 w-full sm:w-128">
         <Card>
           <div className="flex flex-col gap-8 p-8">
             <Typography variant="heading">{title}</Typography>

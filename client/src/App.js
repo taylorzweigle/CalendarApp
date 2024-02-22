@@ -21,10 +21,10 @@ import DetailsLayout from "./components/layouts/DetailsLayout";
 import EventFormModal from "./components/modals/EventFormModal";
 import HeaderLayout from "./components/layouts/HeaderLayout";
 import LegendLayout from "./components/layouts/LegendLayout";
-import MonthPicker from "./components/monthPicker/MonthPicker";
 
 import { calendars } from "./utility/calendars";
 import { filterEvents } from "./utility/utility";
+import MonthPickerModal from "./components/modals/MonthPickerModal";
 
 const App = () => {
   const today = new Date();
@@ -134,42 +134,45 @@ const App = () => {
         onSaveClick={() => setAddModal(false)}
         onCancelClick={() => setAddModal(false)}
       />
+      <MonthPickerModal
+        open={monthPicker}
+        selectedMonth={selectedDate.month}
+        onSaveClick={(month) => handleMonthPickerChange(month)}
+        onCancelClick={() => setMonthPicker(false)}
+      />
       <Card border>
         <div className="grid grid-cols-12 m-auto w-full">
-          <div className="sm:col-span-12 md:col-span-3 border-r border-slate-300 dark:border-slate-600">
+          <div className="col-span-12 sm:col-span-12 md:col-span-3 md:border-r border-slate-300 dark:border-slate-600">
             <div className="grid grid-cols-12 m-auto w-full">
-              <div className="sm:col-span-12 md:col-span-12">
+              <div className="col-span-12 sm:col-span-12 md:col-span-12">
                 <HeaderLayout user="Taylor Zweigle" onAddEventClick={() => setAddModal(true)} />
               </div>
-              <div className="sm:col-span-12 md:col-span-12">
+              <div className="col-span-12 sm:col-span-12 md:col-span-12">
                 <DetailsLayout
                   data={filterEvents(visibleCalendars, events)}
                   calendars={calendars}
                   selectedDate={selectedDate}
                 />
               </div>
-              <div className="sm:col-span-12 md:col-span-12">
+              <div className="col-span-12 sm:col-span-12 md:col-span-12">
                 <LegendLayout onClick={handleLegendChange} />
               </div>
             </div>
           </div>
-          <div className="sm:col-span-12 md:col-span-9 flex flex-col gap-4 p-8">
-            <div className="flex flex-row justify-between items-center">
-              <div className="flex flex-row gap-4 items-center">
+          <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col gap-4 p-4 sm:p-8">
+            <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 sm:gap-8">
+              <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
                 <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
-                <div>
-                  <Button prefix={<ArrowDropDownIcon />} onClick={() => setMonthPicker(!monthPicker)} />
-                  <div className={`absolute ${monthPicker ? "block" : "hidden"}`}>
-                    <Card border>
-                      <MonthPicker selectedMonth={selectedDate.month} onChange={(month) => handleMonthPickerChange(month)} />
-                    </Card>
-                  </div>
-                </div>
+                <Button prefix={<ArrowDropDownIcon />} onClick={() => setMonthPicker(!monthPicker)} />
               </div>
-              <div className="flex flex-row gap-4 items-center">
-                <Button prefix={<TodayIcon />} onClick={() => handleTodayClick()} />
-                <Button prefix={<ArrowBackIcon />} onClick={() => handlePreviousButtonClick()} />
-                <Button prefix={<ArrowForwardIcon />} onClick={() => handleNextButtonClick()} />
+              <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
+                <Button prefix={<TodayIcon />} onClick={() => handleTodayClick()}>
+                  <span className="block sm:block md:hidden">Today</span>
+                </Button>
+                <div className="flex flex-row gap-4 items-center">
+                  <Button prefix={<ArrowBackIcon />} onClick={() => handlePreviousButtonClick()} />
+                  <Button prefix={<ArrowForwardIcon />} onClick={() => handleNextButtonClick()} />
+                </div>
               </div>
             </div>
             <Calendar
