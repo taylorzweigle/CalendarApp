@@ -21,10 +21,10 @@ import DetailsLayout from "./components/layouts/DetailsLayout";
 import EventFormModal from "./components/modals/EventFormModal";
 import HeaderLayout from "./components/layouts/HeaderLayout";
 import LegendLayout from "./components/layouts/LegendLayout";
+import MonthPickerModal from "./components/modals/MonthPickerModal";
 
 import { calendars } from "./utility/calendars";
 import { filterEvents } from "./utility/utility";
-import MonthPickerModal from "./components/modals/MonthPickerModal";
 
 const App = () => {
   const today = new Date();
