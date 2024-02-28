@@ -3,14 +3,14 @@ import React from "react";
 
 import Typography from "../typography/Typography";
 
-const TextInput = ({ label, value, error, onChange }) => {
+const TextInput = ({ label, value, type, error, onChange }) => {
   return (
     <div className="flex flex-col gap-2">
       <Typography variant="body1" color="text-slate-500 dark:text-slate-400">
         {label}
       </Typography>
       <input
-        type="text"
+        type={type}
         id={label}
         value={value}
         onChange={onChange}
