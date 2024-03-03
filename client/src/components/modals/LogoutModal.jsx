@@ -1,6 +1,5 @@
 //Taylor Zweigle, 2024
 import React from "react";
-import { Link } from "react-router-dom";
 
 import Button from "../../core/button/Button";
 import Card from "../../core/card/Card";
@@ -18,12 +17,9 @@ const LogoutModal = ({ open, onLogoutClick, onCancelClick }) => {
           <div className="flex flex-col gap-8 p-8">
             <Typography variant="heading">Logout</Typography>
             <Typography>Are you sure you want to logout?</Typography>
-
             <div className="flex flex-row justify-end gap-4">
               <Button onClick={onCancelClick}>Cancel</Button>
-              <Link to="/login">
-                <Button onClick={onLogoutClick}>Logout</Button>
-              </Link>
+              <Button onClick={onLogoutClick}>Logout</Button>
             </div>
           </div>
         </Card>

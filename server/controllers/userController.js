@@ -9,6 +9,12 @@ const createToken = (_id) => {
   });
 };
 
+const getUsers = async (req, res) => {
+  const users = await User.find({});
+
+  res.status(200).json(users);
+};
+
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -19,7 +25,7 @@ const loginUser = async (req, res) => {
 
     res.status(200).json({ email, token });
   } catch (error) {
-    res.status(404).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 };
 
@@ -37,4 +43,4 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { loginUser, registerUser };
+module.exports = { getUsers, loginUser, registerUser };

@@ -1,6 +1,8 @@
 //Taylor Zweigle, 2024
-export const getEvents = async () => {
-  const res = await fetch("/api/events");
+export const getEvents = async (token) => {
+  const res = await fetch("/api/events", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   const json = await res.json();
 
@@ -12,8 +14,10 @@ export const getEvents = async () => {
   }
 };
 
-export const getEvent = async (event) => {
-  const res = await fetch(`/api/events/${event._id}`);
+export const getEvent = async (event, token) => {
+  const res = await fetch(`/api/events/${event._id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   const json = await res.json();
 
@@ -25,10 +29,13 @@ export const getEvent = async (event) => {
   }
 };
 
-export const createEvent = async (body) => {
+export const createEvent = async (body, token) => {
   const res = await fetch("/api/events", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(body),
   });
 
@@ -42,9 +49,12 @@ export const createEvent = async (body) => {
   }
 };
 
-export const deleteEvent = async (event) => {
+export const deleteEvent = async (event, token) => {
   const res = await fetch(`/api/events/${event._id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   const json = await res.json();
@@ -57,10 +67,13 @@ export const deleteEvent = async (event) => {
   }
 };
 
-export const updateEvent = async (event, body) => {
+export const updateEvent = async (event, body, token) => {
   const res = await fetch(`/api/events/${event._id}`, {
     method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(body),
   });
 

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import * as Actions from "../../actions";
 
+import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEventsContext } from "../../hooks/useEventsContext";
 
 import Checkbox from "../../core/checkbox/Checkbox";
@@ -19,6 +20,8 @@ import { getEvents, createEvent, deleteEvent, updateEvent } from "../../api/even
 import { tags } from "../../utility/calendars";
 
 const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, onDeleteClick, onCancelClick }) => {
+  const { user: authUser } = useAuthContext();
+
   const { dispatch } = useEventsContext();
 
   const [allDay, setAllDay] = useState(false);
@@ -78,6 +81,10 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
   const handleOnSave = async (e) => {
     e.preventDefault();
 
+    if (!authUser) {
+      return;
+    }
+
     clearErrors();
 
     const newEvent = {
@@ -100,7 +107,7 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
           ),
     };
 
-    const json = await createEvent(newEvent);
+    const json = await createEvent(newEvent, authUser.token);
 
     if (json.error) {
       if (json.error.includes("event")) {
@@ -132,6 +139,10 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
   const handleOnUpdate = async (e) => {
     e.preventDefault();
 
+    if (!authUser) {
+      return;
+    }
+
     const newEvent = {
       event: event,
       user: user,
@@ -152,10 +163,10 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
           ),
     };
 
-    const json = await updateEvent(eventDetails, newEvent);
+    const json = await updateEvent(eventDetails, newEvent, authUser.token);
 
     if (json.json) {
-      const events = await getEvents();
+      const events = await getEvents(authUser.token);
 
       if (events.json) {
         dispatch({ type: Actions.GET_EVENTS, payload: events.json });
@@ -168,7 +179,7 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
   };
 
   const handleOnDelete = async () => {
-    const json = await deleteEvent(eventDetails);
+    const json = await deleteEvent(eventDetails, authUser.token);
 
     if (json.json) {
       dispatch({ type: Actions.DELETE_EVENT, payload: json.json });

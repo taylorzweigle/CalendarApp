@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import * as Actions from "../actions";
 
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useEventsContext } from "../hooks/useEventsContext";
 
 import { getEvents } from "../api/events";
@@ -27,6 +28,8 @@ import { calendars } from "../utility/calendars";
 import { filterEvents } from "../utility/utility";
 
 const CalendarApp = () => {
+  const { user } = useAuthContext();
+
   const today = new Date();
 
   const { events, dispatch } = useEventsContext();
@@ -38,13 +41,15 @@ const CalendarApp = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const events = await getEvents();
+      const events = await getEvents(user.token);
 
       dispatch({ type: Actions.GET_EVENTS, payload: events.json });
     };
 
-    fetchEvents();
-  }, [dispatch]);
+    if (user) {
+      fetchEvents();
+    }
+  }, [dispatch, user]);
 
   useEffect(() => {
     setVisibleCalendars(calendars.map((calendar) => calendar.user));

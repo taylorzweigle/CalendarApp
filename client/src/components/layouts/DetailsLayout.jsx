@@ -1,6 +1,8 @@
 //Taylor Zweigle, 2024
 import React, { useState } from "react";
 
+import { useAuthContext } from "../../hooks/useAuthContext";
+
 import EmptyState from "../../core/emptyState/EmptyState";
 import Typography from "../../core/typography/Typography";
 
@@ -15,6 +17,8 @@ import { sortEvents } from "../../utility/utility";
 import { getEvent } from "../../api/events";
 
 const DetailsLayout = ({ data, calendars, selectedDate }) => {
+  const { user } = useAuthContext();
+
   const [eventModal, setEventModal] = useState(false);
   const [eventDetails, setEventDetails] = useState(null);
 
@@ -28,7 +32,11 @@ const DetailsLayout = ({ data, calendars, selectedDate }) => {
     : [];
 
   const handleEventCardClick = async (event) => {
-    const res = await getEvent(event);
+    if (!user) {
+      return;
+    }
+
+    const res = await getEvent(event, user.token);
 
     setEventDetails(res.json);
 
