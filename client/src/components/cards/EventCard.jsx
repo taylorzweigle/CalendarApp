@@ -12,9 +12,9 @@ const EventCard = ({ event, startTime, endTime, color, tag, condensed, onClick }
 
   return (
     <div
-      className={`flex flex-row justify-start items-center cursor-pointer ${condensed ? "h-8" : "h-14"} ${colors.bg} border ${
-        colors.border
-      } rounded-md overflow-clip ${condensed ? "px-0" : "px-2"}`}
+      className={`flex flex-row justify-start items-center cursor-pointer ${condensed ? "h-6 sm:h-6 md:h-8" : "h-14"} ${
+        colors.bg
+      } border ${colors.border} rounded-md overflow-clip ${condensed ? "px-0" : "px-2"}`}
       onClick={onClick}
     >
       {condensed ? null : <div className={`flex justify-center items-center ${colors.icon} rounded w-6 h-6`}>{icon}</div>}

@@ -92,7 +92,7 @@ const Calendar = ({ data, calendars, today, selectedDate, onSelectDay }) => {
                   selected={selectedDate.date === day.day}
                   onClick={day.day > 0 ? () => onSelectDay(selectedDate.year, selectedDate.month, day.day) : null}
                 >
-                  <div className="flex flex-col gap-2 h-full">
+                  <div className="flex flex-col gap-1 sm:gap-1 md:gap-2 h-full">
                     {data &&
                       sortEvents(
                         data.filter(
