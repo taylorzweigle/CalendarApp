@@ -1,5 +1,5 @@
 //Taylor Zweigle, 2024
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Chip from "../../core/chip/Chip";
 import Modal from "../../core/modal/Modal";
@@ -7,7 +7,11 @@ import Modal from "../../core/modal/Modal";
 import { months } from "../calendar/Calendar";
 
 const MonthPickerModal = ({ open, selectedMonth, onSaveClick, onCancelClick }) => {
-  const [month, setMonth] = useState(months[selectedMonth]);
+  const [month, setMonth] = useState(0);
+
+  useEffect(() => {
+    setMonth(months[selectedMonth]);
+  }, [selectedMonth]);
 
   const handleCancelClick = () => {
     setMonth(months[selectedMonth]);
