@@ -21,12 +21,12 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-full">
-      <div className="w-128">
+    <div className="flex w-full h-full">
+      <div className="w-128 p-8 m-auto">
         <form onSubmit={handleSubmit}>
           <Card border>
             <div className="flex flex-col gap-4 p-8">
-              <Typography variant="heading">Login</Typography>
+              <Typography variant="heading">Calendar App</Typography>
               <TextInput label="Email" type="email" onChange={(e) => setEmail(e.target.value)} value={email} />
               <TextInput label="Password" type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
               <Button disabled={loading}>Login</Button>
