@@ -5,6 +5,8 @@ import * as ACTIONS from "../actions";
 
 import { useAuthContext } from "./useAuthContext";
 
+const API_URL = process.env.NODE_ENV === "production" ? "https://calendar-app-server-pi.vercel.app" : "http://localhost:5000";
+
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,7 @@ export const useLogin = () => {
     setLoading(true);
     setError(null);
 
-    const res = await fetch("http://localhost:5000/api/users/login", {
+    const res = await fetch(`${API_URL}/api/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
