@@ -3,12 +3,29 @@ import React from "react";
 
 import Typography from "../typography/Typography";
 
-const Button = ({ prefix, onClick, children }) => {
+const Button = ({ prefix, variant, onClick, children }) => {
+  let variantClass = "";
+
+  switch (variant) {
+    case "default":
+      variantClass =
+        "bg-slate-100 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500";
+      break;
+    case "primary":
+      variantClass =
+        "bg-sky-100 dark:bg-sky-700 hover:bg-sky-300 dark:hover:bg-sky-600 border border-sky-500 dark:border-sky-500";
+      break;
+    case "error":
+      variantClass =
+        "bg-rose-100 dark:bg-rose-700 hover:bg-rose-300 dark:hover:bg-rose-600 border border-rose-500 dark:border-rose-500";
+      break;
+    default:
+      variantClass =
+        "bg-slate-100 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500";
+  }
+
   return (
-    <button
-      className="bg-slate-100 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500 rounded-lg px-4 h-12"
-      onClick={onClick}
-    >
+    <button className={`${variantClass} rounded-lg px-4 h-12`} onClick={onClick}>
       <div className="flex flex-row gap-1 justify-center items-center">
         {prefix ? <span className="text-slate-700 dark:text-white">{prefix}</span> : null}
         {children ? (

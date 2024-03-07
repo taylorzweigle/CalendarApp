@@ -9,7 +9,7 @@ import TextInput from "../core/textInput/TextInput";
 import Typography from "../core/typography/Typography";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const { login, error, loading } = useLogin();
@@ -17,20 +17,24 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await login(email, password);
+    await login(username, password);
   };
 
   return (
     <div className="flex w-full h-full">
-      <div className="w-128 p-8 m-auto">
+      <div className="w-128 p-4 sm:p-8 m-auto">
         <form onSubmit={handleSubmit}>
           <Card border>
-            <div className="flex flex-col gap-4 p-8">
-              <Typography variant="heading">Calendar App</Typography>
-              <TextInput label="Email" type="email" onChange={(e) => setEmail(e.target.value)} value={email} />
-              <TextInput label="Password" type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
-              <Button disabled={loading}>Login</Button>
-              {error && <Typography color="text-rose-500">{error}</Typography>}
+            <div className="flex flex-col gap-8 p-4 sm:p-8">
+              <div className="flex flex-col gap-4">
+                <Typography variant="heading">Calendar App</Typography>
+                <TextInput label="Username" type="text" onChange={(e) => setUsername(e.target.value)} value={username} />
+                <TextInput label="Password" type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
+                {error && <Typography color="text-rose-500">{error}</Typography>}
+              </div>
+              <Button variant="primary" disabled={loading}>
+                Login
+              </Button>
             </div>
           </Card>
         </form>

@@ -19,11 +19,19 @@ const Modal = ({ children, open, title, action, secondaryAction, onAction, onSec
             {children}
             <div className="flex flex-row justify-between">
               <div className="flex flex-row justify-end gap-4">
-                {secondaryAction && <Button onClick={onSecondaryAction}>{secondaryAction}</Button>}
+                {secondaryAction && (
+                  <Button variant="error" onClick={onSecondaryAction}>
+                    {secondaryAction}
+                  </Button>
+                )}
               </div>
               <div className="flex flex-row justify-end gap-4">
-                <Button onClick={onClose}>Cancel</Button>
-                <Button onClick={onAction}>{action}</Button>
+                <Button variant="default" onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button variant="primary" onClick={onAction}>
+                  {action}
+                </Button>
               </div>
             </div>
           </div>

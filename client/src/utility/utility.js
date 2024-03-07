@@ -21,31 +21,31 @@ export const getColors = (color) => {
       colorObject.bg = "bg-emerald-100 dark:bg-emerald-700";
       colorObject.border = "border-emerald-600 dark:border-emerald-400";
       colorObject.text = "text-emerald-700 dark:text-white";
-      colorObject.icon = "text-emerald-700 dark:text-white";
+      colorObject.icon = "text-emerald-700 dark:text-emerald-50";
       break;
     case "purple":
       colorObject.bg = "bg-purple-100 dark:bg-purple-700";
       colorObject.border = "border-purple-600 dark:border-purple-400";
       colorObject.text = "text-purple-700 dark:text-white";
-      colorObject.icon = "text-purple-700 dark:text-white";
+      colorObject.icon = "text-purple-700 dark:text-purple-50";
       break;
     case "sky":
       colorObject.bg = "bg-sky-100 dark:bg-sky-700";
       colorObject.border = "border-sky-600 dark:border-sky-400";
       colorObject.text = "text-sky-700 dark:text-white";
-      colorObject.icon = "text-sky-700 dark:text-white";
+      colorObject.icon = "text-sky-700 dark:text-sky-50";
       break;
     case "amber":
       colorObject.bg = "bg-amber-100 dark:bg-amber-800";
       colorObject.border = "border-amber-600 dark:border-amber-600";
       colorObject.text = "text-amber-700 dark:text-white";
-      colorObject.icon = "text-amber-700 dark:text-white";
+      colorObject.icon = "text-amber-700 dark:text-amber-50";
       break;
     default:
       colorObject.bg = "bg-slate-50 dark:bg-slate-700";
       colorObject.border = "border-slate-500 dark:border-slate-400";
       colorObject.text = "text-slate-700 dark:text-white";
-      colorObject.icon = "text-slate-700 dark:text-white";
+      colorObject.icon = "text-slate-700 dark:text-slate-50";
       break;
   }
 

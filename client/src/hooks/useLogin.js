@@ -13,7 +13,7 @@ export const useLogin = () => {
 
   const { dispatch } = useAuthContext();
 
-  const login = async (email, password) => {
+  const login = async (username, password) => {
     setLoading(true);
     setError(null);
 
@@ -22,7 +22,7 @@ export const useLogin = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, password }),
     });
 
     const json = await res.json();

@@ -6,7 +6,7 @@ const validator = require("validator");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  email: {
+  username: {
     type: String,
     required: true,
     unique: true,
@@ -17,12 +17,16 @@ const userSchema = new Schema({
   },
 });
 
-userSchema.statics.login = async function (email, password) {
-  if (!email || !password) {
-    throw new Error("Email and password are required");
+userSchema.statics.login = async function (username, password) {
+  if (!username && !password) {
+    throw new Error("Username and password are required");
+  } else if (!username) {
+    throw new Error("Username is required");
+  } else if (!password) {
+    throw new Error("Password is required");
   }
 
-  const user = await this.findOne({ email });
+  const user = await this.findOne({ username });
 
   if (!user) {
     throw new Error("User does not exist");
@@ -37,18 +41,15 @@ userSchema.statics.login = async function (email, password) {
   return user;
 };
 
-userSchema.statics.register = async function (email, password) {
-  if (!email || !password) {
-    throw new Error("Email and password are required");
-  }
-  if (!validator.isEmail(email)) {
-    throw new Error("Invalid email");
+userSchema.statics.register = async function (username, password) {
+  if (!username || !password) {
+    throw new Error("Username and password are required");
   }
   if (!validator.isStrongPassword(password)) {
     throw new Error("Password must be at least 8 characters");
   }
 
-  const exists = await this.findOne({ email });
+  const exists = await this.findOne({ username });
 
   if (exists) {
     throw new Error("User already exists");
@@ -58,7 +59,7 @@ userSchema.statics.register = async function (email, password) {
 
   const hash = await bcrypt.hash(password, salt);
 
-  const user = await this.create({ email, password: hash });
+  const user = await this.create({ username, password: hash });
 
   return user;
 };

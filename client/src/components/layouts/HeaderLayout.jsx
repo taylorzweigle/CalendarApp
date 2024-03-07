@@ -46,9 +46,9 @@ const HeaderLayout = ({ user, onAddEventClick }) => {
               </Typography>
             </span>
           </div>
-          <Button prefix={darkMode ? <LightModeIcon /> : <ModeNightIcon />} onClick={handleThemeButton} />
+          <Button variant="default" prefix={darkMode ? <LightModeIcon /> : <ModeNightIcon />} onClick={handleThemeButton} />
         </div>
-        <Button prefix={<AddIcon />} onClick={onAddEventClick}>
+        <Button variant="default" prefix={<AddIcon />} onClick={onAddEventClick}>
           <span className="inline-flex">Add&nbsp;</span>
           <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Event</span>
         </Button>
