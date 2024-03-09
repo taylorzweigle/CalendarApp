@@ -1,5 +1,6 @@
 //Taylor Zweigle, 2024
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import AddIcon from "@mui/icons-material/Add";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -33,6 +34,15 @@ const HeaderLayout = ({ user, onAddEventClick }) => {
     setOpen(false);
   };
 
+  const addEventButton = () => {
+    return (
+      <Button variant="default" fullWidth prefix={<AddIcon />} onClick={onAddEventClick}>
+        <span className="inline-flex">Add&nbsp;</span>
+        <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Event</span>
+      </Button>
+    );
+  };
+
   return (
     <>
       <LogoutModal open={open} onLogoutClick={handleLogoutClick} onCancelClick={() => setOpen(false)} />
@@ -48,10 +58,10 @@ const HeaderLayout = ({ user, onAddEventClick }) => {
           </div>
           <Button variant="default" prefix={darkMode ? <LightModeIcon /> : <ModeNightIcon />} onClick={handleThemeButton} />
         </div>
-        <Button variant="default" prefix={<AddIcon />} onClick={onAddEventClick}>
-          <span className="inline-flex">Add&nbsp;</span>
-          <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Event</span>
-        </Button>
+        <Link className="block sm:hidden" to="/event">
+          {addEventButton()}
+        </Link>
+        <div className="hidden sm:block">{addEventButton()}</div>
       </div>
     </>
   );

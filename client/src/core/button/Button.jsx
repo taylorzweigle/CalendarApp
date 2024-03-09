@@ -3,7 +3,7 @@ import React from "react";
 
 import Typography from "../typography/Typography";
 
-const Button = ({ prefix, variant, onClick, children }) => {
+const Button = ({ prefix, variant, fullWidth, onClick, children }) => {
   let variantClass = "";
 
   switch (variant) {
@@ -25,7 +25,7 @@ const Button = ({ prefix, variant, onClick, children }) => {
   }
 
   return (
-    <button className={`${variantClass} rounded-lg px-4 h-12`} onClick={onClick}>
+    <button className={`${variantClass} ${fullWidth && "w-full"} rounded-lg px-4 h-12`} onClick={onClick}>
       <div className="flex flex-row gap-1 justify-center items-center">
         {prefix ? <span className="text-slate-700 dark:text-white">{prefix}</span> : null}
         {children ? (

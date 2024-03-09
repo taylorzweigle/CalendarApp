@@ -14,7 +14,9 @@ const DateInput = ({ label, month, date, year, onMonthChange, onDateChange, onYe
         {label}
       </Typography>
       <div className="flex flex-row gap-4">
-        <SelectInput label="month" value={month} items={["", ...months]} onChange={onMonthChange} />
+        <div className="w-256">
+          <SelectInput label="month" value={month} items={["", ...months]} onChange={onMonthChange} />
+        </div>
         <TextInput label="date" value={date} onChange={onDateChange} />
         <TextInput label="year" value={year} onChange={onYearChange} />
       </div>
