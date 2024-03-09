@@ -22,7 +22,7 @@ const SelectInput = ({ label, value, error, items, showLabel, onChange }) => {
   };
 
   return showLabel ? (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full">
       <Typography variant="body1" color="text-slate-500 dark:text-slate-400">
         {label}
       </Typography>

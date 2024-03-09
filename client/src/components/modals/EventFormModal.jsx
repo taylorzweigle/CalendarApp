@@ -7,11 +7,11 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEventsContext } from "../../hooks/useEventsContext";
 
 import Checkbox from "../../core/checkbox/Checkbox";
+import DateInput from "../../core/dateInput/DateInput";
 import Modal from "../../core/modal/Modal";
 import SelectInput from "../../core/selectInput/SelectInput";
 import TextInput from "../../core/textInput/TextInput";
 import TimeInput from "../../core/timeInput/TimeInput";
-import Typography from "../../core/typography/Typography";
 
 import { months } from "../calendar/Calendar";
 
@@ -29,7 +29,9 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
   const [event, setEvent] = useState("");
   const [user, setUser] = useState("");
   const [tag, setTag] = useState("");
+  const [month, setMonth] = useState("");
   const [date, setDate] = useState("");
+  const [year, setYear] = useState("");
   const [startHours, setStartHours] = useState("");
   const [startMinutes, setStartMinutes] = useState("");
   const [startPeriod, setStartPeriod] = useState("");
@@ -43,11 +45,11 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
   const [startTimeError, setStartTimeError] = useState("");
   const [endTimeError, setEndTimeError] = useState("");
 
-  const defaultDate = `${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`;
-
   useEffect(() => {
-    setDate(defaultDate);
-  }, [defaultDate]);
+    setMonth(months[selectedDate.month]);
+    setDate(selectedDate.date);
+    setYear(selectedDate.year);
+  }, [selectedDate]);
 
   useEffect(() => {
     if (eventDetails) {
@@ -56,24 +58,22 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
       setEvent(eventDetails.event);
       setUser(eventDetails.user);
       setTag(eventDetails.tag);
-      setDate(
-        `${months[new Date(eventDetails.startTime).getMonth()]} ${new Date(eventDetails.startTime).getDate()}, ${new Date(
-          eventDetails.startTime
-        ).getFullYear()}`
-      );
+      setMonth(months[new Date(eventDetails.startTime).getMonth()]);
+      setDate(new Date(eventDetails.startTime).getDate());
+      setYear(new Date(eventDetails.startTime).getFullYear());
       setStartHours(
         new Date(eventDetails.startTime).getHours() % 12 === 0
           ? "12"
           : (new Date(eventDetails.startTime).getHours() % 12).toString()
       );
-      setStartMinutes(new Date(eventDetails.startTime).getMinutes() === 0 ? "00" : "30");
+      setStartMinutes(new Date(eventDetails.startTime).getMinutes());
       setStartPeriod(new Date(eventDetails.startTime).getHours() >= 12 ? "PM" : "AM");
       setEndHours(
         new Date(eventDetails.endTime).getHours() % 12 === 0
           ? "12"
           : (new Date(eventDetails.endTime).getHours() % 12).toString()
       );
-      setEndMinutes(new Date(eventDetails.endTime).getMinutes() === 0 ? "00" : "30");
+      setEndMinutes(new Date(eventDetails.endTime).getMinutes());
       setEndPeriod(new Date(eventDetails.endTime).getHours() >= 12 ? "PM" : "AM");
     }
   }, [eventDetails]);
@@ -92,16 +92,16 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
       user: user,
       tag: tag,
       startTime: allDay
-        ? new Date(date)
+        ? new Date(`${month} ${date}, ${year}`)
         : new Date(
-            `${date} ${
+            `${month} ${date}, ${year} ${
               startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
             }:${startMinutes}:00`
           ),
       endTime: allDay
-        ? new Date(date)
+        ? new Date(`${month} ${date}, ${year}`)
         : new Date(
-            `${date} ${
+            `${month} ${date}, ${year} ${
               endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
             }:${endMinutes}:00`
           ),
@@ -148,16 +148,16 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
       user: user,
       tag: tag,
       startTime: allDay
-        ? new Date(date)
+        ? new Date(`${month} ${date}, ${year}`)
         : new Date(
-            `${date} ${
+            `${month} ${date}, ${year} ${
               startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
             }:${startMinutes}:00`
           ),
       endTime: allDay
-        ? new Date(date)
+        ? new Date(`${month} ${date}, ${year}`)
         : new Date(
-            `${date} ${
+            `${month} ${date}, ${year} ${
               endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
             }:${endMinutes}:00`
           ),
@@ -229,16 +229,19 @@ const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, o
     >
       <form onSubmit={type === "Edit" ? handleOnUpdate : handleOnSave}>
         <div className="flex flex-col gap-4">
-          <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-col gap-0">
-              <Typography variant="body1" color="text-slate-500 dark:text-slate-400">
-                Date
-              </Typography>
-              <Typography variant="body1">{date}</Typography>
-            </div>
+          <div className="flex justify-end">
             <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
           </div>
-          <TextInput label="Event" error={eventError} value={event} onChange={(e) => setEvent(e.target.value)} />
+          <DateInput
+            label="Date"
+            month={month}
+            date={date}
+            year={year}
+            onMonthChange={(e) => setMonth(e.target.value)}
+            onDateChange={(e) => setDate(e.target.value)}
+            onYearChange={(e) => setYear(e.target.value)}
+          />
+          <TextInput label="Event" error={eventError} value={event} showLabel onChange={(e) => setEvent(e.target.value)} />
           <SelectInput
             label="User"
             value={user}

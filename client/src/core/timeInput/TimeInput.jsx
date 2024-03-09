@@ -2,6 +2,7 @@
 import React from "react";
 
 import SelectInput from "../selectInput/SelectInput";
+import TextInput from "../textInput/TextInput";
 import Typography from "../typography/Typography";
 
 const TimeInput = ({ label, hour, minutes, period, error, onHourChange, onMinutesChange, onPeriodChange }) => {
@@ -11,13 +12,8 @@ const TimeInput = ({ label, hour, minutes, period, error, onHourChange, onMinute
         {label}
       </Typography>
       <div className="flex flex-row gap-4">
-        <SelectInput
-          label="hour"
-          value={hour}
-          items={["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]}
-          onChange={onHourChange}
-        />
-        <SelectInput label="minutes" value={minutes} items={["", "00", "30"]} onChange={onMinutesChange} />
+        <TextInput label="hour" value={hour} onChange={onHourChange} />
+        <TextInput label="minutes" value={minutes} onChange={onMinutesChange} />
         <SelectInput label="period" value={period} items={["", "AM", "PM"]} onChange={onPeriodChange} />
       </div>
       {error && (
