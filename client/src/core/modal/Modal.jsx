@@ -12,7 +12,7 @@ const Modal = ({ children, open, title, action, secondaryAction, onAction, onSec
         open ? "flex" : "hidden"
       } fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-slate-950/50 dark:bg-slate-500/50 drop-shadow-md`}
     >
-      <div className="m-auto p-4 sm:p-4 md:p-8 w-full sm:w-128">
+      <div className="m-auto p-4 sm:p-4 md:p-8 w-full sm:w-128 overflow-y-scroll">
         <Card>
           <div className="flex flex-col gap-8 p-8">
             <Typography variant="heading">{title}</Typography>
