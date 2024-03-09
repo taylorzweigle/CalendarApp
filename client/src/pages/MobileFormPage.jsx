@@ -1,6 +1,6 @@
 //Taylor Zweigle, 2024
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import * as Actions from "../actions";
 
@@ -22,6 +22,8 @@ import { createEvent } from "../api/events";
 import { tags } from "../utility/calendars";
 
 const MobileFormPage = () => {
+  const navigate = useNavigate();
+
   const { user: authUser } = useAuthContext();
 
   const { dispatch } = useEventsContext();
@@ -112,11 +114,15 @@ const MobileFormPage = () => {
     if (json.json) {
       dispatch({ type: Actions.CREATE_EVENT, payload: json.json });
 
+      navigate("/");
+
       clearForm();
     }
   };
 
   const handleOnCancel = () => {
+    navigate("/");
+
     clearForm();
   };
 
@@ -204,11 +210,9 @@ const MobileFormPage = () => {
         </div>
       </form>
       <div className="flex flex-col gap-4">
-        <Link to="/">
-          <Button variant="default" fullWidth onClick={handleOnCancel}>
-            Cancel
-          </Button>
-        </Link>
+        <Button variant="default" fullWidth onClick={handleOnCancel}>
+          Cancel
+        </Button>
         <Button variant="primary" fullWidth onClick={handleOnSave}>
           Save
         </Button>
