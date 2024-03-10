@@ -23,14 +23,16 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex w-full h-full">
-      <div className="w-128 p-4 sm:p-8 m-auto">
+    <div className="h-screen bg-slate-200 dark:bg-slate-950">
+      <div className="w-full sm:w-128 p-4 sm:p-8 m-auto">
         <form onSubmit={handleSubmit}>
           <Card border>
             <div className="flex flex-col gap-8 p-4 sm:p-8">
               <div className="flex flex-col items-center gap-4">
-                <img src={logo} alt="logo" width="128" height="128" />
-                <Typography variant="heading">Calendar App</Typography>
+                <div className="flex flex-col gap-0">
+                  <img src={logo} alt="logo" width="128" height="128" />
+                  <Typography variant="heading">Calendar App</Typography>
+                </div>
                 <TextInput
                   label="Username"
                   showLabel

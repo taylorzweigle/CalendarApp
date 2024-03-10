@@ -125,7 +125,7 @@ export const compareStartAndEndTimes = (start, end) => {
 export const sortEvents = (events) => {
   if (events.length > 1) {
     events.sort((eventA, eventB) => {
-      if (new Date(eventA.startTime) - new Date(eventB.startTime) > 0) {
+      if (new Date(eventA.startTime).getTime() - new Date(eventB.startTime).getTime() > 0) {
         return 1;
       } else {
         return 0;
