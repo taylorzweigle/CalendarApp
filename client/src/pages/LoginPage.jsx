@@ -8,6 +8,8 @@ import Card from "../core/card/Card";
 import TextInput from "../core/textInput/TextInput";
 import Typography from "../core/typography/Typography";
 
+import logo from "../img/Logo.svg";
+
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,10 +28,23 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit}>
           <Card border>
             <div className="flex flex-col gap-8 p-4 sm:p-8">
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col items-center gap-4">
+                <img src={logo} alt="logo" width="128" height="128" />
                 <Typography variant="heading">Calendar App</Typography>
-                <TextInput label="Username" type="text" onChange={(e) => setUsername(e.target.value)} value={username} />
-                <TextInput label="Password" type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
+                <TextInput
+                  label="Username"
+                  showLabel
+                  type="text"
+                  onChange={(e) => setUsername(e.target.value)}
+                  value={username}
+                />
+                <TextInput
+                  label="Password"
+                  showLabel
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                />
                 {error && <Typography color="text-rose-500">{error}</Typography>}
               </div>
               <Button variant="primary" disabled={loading}>

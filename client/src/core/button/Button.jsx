@@ -9,19 +9,19 @@ const Button = ({ prefix, variant, fullWidth, onClick, children }) => {
   switch (variant) {
     case "default":
       variantClass =
-        "bg-slate-100 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500";
+        "bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500";
       break;
     case "primary":
       variantClass =
-        "bg-sky-100 dark:bg-sky-700 hover:bg-sky-300 dark:hover:bg-sky-600 border border-sky-500 dark:border-sky-500";
+        "bg-sky-200 dark:bg-sky-700 hover:bg-sky-300 dark:hover:bg-sky-600 border border-sky-500 dark:border-sky-500";
       break;
     case "error":
       variantClass =
-        "bg-rose-100 dark:bg-rose-700 hover:bg-rose-300 dark:hover:bg-rose-600 border border-rose-500 dark:border-rose-500";
+        "bg-rose-200 dark:bg-rose-700 hover:bg-rose-300 dark:hover:bg-rose-600 border border-rose-500 dark:border-rose-500";
       break;
     default:
       variantClass =
-        "bg-slate-100 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500";
+        "bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500";
   }
 
   return (

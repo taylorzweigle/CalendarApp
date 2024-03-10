@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+
 import * as Actions from "../actions";
 
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -34,6 +36,8 @@ const MobileFormPage = () => {
     year: new Date().getFullYear(),
     weekday: new Date().getDay(),
   });
+
+  const type = "Add";
 
   const [allDay, setAllDay] = useState(false);
 
@@ -120,6 +124,8 @@ const MobileFormPage = () => {
     }
   };
 
+  const handleOnDelete = () => {};
+
   const handleOnCancel = () => {
     navigate("/");
 
@@ -150,8 +156,18 @@ const MobileFormPage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 bg-white dark:bg-slate-800 p-4">
-      <Typography variant="heading">Add Event</Typography>
+    <div className="flex flex-col gap-8 bg-white dark:bg-slate-800 p-4">
+      <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-1">
+          <Button variant="default" prefix={<ChevronLeftIcon />} onClick={handleOnCancel}>
+            Back
+          </Button>
+        </div>
+        <div className="flex flex-1 justify-center">
+          <Typography variant="heading">Add Event</Typography>
+        </div>
+        <div className="flex flex-1">&nbsp;</div>
+      </div>
       <form onSubmit={handleOnSave}>
         <div className="flex flex-col gap-4">
           <div className="flex justify-end">
@@ -216,6 +232,11 @@ const MobileFormPage = () => {
         <Button variant="primary" fullWidth onClick={handleOnSave}>
           Save
         </Button>
+        {type === "Edit" && (
+          <Button variant="error" fullWidth onClick={handleOnDelete}>
+            Delete
+          </Button>
+        )}
       </div>
     </div>
   );

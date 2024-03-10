@@ -18,8 +18,12 @@ const LogoutModal = ({ open, onLogoutClick, onCancelClick }) => {
             <Typography variant="heading">Logout</Typography>
             <Typography>Are you sure you want to logout?</Typography>
             <div className="flex flex-row justify-end gap-4">
-              <Button onClick={onCancelClick}>Cancel</Button>
-              <Button onClick={onLogoutClick}>Logout</Button>
+              <Button variant="default" onClick={onCancelClick}>
+                Cancel
+              </Button>
+              <Button variant="error" onClick={onLogoutClick}>
+                Logout
+              </Button>
             </div>
           </div>
         </Card>

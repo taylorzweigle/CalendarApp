@@ -168,15 +168,15 @@ const CalendarApp = () => {
             <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 sm:gap-8">
               <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
                 <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
-                <Button prefix={<ArrowDropDownIcon />} onClick={() => setMonthPicker(!monthPicker)} />
+                <Button variant="default" prefix={<ArrowDropDownIcon />} onClick={() => setMonthPicker(!monthPicker)} />
               </div>
               <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
-                <Button prefix={<TodayIcon />} onClick={() => handleTodayClick()}>
+                <Button variant="default" prefix={<TodayIcon />} onClick={() => handleTodayClick()}>
                   <span className="block sm:block md:hidden">Today</span>
                 </Button>
                 <div className="flex flex-row gap-4 items-center">
-                  <Button prefix={<ArrowBackIcon />} onClick={() => handlePreviousButtonClick()} />
-                  <Button prefix={<ArrowForwardIcon />} onClick={() => handleNextButtonClick()} />
+                  <Button variant="default" prefix={<ArrowBackIcon />} onClick={() => handlePreviousButtonClick()} />
+                  <Button variant="default" prefix={<ArrowForwardIcon />} onClick={() => handleNextButtonClick()} />
                 </div>
               </div>
             </div>

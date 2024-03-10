@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-slate-200 dark:bg-slate-950 p-0 sm:p-8 md:p-12;
+  @apply bg-white sm:bg-slate-200 dark:bg-slate-800 sm:dark:bg-slate-950 p-0 sm:p-8 md:p-12;
 }
 
 .scrollContainer {
@@ -14,4 +14,10 @@ body {
 
 .scrollContainer::-webkit-scrollbar {
   display: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
