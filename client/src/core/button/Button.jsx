@@ -19,6 +19,9 @@ const Button = ({ prefix, variant, fullWidth, onClick, children }) => {
       variantClass =
         "bg-rose-200 dark:bg-rose-700 hover:bg-rose-300 dark:hover:bg-rose-600 border border-rose-500 dark:border-rose-500";
       break;
+    case "text":
+      variantClass = "bg-transparent dark:bg-transparent hover:bg-slate-200 dark:hover:bg-slate-700";
+      break;
     default:
       variantClass =
         "bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500";
