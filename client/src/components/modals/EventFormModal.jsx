@@ -5,6 +5,7 @@ import * as Actions from "../../actions";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEventsContext } from "../../hooks/useEventsContext";
+import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
 import Checkbox from "../../core/checkbox/Checkbox";
 import DateInput from "../../core/dateInput/DateInput";
@@ -19,10 +20,10 @@ import { getEvents, createEvent, deleteEvent, updateEvent } from "../../api/even
 
 import { tags } from "../../utility/calendars";
 
-const EventFormModal = ({ open, type, eventDetails, selectedDate, onSaveClick, onDeleteClick, onCancelClick }) => {
+const EventFormModal = ({ open, type, eventDetails, onSaveClick, onDeleteClick, onCancelClick }) => {
   const { user: authUser } = useAuthContext();
-
   const { dispatch } = useEventsContext();
+  const { selectedDate } = useSelectedDateContext();
 
   const [allDay, setAllDay] = useState(false);
 

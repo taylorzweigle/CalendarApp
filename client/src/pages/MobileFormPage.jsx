@@ -8,6 +8,7 @@ import * as Actions from "../actions";
 
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEventsContext } from "../hooks/useEventsContext";
+import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
 
 import Button from "../core/button/Button";
 import Checkbox from "../core/checkbox/Checkbox";
@@ -27,15 +28,8 @@ const MobileFormPage = () => {
   const navigate = useNavigate();
 
   const { user: authUser } = useAuthContext();
-
   const { dispatch } = useEventsContext();
-
-  const [selectedDate] = useState({
-    month: new Date().getMonth(),
-    date: new Date().getDate(),
-    year: new Date().getFullYear(),
-    weekday: new Date().getDay(),
-  });
+  const { selectedDate } = useSelectedDateContext();
 
   const type = "Add";
 

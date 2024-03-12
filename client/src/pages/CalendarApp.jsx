@@ -5,6 +5,7 @@ import * as Actions from "../actions";
 
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEventsContext } from "../hooks/useEventsContext";
+import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
 
 import { getEvents } from "../api/events";
 
@@ -29,10 +30,10 @@ import { filterEvents } from "../utility/utility";
 
 const CalendarApp = () => {
   const { user } = useAuthContext();
+  const { events, dispatch } = useEventsContext();
+  const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
 
   const today = new Date();
-
-  const { events, dispatch } = useEventsContext();
 
   const [addModal, setAddModal] = useState(false);
   const [monthPicker, setMonthPicker] = useState(false);
@@ -55,13 +56,6 @@ const CalendarApp = () => {
     setVisibleCalendars(calendars.map((calendar) => calendar.user));
   }, []);
 
-  const [selectedDate, setSelectedDate] = useState({
-    month: today.getMonth(),
-    date: today.getDate(),
-    year: today.getFullYear(),
-    weekday: today.getDay(),
-  });
-
   const handleMonthPickerChange = (month) => {
     let monthIndex = 0;
 
@@ -71,11 +65,14 @@ const CalendarApp = () => {
       }
     }
 
-    setSelectedDate({
-      month: monthIndex,
-      date: 1,
-      year: selectedDate.year,
-      weekday: new Date(selectedDate.year, selectedDate.month, 1).getDay(),
+    dispatchSelectedDate({
+      type: Actions.SET_SELECTED_DATE,
+      payload: {
+        month: monthIndex,
+        date: 1,
+        year: selectedDate.year,
+        weekday: new Date(selectedDate.year, selectedDate.month, 1).getDay(),
+      },
     });
 
     setMonthPicker(false);
@@ -100,33 +97,40 @@ const CalendarApp = () => {
   };
 
   const handleTodayClick = () => {
-    setSelectedDate({ month: today.getMonth(), date: today.getDate(), year: today.getFullYear(), weekday: today.getDay() });
+    dispatchSelectedDate({
+      type: Actions.SET_SELECTED_DATE,
+      payload: { month: today.getMonth(), date: today.getDate(), year: today.getFullYear(), weekday: today.getDay() },
+    });
   };
 
   const handlePreviousButtonClick = () => {
-    setSelectedDate({
-      month: selectedDate.month === 0 ? 11 : selectedDate.month - 1,
-      date: 1,
-      year: selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year,
-      weekday: new Date(selectedDate.year, selectedDate.month - 1, 1).getDay(),
+    dispatchSelectedDate({
+      type: Actions.SET_SELECTED_DATE,
+      payload: {
+        month: selectedDate.month === 0 ? 11 : selectedDate.month - 1,
+        date: 1,
+        year: selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year,
+        weekday: new Date(selectedDate.year, selectedDate.month - 1, 1).getDay(),
+      },
     });
   };
 
   const handleNextButtonClick = () => {
-    setSelectedDate({
-      month: (selectedDate.month + 1) % 12,
-      date: 1,
-      year: selectedDate.month === 11 ? selectedDate.year + 1 : selectedDate.year,
-      weekday: new Date(selectedDate.year, selectedDate.month + 1, 1).getDay(),
+    dispatchSelectedDate({
+      type: Actions.SET_SELECTED_DATE,
+      payload: {
+        month: (selectedDate.month + 1) % 12,
+        date: 1,
+        year: selectedDate.month === 11 ? selectedDate.year + 1 : selectedDate.year,
+        weekday: new Date(selectedDate.year, selectedDate.month + 1, 1).getDay(),
+      },
     });
   };
 
   const handleSelectDay = (year, month, day) => {
-    setSelectedDate({
-      month: month,
-      date: day,
-      year: year,
-      weekday: new Date(year, month, day).getDay(),
+    dispatchSelectedDate({
+      type: Actions.SET_SELECTED_DATE,
+      payload: { month: month, date: day, year: year, weekday: new Date(year, month, day).getDay() },
     });
   };
 
@@ -135,7 +139,6 @@ const CalendarApp = () => {
       <EventFormModal
         open={addModal}
         type="Add"
-        selectedDate={selectedDate}
         onSaveClick={() => setAddModal(false)}
         onCancelClick={() => setAddModal(false)}
       />
@@ -153,11 +156,7 @@ const CalendarApp = () => {
                 <HeaderLayout user="Taylor Zweigle" onAddEventClick={() => setAddModal(true)} />
               </div>
               <div className="col-span-12 sm:col-span-12 md:col-span-12">
-                <DetailsLayout
-                  data={filterEvents(visibleCalendars, events)}
-                  calendars={calendars}
-                  selectedDate={selectedDate}
-                />
+                <DetailsLayout data={filterEvents(visibleCalendars, events)} calendars={calendars} />
               </div>
               <div className="col-span-12 sm:col-span-12 md:col-span-12">
                 <LegendLayout onClick={handleLegendChange} />
@@ -184,7 +183,6 @@ const CalendarApp = () => {
               data={filterEvents(visibleCalendars, events)}
               calendars={calendars}
               today={today}
-              selectedDate={selectedDate}
               onSelectDay={handleSelectDay}
             />
           </div>

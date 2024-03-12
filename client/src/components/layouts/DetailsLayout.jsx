@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
 import EmptyState from "../../core/emptyState/EmptyState";
 import Typography from "../../core/typography/Typography";
@@ -16,8 +17,9 @@ import { sortEvents } from "../../utility/utility";
 
 import { getEvent } from "../../api/events";
 
-const DetailsLayout = ({ data, calendars, selectedDate }) => {
+const DetailsLayout = ({ data, calendars }) => {
   const { user } = useAuthContext();
+  const { selectedDate } = useSelectedDateContext();
 
   const [eventModal, setEventModal] = useState(false);
   const [eventDetails, setEventDetails] = useState(null);

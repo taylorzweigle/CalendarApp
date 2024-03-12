@@ -1,6 +1,8 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
+import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
+
 import CalendarDay from "./internal/CalendarDay";
 import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
@@ -25,7 +27,9 @@ export const months = [
   "December",
 ];
 
-const Calendar = ({ data, calendars, today, selectedDate, onSelectDay }) => {
+const Calendar = ({ data, calendars, today, onSelectDay }) => {
+  const { selectedDate } = useSelectedDateContext();
+
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
 
   const getDayOfWeekOfMonthStart = (year, month) => new Date(year, month).getDay();
