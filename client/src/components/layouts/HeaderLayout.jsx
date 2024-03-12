@@ -58,10 +58,10 @@ const HeaderLayout = ({ user, onAddEventClick }) => {
           </div>
           <Button variant="default" prefix={darkMode ? <LightModeIcon /> : <ModeNightIcon />} onClick={handleThemeButton} />
         </div>
-        <Link className="block sm:hidden" to="/event">
+        <Link className="block md:hidden" to="/event">
           {addEventButton()}
         </Link>
-        <div className="hidden sm:block">{addEventButton()}</div>
+        <div className="hidden md:block">{addEventButton()}</div>
       </div>
     </>
   );
