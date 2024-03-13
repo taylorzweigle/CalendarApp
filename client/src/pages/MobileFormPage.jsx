@@ -154,7 +154,7 @@ const MobileFormPage = () => {
     <Card border>
       <div className="flex flex-col gap-8">
         <div className="flex flex-row justify-between items-center border-b border-slate-300 dark:border-slate-600 pt-4 pb-4">
-          <div className="flex flex-1">
+          <div className="flex flex-1 pl-4">
             <Button variant="text" prefix={<ChevronLeftIcon />} onClick={handleOnCancel}>
               Back
             </Button>
