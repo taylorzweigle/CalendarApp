@@ -16,7 +16,7 @@ import { useLogout } from "../../hooks/useLogout";
 
 import image from "../../img/Me.png";
 
-const HeaderLayout = ({ user, onAddEventClick }) => {
+const HeaderLayout = ({ user }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -34,15 +34,6 @@ const HeaderLayout = ({ user, onAddEventClick }) => {
     setOpen(false);
   };
 
-  const addEventButton = () => {
-    return (
-      <Button variant="default" fullWidth prefix={<AddIcon />} onClick={onAddEventClick}>
-        <span className="inline-flex">Add&nbsp;</span>
-        <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Event</span>
-      </Button>
-    );
-  };
-
   return (
     <>
       <LogoutModal open={open} onLogoutClick={handleLogoutClick} onCancelClick={() => setOpen(false)} />
@@ -58,10 +49,12 @@ const HeaderLayout = ({ user, onAddEventClick }) => {
           </div>
           <Button variant="default" prefix={darkMode ? <LightModeIcon /> : <ModeNightIcon />} onClick={handleThemeButton} />
         </div>
-        <Link className="block md:hidden" to="/event">
-          {addEventButton()}
+        <Link to="/event">
+          <Button variant="default" fullWidth prefix={<AddIcon />}>
+            <span className="inline-flex">Add&nbsp;</span>
+            <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Event</span>
+          </Button>
         </Link>
-        <div className="hidden md:block">{addEventButton()}</div>
       </div>
     </>
   );

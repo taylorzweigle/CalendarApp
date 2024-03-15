@@ -16,8 +16,8 @@ export const getEvents = async (token) => {
   }
 };
 
-export const getEvent = async (event, token) => {
-  const res = await fetch(`${API_URL}/api/events/${event._id}`, {
+export const getEvent = async (id, token) => {
+  const res = await fetch(`${API_URL}/api/events/${id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -51,8 +51,8 @@ export const createEvent = async (body, token) => {
   }
 };
 
-export const deleteEvent = async (event, token) => {
-  const res = await fetch(`${API_URL}/api/events/${event._id}`, {
+export const deleteEvent = async (id, token) => {
+  const res = await fetch(`${API_URL}/api/events/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -69,8 +69,8 @@ export const deleteEvent = async (event, token) => {
   }
 };
 
-export const updateEvent = async (event, body, token) => {
-  const res = await fetch(`${API_URL}/api/events/${event._id}`, {
+export const updateEvent = async (id, body, token) => {
+  const res = await fetch(`${API_URL}/api/events/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

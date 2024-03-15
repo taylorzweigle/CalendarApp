@@ -20,7 +20,6 @@ import Typography from "../core/typography/Typography";
 
 import Calendar, { months } from "../components/calendar/Calendar";
 import DetailsLayout from "../components/layouts/DetailsLayout";
-import EventFormModal from "../components/modals/EventFormModal";
 import HeaderLayout from "../components/layouts/HeaderLayout";
 import LegendLayout from "../components/layouts/LegendLayout";
 import MonthPickerModal from "../components/modals/MonthPickerModal";
@@ -35,7 +34,6 @@ const CalendarApp = () => {
 
   const today = new Date();
 
-  const [addModal, setAddModal] = useState(false);
   const [monthPicker, setMonthPicker] = useState(false);
 
   const [visibleCalendars, setVisibleCalendars] = useState([]);
@@ -136,12 +134,6 @@ const CalendarApp = () => {
 
   return (
     <>
-      <EventFormModal
-        open={addModal}
-        type="Add"
-        onSaveClick={() => setAddModal(false)}
-        onCancelClick={() => setAddModal(false)}
-      />
       <MonthPickerModal
         open={monthPicker}
         selectedMonth={selectedDate.month}
@@ -153,7 +145,7 @@ const CalendarApp = () => {
           <div className="col-span-12 sm:col-span-12 md:col-span-3 md:border-r border-slate-300 dark:border-slate-600">
             <div className="grid grid-cols-12 m-auto w-full">
               <div className="col-span-12 sm:col-span-12 md:col-span-12">
-                <HeaderLayout user="Taylor Zweigle" onAddEventClick={() => setAddModal(true)} />
+                <HeaderLayout user="Taylor Zweigle" />
               </div>
               <div className="col-span-12 sm:col-span-12 md:col-span-12">
                 <DetailsLayout data={filterEvents(visibleCalendars, events)} calendars={calendars} />
@@ -171,7 +163,7 @@ const CalendarApp = () => {
               </div>
               <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
                 <Button variant="default" prefix={<TodayIcon />} onClick={() => handleTodayClick()}>
-                  <span className="block sm:block md:hidden">Today</span>
+                  Today
                 </Button>
                 <div className="flex flex-row gap-4 items-center">
                   <Button variant="default" prefix={<ArrowBackIcon />} onClick={() => handlePreviousButtonClick()} />
