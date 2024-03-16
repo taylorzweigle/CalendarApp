@@ -156,7 +156,7 @@ const CalendarApp = () => {
             </div>
           </div>
           <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col gap-0 md:gap-4 p-0 md:p-8">
-            <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 sm:gap-8 p-4 md:p-0">
+            <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-8 p-4 md:p-0">
               <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
                 <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
                 <Button variant="default" prefix={<ArrowDropDownIcon />} onClick={() => setMonthPicker(!monthPicker)} />

@@ -9,7 +9,7 @@ const CalendarDay = ({ day, today, outOfMonth, selected, onClick, children }) =>
       } ${outOfMonth ? "bg-slate-100 dark:bg-slate-950" : "bg-white dark:bg-slate-800 cursor-pointer"}`}
       onClick={onClick}
     >
-      <div className="flex flex-col gap-1 sm:gap-1 md:gap-4 p-1 sm:p-2 h-full">
+      <div className="flex flex-col p-1 sm:p-2 h-full">
         <span
           className={`flex items-center justify-center rounded-full w-8 sm:w-11 h-12 sm:h-16 ${
             today ? "bg-slate-700 dark:bg-slate-600 text-white" : null

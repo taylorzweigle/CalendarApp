@@ -6,7 +6,7 @@ import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 import CalendarDay from "./internal/CalendarDay";
 import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
-import EventCard from "../cards/EventCard";
+import CalendarCard from "../cards/CalendarCard";
 
 import { sortEvents } from "../../utility/utility";
 
@@ -106,20 +106,11 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
                             day.day === new Date(item.startTime).getDate()
                         )
                       ).map((event) => (
-                        <EventCard
+                        <CalendarCard
                           key={event._id}
                           event={event.event}
                           color={calendars.find((calendar) => calendar.user === event.user).color}
                           tag={event.tag}
-                          startTime={`${
-                            new Date(event.startTime).getHours() === 0
-                              ? ""
-                              : `${new Date(event.startTime).getHours() % 12}:${
-                                  new Date(event.startTime).getMinutes() === 0 ? "00" : new Date(event.startTime).getMinutes()
-                                } ${new Date(event.startTime).getHours() > 11 ? "PM" : "AM"}`
-                          } 
-                          `}
-                          condensed
                         />
                       ))}
                   </div>
