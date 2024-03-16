@@ -19,7 +19,7 @@ const MonthPickerModal = ({ open, selectedMonth, onSaveClick, onCancelClick }) =
   };
 
   return (
-    <Modal title="Select Month" action="Select" open={open} onAction={() => onSaveClick(month)} onClose={handleCancelClick}>
+    <Modal title="Select Month" action="Select" open={open} onAction={() => onSaveClick(month)} onCancel={handleCancelClick}>
       <div className="flex flex-wrap justify-center align-middle gap-4">
         {months.map((m) => (
           <Chip key={m} selected={month === m} onClick={() => setMonth(m)}>

@@ -225,13 +225,17 @@ const CreateEventPage = () => {
                 )}
               </div>
             </form>
-            <div className="flex flex-col gap-4">
-              <Button variant="default" fullWidth onClick={handleOnCancel}>
-                Cancel
-              </Button>
-              <Button variant="primary" fullWidth onClick={handleOnSave}>
-                Save
-              </Button>
+            <div className="flex flex-col sm:flex-row sm:justify-end gap-4">
+              <div>
+                <Button variant="default" fullWidth onClick={handleOnCancel}>
+                  Cancel
+                </Button>
+              </div>
+              <div>
+                <Button variant="primary" fullWidth onClick={handleOnSave}>
+                  Save
+                </Button>
+              </div>
             </div>
           </div>
         </div>
