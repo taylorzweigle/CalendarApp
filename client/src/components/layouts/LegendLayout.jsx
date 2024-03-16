@@ -8,7 +8,7 @@ import { calendars } from "../../utility/calendars";
 
 const LegendLayout = ({ onClick }) => {
   return (
-    <div className="flex flex-col gap-8 border-b border-slate-300 dark:border-slate-600 p-4 sm:p-8">
+    <div className="flex flex-col gap-8 border-t md:border-b border-slate-300 dark:border-slate-600 p-4 md:p-8">
       <div className="flex flex-col gap-2">
         <Typography variant="subheading">Calendars</Typography>
         <div className={`flex flex-col sm:flex-row md:flex-col sm:w-full sm:justify-between gap-2 sm:gap-8 md:gap-2`}>

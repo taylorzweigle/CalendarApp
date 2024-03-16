@@ -37,7 +37,7 @@ const HeaderLayout = ({ user }) => {
   return (
     <>
       <LogoutModal open={open} onLogoutClick={handleLogoutClick} onCancelClick={() => setOpen(false)} />
-      <div className="flex flex-col gap-4 sm:gap-8 border-b border-slate-300 dark:border-slate-600 p-4 sm:p-8">
+      <div className="flex flex-col gap-4 sm:gap-8 border-b border-slate-300 dark:border-slate-600 p-4 md:p-8">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row items-center gap-2">
             <Avatar image={image} user={user.slice(0, 1)} onClick={() => setOpen(true)} />

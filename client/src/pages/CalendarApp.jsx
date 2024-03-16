@@ -144,19 +144,19 @@ const CalendarApp = () => {
         <div className="grid grid-cols-12 m-auto w-full">
           <div className="col-span-12 sm:col-span-12 md:col-span-3 md:border-r border-slate-300 dark:border-slate-600">
             <div className="grid grid-cols-12 m-auto w-full">
-              <div className="col-span-12 sm:col-span-12 md:col-span-12">
+              <div className="col-span-12">
                 <HeaderLayout user="Taylor Zweigle" />
               </div>
-              <div className="col-span-12 sm:col-span-12 md:col-span-12">
+              <div className="col-span-12">
                 <DetailsLayout data={filterEvents(visibleCalendars, events)} calendars={calendars} />
               </div>
-              <div className="col-span-12 sm:col-span-12 md:col-span-12">
+              <div className="hidden md:block col-span-12">
                 <LegendLayout onClick={handleLegendChange} />
               </div>
             </div>
           </div>
-          <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col gap-4 p-4 sm:p-8">
-            <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 sm:gap-8">
+          <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col gap-0 md:gap-4 p-0 md:p-8">
+            <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 sm:gap-8 p-4 md:p-0">
               <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
                 <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
                 <Button variant="default" prefix={<ArrowDropDownIcon />} onClick={() => setMonthPicker(!monthPicker)} />
@@ -171,12 +171,17 @@ const CalendarApp = () => {
                 </div>
               </div>
             </div>
-            <Calendar
-              data={filterEvents(visibleCalendars, events)}
-              calendars={calendars}
-              today={today}
-              onSelectDay={handleSelectDay}
-            />
+            <div className="p-4 md:p-0">
+              <Calendar
+                data={filterEvents(visibleCalendars, events)}
+                calendars={calendars}
+                today={today}
+                onSelectDay={handleSelectDay}
+              />
+            </div>
+            <div className="block md:hidden col-span-12">
+              <LegendLayout onClick={handleLegendChange} />
+            </div>
           </div>
         </div>
       </Card>
