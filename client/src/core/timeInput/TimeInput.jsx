@@ -12,8 +12,15 @@ const TimeInput = ({ label, hour, minutes, period, error, onHourChange, onMinute
         {label}
       </Typography>
       <div className="flex flex-row gap-4">
-        <TextInput label="hour" type="number" value={hour} onChange={onHourChange} />
-        <TextInput label="minutes" type="number" value={minutes} onChange={onMinutesChange} />
+        <TextInput label="hour" type="text" inputmode="numeric" pattern="[0-9]*" value={hour} onChange={onHourChange} />
+        <TextInput
+          label="minutes"
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          value={minutes}
+          onChange={onMinutesChange}
+        />
         <SelectInput label="period" value={period} items={["", "AM", "PM"]} onChange={onPeriodChange} />
       </div>
       {error && (

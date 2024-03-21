@@ -97,9 +97,9 @@ export const getIcons = (tag) => {
 };
 
 export const formatTime = (date) => {
-  return `${date.getHours() % 12 === 0 ? 12 : date.getHours() % 12}:${date.getMinutes() === 0 ? "00" : date.getMinutes()} ${
-    date.getHours() > 11 ? "PM" : "AM"
-  }`;
+  return `${date.getHours() % 12 === 0 ? 12 : date.getHours() % 12}:${
+    date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
+  } ${date.getHours() > 11 ? "PM" : "AM"}`;
 };
 
 export const formatDate = (date) => {

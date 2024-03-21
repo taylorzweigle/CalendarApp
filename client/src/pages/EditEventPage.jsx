@@ -74,14 +74,22 @@ const EditEventPage = () => {
           ? (new Date(event.json.startTime).getHours() - 12).toString()
           : new Date(event.json.startTime).getHours()
       );
-      setStartMinutes(new Date(event.json.startTime).getMinutes());
+      setStartMinutes(
+        new Date(event.json.startTime).getMinutes() < 10
+          ? `0${new Date(event.json.startTime).getMinutes()}`
+          : new Date(event.json.startTime).getMinutes()
+      );
       setStartPeriod(new Date(event.json.startTime).getHours() >= 12 ? "PM" : "AM");
       setEndHours(
         new Date(event.json.endTime).getHours() > 12
           ? (new Date(event.json.endTime).getHours() - 12).toString()
           : new Date(event.json.endTime).getHours()
       );
-      setEndMinutes(new Date(event.json.endTime).getMinutes());
+      setEndMinutes(
+        new Date(event.json.endTime).getMinutes() < 10
+          ? `0${new Date(event.json.endTime).getMinutes()}`
+          : new Date(event.json.endTime).getMinutes()
+      );
       setEndPeriod(new Date(event.json.endTime).getHours() >= 12 ? "PM" : "AM");
     };
 

@@ -3,11 +3,13 @@ import React from "react";
 
 import Typography from "../typography/Typography";
 
-const TextInput = ({ label, value, type, error, showLabel, onChange }) => {
+const TextInput = ({ label, value, type, pattern, inputMode, error, showLabel, onChange }) => {
   const input = () => {
     return (
       <input
         type={type}
+        pattern={pattern}
+        inputMode={inputMode}
         id={label}
         value={value}
         onChange={onChange}
