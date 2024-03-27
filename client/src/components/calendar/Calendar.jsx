@@ -47,18 +47,23 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
     const dayOfWeekOfMonthStart = getDayOfWeekOfMonthStart(year, month);
 
     for (let i = dayOfWeekOfMonthStart - 1; i >= 0; i--) {
-      calendarDays.push({ key: `${month - 1 < 10 ? "0" : ""}${month === 0 ? 11 : month - 1}${prevMonthLength - i}`, day: "" });
+      calendarDays.push({
+        key: `${month - 1 < 10 ? "0" : ""}${month === 0 ? 11 : month - 1}${prevMonthLength - i < 10 ? "0" : ""}${
+          prevMonthLength - i
+        }`,
+        day: prevMonthLength - i,
+      });
     }
 
     for (let i = 1; i <= monthLength; i++) {
-      calendarDays.push({ key: `${month < 10 ? "0" : ""}${month}${i}`, day: i });
+      calendarDays.push({ key: `${month < 10 ? "0" : ""}${month}${i < 10 ? "0" : ""}${i}`, day: i });
     }
 
     remainingDays = 7 - (calendarDays.length % 7);
 
     if (remainingDays < 7) {
       for (let i = 0; i < remainingDays; i++) {
-        calendarDays.push({ key: `${month + 1 < 10 ? "0" : ""}${month + 1}${i}`, day: "" });
+        calendarDays.push({ key: `${month + 1 < 10 ? "0" : ""}${month + 1}${i + 1 < 10 ? "0" : ""}${i + 1}`, day: i + 1 });
       }
     }
 
@@ -87,21 +92,21 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
               <React.Fragment key={day.key}>
                 <CalendarDay
                   day={day.day}
-                  today={
-                    selectedDate.month === today.getMonth() &&
-                    selectedDate.year === today.getFullYear() &&
-                    day.day === today.getDate()
-                  }
+                  today={day.key.slice(0, 2) === selectedDate.month && day.day === today.getDate()}
                   outOfMonth={parseInt(day.key.slice(0, 2)) !== selectedDate.month}
-                  selected={selectedDate.date === day.day}
-                  onClick={day.day > 0 ? () => onSelectDay(selectedDate.year, selectedDate.month, day.day) : null}
+                  selected={parseInt(day.key.slice(0, 2)) === selectedDate.month && selectedDate.date === day.day}
+                  onClick={
+                    parseInt(day.key.slice(0, 2)) === selectedDate.month
+                      ? () => onSelectDay(selectedDate.year, selectedDate.month, day.day)
+                      : null
+                  }
                 >
                   <div className="flex flex-col gap-1 sm:gap-1 md:gap-2 h-full">
                     {data &&
                       sortEvents(
                         data.filter(
                           (item) =>
-                            selectedDate.month === new Date(item.startTime).getMonth() &&
+                            parseInt(day.key.slice(0, 2)) === new Date(item.startTime).getMonth() &&
                             selectedDate.year === new Date(item.startTime).getFullYear() &&
                             day.day === new Date(item.startTime).getDate()
                         )
@@ -111,6 +116,7 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
                           event={event.event}
                           color={calendars.find((calendar) => calendar.user === event.user).color}
                           tag={event.tag}
+                          outOfMonth={false}
                         />
                       ))}
                   </div>
