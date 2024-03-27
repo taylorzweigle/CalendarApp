@@ -1,8 +1,8 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
+import NumberInput from "../numberInput/NumberInput";
 import SelectInput from "../selectInput/SelectInput";
-import TextInput from "../textInput/TextInput";
 import Typography from "../typography/Typography";
 
 import { months } from "../../components/calendar/Calendar";
@@ -17,8 +17,8 @@ const DateInput = ({ label, month, date, year, onMonthChange, onDateChange, onYe
         <div className="w-256">
           <SelectInput label="month" value={month} items={["", ...months]} onChange={onMonthChange} />
         </div>
-        <TextInput label="date" value={date} onChange={onDateChange} />
-        <TextInput label="year" value={year} onChange={onYearChange} />
+        <NumberInput label="date" value={date} onChange={onDateChange} />
+        <NumberInput label="year" value={year} onChange={onYearChange} />
       </div>
     </div>
   );
