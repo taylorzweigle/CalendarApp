@@ -123,14 +123,14 @@ export const compareStartAndEndTimes = (start, end) => {
 };
 
 export const sortEvents = (events) => {
-  if (events.length > 1) {
-    events.sort((eventA, eventB) => {
-      if (new Date(eventA.startTime).getTime() - new Date(eventB.startTime).getTime() > 0) {
-        return 1;
-      } else {
-        return 0;
+  for (let i = 0; i < events.length; i++) {
+    for (let j = 0; j < events.length; j++) {
+      if (new Date(events[i].startTime).getTime() - new Date(events[j].startTime).getTime() < 0) {
+        let temp = events[i];
+        events[i] = events[j];
+        events[j] = temp;
       }
-    });
+    }
   }
 
   return events;
