@@ -16,6 +16,7 @@ import TodayIcon from "@mui/icons-material/Today";
 
 import Button from "../core/button/Button";
 import Card from "../core/card/Card";
+import Divider from "../core/divider/Divider";
 import Typography from "../core/typography/Typography";
 
 import Calendar, { months } from "../components/calendar/Calendar";
@@ -146,12 +147,15 @@ const CalendarApp = () => {
             <div className="grid grid-cols-12 m-auto w-full">
               <div className="col-span-12">
                 <HeaderLayout user="Taylor Zweigle" />
+                <Divider />
               </div>
               <div className="col-span-12">
                 <DetailsLayout data={filterEvents(visibleCalendars, events)} calendars={calendars} />
+                <Divider />
               </div>
               <div className="hidden md:block col-span-12">
                 <LegendLayout onClick={handleLegendChange} />
+                <Divider />
               </div>
             </div>
           </div>
@@ -180,6 +184,7 @@ const CalendarApp = () => {
               />
             </div>
             <div className="block md:hidden col-span-12">
+              <Divider />
               <LegendLayout onClick={handleLegendChange} />
             </div>
           </div>
