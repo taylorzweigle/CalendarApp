@@ -137,7 +137,8 @@ const CalendarApp = () => {
     <>
       <MonthPickerModal
         open={monthPicker}
-        selectedMonth={selectedDate.month}
+        month={selectedDate.month}
+        year={selectedDate.year}
         onSaveClick={(month) => handleMonthPickerChange(month)}
         onCancelClick={() => setMonthPicker(false)}
       />

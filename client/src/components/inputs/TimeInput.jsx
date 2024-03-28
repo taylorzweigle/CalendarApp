@@ -1,9 +1,10 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-import NumberInput from "../numberInput/NumberInput";
-import SelectInput from "../selectInput/SelectInput";
-import Typography from "../typography/Typography";
+import SelectInput from "../../core/selectInput/SelectInput";
+import Typography from "../../core/typography/Typography";
+
+import NumberInput from "./NumberInput";
 
 const TimeInput = ({ label, hour, minutes, period, error, onHourChange, onMinutesChange, onPeriodChange }) => {
   return (

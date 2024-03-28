@@ -3,6 +3,7 @@ import React from "react";
 
 import Button from "../button/Button";
 import Card from "../card/Card";
+import Divider from "../divider/Divider";
 import Typography from "../typography/Typography";
 
 const Modal = ({ children, open, title, errorModal, action, onAction, onCancel }) => {
@@ -18,7 +19,8 @@ const Modal = ({ children, open, title, errorModal, action, onAction, onCancel }
             <Typography variant="heading">{title}</Typography>
           </div>
           <div className="pl-4 sm:pl-8 pr-4 sm:pr-8 pb-4 sm:pb-8">{children}</div>
-          <div className="flex flex-row justify-end gap-4 border-t border-slate-300 dark:border-slate-600 p-4 sm:p-8">
+          <Divider />
+          <div className="flex flex-row justify-end gap-4 p-4 sm:p-8">
             <Button variant="default" onClick={onCancel}>
               Cancel
             </Button>

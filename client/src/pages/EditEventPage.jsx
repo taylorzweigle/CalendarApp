@@ -13,14 +13,14 @@ import { useEventsContext } from "../hooks/useEventsContext";
 import Button from "../core/button/Button";
 import Card from "../core/card/Card";
 import Checkbox from "../core/checkbox/Checkbox";
-import DateInput from "../core/dateInput/DateInput";
 import SelectInput from "../core/selectInput/SelectInput";
 import TextInput from "../core/textInput/TextInput";
-import TimeInput from "../core/timeInput/TimeInput";
 import Typography from "../core/typography/Typography";
 
 import { months } from "../components/calendar/Calendar";
+import DateInput from "../components/inputs/DateInput";
 import DeleteConfirmationModal from "../components/modals/DeleteConfirmationModal";
+import TimeInput from "../components/inputs/TimeInput";
 
 import { getEvent, getEvents, updateEvent, deleteEvent } from "../api/events";
 

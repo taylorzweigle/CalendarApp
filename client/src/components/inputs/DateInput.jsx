@@ -1,11 +1,12 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-import NumberInput from "../numberInput/NumberInput";
-import SelectInput from "../selectInput/SelectInput";
-import Typography from "../typography/Typography";
+import SelectInput from "../../core/selectInput/SelectInput";
+import Typography from "../../core/typography/Typography";
 
-import { months } from "../../components/calendar/Calendar";
+import NumberInput from "./NumberInput";
+
+import { months } from "../calendar/Calendar";
 
 const DateInput = ({ label, month, date, year, onMonthChange, onDateChange, onYearChange }) => {
   return (

@@ -13,13 +13,13 @@ import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
 import Button from "../core/button/Button";
 import Card from "../core/card/Card";
 import Checkbox from "../core/checkbox/Checkbox";
-import DateInput from "../core/dateInput/DateInput";
 import SelectInput from "../core/selectInput/SelectInput";
 import TextInput from "../core/textInput/TextInput";
-import TimeInput from "../core/timeInput/TimeInput";
 import Typography from "../core/typography/Typography";
 
 import { months } from "../components/calendar/Calendar";
+import DateInput from "../components/inputs/DateInput";
+import TimeInput from "../components/inputs/TimeInput";
 
 import { createEvent } from "../api/events";
 

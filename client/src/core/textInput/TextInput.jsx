@@ -7,11 +7,11 @@ const TextInput = ({ label, value, type, pattern, inputMode, error, showLabel, o
   const input = () => {
     return (
       <input
+        id={label}
+        value={value}
         type={type}
         pattern={pattern}
         inputMode={inputMode}
-        id={label}
-        value={value}
         onChange={onChange}
         className="bg-white dark:bg-slate-950 border-2 border-slate-400 dark:border-slate-600 text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12"
       />
