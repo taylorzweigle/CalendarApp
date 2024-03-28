@@ -7,7 +7,7 @@ import Typography from "../typography/Typography";
 
 const Checkbox = ({ selected, onClick }) => {
   return (
-    <label className="block relative pl-8 text-base text-slate-700 dark:text-white cursor-pointer">
+    <label className="block relative pl-10 text-base text-slate-700 dark:text-white cursor-pointer">
       <Typography variant="body1" color="text-slate-500 dark:text-slate-400">
         All Day
       </Typography>

@@ -11,7 +11,7 @@ const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => 
 
   useEffect(() => {
     setSelectedMonth({ month: months[month], year: year });
-  }, [month]);
+  }, [month, year]);
 
   const handleCancelClick = () => {
     setSelectedMonth({ month: months[month], year: year });

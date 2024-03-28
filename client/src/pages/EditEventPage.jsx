@@ -200,7 +200,7 @@ const EditEventPage = () => {
   return (
     <>
       <DeleteConfirmationModal open={deleteModal} onDeleteClick={handleOnDelete} onCancelClick={() => setDeleteModal(false)} />
-      <div className="w-full sm:w-full md:w-192 m-auto">
+      <div className="w-full sm:w-128 m-auto">
         <Card border>
           <div className="flex flex-col">
             <div className="flex flex-row justify-between items-center border-b border-slate-300 dark:border-slate-600 pt-4 pb-4">
@@ -218,9 +218,6 @@ const EditEventPage = () => {
               <div className="p-4">
                 <form onSubmit={handleOnSave}>
                   <div className="flex flex-col gap-4">
-                    <div className="flex justify-end">
-                      <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
-                    </div>
                     <DateInput
                       label="Date"
                       month={month}
@@ -253,6 +250,9 @@ const EditEventPage = () => {
                       showLabel
                       onChange={(e) => setTag(e.target.value)}
                     />
+                    <div className="pt-2 pb-2">
+                      <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
+                    </div>
                     {!allDay && (
                       <>
                         <TimeInput
@@ -288,7 +288,7 @@ const EditEventPage = () => {
                 </div>
                 <div className="sm:order-1">
                   <Button variant="primary" fullWidth onClick={handleOnSave}>
-                    Save
+                    Update
                   </Button>
                 </div>
                 <div>
