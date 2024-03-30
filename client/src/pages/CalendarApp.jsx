@@ -55,11 +55,11 @@ const CalendarApp = () => {
     setVisibleCalendars(calendars.map((calendar) => calendar.user));
   }, []);
 
-  const handleMonthPickerChange = (month) => {
+  const handleMonthPickerChange = (selectedMonth) => {
     let monthIndex = 0;
 
     for (let i = 0; i < months.length; i++) {
-      if (month === months[i]) {
+      if (selectedMonth.month === months[i]) {
         monthIndex = i;
       }
     }
@@ -69,7 +69,7 @@ const CalendarApp = () => {
       payload: {
         month: monthIndex,
         date: 1,
-        year: selectedDate.year,
+        year: selectedMonth.year,
         weekday: new Date(selectedDate.year, selectedDate.month, 1).getDay(),
       },
     });
@@ -139,7 +139,7 @@ const CalendarApp = () => {
         open={monthPicker}
         month={selectedDate.month}
         year={selectedDate.year}
-        onSaveClick={(month) => handleMonthPickerChange(month)}
+        onSaveClick={(selectedMonth) => handleMonthPickerChange(selectedMonth)}
         onCancelClick={() => setMonthPicker(false)}
       />
       <Card border>
