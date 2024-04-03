@@ -2,28 +2,22 @@
 import React, { useState, useEffect } from "react";
 
 import * as Actions from "../actions";
+import * as Payloads from "../payloads";
 
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEventsContext } from "../hooks/useEventsContext";
-import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
+import { useSelectedViewContext } from "../hooks/useSelectedViewContext";
 
 import { getEvents } from "../api/events";
 
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import TodayIcon from "@mui/icons-material/Today";
-
-import Button from "../core/button/Button";
 import Card from "../core/card/Card";
 import Divider from "../core/divider/Divider";
-import Typography from "../core/typography/Typography";
 
-import Calendar, { months } from "../components/calendar/Calendar";
+import CalendarLayout from "../components/layouts/CalendarLayout";
 import DetailsLayout from "../components/layouts/DetailsLayout";
 import HeaderLayout from "../components/layouts/HeaderLayout";
 import LegendLayout from "../components/layouts/LegendLayout";
-import MonthPickerModal from "../components/modals/MonthPickerModal";
+import TimelineLayout from "../components/layouts/TimelineLayout";
 
 import { calendars } from "../utility/calendars";
 import { filterEvents } from "../utility/utility";
@@ -31,11 +25,7 @@ import { filterEvents } from "../utility/utility";
 const CalendarApp = () => {
   const { user } = useAuthContext();
   const { events, dispatch } = useEventsContext();
-  const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
-
-  const today = new Date();
-
-  const [monthPicker, setMonthPicker] = useState(false);
+  const { selectedView } = useSelectedViewContext();
 
   const [visibleCalendars, setVisibleCalendars] = useState([]);
 
@@ -55,28 +45,6 @@ const CalendarApp = () => {
     setVisibleCalendars(calendars.map((calendar) => calendar.user));
   }, []);
 
-  const handleMonthPickerChange = (selectedMonth) => {
-    let monthIndex = 0;
-
-    for (let i = 0; i < months.length; i++) {
-      if (selectedMonth.month === months[i]) {
-        monthIndex = i;
-      }
-    }
-
-    dispatchSelectedDate({
-      type: Actions.SET_SELECTED_DATE,
-      payload: {
-        month: monthIndex,
-        date: 1,
-        year: selectedMonth.year,
-        weekday: new Date(selectedDate.year, selectedDate.month, 1).getDay(),
-      },
-    });
-
-    setMonthPicker(false);
-  };
-
   const handleLegendChange = (calendar) => {
     let calendars = [...visibleCalendars];
 
@@ -95,59 +63,14 @@ const CalendarApp = () => {
     setVisibleCalendars(calendars);
   };
 
-  const handleTodayClick = () => {
-    dispatchSelectedDate({
-      type: Actions.SET_SELECTED_DATE,
-      payload: { month: today.getMonth(), date: today.getDate(), year: today.getFullYear(), weekday: today.getDay() },
-    });
-  };
-
-  const handlePreviousButtonClick = () => {
-    dispatchSelectedDate({
-      type: Actions.SET_SELECTED_DATE,
-      payload: {
-        month: selectedDate.month === 0 ? 11 : selectedDate.month - 1,
-        date: 1,
-        year: selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year,
-        weekday: new Date(selectedDate.year, selectedDate.month - 1, 1).getDay(),
-      },
-    });
-  };
-
-  const handleNextButtonClick = () => {
-    dispatchSelectedDate({
-      type: Actions.SET_SELECTED_DATE,
-      payload: {
-        month: (selectedDate.month + 1) % 12,
-        date: 1,
-        year: selectedDate.month === 11 ? selectedDate.year + 1 : selectedDate.year,
-        weekday: new Date(selectedDate.year, selectedDate.month + 1, 1).getDay(),
-      },
-    });
-  };
-
-  const handleSelectDay = (year, month, day) => {
-    dispatchSelectedDate({
-      type: Actions.SET_SELECTED_DATE,
-      payload: { month: month, date: day, year: year, weekday: new Date(year, month, day).getDay() },
-    });
-  };
-
   return (
     <>
-      <MonthPickerModal
-        open={monthPicker}
-        month={selectedDate.month}
-        year={selectedDate.year}
-        onSaveClick={(selectedMonth) => handleMonthPickerChange(selectedMonth)}
-        onCancelClick={() => setMonthPicker(false)}
-      />
       <Card border>
         <div className="grid grid-cols-12 m-auto w-full">
           <div className="col-span-12 sm:col-span-12 md:col-span-3 md:border-r border-slate-300 dark:border-slate-600">
             <div className="grid grid-cols-12 m-auto w-full">
               <div className="col-span-12">
-                <HeaderLayout user="Taylor Zweigle" />
+                <HeaderLayout user="Taylor Z" />
                 <Divider />
               </div>
               <div className="col-span-12">
@@ -161,29 +84,12 @@ const CalendarApp = () => {
             </div>
           </div>
           <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col gap-0 md:gap-8 p-0 md:p-8">
-            <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-8 pt-4 pl-4 pr-4 md:pt-0 md:pl-0 md:pr-0">
-              <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
-                <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
-                <Button variant="default" prefix={<ArrowDropDownIcon />} onClick={() => setMonthPicker(!monthPicker)} />
-              </div>
-              <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
-                <Button variant="default" prefix={<TodayIcon />} onClick={() => handleTodayClick()}>
-                  Today
-                </Button>
-                <div className="flex flex-row gap-4 items-center">
-                  <Button variant="default" prefix={<ArrowBackIcon />} onClick={() => handlePreviousButtonClick()} />
-                  <Button variant="default" prefix={<ArrowForwardIcon />} onClick={() => handleNextButtonClick()} />
-                </div>
-              </div>
-            </div>
-            <div className="p-4 md:p-0">
-              <Calendar
-                data={filterEvents(visibleCalendars, events)}
-                calendars={calendars}
-                today={today}
-                onSelectDay={handleSelectDay}
-              />
-            </div>
+            {selectedView === Payloads.CALENDAR_VIEW_CALENDAR && (
+              <CalendarLayout data={filterEvents(visibleCalendars, events)} />
+            )}
+            {selectedView === Payloads.CALENDAR_VIEW_TIMELINE && (
+              <TimelineLayout data={filterEvents(visibleCalendars, events)} />
+            )}
             <div className="block md:hidden col-span-12">
               <Divider />
               <LegendLayout onClick={handleLegendChange} />

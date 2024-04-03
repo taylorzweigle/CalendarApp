@@ -3,8 +3,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import AddIcon from "@mui/icons-material/Add";
+import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
+import CalendarViewMonthIcon from "@mui/icons-material/CalendarViewMonth";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import ModeNightIcon from "@mui/icons-material/ModeNight";
+
+import * as Actions from "../../actions";
+import * as Payloads from "../../payloads";
+
+import { useSelectedViewContext } from "../../hooks/useSelectedViewContext";
 
 import LogoutModal from "../modals/LogoutModal";
 
@@ -17,6 +24,8 @@ import { useLogout } from "../../hooks/useLogout";
 import image from "../../img/Me.png";
 
 const HeaderLayout = ({ user }) => {
+  const { selectedView, dispatchSelectedView } = useSelectedViewContext();
+
   const [darkMode, setDarkMode] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -47,7 +56,20 @@ const HeaderLayout = ({ user }) => {
               </Typography>
             </span>
           </div>
-          <Button variant="default" prefix={darkMode ? <LightModeIcon /> : <ModeNightIcon />} onClick={handleThemeButton} />
+          <div className="flex flex-row gap-4 items-center">
+            <Button
+              variant="default"
+              prefix={selectedView === Payloads.CALENDAR_VIEW_CALENDAR ? <CalendarViewMonthIcon /> : <CalendarViewDayIcon />}
+              onClick={() =>
+                dispatchSelectedView(
+                  selectedView === Payloads.CALENDAR_VIEW_CALENDAR
+                    ? { type: Actions.SET_SELECTED_VIEW, payload: Payloads.CALENDAR_VIEW_TIMELINE }
+                    : { type: Actions.SET_SELECTED_VIEW, payload: Payloads.CALENDAR_VIEW_CALENDAR }
+                )
+              }
+            />
+            <Button variant="default" prefix={darkMode ? <LightModeIcon /> : <ModeNightIcon />} onClick={handleThemeButton} />
+          </div>
         </div>
         <Link to="/event">
           <Button variant="default" fullWidth prefix={<AddIcon />}>
