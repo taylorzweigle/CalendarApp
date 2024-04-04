@@ -1,6 +1,8 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
+import CloseIcon from "@mui/icons-material/Close";
+
 import Button from "../button/Button";
 import Card from "../card/Card";
 import Divider from "../divider/Divider";
@@ -15,10 +17,12 @@ const Modal = ({ children, open, title, errorModal, action, onAction, onCancel }
     >
       <div className="m-auto p-4 sm:p-8 w-full sm:w-128">
         <Card>
-          <div className="p-4 sm:p-8">
+          <div className="flex flex-row justify-between items-center p-4 sm:p-8">
             <Typography variant="heading">{title}</Typography>
+            <Button variant="text" prefix={<CloseIcon />} onClick={onCancel} />
           </div>
-          <div className="pl-4 sm:pl-8 pr-4 sm:pr-8 pb-4 sm:pb-8">{children}</div>
+          <Divider />
+          <div className="p-4 sm:p-8">{children}</div>
           <Divider />
           <div className="flex flex-row justify-end gap-4 p-4 sm:p-8">
             <Button variant="default" onClick={onCancel}>

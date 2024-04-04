@@ -49,10 +49,10 @@ const HeaderLayout = ({ user }) => {
       <div className="flex flex-col gap-4 md:gap-8 p-4 md:p-8">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row items-center gap-2">
-            <Avatar image={image} user={user.slice(0, 1)} onClick={() => setOpen(true)} />
+            <Avatar image={image} user="TZ" onClick={() => setOpen(true)} />
             <span className="sm:block md:hidden lg:block">
               <Typography variant="heading" truncate>
-                {user}
+                Taylor Zweigle
               </Typography>
             </span>
           </div>
@@ -71,12 +71,14 @@ const HeaderLayout = ({ user }) => {
             <Button variant="default" prefix={darkMode ? <LightModeIcon /> : <ModeNightIcon />} onClick={handleThemeButton} />
           </div>
         </div>
-        <Link to="/event">
-          <Button variant="default" fullWidth prefix={<AddIcon />}>
-            <span className="inline-flex">Add&nbsp;</span>
-            <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Event</span>
-          </Button>
-        </Link>
+        {user && (
+          <Link to="/event">
+            <Button variant="default" fullWidth prefix={<AddIcon />}>
+              <span className="inline-flex">Add&nbsp;</span>
+              <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Event</span>
+            </Button>
+          </Link>
+        )}
       </div>
     </>
   );

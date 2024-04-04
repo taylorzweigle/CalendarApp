@@ -70,7 +70,7 @@ const CalendarApp = () => {
           <div className="col-span-12 sm:col-span-12 md:col-span-3 md:border-r border-slate-300 dark:border-slate-600">
             <div className="grid grid-cols-12 m-auto w-full">
               <div className="col-span-12">
-                <HeaderLayout user="Taylor Z" />
+                <HeaderLayout user={user.username === "calendarapp_edit"} />
                 <Divider />
               </div>
               <div className="col-span-12">
