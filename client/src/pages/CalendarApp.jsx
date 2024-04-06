@@ -73,10 +73,12 @@ const CalendarApp = () => {
                 <HeaderLayout user={user.username === "calendarapp_edit"} />
                 <Divider />
               </div>
-              <div className="col-span-12">
-                <DetailsLayout data={filterEvents(visibleCalendars, events)} calendars={calendars} />
-                <Divider />
-              </div>
+              {selectedView === Payloads.CALENDAR_VIEW_CALENDAR && (
+                <div className="col-span-12">
+                  <DetailsLayout data={filterEvents(visibleCalendars, events)} calendars={calendars} />
+                  <Divider />
+                </div>
+              )}
               <div className="hidden md:block col-span-12">
                 <LegendLayout onClick={handleLegendChange} />
                 <Divider />
