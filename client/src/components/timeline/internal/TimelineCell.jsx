@@ -8,7 +8,7 @@ const TimelineCell = ({ children, rowSpan, hover, onClick }) => {
 
   return (
     <td
-      className="h-full border-b border-slate-300 dark:border-slate-600"
+      className="h-full border-t border-slate-300 dark:border-slate-600"
       rowSpan={rowSpan}
       onClick={onClick}
       onMouseOver={() => setIsHover(true)}

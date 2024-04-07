@@ -69,22 +69,18 @@ const Timeline = ({ data, calendars, onSelectDay }) => {
   };
 
   return (
-    <div className="flex flex-row gap-0">
-      <div className="flex flex-col items-end">
+    <table className="w-full">
+      <tbody>
         {hours.map((hour) => (
-          <div key={hour} className="w-full h-12 pr-4 border-b border-slate-300 dark:border-slate-600">
-            <Typography variant="body1">{formatTime(hour)}</Typography>
-          </div>
+          <TimelineRow key={hour}>
+            <TimelineCell>
+              <Typography variant="body1">{formatTime(hour)}</Typography>
+            </TimelineCell>
+            {renderTableCell(hour)}
+          </TimelineRow>
         ))}
-      </div>
-      <table className="h-full w-full table-fixed">
-        <tbody>
-          {hours.map((hour) => (
-            <TimelineRow key={hour}>{renderTableCell(hour)}</TimelineRow>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      </tbody>
+    </table>
   );
 };
 
