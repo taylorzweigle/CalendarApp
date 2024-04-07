@@ -31,13 +31,6 @@ const TimelineLayout = ({ data }) => {
     });
   };
 
-  const handleSelectDay = (year, month, day) => {
-    dispatchSelectedDate({
-      type: Actions.SET_SELECTED_DATE,
-      payload: { month: month, date: day, year: year, weekday: new Date(year, month, day).getDay() },
-    });
-  };
-
   const handlePreviousButtonClick = () => {
     dispatchSelectedDate({
       type: Actions.SET_SELECTED_DATE,
@@ -85,7 +78,7 @@ const TimelineLayout = ({ data }) => {
         </div>
       </div>
       <div className="p-4 md:p-0">
-        <Timeline data={data} calendars={calendars} onSelectDay={handleSelectDay} />
+        <Timeline data={data} calendars={calendars} />
       </div>
     </>
   );

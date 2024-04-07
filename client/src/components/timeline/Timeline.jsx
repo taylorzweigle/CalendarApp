@@ -1,19 +1,19 @@
 //Taylor Zweigle, 2024
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
 import TimelineCell from "./internal/TimelineCell";
 
-import TimelineCard from "../cards/TimelineCard";
-
 import Typography from "../../core/typography/Typography";
 
-const Timeline = ({ data, calendars, onSelectDay }) => {
+const Timeline = ({ data, calendars }) => {
+  const navigate = useNavigate();
+
   const { selectedDate } = useSelectedDateContext();
 
-  const hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+  const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 
   const formatTime = (time) => `${time % 12 === 0 ? 12 : time % 12}${time >= 12 ? "pm" : "am"} `;
 
@@ -36,18 +36,15 @@ const Timeline = ({ data, calendars, onSelectDay }) => {
       for (let i = 0; i < data.length; i++) {
         if (isEventInDay(data[i], selectedDate) && hour === new Date(data[i].startTime).getHours()) {
           tableCell = (
-            <TimelineCell rowSpan={calculateRowSpan(data[i])}>
-              &nbsp;
-              {/*<Link key={data[i]._id} to={`/event/${data[i]._id}`}>
-                <TimelineCard
-                  event={data[i].event}
-                  startTime={new Date(data[i].startTime)}
-                  endTime={new Date(data[i].endTime)}
-                  color={calendars.find((calendar) => calendar.user === data[i].user).color}
-                  tag={data[i].tag}
-                />
-          </Link>*/}
-            </TimelineCell>
+            <TimelineCell
+              rowSpan={calculateRowSpan(data[i])}
+              event={data[i].event}
+              tag={data[i].tag}
+              color={calendars.find((calendar) => calendar.user === data[i].user).color}
+              startTime={new Date(data[i].startTime)}
+              endTime={new Date(data[i].endTime)}
+              onClick={() => navigate(`/event/${data[i]._id}`)}
+            />
           );
           break;
         } else if (
@@ -58,24 +55,24 @@ const Timeline = ({ data, calendars, onSelectDay }) => {
           tableCell = null;
           break;
         } else {
-          tableCell = <TimelineCell onClick={() => handleHourClick(hour)}>&nbsp;</TimelineCell>;
+          tableCell = <TimelineCell hover onClick={() => handleHourClick(hour)} />;
         }
       }
     } else {
-      tableCell = <TimelineCell onClick={() => handleHourClick(hour)}>&nbsp;</TimelineCell>;
+      tableCell = <TimelineCell hover onClick={() => handleHourClick(hour)} />;
     }
 
     return tableCell;
   };
 
   return (
-    <table className="w-full">
-      <tbody>
+    <table className="w-full h-192">
+      <tbody className="h-full">
         {hours.map((hour) => (
-          <tr key={hour} className="h-12">
-            <TimelineCell>
+          <tr key={hour} className="h-px">
+            <td className={`h-12 w-16 border-t border-slate-300 dark:border-slate-600`}>
               <Typography variant="body1">{formatTime(hour)}</Typography>
-            </TimelineCell>
+            </td>
             {renderTableCell(hour)}
           </tr>
         ))}
