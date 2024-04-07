@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
 import TimelineCell from "./internal/TimelineCell";
-import TimelineRow from "./internal/TimelineRow";
 
 import TimelineCard from "../cards/TimelineCard";
 
@@ -38,7 +37,8 @@ const Timeline = ({ data, calendars, onSelectDay }) => {
         if (isEventInDay(data[i], selectedDate) && hour === new Date(data[i].startTime).getHours()) {
           tableCell = (
             <TimelineCell rowSpan={calculateRowSpan(data[i])}>
-              <Link key={data[i]._id} to={`/event/${data[i]._id}`}>
+              &nbsp;
+              {/*<Link key={data[i]._id} to={`/event/${data[i]._id}`}>
                 <TimelineCard
                   event={data[i].event}
                   startTime={new Date(data[i].startTime)}
@@ -46,7 +46,7 @@ const Timeline = ({ data, calendars, onSelectDay }) => {
                   color={calendars.find((calendar) => calendar.user === data[i].user).color}
                   tag={data[i].tag}
                 />
-              </Link>
+          </Link>*/}
             </TimelineCell>
           );
           break;
@@ -72,12 +72,12 @@ const Timeline = ({ data, calendars, onSelectDay }) => {
     <table className="w-full">
       <tbody>
         {hours.map((hour) => (
-          <TimelineRow key={hour}>
+          <tr key={hour} className="h-12">
             <TimelineCell>
               <Typography variant="body1">{formatTime(hour)}</Typography>
             </TimelineCell>
             {renderTableCell(hour)}
-          </TimelineRow>
+          </tr>
         ))}
       </tbody>
     </table>

@@ -11,10 +11,8 @@ const TimelineCard = ({ event, startTime, endTime, color, tag }) => {
   const icon = getIcons(tag);
 
   return (
-    <div
-      className={`flex flex-row justify-start cursor-pointer h-full ${colors.bg} border ${colors.border} rounded-md overflow-clip px-2`}
-    >
-      <div className="flex flex-row items-center h-fit">
+    <div className={`h-full cursor-pointer ${colors.bg} border ${colors.border} rounded-md overflow-clip px-2`}>
+      <div className="flex flex-row items-center">
         <div className={`flex justify-center items-center ${colors.icon} rounded w-6 h-6`}>{icon}</div>
         <div className="flex flex-col gap-0 p-1 sm:p-2 line-clamp-1">
           <Typography variant="body2" color={colors.icon} bold truncate>
