@@ -8,7 +8,7 @@ import TimelineCell from "./internal/TimelineCell";
 
 import Typography from "../../core/typography/Typography";
 
-const Timeline = ({ data, calendars }) => {
+const Timeline = ({ data, calendars, onHourClick }) => {
   const navigate = useNavigate();
 
   const { selectedDate } = useSelectedDateContext();
@@ -16,8 +16,6 @@ const Timeline = ({ data, calendars }) => {
   const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 
   const formatTime = (time) => `${time % 12 === 0 ? 12 : time % 12}${time >= 12 ? "pm" : "am"} `;
-
-  const handleHourClick = (hour) => {};
 
   const renderTableCell = (hour) => {
     let tableCell = null;
@@ -55,11 +53,11 @@ const Timeline = ({ data, calendars }) => {
           tableCell = null;
           break;
         } else {
-          tableCell = <TimelineCell hover onClick={() => handleHourClick(hour)} />;
+          tableCell = <TimelineCell hover onClick={() => onHourClick(hour)} />;
         }
       }
     } else {
-      tableCell = <TimelineCell hover onClick={() => handleHourClick(hour)} />;
+      tableCell = <TimelineCell hover onClick={() => onHourClick(hour)} />;
     }
 
     return tableCell;

@@ -1,5 +1,6 @@
 //Taylor Zweigle, 2024
 import React from "react";
+import { useNavigate } from "react-router";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -8,6 +9,7 @@ import TodayIcon from "@mui/icons-material/Today";
 import * as Actions from "../../actions";
 
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
+import { useSelectedStartTimeContext } from "../../hooks/useSelectedStartTimeContext";
 
 import Button from "../../core/button/Button";
 import Typography from "../../core/typography/Typography";
@@ -18,7 +20,10 @@ import Timeline from "../timeline/Timeline";
 import { calendars } from "../../utility/calendars";
 
 const TimelineLayout = ({ data }) => {
+  const navigate = useNavigate();
+
   const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
+  const { dispatchSelectedStartTime } = useSelectedStartTimeContext();
 
   const today = new Date();
 
@@ -61,6 +66,12 @@ const TimelineLayout = ({ data }) => {
     });
   };
 
+  const handleHourClick = (hour) => {
+    dispatchSelectedStartTime({ type: Actions.SET_SELECTED_START_TIME, payload: hour });
+
+    navigate("/event");
+  };
+
   return (
     <>
       <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-8 pt-4 pl-4 pr-4 md:pt-0 md:pl-0 md:pr-0">
@@ -78,7 +89,7 @@ const TimelineLayout = ({ data }) => {
         </div>
       </div>
       <div className="p-4 md:p-0">
-        <Timeline data={data} calendars={calendars} />
+        <Timeline data={data} calendars={calendars} onHourClick={handleHourClick} />
       </div>
     </>
   );

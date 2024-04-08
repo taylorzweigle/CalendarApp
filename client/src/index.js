@@ -10,6 +10,7 @@ import App from "./App";
 import { AuthContextProvider } from "./context/AuthContext";
 import { EventsContextProvider } from "./context/EventsContext";
 import { SelectedDateContextProvider } from "./context/SelectedDateContext";
+import { SelectedStartTimeContextProvider } from "./context/SelectedStartTimeContext";
 import { SelectedViewContextProvider } from "./context/SelectedViewContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -19,11 +20,13 @@ root.render(
     <AuthContextProvider>
       <EventsContextProvider>
         <SelectedDateContextProvider>
-          <SelectedViewContextProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </SelectedViewContextProvider>
+          <SelectedStartTimeContextProvider>
+            <SelectedViewContextProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </SelectedViewContextProvider>
+          </SelectedStartTimeContextProvider>
         </SelectedDateContextProvider>
       </EventsContextProvider>
     </AuthContextProvider>

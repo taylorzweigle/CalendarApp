@@ -9,6 +9,7 @@ import * as Actions from "../actions";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEventsContext } from "../hooks/useEventsContext";
 import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
+import { useSelectedStartTimeContext } from "../hooks/useSelectedStartTimeContext";
 
 import Button from "../core/button/Button";
 import Card from "../core/card/Card";
@@ -31,6 +32,7 @@ const CreateEventPage = () => {
   const { user: authUser } = useAuthContext();
   const { dispatch } = useEventsContext();
   const { selectedDate } = useSelectedDateContext();
+  const { selectedStartTime } = useSelectedStartTimeContext();
 
   const [allDay, setAllDay] = useState(false);
 
@@ -58,6 +60,17 @@ const CreateEventPage = () => {
     setDate(selectedDate.date);
     setYear(selectedDate.year);
   }, [selectedDate]);
+
+  useEffect(() => {
+    if (selectedStartTime) {
+      setStartHours(selectedStartTime % 12 === 0 ? "12" : (selectedStartTime % 12).toString());
+      setStartMinutes("00");
+      setStartPeriod(selectedStartTime >= 12 ? "PM" : "AM");
+      setEndHours(((parseInt(selectedStartTime) + 1) % 12).toString());
+      setEndMinutes("00");
+      setEndPeriod(selectedStartTime >= 12 ? "PM" : "AM");
+    }
+  }, [selectedStartTime]);
 
   const handleOnSave = async (e) => {
     e.preventDefault();
