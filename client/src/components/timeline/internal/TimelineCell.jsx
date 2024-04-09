@@ -17,7 +17,9 @@ const TimelineCell = ({ rowSpan, event, color, tag, startTime, endTime, hover, o
   return (
     <td
       className={`h-12 align-top ${
-        event ? `${colors.bg} border ${colors.border} overflow-clip p-2` : "border-t border-slate-300 dark:border-slate-600"
+        event
+          ? `${colors.bg} border ${colors.border} overflow-clip pr-2 pl-2`
+          : "border-t border-slate-300 dark:border-slate-600"
       } cursor-pointer`}
       rowSpan={rowSpan}
       onClick={onClick}
@@ -32,7 +34,7 @@ const TimelineCell = ({ rowSpan, event, color, tag, startTime, endTime, hover, o
       {!hover && event && (
         <div className={`flex flex-row items-center`}>
           <div className={`flex justify-center items-center ${colors.icon} rounded w-6 h-6`}>{icon}</div>
-          <div className="flex flex-col gap-0 p-1 sm:p-2 line-clamp-1">
+          <div className="flex flex-col gap-0 p-1 line-clamp-1">
             <Typography variant="body2" color={colors.icon} bold truncate>
               {event}
             </Typography>

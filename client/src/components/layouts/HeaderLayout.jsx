@@ -11,6 +11,7 @@ import ModeNightIcon from "@mui/icons-material/ModeNight";
 import * as Actions from "../../actions";
 import * as Payloads from "../../payloads";
 
+import { useSelectedStartTimeContext } from "../../hooks/useSelectedStartTimeContext";
 import { useSelectedViewContext } from "../../hooks/useSelectedViewContext";
 
 import LogoutModal from "../modals/LogoutModal";
@@ -25,6 +26,7 @@ import image from "../../img/Me.png";
 
 const HeaderLayout = ({ user }) => {
   const { selectedView, dispatchSelectedView } = useSelectedViewContext();
+  const { dispatchSelectedStartTime } = useSelectedStartTimeContext();
 
   const [darkMode, setDarkMode] = useState(false);
   const [open, setOpen] = useState(false);
@@ -73,7 +75,12 @@ const HeaderLayout = ({ user }) => {
         </div>
         {user && (
           <Link to="/event">
-            <Button variant="default" fullWidth prefix={<AddIcon />}>
+            <Button
+              variant="default"
+              fullWidth
+              prefix={<AddIcon />}
+              onClick={() => dispatchSelectedStartTime({ type: Actions.SET_SELECTED_START_TIME, payload: "" })}
+            >
               <span className="inline-flex">Add&nbsp;</span>
               <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Event</span>
             </Button>
