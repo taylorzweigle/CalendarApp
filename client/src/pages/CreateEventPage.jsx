@@ -69,6 +69,14 @@ const CreateEventPage = () => {
       setEndHours(((parseInt(selectedStartTime) + 1) % 12 === 0 ? "12" : (parseInt(selectedStartTime) + 1) % 12).toString());
       setEndMinutes("00");
       setEndPeriod(parseInt(selectedStartTime) + 1 >= 12 ? "PM" : "AM");
+    } else if (selectedStartTime === 0) {
+      setStartHours(0);
+      setStartMinutes("00");
+      setStartPeriod("AM");
+      setEndHours(0);
+      setEndMinutes("00");
+      setEndPeriod("AM");
+      setAllDay(true);
     }
   }, [selectedStartTime]);
 

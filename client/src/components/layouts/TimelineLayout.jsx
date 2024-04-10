@@ -12,7 +12,6 @@ import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 import { useSelectedStartTimeContext } from "../../hooks/useSelectedStartTimeContext";
 
 import Button from "../../core/button/Button";
-import EmptyState from "../../core/emptyState/EmptyState";
 import Typography from "../../core/typography/Typography";
 
 import { months } from "../calendar/Calendar";
@@ -98,8 +97,13 @@ const TimelineLayout = ({ data }) => {
   return (
     <>
       <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-8 pt-4 pl-4 pr-4 md:pt-0 md:pl-0 md:pr-0">
-        <div className="h-12">
+        <div className="flex flex-row justify-between md:justify-start items-center gap-4 h-12">
           <Typography variant="title">{`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`}</Typography>
+          {dayData.length > 0 && (
+            <div className="flex flex-row justify-center items-center rounded-full w-24 h-10 bg-sky-200 dark:bg-sky-600">
+              <Typography variant="body1">{`${dayData.length} ${dayData.length > 1 ? "Events" : "Event"}`}</Typography>
+            </div>
+          )}
         </div>
         <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
           <Button variant="default" prefix={<TodayIcon />} onClick={() => handleTodayClick()}>
