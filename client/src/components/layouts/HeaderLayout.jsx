@@ -24,7 +24,7 @@ import { useLogout } from "../../hooks/useLogout";
 
 import image from "../../img/Me.png";
 
-const HeaderLayout = ({ user }) => {
+const HeaderLayout = ({ editUser }) => {
   const { selectedView, dispatchSelectedView } = useSelectedViewContext();
   const { dispatchSelectedStartTime } = useSelectedStartTimeContext();
 
@@ -73,7 +73,7 @@ const HeaderLayout = ({ user }) => {
             <Button variant="default" prefix={darkMode ? <LightModeIcon /> : <ModeNightIcon />} onClick={handleThemeButton} />
           </div>
         </div>
-        {user && (
+        {editUser && (
           <Link to="/event">
             <Button
               variant="default"

@@ -70,12 +70,16 @@ const CalendarApp = () => {
           <div className="col-span-12 sm:col-span-12 md:col-span-3 md:border-r border-slate-300 dark:border-slate-600">
             <div className="grid grid-cols-12 m-auto w-full">
               <div className="col-span-12">
-                <HeaderLayout user={user.username === "calendarapp_edit"} />
+                <HeaderLayout editUser={user.username === "calendarapp_edit"} />
                 <Divider />
               </div>
               {selectedView === Payloads.CALENDAR_VIEW_CALENDAR && (
                 <div className="col-span-12">
-                  <DetailsLayout data={filterEvents(visibleCalendars, events)} calendars={calendars} />
+                  <DetailsLayout
+                    data={filterEvents(visibleCalendars, events)}
+                    calendars={calendars}
+                    editUser={user.username === "calendarapp_edit"}
+                  />
                   <Divider />
                 </div>
               )}

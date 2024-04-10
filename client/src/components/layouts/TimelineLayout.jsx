@@ -1,5 +1,5 @@
 //Taylor Zweigle, 2024
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -12,6 +12,7 @@ import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 import { useSelectedStartTimeContext } from "../../hooks/useSelectedStartTimeContext";
 
 import Button from "../../core/button/Button";
+import EmptyState from "../../core/emptyState/EmptyState";
 import Typography from "../../core/typography/Typography";
 
 import { months } from "../calendar/Calendar";
@@ -26,6 +27,28 @@ const TimelineLayout = ({ data }) => {
   const { dispatchSelectedStartTime } = useSelectedStartTimeContext();
 
   const today = new Date();
+
+  const [dayData, setDayData] = useState([]);
+
+  useEffect(() => {
+    let temp = [];
+
+    if (data.length > 0) {
+      for (let i = 0; i < data.length; i++) {
+        const eventStartTime = data[i].startTime;
+
+        if (
+          new Date(eventStartTime).getDate() === selectedDate.date &&
+          new Date(eventStartTime).getMonth() === selectedDate.month &&
+          new Date(eventStartTime).getFullYear() === selectedDate.year
+        ) {
+          temp.push(data[i]);
+        }
+      }
+    }
+
+    setDayData(temp);
+  }, [data, selectedDate]);
 
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
 
@@ -89,7 +112,7 @@ const TimelineLayout = ({ data }) => {
         </div>
       </div>
       <div className="p-4 md:p-0">
-        <Timeline data={data} calendars={calendars} onHourClick={handleHourClick} />
+        <Timeline data={dayData} calendars={calendars} onHourClick={handleHourClick} />
       </div>
     </>
   );

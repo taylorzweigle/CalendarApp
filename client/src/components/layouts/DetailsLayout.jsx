@@ -13,7 +13,7 @@ import EventCard from "../cards/EventCard";
 
 import { sortEvents } from "../../utility/utility";
 
-const DetailsLayout = ({ data, calendars }) => {
+const DetailsLayout = ({ data, calendars, editUser }) => {
   const { selectedDate } = useSelectedDateContext();
 
   const itemsForSelectedDay = data
@@ -42,7 +42,7 @@ const DetailsLayout = ({ data, calendars }) => {
             />
           </Link>
         ))}
-        {itemsForSelectedDay.length > 0 ? null : <EmptyState />}
+        {itemsForSelectedDay.length > 0 ? null : <EmptyState readOnly={!editUser} />}
       </div>
     </div>
   );

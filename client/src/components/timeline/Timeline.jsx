@@ -74,6 +74,8 @@ const Timeline = ({ data, calendars, onHourClick }) => {
           tableCell = <TimelineCell hover onClick={() => onHourClick(hour)} />;
         }
       }
+    } else {
+      tableCell = <TimelineCell hover onClick={() => onHourClick(hour)} />;
     }
 
     return tableCell;
