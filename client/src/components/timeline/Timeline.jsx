@@ -13,7 +13,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
 
   const { selectedDate } = useSelectedDateContext();
 
-  const hours = [0, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+  const hours = [0, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
   const formatTime = (time) => `${time % 12 === 0 ? 12 : time % 12}${time >= 12 ? "pm" : "am"} `;
 
@@ -68,7 +68,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
       <tbody className="h-full">
         {hours.map((hour) => (
           <tr key={hour} className="h-px">
-            <td className={`h-12 w-16 border-t border-slate-300 dark:border-slate-600`}>
+            <td className={`h-12 w-16 border-t border-slate-300 dark:border-slate-600 align-text-top`}>
               <Typography variant="body1">{hour === 0 ? "All Day" : formatTime(hour)}</Typography>
             </td>
             {renderTableCell(hour)}
