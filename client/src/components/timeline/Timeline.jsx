@@ -30,8 +30,8 @@ const Timeline = ({ data, calendars, onHourClick }) => {
         for (let j = 0; j < tempDataArray[0].length; j++) {
           if (
             (new Date(data[i].startTime).getHours() >= new Date(tempDataArray[0][j].startTime).getHours() &&
-              new Date(data[i].startTime).getHours() <= new Date(tempDataArray[0][j].endTime).getHours()) ||
-            (new Date(data[i].endTime).getHours() >= new Date(tempDataArray[0][j].startTime).getHours() &&
+              new Date(data[i].startTime).getHours() < new Date(tempDataArray[0][j].endTime).getHours()) ||
+            (new Date(data[i].endTime).getHours() > new Date(tempDataArray[0][j].startTime).getHours() &&
               new Date(data[i].endTime).getHours() <= new Date(tempDataArray[0][j].endTime).getHours())
           ) {
             conflict = true;
