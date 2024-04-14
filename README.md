@@ -11,26 +11,22 @@ The app allows for navigating to the previous and next months using arrow button
 ![Home_Page](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Dark.png)
 ![Home_Page](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Light.png)
 
+### Day View
+
+![Timeline_View](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Timeline_Dark.png)
+
 ### Add Event
 
-| Dark Theme                                                                                                  | Light Theme                                                                                                  |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| ![Create_Event](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Add_Event_Dark.png) | ![Create_Event](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Add_Event_Light.png) |
+![Create_Event](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Add_Event_Dark.png)
 
 ### View Event
 
-| Dark Theme                                                                                               | Light Theme                                                                                               |
-| -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| ![Event_Details](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Event_Dark.png) | ![Event_Details](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Event_Light.png) |
+![Event_Details](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Event_Dark.png)
 
 ### Filter Calendars
 
-| Dark Theme                                                                                         | Light Theme                                                                                         |
-| -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| ![Filter](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Filter_Dark.png) | ![Filter](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Filter_Light.png) |
+![Filter](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Filter_Dark.png)
 
 ### Mobile
 
-| Dark Theme                                                                                         | Light Theme                                                                                         |
-| -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| ![Mobile](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Mobile_Dark.png) | ![Mobile](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Mobile_Light.png) |
+| ![Mobile_1](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Mobile_1_Dark.png) | ![Mobile_2](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Mobile_2_Dark.png) |
