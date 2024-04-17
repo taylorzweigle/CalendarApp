@@ -92,7 +92,11 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
               <React.Fragment key={day.key}>
                 <CalendarDay
                   day={day.day}
-                  today={parseInt(day.key.slice(0, 2)) === selectedDate.month && day.day === today.getDate()}
+                  today={
+                    parseInt(day.key.slice(0, 2)) === today.getMonth() &&
+                    day.day === today.getDate() &&
+                    selectedDate.year === today.getFullYear()
+                  }
                   outOfMonth={parseInt(day.key.slice(0, 2)) !== selectedDate.month}
                   selected={parseInt(day.key.slice(0, 2)) === selectedDate.month && selectedDate.date === day.day}
                   onClick={
