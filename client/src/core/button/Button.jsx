@@ -32,7 +32,7 @@ const Button = ({ prefix, variant, fullWidth, onClick, children }) => {
       <div className="flex flex-row gap-1 justify-center items-center">
         {prefix ? <span className="text-slate-700 dark:text-white">{prefix}</span> : null}
         {children ? (
-          <Typography variant="body1" color="text-slate-700 dark:text-white">
+          <Typography variant="body1" color="primary">
             {children}
           </Typography>
         ) : null}

@@ -17,14 +17,16 @@ const Modal = ({ children, open, title, errorModal, action, onAction, onCancel }
     >
       <div className="m-auto p-4 sm:p-8 w-full sm:w-128">
         <Card>
-          <div className="flex flex-row justify-between items-center p-4 sm:p-8">
-            <Typography variant="heading">{title}</Typography>
+          <div className="flex flex-row justify-between items-center px-4 py-4 sm:px-8">
+            <Typography variant="heading" color="primary">
+              {title}
+            </Typography>
             <Button variant="text" prefix={<CloseIcon />} onClick={onCancel} />
           </div>
           <Divider />
-          <div className="p-4 sm:p-8">{children}</div>
+          <div className="px-4 py-8 sm:px-8 sm:py-8">{children}</div>
           <Divider />
-          <div className="flex flex-row justify-end gap-4 p-4 sm:p-8">
+          <div className="flex flex-row justify-end gap-4 px-4 py-4 sm:px-8 sm:py-8">
             <Button variant="default" onClick={onCancel}>
               Cancel
             </Button>

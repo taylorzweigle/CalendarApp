@@ -38,7 +38,7 @@ const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => 
             prefix={<ArrowBackIcon />}
             onClick={() => setSelectedMonth({ month: selectedMonth.month, year: selectedMonth.year - 1 })}
           />
-          <Typography variant="body1" bold>
+          <Typography variant="body1" color="primary" bold>
             {selectedMonth.year}
           </Typography>
           <Button

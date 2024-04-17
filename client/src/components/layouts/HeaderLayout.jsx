@@ -53,7 +53,7 @@ const HeaderLayout = ({ editUser }) => {
           <div className="flex flex-row items-center gap-2">
             <Avatar image={image} user="TZ" onClick={() => setOpen(true)} />
             <span className="sm:block md:hidden lg:block">
-              <Typography variant="heading" truncate>
+              <Typography variant="heading" color="primary" wrap>
                 Taylor Zweigle
               </Typography>
             </span>

@@ -27,7 +27,7 @@ const DetailsLayout = ({ data, calendars, editUser }) => {
 
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8">
-      <Typography variant="subheading" center>
+      <Typography variant="subheading" color="primary" center>
         {`${daysOfWeek[selectedDate.weekday]}, ${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`}
       </Typography>
       <div className="flex flex-col gap-4">

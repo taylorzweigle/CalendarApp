@@ -1,8 +1,9 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-const Typography = ({ variant, color, bold, truncate, center, children }) => {
+const Typography = ({ variant, color, customColor, bold, truncate, wrap, center, children }) => {
   let variantClass = "";
+  let colorClass = "";
 
   switch (variant) {
     case "title":
@@ -27,10 +28,24 @@ const Typography = ({ variant, color, bold, truncate, center, children }) => {
       variantClass = "text-base";
   }
 
+  switch (color) {
+    case "primary":
+      colorClass = "text-slate-700 dark:text-white";
+      break;
+    case "secondary":
+      colorClass = "text-slate-500 dark:text-slate-400";
+      break;
+    case "custom":
+      colorClass = customColor;
+      break;
+    default:
+      colorClass = "text-slate-700 dark:text-white";
+  }
+
   return (
     <p
-      className={`${variantClass} ${color ? color : "text-slate-700 dark:text-white"} ${bold ? "font-bold" : null} ${
-        truncate && "line-clamp-1"
+      className={`${variantClass} ${colorClass} ${bold ? "font-bold" : null} ${truncate && "line-clamp-1"} ${
+        wrap && "break-normal"
       } ${center && "text-center"}`}
     >
       {children}

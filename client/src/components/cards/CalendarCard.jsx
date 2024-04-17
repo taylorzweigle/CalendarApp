@@ -7,7 +7,6 @@ import { getColors, getIcons } from "../../utility/utility";
 
 const CalendarCard = ({ event, color, tag, outOfMonth }) => {
   const colors = getColors(color);
-
   const icon = getIcons(tag);
 
   return (
@@ -17,7 +16,7 @@ const CalendarCard = ({ event, color, tag, outOfMonth }) => {
       } border ${colors.border} rounded-md overflow-clip line-clamp-1`}
     >
       <div className={`flex justify-center items-center ${colors.icon} rounded w-6 h-6`}>{icon}</div>
-      <Typography variant="body2" color={colors.text} bold truncate>
+      <Typography variant="body2" color="custom" customColor={colors.text} bold truncate>
         <span className="hidden sm:hidden md:block">{event}</span>
       </Typography>
     </div>

@@ -28,7 +28,7 @@ const Legend = ({ color, label, onClick }) => {
         >
           &nbsp;
         </div>
-        <Typography variant="body1" color={!selected && "text-slate-500 dark:text-slate-400"}>
+        <Typography variant="body1" color={selected ? "primary" : "secondary"}>
           {label}
         </Typography>
       </div>

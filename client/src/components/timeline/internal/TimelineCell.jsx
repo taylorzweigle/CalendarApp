@@ -35,11 +35,11 @@ const TimelineCell = ({ rowSpan, event, color, tag, startTime, endTime, hover, o
         <div className={`flex flex-row items-center`}>
           <div className={`flex justify-center items-center ${colors.icon} rounded w-6 h-6`}>{icon}</div>
           <div className="flex flex-col gap-0 p-1 line-clamp-1">
-            <Typography variant="body2" color={colors.icon} bold truncate>
+            <Typography variant="body2" color="custom" customColor={colors.icon} bold truncate>
               {event}
             </Typography>
             {!compareStartAndEndTimes(startTime, endTime) && (
-              <Typography variant="caption" color={colors.text} truncate>
+              <Typography variant="caption" color="custom" customColor={colors.text} truncate>
                 {`${formatTime(startTime)} - ${formatTime(endTime)}`}
               </Typography>
             )}
