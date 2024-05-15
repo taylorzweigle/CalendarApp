@@ -86,7 +86,7 @@ const CalendarLayout = ({ data }) => {
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <MonthPickerModal
         open={monthPicker}
         month={selectedDate.month}
@@ -109,10 +109,10 @@ const CalendarLayout = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="p-4 md:p-0">
+      <div className="p-0">
         <Calendar data={data} calendars={calendars} today={today} onSelectDay={handleSelectDay} />
       </div>
-    </>
+    </div>
   );
 };
 
