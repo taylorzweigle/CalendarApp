@@ -105,8 +105,9 @@ const Timeline = ({ data, calendars, onHourClick }) => {
                 {hour === 0 ? "All Day" : formatTime(hour)}
               </Typography>
             </td>
-            {dataArray.length > 0 &&
-              dataArray.map((array) => <React.Fragment key={array[0]._id}>{renderTableCell(hour, array)}</React.Fragment>)}
+            {dataArray.length > 0
+              ? dataArray.map((array) => <React.Fragment key={array[0]._id}>{renderTableCell(hour, array)}</React.Fragment>)
+              : renderTableCell(hour, [])}
           </tr>
         ))}
       </tbody>
