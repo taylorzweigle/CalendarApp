@@ -1,6 +1,7 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
+import Label from "../../../core/label/Label";
 import Typography from "../../../core/typography/Typography";
 
 const CalendarDay = ({ day, today, outOfMonth, selected, onClick, children }) => {
@@ -17,13 +18,9 @@ const CalendarDay = ({ day, today, outOfMonth, selected, onClick, children }) =>
             {day}
           </Typography>
           {today && (
-            <div className="flex flex-row justify-center items-center rounded-full w-3 sm:w-12 h-3 sm:h-6 bg-slate-300 dark:bg-slate-500 sm:bg-slate-200 sm:dark:bg-slate-700">
-              <span className="hidden sm:block">
-                <Typography variant="caption" color="primary">
-                  Today
-                </Typography>
-              </span>
-            </div>
+            <Label size="small" variant="default">
+              <span className="hidden sm:block">Today</span>
+            </Label>
           )}
         </div>
         {children}

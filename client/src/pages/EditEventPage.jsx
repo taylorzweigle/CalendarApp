@@ -215,7 +215,7 @@ const EditEventPage = () => {
               <div className="flex flex-1">&nbsp;</div>
             </div>
             <div className="flex flex-col">
-              <div className="p-4">
+              <div className="h-162 sm:h-fit p-4">
                 <form onSubmit={handleOnSave}>
                   <div className="flex flex-col gap-4">
                     <DateInput

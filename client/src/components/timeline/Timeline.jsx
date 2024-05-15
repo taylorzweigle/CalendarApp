@@ -100,7 +100,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
       <tbody className="h-full">
         {hours.map((hour) => (
           <tr key={hour} className="h-px">
-            <td className={`h-12 w-16 border-t border-slate-300 dark:border-slate-600 align-text-top`}>
+            <td className={`h-12 w-16 pl-2 sm:pl-0 border-t border-slate-300 dark:border-slate-600 align-text-top`}>
               <Typography variant="body1" color="primary">
                 {hour === 0 ? "All Day" : formatTime(hour)}
               </Typography>

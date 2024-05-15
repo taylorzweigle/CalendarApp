@@ -12,9 +12,10 @@ import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 import { useSelectedStartTimeContext } from "../../hooks/useSelectedStartTimeContext";
 
 import Button from "../../core/button/Button";
+import Label from "../../core/label/Label";
 import Typography from "../../core/typography/Typography";
 
-import { months } from "../calendar/Calendar";
+import { months, daysOfWeek } from "../calendar/Calendar";
 import Timeline from "../timeline/Timeline";
 
 import { calendars } from "../../utility/calendars";
@@ -65,7 +66,11 @@ const TimelineLayout = ({ data }) => {
         month: selectedDate.date === 1 ? (selectedDate.month === 0 ? 11 : selectedDate.month - 1) : selectedDate.month,
         date: selectedDate.date === 1 ? getMonthLength(selectedDate.year, selectedDate.month - 1) : selectedDate.date - 1,
         year: selectedDate.date === 1 && selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year,
-        weekday: new Date(selectedDate.year, selectedDate.month - 1, 1).getDay(),
+        weekday: new Date(
+          selectedDate.date === 1 && selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year,
+          selectedDate.date === 1 ? (selectedDate.month === 0 ? 11 : selectedDate.month - 1) : selectedDate.month,
+          selectedDate.date === 1 ? getMonthLength(selectedDate.year, selectedDate.month - 1) : selectedDate.date - 1
+        ).getDay(),
       },
     });
   };
@@ -83,7 +88,15 @@ const TimelineLayout = ({ data }) => {
           selectedDate.date === getMonthLength(selectedDate.year, selectedDate.month) && selectedDate.month === 11
             ? selectedDate.year + 1
             : selectedDate.year,
-        weekday: new Date(selectedDate.year, selectedDate.month + 1, 1).getDay(),
+        weekday: new Date(
+          selectedDate.date === getMonthLength(selectedDate.year, selectedDate.month) && selectedDate.month === 11
+            ? selectedDate.year + 1
+            : selectedDate.year,
+          selectedDate.date === getMonthLength(selectedDate.year, selectedDate.month)
+            ? (selectedDate.month + 1) % 12
+            : selectedDate.month,
+          selectedDate.date === getMonthLength(selectedDate.year, selectedDate.month) ? 1 : selectedDate.date + 1
+        ).getDay(),
       },
     });
   };
@@ -95,19 +108,34 @@ const TimelineLayout = ({ data }) => {
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-4 md:gap-8">
       <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-8 pt-4 pl-4 pr-4 md:pt-0 md:pl-0 md:pr-0">
-        <div className="flex flex-row justify-between md:justify-start items-center gap-4 h-12">
-          <Typography variant="title" color="primary">{`${months[selectedDate.month]} ${selectedDate.date}, ${
-            selectedDate.year
-          }`}</Typography>
-          {dayData.length > 0 && (
-            <div className="flex flex-row justify-center items-center rounded-full w-24 h-10 bg-sky-200 dark:bg-sky-600">
-              <Typography variant="body1" color="primary">{`${dayData.length} ${
-                dayData.length > 1 ? "Events" : "Event"
-              }`}</Typography>
-            </div>
-          )}
+        <div className="flex flex-row justify-between md:justify-start items-end gap-4 h-14">
+          <div className="flex flex-col gap-0">
+            <Typography variant="body2" color="secondary">
+              {daysOfWeek[selectedDate.weekday]}
+            </Typography>
+            <Typography variant="title" color="primary">{`${months[selectedDate.month]} ${selectedDate.date}, ${
+              selectedDate.year
+            }`}</Typography>
+          </div>
+          <div className="flex flex-row items-center gap-4">
+            {selectedDate.month === today.getMonth() &&
+              selectedDate.date === today.getDate() &&
+              selectedDate.year === today.getFullYear() && (
+                <Label size="medium" variant="default">
+                  Today
+                </Label>
+              )}
+            {dayData.length > 0 && (
+              <Label size="medium" variant="primary">
+                <span className="flex flex-row gap-1">
+                  {dayData.length}
+                  <span className="hidden sm:block">{`${dayData.length > 1 ? "Events" : "Event"}`}</span>
+                </span>
+              </Label>
+            )}
+          </div>
         </div>
         <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
           <Button variant="default" prefix={<TodayIcon />} onClick={() => handleTodayClick()}>
@@ -119,10 +147,10 @@ const TimelineLayout = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="p-4 md:p-0">
+      <div className="p-0">
         <Timeline data={dayData} calendars={calendars} onHourClick={handleHourClick} />
       </div>
-    </>
+    </div>
   );
 };
 

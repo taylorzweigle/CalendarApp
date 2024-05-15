@@ -168,93 +168,101 @@ const CreateEventPage = () => {
   };
 
   return (
-    <div className="h-screen w-screen sm:w-128 m-auto bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg shadow-md">
-      <div className="absolute h-20 w-screen top-0 left-0 border-b border-slate-300 dark:border-slate-600 overflow-hidden">
-        <div className="flex flex-row justify-between items-center pt-4 pb-4">
-          <div className="flex flex-1 pl-4">
-            <Button variant="text" prefix={<ChevronLeftIcon />} onClick={handleOnCancel}>
-              Back
-            </Button>
-          </div>
-          <div className="flex flex-1 justify-center">
-            <Typography variant="heading">Add Event</Typography>
-          </div>
-          <div className="flex flex-1">&nbsp;</div>
-        </div>
-      </div>
-      <div className="absolute w-screen top-20 bottom-36 left-0 p-4 overflow-auto">
-        <form onSubmit={handleOnSave}>
-          <div className="flex flex-col gap-4">
-            <DateInput
-              label="Date"
-              month={month}
-              date={date}
-              year={year}
-              onMonthChange={(e) => setMonth(e.target.value)}
-              onDateChange={(e) => setDate(e.target.value)}
-              onYearChange={(e) => setYear(e.target.value)}
-            />
-            <TextInput label="Event" error={eventError} value={event} showLabel onChange={(e) => setEvent(e.target.value)} />
-            <SelectInput
-              label="User"
-              value={user}
-              error={userError}
-              items={["", "Husband", "Wife", "Us", "Calendar"]}
-              showLabel
-              onChange={(e) => setUser(e.target.value)}
-            />
-            <SelectInput
-              label="Tag"
-              value={tag}
-              error={tagError}
-              items={tags}
-              showLabel
-              onChange={(e) => setTag(e.target.value)}
-            />
-            <div className="pt-2 pb-2">
-              <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
+    <div className="w-full sm:w-128 m-auto">
+      <Card border>
+        <div className="flex flex-col">
+          <div className="flex flex-row justify-between items-center border-b border-slate-300 dark:border-slate-600 pt-4 pb-4">
+            <div className="flex flex-1 pl-4">
+              <Button variant="text" prefix={<ChevronLeftIcon />} onClick={handleOnCancel}>
+                Back
+              </Button>
             </div>
-            {!allDay && (
-              <>
-                <TimeInput
-                  label="Start Time"
-                  hour={startHours}
-                  minutes={startMinutes}
-                  period={startPeriod}
-                  error={startTimeError}
-                  onHourChange={(e) => setStartHours(e.target.value)}
-                  onMinutesChange={(e) => setStartMinutes(e.target.value)}
-                  onPeriodChange={(e) => setStartPeriod(e.target.value)}
-                />
-                <TimeInput
-                  label="End Time"
-                  hour={endHours}
-                  minutes={endMinutes}
-                  period={endPeriod}
-                  error={endTimeError}
-                  onHourChange={(e) => setEndHours(e.target.value)}
-                  onMinutesChange={(e) => setEndMinutes(e.target.value)}
-                  onPeriodChange={(e) => setEndPeriod(e.target.value)}
-                />
-              </>
-            )}
+            <div className="flex flex-1 justify-center">
+              <Typography variant="heading">Add Event</Typography>
+            </div>
+            <div className="flex flex-1">&nbsp;</div>
           </div>
-        </form>
-      </div>
-      <div className="absolute h-36 w-screen bottom-0 left-0 overflow-hidden">
-        <div className="flex flex-col sm:flex-row sm:justify-end gap-4 p-4 border-t border-slate-300 dark:border-slate-600">
-          <div>
-            <Button variant="default" fullWidth onClick={handleOnCancel}>
-              Cancel
-            </Button>
-          </div>
-          <div>
-            <Button variant="primary" fullWidth onClick={handleOnSave}>
-              Save
-            </Button>
+          <div className="flex flex-col">
+            <div className="h-162 sm:h-fit p-4">
+              <form onSubmit={handleOnSave}>
+                <div className="flex flex-col gap-4">
+                  <DateInput
+                    label="Date"
+                    month={month}
+                    date={date}
+                    year={year}
+                    onMonthChange={(e) => setMonth(e.target.value)}
+                    onDateChange={(e) => setDate(e.target.value)}
+                    onYearChange={(e) => setYear(e.target.value)}
+                  />
+                  <TextInput
+                    label="Event"
+                    error={eventError}
+                    value={event}
+                    showLabel
+                    onChange={(e) => setEvent(e.target.value)}
+                  />
+                  <SelectInput
+                    label="User"
+                    value={user}
+                    error={userError}
+                    items={["", "Husband", "Wife", "Us", "Calendar"]}
+                    showLabel
+                    onChange={(e) => setUser(e.target.value)}
+                  />
+                  <SelectInput
+                    label="Tag"
+                    value={tag}
+                    error={tagError}
+                    items={tags}
+                    showLabel
+                    onChange={(e) => setTag(e.target.value)}
+                  />
+                  <div className="pt-2 pb-2">
+                    <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
+                  </div>
+                  {!allDay && (
+                    <>
+                      <TimeInput
+                        label="Start Time"
+                        hour={startHours}
+                        minutes={startMinutes}
+                        period={startPeriod}
+                        error={startTimeError}
+                        onHourChange={(e) => setStartHours(e.target.value)}
+                        onMinutesChange={(e) => setStartMinutes(e.target.value)}
+                        onPeriodChange={(e) => setStartPeriod(e.target.value)}
+                      />
+                      <TimeInput
+                        label="End Time"
+                        hour={endHours}
+                        minutes={endMinutes}
+                        period={endPeriod}
+                        error={endTimeError}
+                        onHourChange={(e) => setEndHours(e.target.value)}
+                        onMinutesChange={(e) => setEndMinutes(e.target.value)}
+                        onPeriodChange={(e) => setEndPeriod(e.target.value)}
+                      />
+                    </>
+                  )}
+                </div>
+              </form>
+            </div>
+            <div className="flex flex-col sm:flex-row sm:justify-end gap-4 border-t p-4 border-slate-300 dark:border-slate-600">
+              <div>
+                <Button variant="default" fullWidth onClick={handleOnCancel}>
+                  Cancel
+                </Button>
+              </div>
+              <div>
+                <Button variant="primary" fullWidth onClick={handleOnSave}>
+                  Save
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };
