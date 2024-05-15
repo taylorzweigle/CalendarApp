@@ -54,7 +54,7 @@ const HeaderLayout = ({ editUser }) => {
   return (
     <>
       <LogoutModal open={logoutOpen} onLogoutClick={handleLogoutModalClick} onCancelClick={() => setLogoutOpen(false)} />
-      <div className="flex flex-col gap-4 md:gap-8 p-4 md:p-8">
+      <div className="flex flex-col gap-4 p-4 md:p-8">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row items-center gap-4">
             <div>
