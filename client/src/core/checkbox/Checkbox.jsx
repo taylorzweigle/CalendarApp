@@ -13,7 +13,7 @@ const Checkbox = ({ selected, onClick }) => {
       </Typography>
       <input type="checkbox" className="absolute opacity-0 h-0 w-0" checked={selected} onChange={onClick} />
       <span
-        className={`absolute flex justify-center items-center top-0 left-0 h-7 w-7 border-2 border-slate-400 dark:border-slate-600 rounded-lg ${
+        className={`absolute flex justify-center items-center top-0 left-0 h-7 w-7 border-2 border-slate-400 dark:border-slate-600 sm:hover:border-sky-800 sm:hover:dark:border-sky-600 rounded-lg ${
           selected ? "bg-blue-500 dark:bg-blue-600" : "bg-white dark:bg-slate-950"
         } `}
       >

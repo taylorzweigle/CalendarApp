@@ -18,9 +18,16 @@ const CalendarDay = ({ day, today, outOfMonth, selected, onClick, children }) =>
             {day}
           </Typography>
           {today && (
-            <Label size="small" variant="default">
-              <span className="hidden sm:block">Today</span>
-            </Label>
+            <>
+              <span className="hidden sm:block">
+                <Label size="small" variant="default">
+                  <span className="hidden sm:block">Today</span>
+                </Label>
+              </span>
+              <span className="block sm:hidden">
+                <div className="h-4 w-4 bg-slate-300 dark:bg-slate-600 rounded-full">&nbsp;</div>
+              </span>
+            </>
           )}
         </div>
         {children}

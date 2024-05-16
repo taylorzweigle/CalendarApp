@@ -18,8 +18,8 @@ const DateInput = ({ label, month, date, year, onMonthChange, onDateChange, onYe
         <div className="w-256">
           <SelectInput label="month" value={month} items={["", ...months]} onChange={onMonthChange} />
         </div>
-        <NumberInput label="date" value={date} onChange={onDateChange} />
-        <NumberInput label="year" value={year} onChange={onYearChange} />
+        <NumberInput label="date" value={date} maxLength={2} onChange={onDateChange} />
+        <NumberInput label="year" value={year} maxLength={4} onChange={onYearChange} />
       </div>
     </div>
   );

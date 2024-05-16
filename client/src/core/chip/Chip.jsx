@@ -6,7 +6,7 @@ const Chip = ({ selected, onClick, children }) => {
     <button
       className={`flex items-center justify-center rounded-lg w-20 h-12 ${
         selected
-          ? "bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white border-2 border-slate-700 dark:border-slate-300"
+          ? "bg-transparent text-slate-900 dark:text-white border-2 border-sky-600 dark:border-sky-400"
           : "text-slate-700 dark:text-slate-300"
       }`}
       onClick={onClick}

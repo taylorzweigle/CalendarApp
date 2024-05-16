@@ -112,30 +112,30 @@ const TimelineLayout = ({ data }) => {
       <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-8 pt-4 pl-4 pr-4 md:pt-0 md:pl-0 md:pr-0">
         <div className="flex flex-row justify-between md:justify-start items-end gap-4 h-14">
           <div className="flex flex-col gap-0">
-            <Typography variant="body2" color="secondary">
-              {daysOfWeek[selectedDate.weekday]}
-            </Typography>
+            <div className="flex flex-row items-center gap-2">
+              <Typography variant="body2" color="secondary">
+                {daysOfWeek[selectedDate.weekday]}
+              </Typography>
+              {selectedDate.month === today.getMonth() &&
+                selectedDate.date === today.getDate() &&
+                selectedDate.year === today.getFullYear() && (
+                  <Label size="small" variant="default">
+                    Today
+                  </Label>
+                )}
+            </div>
             <Typography variant="title" color="primary">{`${months[selectedDate.month]} ${selectedDate.date}, ${
               selectedDate.year
             }`}</Typography>
           </div>
-          <div className="flex flex-row items-center gap-4">
-            {selectedDate.month === today.getMonth() &&
-              selectedDate.date === today.getDate() &&
-              selectedDate.year === today.getFullYear() && (
-                <Label size="medium" variant="default">
-                  Today
-                </Label>
-              )}
-            {dayData.length > 0 && (
-              <Label size="medium" variant="primary">
-                <span className="flex flex-row gap-1">
-                  {dayData.length}
-                  <span className="hidden sm:block">{`${dayData.length > 1 ? "Events" : "Event"}`}</span>
-                </span>
-              </Label>
-            )}
-          </div>
+          {dayData.length > 0 && (
+            <Label size="medium" variant="primary">
+              <span className="flex flex-row gap-1">
+                {dayData.length}
+                <span className="hidden sm:block">{`${dayData.length > 1 ? "Events" : "Event"}`}</span>
+              </span>
+            </Label>
+          )}
         </div>
         <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
           <Button variant="default" prefix={<TodayIcon />} onClick={() => handleTodayClick()}>

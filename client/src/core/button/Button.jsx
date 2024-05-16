@@ -9,22 +9,22 @@ const Button = ({ prefix, variant, fullWidth, onClick, children }) => {
   switch (variant) {
     case "default":
       variantClass =
-        "bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500";
+        "bg-slate-200 dark:bg-slate-700 sm:hover:bg-slate-300 sm:dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500";
       break;
     case "primary":
       variantClass =
-        "bg-sky-300 dark:bg-sky-700 hover:bg-sky-400 dark:hover:bg-sky-600 border border-sky-800 dark:border-sky-500";
+        "bg-sky-300 dark:bg-sky-700 sm:hover:bg-sky-400 sm:dark:hover:bg-sky-600 border border-sky-800 dark:border-sky-500";
       break;
     case "error":
       variantClass =
-        "bg-rose-300 dark:bg-rose-700 hover:bg-rose-400 dark:hover:bg-rose-600 border border-rose-800 dark:border-rose-500";
+        "bg-rose-300 dark:bg-rose-700 sm:hover:bg-rose-400 sm:dark:hover:bg-rose-600 border border-rose-800 dark:border-rose-500";
       break;
     case "text":
-      variantClass = "bg-transparent dark:bg-transparent hover:bg-slate-200 dark:hover:bg-slate-700";
+      variantClass = "bg-transparent dark:bg-transparent sm:hover:bg-slate-200 sm:dark:hover:bg-slate-700";
       break;
     default:
       variantClass =
-        "bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500";
+        "bg-slate-200 dark:bg-slate-700 sm:hover:bg-slate-300 sm:dark:hover:bg-slate-600 border border-slate-500 dark:border-slate-500";
   }
 
   return (

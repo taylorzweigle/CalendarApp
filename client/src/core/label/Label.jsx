@@ -9,7 +9,7 @@ const Label = ({ size, variant, children }) => {
 
   switch (size) {
     case "small":
-      sizeClass = "w-3 sm:w-12 h-3 sm:h-6";
+      sizeClass = "pl-2 pr-2 h-6";
       break;
     case "medium":
       sizeClass = "pl-4 pr-4 h-10";
@@ -20,7 +20,7 @@ const Label = ({ size, variant, children }) => {
 
   switch (variant) {
     case "default":
-      variantClass = "bg-slate-200 dark:bg-slate-700";
+      variantClass = "bg-slate-300 dark:bg-slate-600";
       break;
     case "primary":
       variantClass = "bg-sky-300 dark:bg-sky-700";
@@ -32,7 +32,7 @@ const Label = ({ size, variant, children }) => {
       variantClass = "bg-transparent dark:bg-transparent";
       break;
     default:
-      variantClass = "bg-slate-200 dark:bg-slate-700";
+      variantClass = "bg-slate-300 dark:bg-slate-600";
   }
 
   return (

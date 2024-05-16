@@ -101,17 +101,17 @@ const ViewEventPage = () => {
             <div className="flex flex-1">&nbsp;</div>
           </div>
           <div className="flex flex-col">
-            <div className="flex flex-col gap-8 p-4">
+            <div className="flex flex-col gap-8 h-162 sm:h-fit p-4">
               <Details label="Date" value={`${month} ${date}, ${year}`} />
-              <Details label="Event" value={event} />
-              <Details label="User" value={user} color={user && calendars.find((c) => c.user === user).color} />
-              <Details label="Tag" value={tag} icon={tag} />
               <Details
                 label="Time"
                 value={
                   allDay ? "All Day" : `${startHours}:${startMinutes} ${startPeriod} - ${endHours}:${endMinutes} ${endPeriod}`
                 }
               />
+              <Details label="Event" value={event} />
+              <Details label="User" value={user} color={user && calendars.find((c) => c.user === user).color} />
+              <Details label="Tag" value={tag} icon={tag} />
             </div>
             <div className="flex flex-col sm:flex-row sm:justify-end gap-4 border-t p-4 border-slate-300 dark:border-slate-600">
               <div>
