@@ -12,8 +12,8 @@ import { useEventsContext } from "../hooks/useEventsContext";
 
 import Button from "../core/button/Button";
 import Card from "../core/card/Card";
-import Radio from "../core/radio/Radio";
 import SelectInput from "../core/selectInput/SelectInput";
+import Tab from "../core/tabs/Tab";
 import TextInput from "../core/textInput/TextInput";
 import Typography from "../core/typography/Typography";
 
@@ -25,7 +25,6 @@ import TimeInput from "../components/inputs/TimeInput";
 import { getEvent, getEvents, updateEvent, deleteEvent } from "../api/events";
 
 import { tags } from "../utility/calendars";
-import { duration } from "@mui/material";
 
 const EditEventPage = () => {
   const navigate = useNavigate();
@@ -218,30 +217,20 @@ const EditEventPage = () => {
               <div className="flex flex-1">&nbsp;</div>
             </div>
             <div className="flex flex-col">
-              <div className="h-162 sm:h-fit p-4">
+              <div className={`${duration === "All Day" ? "h-[calc(100vh-288px)] sm:h-fit" : "h-fit"} p-4`}>
                 <form onSubmit={handleOnSave}>
                   <div className="flex flex-col gap-4">
-                    <div className="flex flwx-row gap-8 items-center pt-2 pb-2">
-                      <Radio
-                        id="Partial Day"
-                        name="Partial Day"
+                    <div className="flex flex-row items-center">
+                      <Tab
                         value="Partial Day"
-                        checked={duration === "Partial Day"}
-                        onChange={(e) => setDuration(e.target.value)}
+                        selected={duration === "Partial Day"}
+                        onClick={() => setDuration("Partial Day")}
                       />
-                      <Radio
-                        id="All Day"
-                        name="All Day"
-                        value="All Day"
-                        checked={duration === "All Day"}
-                        onChange={(e) => setDuration(e.target.value)}
-                      />
-                      <Radio
-                        id="Multiple Days"
-                        name="Multiple Days"
+                      <Tab value="All Day" selected={duration === "All Day"} onClick={(e) => setDuration("All Day")} />
+                      <Tab
                         value="Multiple Days"
-                        checked={duration === "Multiple Days"}
-                        onChange={(e) => setDuration(e.target.value)}
+                        selected={duration === "Multiple Days"}
+                        onClick={(e) => setDuration("Multiple Days")}
                       />
                     </div>
                     <DateInput
