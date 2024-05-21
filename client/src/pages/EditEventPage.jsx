@@ -12,7 +12,7 @@ import { useEventsContext } from "../hooks/useEventsContext";
 
 import Button from "../core/button/Button";
 import Card from "../core/card/Card";
-import Checkbox from "../core/checkbox/Checkbox";
+import Radio from "../core/radio/Radio";
 import SelectInput from "../core/selectInput/SelectInput";
 import TextInput from "../core/textInput/TextInput";
 import Typography from "../core/typography/Typography";
@@ -25,6 +25,7 @@ import TimeInput from "../components/inputs/TimeInput";
 import { getEvent, getEvents, updateEvent, deleteEvent } from "../api/events";
 
 import { tags } from "../utility/calendars";
+import { duration } from "@mui/material";
 
 const EditEventPage = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const EditEventPage = () => {
   const { user: authUser } = useAuthContext();
   const { dispatch } = useEventsContext();
 
-  const [allDay, setAllDay] = useState(false);
+  const [duration, setDuration] = useState("Partial Day");
 
   const [event, setEvent] = useState("");
   const [user, setUser] = useState("");
@@ -61,7 +62,7 @@ const EditEventPage = () => {
     const fetchEvent = async () => {
       const event = await getEvent(params.id, authUser.token);
 
-      setAllDay(event.json.startTime === event.json.endTime ? true : false);
+      setDuration(event.json.startTime === event.json.endTime ? "All Day" : "Partial Day");
 
       setEvent(event.json.event);
       setUser(event.json.user);
@@ -115,20 +116,22 @@ const EditEventPage = () => {
       event: event,
       user: user,
       tag: tag,
-      startTime: allDay
-        ? new Date(`${month} ${date}, ${year}`)
-        : new Date(
-            `${month} ${date}, ${year} ${
-              startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
-            }:${startMinutes}:00`
-          ),
-      endTime: allDay
-        ? new Date(`${month} ${date}, ${year}`)
-        : new Date(
-            `${month} ${date}, ${year} ${
-              endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
-            }:${endMinutes}:00`
-          ),
+      startTime:
+        duration === "All Day"
+          ? new Date(`${month} ${date}, ${year}`)
+          : new Date(
+              `${month} ${date}, ${year} ${
+                startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
+              }:${startMinutes}:00`
+            ),
+      endTime:
+        duration === "All Day"
+          ? new Date(`${month} ${date}, ${year}`)
+          : new Date(
+              `${month} ${date}, ${year} ${
+                endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
+              }:${endMinutes}:00`
+            ),
     };
 
     const json = await updateEvent(params.id, newEvent, authUser.token);
@@ -175,7 +178,7 @@ const EditEventPage = () => {
   };
 
   const clearForm = () => {
-    setAllDay(false);
+    setDuration("Partial Day");
     setEvent("");
     setUser("");
     setTag("");
@@ -218,6 +221,29 @@ const EditEventPage = () => {
               <div className="h-162 sm:h-fit p-4">
                 <form onSubmit={handleOnSave}>
                   <div className="flex flex-col gap-4">
+                    <div className="flex flwx-row gap-8 items-center pt-2 pb-2">
+                      <Radio
+                        id="Partial Day"
+                        name="Partial Day"
+                        value="Partial Day"
+                        checked={duration === "Partial Day"}
+                        onChange={(e) => setDuration(e.target.value)}
+                      />
+                      <Radio
+                        id="All Day"
+                        name="All Day"
+                        value="All Day"
+                        checked={duration === "All Day"}
+                        onChange={(e) => setDuration(e.target.value)}
+                      />
+                      <Radio
+                        id="Multiple Days"
+                        name="Multiple Days"
+                        value="Multiple Days"
+                        checked={duration === "Multiple Days"}
+                        onChange={(e) => setDuration(e.target.value)}
+                      />
+                    </div>
                     <DateInput
                       label="Date"
                       month={month}
@@ -250,10 +276,7 @@ const EditEventPage = () => {
                       showLabel
                       onChange={(e) => setTag(e.target.value)}
                     />
-                    <div className="pt-2 pb-2">
-                      <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
-                    </div>
-                    {!allDay && (
+                    {duration !== "All Day" && (
                       <>
                         <TimeInput
                           label="Start Time"

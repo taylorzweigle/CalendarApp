@@ -13,7 +13,7 @@ import { useSelectedStartTimeContext } from "../hooks/useSelectedStartTimeContex
 
 import Button from "../core/button/Button";
 import Card from "../core/card/Card";
-import Checkbox from "../core/checkbox/Checkbox";
+import Radio from "../core/radio/Radio";
 import SelectInput from "../core/selectInput/SelectInput";
 import TextInput from "../core/textInput/TextInput";
 import Typography from "../core/typography/Typography";
@@ -34,7 +34,7 @@ const CreateEventPage = () => {
   const { selectedDate } = useSelectedDateContext();
   const { selectedStartTime } = useSelectedStartTimeContext();
 
-  const [allDay, setAllDay] = useState(false);
+  const [duration, setDuration] = useState("Partial Day");
 
   const [event, setEvent] = useState("");
   const [user, setUser] = useState("");
@@ -76,7 +76,7 @@ const CreateEventPage = () => {
       setEndHours(0);
       setEndMinutes("00");
       setEndPeriod("AM");
-      setAllDay(true);
+      setDuration("All Day");
     }
   }, [selectedStartTime]);
 
@@ -93,20 +93,22 @@ const CreateEventPage = () => {
       event: event,
       user: user,
       tag: tag,
-      startTime: allDay
-        ? new Date(`${month} ${date}, ${year}`)
-        : new Date(
-            `${month} ${date}, ${year} ${
-              startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
-            }:${startMinutes}:00`
-          ),
-      endTime: allDay
-        ? new Date(`${month} ${date}, ${year}`)
-        : new Date(
-            `${month} ${date}, ${year} ${
-              endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
-            }:${endMinutes}:00`
-          ),
+      startTime:
+        duration === "All Day"
+          ? new Date(`${month} ${date}, ${year}`)
+          : new Date(
+              `${month} ${date}, ${year} ${
+                startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
+              }:${startMinutes}:00`
+            ),
+      endTime:
+        duration === "All Day"
+          ? new Date(`${month} ${date}, ${year}`)
+          : new Date(
+              `${month} ${date}, ${year} ${
+                endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
+              }:${endMinutes}:00`
+            ),
     };
 
     const json = await createEvent(newEvent, authUser.token);
@@ -145,7 +147,7 @@ const CreateEventPage = () => {
   };
 
   const clearForm = () => {
-    setAllDay(false);
+    setDuration("Partial Day");
     setEvent("");
     setUser("");
     setTag("");
@@ -186,6 +188,29 @@ const CreateEventPage = () => {
             <div className="h-162 sm:h-fit p-4">
               <form onSubmit={handleOnSave}>
                 <div className="flex flex-col gap-4">
+                  <div className="flex flwx-row gap-8 items-center pt-2 pb-2">
+                    <Radio
+                      id="Partial Day"
+                      name="Partial Day"
+                      value="Partial Day"
+                      checked={duration === "Partial Day"}
+                      onChange={(e) => setDuration(e.target.value)}
+                    />
+                    <Radio
+                      id="All Day"
+                      name="All Day"
+                      value="All Day"
+                      checked={duration === "All Day"}
+                      onChange={(e) => setDuration(e.target.value)}
+                    />
+                    <Radio
+                      id="Multiple Days"
+                      name="Multiple Days"
+                      value="Multiple Days"
+                      checked={duration === "Multiple Days"}
+                      onChange={(e) => setDuration(e.target.value)}
+                    />
+                  </div>
                   <DateInput
                     label="Date"
                     month={month}
@@ -218,10 +243,7 @@ const CreateEventPage = () => {
                     showLabel
                     onChange={(e) => setTag(e.target.value)}
                   />
-                  <div className="pt-2 pb-2">
-                    <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
-                  </div>
-                  {!allDay && (
+                  {duration !== "All Day" && (
                     <>
                       <TimeInput
                         label="Start Time"
