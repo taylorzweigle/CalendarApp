@@ -12,5 +12,9 @@ export const SET_SELECTED_START_TIME = "SET_SELECTED_START_TIME";
 export const GET_SELECTED_VIEW = "GET_SELECTED_VIEW";
 export const SET_SELECTED_VIEW = "SET_SELECTED_VIEW";
 
+export const PARTIAL_DAY = "PARTIAL_DAY";
+export const ALL_DAY = "ALL_DAY";
+export const MULTIPLE_DAYS = "MULTIPLE_DAYS";
+
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";

@@ -34,14 +34,17 @@ const CreateEventPage = () => {
   const { selectedDate } = useSelectedDateContext();
   const { selectedStartTime } = useSelectedStartTimeContext();
 
-  const [duration, setDuration] = useState("Partial Day");
+  const [duration, setDuration] = useState(Actions.PARTIAL_DAY);
 
   const [event, setEvent] = useState("");
   const [user, setUser] = useState("");
   const [tag, setTag] = useState("");
-  const [month, setMonth] = useState("");
-  const [date, setDate] = useState("");
-  const [year, setYear] = useState("");
+  const [startMonth, setStartMonth] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [startYear, setStartYear] = useState("");
+  const [endMonth, setEndMonth] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [endYear, setEndYear] = useState("");
   const [startHours, setStartHours] = useState("");
   const [startMinutes, setStartMinutes] = useState("");
   const [startPeriod, setStartPeriod] = useState("");
@@ -56,9 +59,12 @@ const CreateEventPage = () => {
   const [endTimeError, setEndTimeError] = useState("");
 
   useEffect(() => {
-    setMonth(months[selectedDate.month]);
-    setDate(selectedDate.date);
-    setYear(selectedDate.year);
+    setStartMonth(months[selectedDate.month]);
+    setStartDate(selectedDate.date);
+    setStartYear(selectedDate.year);
+    setEndMonth(months[selectedDate.month]);
+    setEndDate(selectedDate.date + 1);
+    setEndYear(selectedDate.year);
   }, [selectedDate]);
 
   useEffect(() => {
@@ -76,7 +82,7 @@ const CreateEventPage = () => {
       setEndHours(0);
       setEndMinutes("00");
       setEndPeriod("AM");
-      setDuration("All Day");
+      setDuration(Actions.ALL_DAY);
     }
   }, [selectedStartTime]);
 
@@ -94,18 +100,24 @@ const CreateEventPage = () => {
       user: user,
       tag: tag,
       startTime:
-        duration === "All Day"
-          ? new Date(`${month} ${date}, ${year}`)
+        duration === Actions.ALL_DAY
+          ? new Date(`${startMonth} ${startDate}, ${startYear}`)
           : new Date(
-              `${month} ${date}, ${year} ${
+              `${startMonth} ${startDate}, ${startYear} ${
                 startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
               }:${startMinutes}:00`
             ),
       endTime:
-        duration === "All Day"
-          ? new Date(`${month} ${date}, ${year}`)
+        duration === Actions.ALL_DAY
+          ? new Date(`${startMonth} ${startDate}, ${startYear}`)
+          : duration === Actions.MULTIPLE_DAYS
+          ? new Date(
+              `${endMonth} ${endDate}, ${endYear} ${
+                endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
+              }:${endMinutes}:00`
+            )
           : new Date(
-              `${month} ${date}, ${year} ${
+              `${startMonth} ${startDate}, ${startYear} ${
                 endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
               }:${endMinutes}:00`
             ),
@@ -147,7 +159,7 @@ const CreateEventPage = () => {
   };
 
   const clearForm = () => {
-    setDuration("Partial Day");
+    setDuration(Actions.PARTIAL_DAY);
     setEvent("");
     setUser("");
     setTag("");
@@ -189,23 +201,42 @@ const CreateEventPage = () => {
               <form onSubmit={handleOnSave}>
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-row items-center">
-                    <Tab value="Partial Day" selected={duration === "Partial Day"} onClick={() => setDuration("Partial Day")} />
-                    <Tab value="All Day" selected={duration === "All Day"} onClick={(e) => setDuration("All Day")} />
+                    <Tab
+                      value="Partial Day"
+                      selected={duration === Actions.PARTIAL_DAY}
+                      onClick={() => setDuration(Actions.PARTIAL_DAY)}
+                    />
+                    <Tab
+                      value="All Day"
+                      selected={duration === Actions.ALL_DAY}
+                      onClick={(e) => setDuration(Actions.ALL_DAY)}
+                    />
                     <Tab
                       value="Multiple Days"
-                      selected={duration === "Multiple Days"}
-                      onClick={(e) => setDuration("Multiple Days")}
+                      selected={duration === Actions.MULTIPLE_DAYS}
+                      onClick={(e) => setDuration(Actions.MULTIPLE_DAYS)}
                     />
                   </div>
                   <DateInput
-                    label="Date"
-                    month={month}
-                    date={date}
-                    year={year}
-                    onMonthChange={(e) => setMonth(e.target.value)}
-                    onDateChange={(e) => setDate(e.target.value)}
-                    onYearChange={(e) => setYear(e.target.value)}
+                    label={duration === Actions.MULTIPLE_DAYS ? "Start Date" : "Date"}
+                    month={startMonth}
+                    date={startDate}
+                    year={startYear}
+                    onMonthChange={(e) => setStartMonth(e.target.value)}
+                    onDateChange={(e) => setStartDate(e.target.value)}
+                    onYearChange={(e) => setStartYear(e.target.value)}
                   />
+                  {duration === Actions.MULTIPLE_DAYS && (
+                    <DateInput
+                      label="End Date"
+                      month={endMonth}
+                      date={endDate}
+                      year={endYear}
+                      onMonthChange={(e) => setEndMonth(e.target.value)}
+                      onDateChange={(e) => setEndDate(e.target.value)}
+                      onYearChange={(e) => setEndYear(e.target.value)}
+                    />
+                  )}
                   <TextInput
                     label="Event"
                     error={eventError}
@@ -229,7 +260,7 @@ const CreateEventPage = () => {
                     showLabel
                     onChange={(e) => setTag(e.target.value)}
                   />
-                  {duration !== "All Day" && (
+                  {duration !== Actions.ALL_DAY && (
                     <>
                       <TimeInput
                         label="Start Time"

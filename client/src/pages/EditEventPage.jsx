@@ -34,14 +34,17 @@ const EditEventPage = () => {
   const { user: authUser } = useAuthContext();
   const { dispatch } = useEventsContext();
 
-  const [duration, setDuration] = useState("Partial Day");
+  const [duration, setDuration] = useState(Actions.PARTIAL_DAY);
 
   const [event, setEvent] = useState("");
   const [user, setUser] = useState("");
   const [tag, setTag] = useState("");
-  const [month, setMonth] = useState("");
-  const [date, setDate] = useState("");
-  const [year, setYear] = useState("");
+  const [startMonth, setStartMonth] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [startYear, setStartYear] = useState("");
+  const [endMonth, setEndMonth] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [endYear, setEndYear] = useState("");
   const [startHours, setStartHours] = useState("");
   const [startMinutes, setStartMinutes] = useState("");
   const [startPeriod, setStartPeriod] = useState("");
@@ -61,14 +64,17 @@ const EditEventPage = () => {
     const fetchEvent = async () => {
       const event = await getEvent(params.id, authUser.token);
 
-      setDuration(event.json.startTime === event.json.endTime ? "All Day" : "Partial Day");
+      setDuration(event.json.startTime === event.json.endTime ? Actions.ALL_DAY : Actions.PARTIAL_DAY);
 
       setEvent(event.json.event);
       setUser(event.json.user);
       setTag(event.json.tag);
-      setMonth(months[new Date(event.json.startTime).getMonth()]);
-      setDate(new Date(event.json.startTime).getDate());
-      setYear(new Date(event.json.startTime).getFullYear());
+      setStartMonth(months[new Date(event.json.startTime).getMonth()]);
+      setStartDate(new Date(event.json.startTime).getDate());
+      setStartYear(new Date(event.json.startTime).getFullYear());
+      setEndMonth(months[new Date(event.json.startTime).getMonth()]);
+      setEndDate(new Date(event.json.startTime).getDate());
+      setEndYear(new Date(event.json.startTime).getFullYear());
       setStartHours(
         new Date(event.json.startTime).getHours() > 12
           ? (new Date(event.json.startTime).getHours() - 12).toString()
@@ -116,18 +122,24 @@ const EditEventPage = () => {
       user: user,
       tag: tag,
       startTime:
-        duration === "All Day"
-          ? new Date(`${month} ${date}, ${year}`)
+        duration === Actions.ALL_DAY
+          ? new Date(`${startMonth} ${startDate}, ${startYear}`)
           : new Date(
-              `${month} ${date}, ${year} ${
+              `${startMonth} ${startDate}, ${startYear} ${
                 startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
               }:${startMinutes}:00`
             ),
       endTime:
-        duration === "All Day"
-          ? new Date(`${month} ${date}, ${year}`)
+        duration === Actions.ALL_DAY
+          ? new Date(`${startMonth} ${startDate}, ${startYear}`)
+          : duration === Actions.MULTIPLE_DAYS
+          ? new Date(
+              `${endMonth} ${endDate}, ${endYear} ${
+                endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
+              }:${endMinutes}:00`
+            )
           : new Date(
-              `${month} ${date}, ${year} ${
+              `${startMonth} ${startDate}, ${startYear} ${
                 endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
               }:${endMinutes}:00`
             ),
@@ -177,7 +189,7 @@ const EditEventPage = () => {
   };
 
   const clearForm = () => {
-    setDuration("Partial Day");
+    setDuration(Actions.PARTIAL_DAY);
     setEvent("");
     setUser("");
     setTag("");
@@ -223,25 +235,40 @@ const EditEventPage = () => {
                     <div className="flex flex-row items-center">
                       <Tab
                         value="Partial Day"
-                        selected={duration === "Partial Day"}
-                        onClick={() => setDuration("Partial Day")}
+                        selected={duration === Actions.PARTIAL_DAY}
+                        onClick={() => setDuration(Actions.PARTIAL_DAY)}
                       />
-                      <Tab value="All Day" selected={duration === "All Day"} onClick={(e) => setDuration("All Day")} />
+                      <Tab
+                        value="All Day"
+                        selected={duration === Actions.ALL_DAY}
+                        onClick={(e) => setDuration(Actions.ALL_DAY)}
+                      />
                       <Tab
                         value="Multiple Days"
-                        selected={duration === "Multiple Days"}
-                        onClick={(e) => setDuration("Multiple Days")}
+                        selected={duration === Actions.MULTIPLE_DAYS}
+                        onClick={(e) => setDuration(Actions.MULTIPLE_DAYS)}
                       />
                     </div>
                     <DateInput
-                      label="Date"
-                      month={month}
-                      date={date}
-                      year={year}
-                      onMonthChange={(e) => setMonth(e.target.value)}
-                      onDateChange={(e) => setDate(e.target.value)}
-                      onYearChange={(e) => setYear(e.target.value)}
+                      label={duration === Actions.MULTIPLE_DAYS ? "Start Date" : "Date"}
+                      month={startMonth}
+                      date={startDate}
+                      year={startYear}
+                      onMonthChange={(e) => setStartMonth(e.target.value)}
+                      onDateChange={(e) => setStartDate(e.target.value)}
+                      onYearChange={(e) => setStartYear(e.target.value)}
                     />
+                    {duration === Actions.MULTIPLE_DAYS && (
+                      <DateInput
+                        label="End Date"
+                        month={endMonth}
+                        date={endDate}
+                        year={endYear}
+                        onMonthChange={(e) => setEndMonth(e.target.value)}
+                        onDateChange={(e) => setEndDate(e.target.value)}
+                        onYearChange={(e) => setEndYear(e.target.value)}
+                      />
+                    )}
                     <TextInput
                       label="Event"
                       error={eventError}
@@ -265,7 +292,7 @@ const EditEventPage = () => {
                       showLabel
                       onChange={(e) => setTag(e.target.value)}
                     />
-                    {duration !== "All Day" && (
+                    {duration !== Actions.ALL_DAY && (
                       <>
                         <TimeInput
                           label="Start Time"
