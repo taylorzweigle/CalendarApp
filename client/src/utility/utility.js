@@ -14,35 +14,40 @@ import WorkIcon from "@mui/icons-material/Work";
 import { daysOfWeek, months } from "../components/calendar/Calendar";
 
 export const getColors = (color) => {
-  let colorObject = { bg: "", border: "", text: "", icon: "" };
+  let colorObject = { bg: "", active: "", border: "", text: "", icon: "" };
 
   switch (color) {
     case "emerald":
       colorObject.bg = "bg-emerald-100 dark:bg-emerald-700";
+      colorObject.active = "active:bg-emerald-200 dark:active:bg-emerald-600";
       colorObject.border = "border-emerald-600 dark:border-emerald-400";
       colorObject.text = "text-emerald-700 dark:text-white";
       colorObject.icon = "text-emerald-700 dark:text-emerald-50";
       break;
     case "purple":
       colorObject.bg = "bg-purple-100 dark:bg-purple-700";
+      colorObject.active = "active:bg-purple-200 dark:active:bg-purple-600";
       colorObject.border = "border-purple-600 dark:border-purple-400";
       colorObject.text = "text-purple-700 dark:text-white";
       colorObject.icon = "text-purple-700 dark:text-purple-50";
       break;
     case "sky":
       colorObject.bg = "bg-sky-100 dark:bg-sky-700";
+      colorObject.active = "active:bg-sky-200 dark:active:bg-sky-600";
       colorObject.border = "border-sky-600 dark:border-sky-400";
       colorObject.text = "text-sky-700 dark:text-white";
       colorObject.icon = "text-sky-700 dark:text-sky-50";
       break;
-    case "amber":
-      colorObject.bg = "bg-amber-100 dark:bg-amber-800";
-      colorObject.border = "border-amber-600 dark:border-amber-600";
-      colorObject.text = "text-amber-700 dark:text-white";
-      colorObject.icon = "text-amber-700 dark:text-amber-50";
+    case "stone":
+      colorObject.bg = "bg-stone-100 dark:bg-stone-700";
+      colorObject.active = "active:bg-stone-200 dark:active:bg-stone-600";
+      colorObject.border = "border-stone-600 dark:border-stone-400";
+      colorObject.text = "text-stone-700 dark:text-white";
+      colorObject.icon = "text-stone-700 dark:text-stone-50";
       break;
     default:
       colorObject.bg = "bg-slate-50 dark:bg-slate-700";
+      colorObject.active = "active:bg-slate-100 dark:active:bg-slate-600";
       colorObject.border = "border-slate-500 dark:border-slate-400";
       colorObject.text = "text-slate-700 dark:text-white";
       colorObject.icon = "text-slate-700 dark:text-slate-50";

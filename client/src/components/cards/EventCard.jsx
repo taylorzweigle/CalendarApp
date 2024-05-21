@@ -11,7 +11,7 @@ const EventCard = ({ event, startTime, endTime, color, tag }) => {
 
   return (
     <div
-      className={`flex flex-row justify-start items-center cursor-pointer h-14 ${colors.bg} border ${colors.border} rounded-md overflow-clip px-2`}
+      className={`flex flex-row justify-start items-center cursor-pointer h-14 ${colors.bg} ${colors.active} border ${colors.border} rounded-md overflow-clip px-2`}
     >
       <div className={`flex justify-center items-center ${colors.icon} rounded w-6 h-6`}>{icon}</div>
       <div className="flex flex-col gap-0 p-1 sm:p-2 line-clamp-1">
