@@ -18,8 +18,8 @@ const TimelineCell = ({ rowSpan, event, color, tag, startTime, endTime, hover, o
     <td
       className={`h-12 align-top ${
         event
-          ? `${colors.bg} border ${colors.border} overflow-clip pr-2 pl-2`
-          : "border-t border-slate-300 dark:border-slate-600"
+          ? `${colors.bg} ${colors.active} border ${colors.border} overflow-clip pr-2 pl-2`
+          : "active:bg-slate-50 active:dark:bg-slate-700 border-t border-slate-300 dark:border-slate-600"
       } cursor-pointer`}
       rowSpan={rowSpan}
       onClick={onClick}
