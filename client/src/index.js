@@ -11,6 +11,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { EventsContextProvider } from "./context/EventsContext";
 import { SelectedDateContextProvider } from "./context/SelectedDateContext";
 import { SelectedStartTimeContextProvider } from "./context/SelectedStartTimeContext";
+import { SelectedThemeContextProvider } from "./context/SelectedThemeContext";
 import { SelectedViewContextProvider } from "./context/SelectedViewContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -22,9 +23,11 @@ root.render(
         <SelectedDateContextProvider>
           <SelectedStartTimeContextProvider>
             <SelectedViewContextProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
+              <SelectedThemeContextProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </SelectedThemeContextProvider>
             </SelectedViewContextProvider>
           </SelectedStartTimeContextProvider>
         </SelectedDateContextProvider>

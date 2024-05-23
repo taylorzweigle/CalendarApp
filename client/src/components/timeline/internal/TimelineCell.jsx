@@ -1,5 +1,5 @@
 //Taylor Zweigle, 2023
-import React, { useState } from "react";
+import React from "react";
 
 import AddIcon from "@mui/icons-material/Add";
 
@@ -8,26 +8,21 @@ import Typography from "../../../core/typography/Typography";
 import { compareStartAndEndTimes, formatTime, getColors, getIcons } from "../../../utility/utility";
 
 const TimelineCell = ({ rowSpan, event, color, tag, startTime, endTime, hover, onClick }) => {
-  const [isHover, setIsHover] = useState(false);
-
   const colors = getColors(color);
-
   const icon = getIcons(tag);
 
   return (
     <td
-      className={`h-12 align-top ${
+      className={`group h-12 align-top ${
         event
           ? `${colors.bg} ${colors.active} border ${colors.border} overflow-clip pr-2 pl-2`
-          : "active:bg-slate-50 active:dark:bg-slate-700 border-t border-slate-300 dark:border-slate-600"
+          : "border-t border-slate-300 dark:border-slate-600"
       } cursor-pointer`}
       rowSpan={rowSpan}
       onClick={onClick}
-      onMouseOver={() => setIsHover(true)}
-      onMouseOut={() => setIsHover(false)}
     >
-      {hover && isHover && (
-        <div className="flex w-full h-full justify-center items-center text-sky-500 dark:text-sky-300 hover:border-2 hover:border-sky-500 hover:dark:border-sky-300 rounded-md">
+      {hover && (
+        <div className="hidden w-full h-full justify-center items-center text-sky-500 dark:text-sky-300 hover:border-2 hover:border-sky-500 hover:dark:border-sky-300 sm:group-hover:flex group-active:flex rounded-md">
           <AddIcon fontSize="small" />
         </div>
       )}

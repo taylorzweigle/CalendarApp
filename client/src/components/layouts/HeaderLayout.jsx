@@ -11,6 +11,7 @@ import * as Actions from "../../actions";
 import * as Payloads from "../../payloads";
 
 import { useSelectedStartTimeContext } from "../../hooks/useSelectedStartTimeContext";
+import { useSelectedThemeContext } from "../../hooks/useSelectedThemeContext";
 import { useSelectedViewContext } from "../../hooks/useSelectedViewContext";
 
 import LogoutModal from "../modals/LogoutModal";
@@ -24,17 +25,18 @@ import Menu from "../../core/menu/Menu";
 import MenuItem from "../../core/menu/MenuItem";
 
 const HeaderLayout = ({ editUser }) => {
-  const { selectedView, dispatchSelectedView } = useSelectedViewContext();
   const { dispatchSelectedStartTime } = useSelectedStartTimeContext();
+  const { selectedTheme, dispatchSelectedTheme } = useSelectedThemeContext();
+  const { selectedView, dispatchSelectedView } = useSelectedViewContext();
 
   const [open, setOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
 
   const { logout } = useLogout();
 
   const handleThemeButton = () => {
-    setDarkMode(!darkMode);
+    dispatchSelectedTheme({ type: Actions.SET_SELECTED_THEME, payload: selectedTheme === "dark" ? "light" : "dark" });
+
     setOpen(false);
 
     document.documentElement.classList.toggle("dark");
@@ -60,7 +62,9 @@ const HeaderLayout = ({ editUser }) => {
             <div>
               <Button variant="default" prefix={<MenuIcon />} onClick={() => setOpen(!open)} />
               <Menu open={open}>
-                <MenuItem onClick={handleThemeButton}>{darkMode ? "Set Dark Theme" : "Set Light Theme"}</MenuItem>
+                <MenuItem onClick={handleThemeButton}>
+                  {selectedTheme === "dark" ? "Set Light Theme" : "Set Dark Theme"}
+                </MenuItem>
                 <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
               </Menu>
             </div>
