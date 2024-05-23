@@ -7,7 +7,7 @@ import Typography from "../../../core/typography/Typography";
 
 import { compareStartAndEndTimes, formatTime, getColors, getIcons } from "../../../utility/utility";
 
-const TimelineCell = ({ rowSpan, event, color, tag, startTime, endTime, hover, onClick }) => {
+const TimelineCell = ({ rowSpan, event, color, tag, currentHour, startTime, endTime, hover, onClick }) => {
   const colors = getColors(color);
   const icon = getIcons(tag);
 
@@ -16,13 +16,15 @@ const TimelineCell = ({ rowSpan, event, color, tag, startTime, endTime, hover, o
       className={`group h-12 align-top ${
         event
           ? `${colors.bg} ${colors.active} border ${colors.border} overflow-clip pr-2 pl-2`
+          : currentHour
+          ? "border-t-2 border-rose-300 dark:border-rose-500"
           : "border-t border-slate-300 dark:border-slate-600"
       } cursor-pointer`}
       rowSpan={rowSpan}
       onClick={onClick}
     >
       {hover && (
-        <div className="hidden w-full h-full justify-center items-center text-sky-500 dark:text-sky-300 hover:border-2 hover:border-sky-500 hover:dark:border-sky-300 sm:group-hover:flex group-active:flex rounded-md">
+        <div className="hidden w-full h-full justify-center items-center text-sky-500 dark:text-sky-300 hover:border-2 sm:hover:border-sky-500 sm:hover:dark:border-sky-300 active:border-sky-500 active:dark:border-sky-300 sm:group-hover:flex group-active:flex rounded-md">
           <AddIcon fontSize="small" />
         </div>
       )}

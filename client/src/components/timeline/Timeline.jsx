@@ -17,6 +17,15 @@ const Timeline = ({ data, calendars, onHourClick }) => {
 
   const hours = [0, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
+  const isCurrentTime = (hour) => {
+    return (
+      new Date().getMonth() === selectedDate.month &&
+      new Date().getDate() === selectedDate.date &&
+      new Date().getFullYear() === selectedDate.year &&
+      new Date().getHours() === hour
+    );
+  };
+
   useEffect(() => {
     let tempDataArray = [];
     let conflict = false;
@@ -71,6 +80,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
               event={array[i].event}
               tag={array[i].tag}
               color={calendars.find((calendar) => calendar.user === array[i].user).color}
+              currentHour={isCurrentTime(hour)}
               startTime={new Date(array[i].startTime)}
               endTime={new Date(array[i].endTime)}
               onClick={() => navigate(`/event/${array[i]._id}`)}
@@ -85,11 +95,11 @@ const Timeline = ({ data, calendars, onHourClick }) => {
           tableCell = null;
           break;
         } else {
-          tableCell = <TimelineCell hover onClick={() => onHourClick(hour)} />;
+          tableCell = <TimelineCell hover currentHour={isCurrentTime(hour)} onClick={() => onHourClick(hour)} />;
         }
       }
     } else {
-      tableCell = <TimelineCell hover onClick={() => onHourClick(hour)} />;
+      tableCell = <TimelineCell hover currentHour={isCurrentTime(hour)} onClick={() => onHourClick(hour)} />;
     }
 
     return tableCell;
@@ -100,7 +110,13 @@ const Timeline = ({ data, calendars, onHourClick }) => {
       <tbody className="h-full">
         {hours.map((hour) => (
           <tr key={hour} className="h-px">
-            <td className={`h-12 w-16 pl-2 sm:pl-0 border-t border-slate-300 dark:border-slate-600 align-text-top`}>
+            <td
+              className={`h-12 w-16 pl-2 sm:pl-0 ${
+                isCurrentTime(hour)
+                  ? "border-t-2 border-rose-300 dark:border-rose-600"
+                  : "border-t border-slate-300 dark:border-slate-600"
+              } align-text-top`}
+            >
               <Typography variant="body1" color="primary">
                 {hour === 0 ? "All Day" : formatTime(hour)}
               </Typography>
