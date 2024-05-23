@@ -24,7 +24,7 @@ const TimelineCell = ({ rowSpan, event, color, tag, currentHour, startTime, endT
       onClick={onClick}
     >
       {hover && (
-        <div className="hidden w-full h-full justify-center items-center text-sky-500 dark:text-sky-300 hover:border-2 sm:hover:border-sky-500 sm:hover:dark:border-sky-300 active:border-sky-500 active:dark:border-sky-300 sm:group-hover:flex group-active:flex rounded-md">
+        <div className="hidden w-full h-full justify-center items-center text-sky-500 dark:text-sky-300 hover:border-2 sm:hover:border-sky-500 sm:hover:dark:border-sky-300 group-active:border-sky-500 group-active:dark:border-sky-300 sm:group-hover:flex group-active:flex rounded-md">
           <AddIcon fontSize="small" />
         </div>
       )}
