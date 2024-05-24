@@ -1,5 +1,5 @@
 //Taylor Zweigle, 2024
-import React, { useState } from "react";
+import React from "react";
 
 import CheckIcon from "@mui/icons-material/Check";
 
@@ -7,19 +7,11 @@ import Typography from "../typography/Typography";
 
 import { getColors } from "../../utility/utility";
 
-const Legend = ({ color, label, onClick }) => {
-  const [selected, setSelected] = useState(true);
-
+const Legend = ({ color, label, selected, onClick }) => {
   const colors = getColors(color);
 
-  const handleLegendClick = () => {
-    onClick({ label: label, selected: !selected });
-
-    setSelected(!selected);
-  };
-
   return (
-    <div className="flex flex-row justify-between items-center w-full h-8 cursor-pointer" onClick={handleLegendClick}>
+    <div className="flex flex-row justify-between items-center w-full h-8 cursor-pointer" onClick={onClick}>
       <div className="flex flex-row items-center gap-2">
         <div
           className={`${selected ? colors.bg : "bg-white dark:bg-slate-800"} border ${

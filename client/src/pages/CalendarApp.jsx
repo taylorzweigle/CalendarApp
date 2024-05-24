@@ -43,24 +43,14 @@ const CalendarApp = () => {
 
   useEffect(() => {
     setVisibleCalendars(calendars.map((calendar) => calendar.user));
-  }, []);
+  }, [calendars]);
 
   const handleLegendChange = (calendar) => {
-    let calendars = [...visibleCalendars];
-
-    if (calendar.selected) {
-      if (!calendars.includes(calendar.label)) {
-        calendars.push(calendar.label);
-      }
+    if (visibleCalendars.length === 1) {
+      setVisibleCalendars(calendars.map((calendar) => calendar.user));
     } else {
-      if (calendars.includes(calendar.label)) {
-        const index = calendars.indexOf(calendar.label);
-
-        calendars.splice(index, 1);
-      }
+      setVisibleCalendars(visibleCalendars.filter((visibleCalendar) => visibleCalendar === calendar));
     }
-
-    setVisibleCalendars(calendars);
   };
 
   return (
@@ -98,7 +88,7 @@ const CalendarApp = () => {
             )}
             <div className="block md:hidden col-span-12">
               <Divider />
-              <LegendLayout onClick={handleLegendChange} />
+              <LegendLayout visibleCalendars={visibleCalendars} onClick={handleLegendChange} />
             </div>
           </div>
         </div>
