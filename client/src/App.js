@@ -3,10 +3,11 @@ import React from "react";
 import { Route, Routes, Navigate } from "react-router";
 import { useAuthContext } from "./hooks/useAuthContext";
 
-import CalendarApp from "./pages/CalendarApp";
+import CalendarPage from "./pages/CalendarPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import EditEventPage from "./pages/EditEventPage";
 import LoginPage from "./pages/LoginPage";
+import TodoPage from "./pages/TodoPage";
 import ViewEventPage from "./pages/ViewEventPage";
 
 const App = () => {
@@ -27,8 +28,9 @@ const App = () => {
         }
       />
       <Route path="/event" element={user ? <CreateEventPage /> : <Navigate to="/login" />} />
+      <Route path="/todos" element={user ? <TodoPage /> : <Navigate to="/login" />} />
       <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />} />
-      <Route path="/" element={user ? <CalendarApp /> : <Navigate to="/login" />} />
+      <Route path="/" element={user ? <CalendarPage /> : <Navigate to="/login" />} />
       <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
