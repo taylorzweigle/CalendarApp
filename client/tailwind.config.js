@@ -18,6 +18,9 @@ module.exports = {
         162: "40.5rem",
         192: "48rem",
       },
+      animation: {
+        "ping-slow": "ping 3s cubic-bezier(0, 0, 0.2, 1) infinite",
+      },
     },
   },
   plugins: [],
