@@ -63,9 +63,9 @@ const CreateEventPage = () => {
     setStartDate(selectedDate.date);
     setStartYear(selectedDate.year);
     setEndMonth(months[selectedDate.month]);
-    setEndDate(selectedDate.date + 1);
+    duration === Actions.MULTIPLE_DAYS ? setEndDate(selectedDate.date + 1) : setEndDate(selectedDate.date);
     setEndYear(selectedDate.year);
-  }, [selectedDate]);
+  }, [selectedDate, duration]);
 
   useEffect(() => {
     if (selectedStartTime) {
@@ -94,6 +94,21 @@ const CreateEventPage = () => {
     }
 
     clearErrors();
+
+    console.log(
+      startMonth,
+      startDate,
+      startYear,
+      startHours,
+      startMinutes,
+      startPeriod,
+      endMonth,
+      endDate,
+      endYear,
+      endHours,
+      endMinutes,
+      endPeriod
+    );
 
     const newEvent = {
       event: event,

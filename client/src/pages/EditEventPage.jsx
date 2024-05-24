@@ -64,7 +64,15 @@ const EditEventPage = () => {
     const fetchEvent = async () => {
       const event = await getEvent(params.id, authUser.token);
 
-      setDuration(event.json.startTime === event.json.endTime ? Actions.ALL_DAY : Actions.PARTIAL_DAY);
+      setDuration(
+        event.json.startTime === event.json.endTime
+          ? Actions.ALL_DAY
+          : new Date(event.json.startTime).getMonth() === new Date(event.json.endTime).getMonth() &&
+            new Date(event.json.startTime).getDate() === new Date(event.json.endTime).getDate() &&
+            new Date(event.json.startTime).getFullYear() === new Date(event.json.endTime).getFullYear()
+          ? Actions.PARTIAL_DAY
+          : Actions.MULTIPLE_DAYS
+      );
 
       setEvent(event.json.event);
       setUser(event.json.user);
@@ -72,9 +80,9 @@ const EditEventPage = () => {
       setStartMonth(months[new Date(event.json.startTime).getMonth()]);
       setStartDate(new Date(event.json.startTime).getDate());
       setStartYear(new Date(event.json.startTime).getFullYear());
-      setEndMonth(months[new Date(event.json.startTime).getMonth()]);
-      setEndDate(new Date(event.json.startTime).getDate());
-      setEndYear(new Date(event.json.startTime).getFullYear());
+      setEndMonth(months[new Date(event.json.endTime).getMonth()]);
+      setEndDate(new Date(event.json.endTime).getDate());
+      setEndYear(new Date(event.json.endTime).getFullYear());
       setStartHours(
         new Date(event.json.startTime).getHours() > 12
           ? (new Date(event.json.startTime).getHours() - 12).toString()
@@ -116,6 +124,21 @@ const EditEventPage = () => {
     }
 
     clearErrors();
+
+    console.log(
+      startMonth,
+      startDate,
+      startYear,
+      startHours,
+      startMinutes,
+      startPeriod,
+      endMonth,
+      endDate,
+      endYear,
+      endHours,
+      endMinutes,
+      endPeriod
+    );
 
     const newEvent = {
       event: event,
