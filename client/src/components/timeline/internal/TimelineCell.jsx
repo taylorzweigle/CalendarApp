@@ -17,7 +17,7 @@ const TimelineCell = ({ rowSpan, event, color, tag, currentHour, startTime, endT
         event
           ? `${colors.bg} ${colors.active} border ${colors.border} overflow-clip pr-2 pl-2`
           : currentHour
-          ? "border-t-2 border-rose-300 dark:border-rose-500"
+          ? "border-t-2 border-rose-300 dark:border-rose-600"
           : "border-t border-slate-300 dark:border-slate-600"
       } cursor-pointer`}
       rowSpan={rowSpan}

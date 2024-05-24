@@ -143,6 +143,7 @@ const EditEventPage = () => {
                 endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
               }:${endMinutes}:00`
             ),
+      creationTime: new Date(),
     };
 
     const json = await updateEvent(params.id, newEvent, authUser.token);

@@ -25,6 +25,23 @@ const DetailsLayout = ({ data, calendars, editUser }) => {
       )
     : [];
 
+  const showBadge = (time) => {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const creationTime = new Date(time);
+
+    return (
+      (today.getFullYear() === creationTime.getFullYear() &&
+        today.getMonth() === creationTime.getMonth() &&
+        today.getDate() === creationTime.getDate()) ||
+      (yesterday.getFullYear() === creationTime.getFullYear() &&
+        yesterday.getMonth() === creationTime.getMonth() &&
+        yesterday.getDate() === creationTime.getDate())
+    );
+  };
+
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8">
       <Typography variant="subheading" color="primary" center>
@@ -39,6 +56,7 @@ const DetailsLayout = ({ data, calendars, editUser }) => {
               tag={event.tag}
               startTime={new Date(event.startTime)}
               endTime={new Date(event.endTime)}
+              badge={showBadge(event.creationTime)}
             />
           </Link>
         ))}

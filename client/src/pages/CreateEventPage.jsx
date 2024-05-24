@@ -121,6 +121,7 @@ const CreateEventPage = () => {
                 endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
               }:${endMinutes}:00`
             ),
+      creationTime: new Date(),
     };
 
     const json = await createEvent(newEvent, authUser.token);

@@ -76,6 +76,23 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
     return calendarDaysByWeek;
   };
 
+  const showBadge = (time) => {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const creationTime = new Date(time);
+
+    return (
+      (today.getFullYear() === creationTime.getFullYear() &&
+        today.getMonth() === creationTime.getMonth() &&
+        today.getDate() === creationTime.getDate()) ||
+      (yesterday.getFullYear() === creationTime.getFullYear() &&
+        yesterday.getMonth() === creationTime.getMonth() &&
+        yesterday.getDate() === creationTime.getDate())
+    );
+  };
+
   return (
     <table className="w-full table-fixed">
       <thead>
@@ -120,7 +137,7 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
                           event={event.event}
                           color={calendars.find((calendar) => calendar.user === event.user).color}
                           tag={event.tag}
-                          outOfMonth={false}
+                          badge={showBadge(event.creationTime)}
                         />
                       ))}
                   </div>
