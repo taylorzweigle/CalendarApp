@@ -7,7 +7,8 @@ import CalendarPage from "./pages/CalendarPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import EditEventPage from "./pages/EditEventPage";
 import LoginPage from "./pages/LoginPage";
-import TodoPage from "./pages/TodoPage";
+import TimelinePage from "./pages/TimelinePage";
+import TodosPage from "./pages/TodosPage";
 import ViewEventPage from "./pages/ViewEventPage";
 
 const App = () => {
@@ -28,7 +29,8 @@ const App = () => {
         }
       />
       <Route path="/event" element={user ? <CreateEventPage /> : <Navigate to="/login" />} />
-      <Route path="/todos" element={user ? <TodoPage /> : <Navigate to="/login" />} />
+      <Route path="/todos" element={user ? <TodosPage /> : <Navigate to="/login" />} />
+      <Route path="/timeline" element={user ? <TimelinePage /> : <Navigate to="/login" />} />
       <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />} />
       <Route path="/" element={user ? <CalendarPage /> : <Navigate to="/login" />} />
       <Route path="*" element={<Navigate to="/login" />} />
