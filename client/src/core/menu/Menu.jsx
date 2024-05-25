@@ -6,7 +6,7 @@ const Menu = ({ open, children }) => {
     <div
       className={`${
         open ? "block" : "hidden"
-      } absolute bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-600 rounded-lg shadow-md pt-2 pb-2`}
+      } absolute bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-600 rounded-lg shadow-md pt-2 pb-2 z-50`}
     >
       {children}
     </div>
