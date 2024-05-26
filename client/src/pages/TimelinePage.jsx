@@ -1,13 +1,18 @@
 //Taylor Zweigle, 2024
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
+import AddIcon from "@mui/icons-material/Add";
 
 import * as Actions from "../actions";
 
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEventsContext } from "../hooks/useEventsContext";
+import { useSelectedStartTimeContext } from "../hooks/useSelectedStartTimeContext";
 
 import { getEvents } from "../api/events";
 
+import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
 
 import SideNav from "../components/sideNav/SideNav";
@@ -22,6 +27,7 @@ import { filterEvents } from "../utility/utility";
 const TimelinePage = () => {
   const { user } = useAuthContext();
   const { events, dispatch } = useEventsContext();
+  const { dispatchSelectedStartTime } = useSelectedStartTimeContext();
 
   const [visibleCalendars, setVisibleCalendars] = useState([]);
 
@@ -62,7 +68,21 @@ const TimelinePage = () => {
         <div className="col-span-12 sm:col-span-12 md:col-span-3 md:border-r border-slate-300 dark:border-slate-600">
           <div className="grid grid-cols-12 m-auto w-full">
             <div className="col-span-12">
-              <HeaderLayout editUser={user.username === "calendarapp_edit"} />
+              <HeaderLayout
+                editUser={user.username === "calendarapp_edit"}
+                action={
+                  <Link to="/event">
+                    <Button
+                      variant="default"
+                      prefix={<AddIcon />}
+                      onClick={() => dispatchSelectedStartTime({ type: Actions.SET_SELECTED_START_TIME, payload: "" })}
+                    >
+                      <span className="inline-flex">Add&nbsp;</span>
+                      <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Event</span>
+                    </Button>
+                  </Link>
+                }
+              />
               <Divider />
             </div>
             <div className="hidden md:block col-span-12">

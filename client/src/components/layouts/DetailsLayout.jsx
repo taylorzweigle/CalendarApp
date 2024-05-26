@@ -45,7 +45,7 @@ const DetailsLayout = ({ data, calendars, editUser }) => {
             />
           </Link>
         ))}
-        {itemsForSelectedDay.length > 0 ? null : <EmptyState readOnly={!editUser} />}
+        {itemsForSelectedDay.length > 0 ? null : <EmptyState type="Event" readOnly={!editUser} />}
       </div>
     </div>
   );
