@@ -35,6 +35,9 @@ const Typography = ({ variant, color, customColor, bold, truncate, wrap, center,
     case "secondary":
       colorClass = "text-slate-500 dark:text-slate-400";
       break;
+    case "error":
+      colorClass = "text-rose-500 dark:text-rose-500";
+      break;
     case "custom":
       colorClass = customColor;
       break;

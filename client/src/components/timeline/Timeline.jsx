@@ -111,7 +111,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
         {hours.map((hour) => (
           <tr key={hour} className="h-px">
             <td
-              className={`h-12 w-16 pl-2 sm:pl-0 ${
+              className={`h-12 w-16 pl-2 md:pl-0 ${
                 isCurrentTime(hour)
                   ? "border-t-2 border-rose-300 dark:border-rose-600"
                   : "border-t border-slate-300 dark:border-slate-600"

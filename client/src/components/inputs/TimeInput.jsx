@@ -9,7 +9,7 @@ import NumberInput from "./NumberInput";
 const TimeInput = ({ label, hour, minutes, period, error, onHourChange, onMinutesChange, onPeriodChange }) => {
   return (
     <div className="flex flex-col gap-2">
-      <Typography variant="body1" color="text-slate-500 dark:text-slate-400">
+      <Typography variant="body1" color="primary">
         {label}
       </Typography>
       <div className="flex flex-row gap-4">
@@ -18,7 +18,7 @@ const TimeInput = ({ label, hour, minutes, period, error, onHourChange, onMinute
         <SelectInput label="period" value={period} items={["", "AM", "PM"]} onChange={onPeriodChange} />
       </div>
       {error && (
-        <Typography variant="body2" color="text-red-500 dark:text-red-500">
+        <Typography variant="body2" color="error">
           {error}
         </Typography>
       )}

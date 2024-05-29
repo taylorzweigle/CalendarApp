@@ -21,12 +21,12 @@ const TextInput = ({ label, value, type, pattern, inputMode, maxLength, error, s
 
   return showLabel ? (
     <div className="flex flex-col gap-2 w-full">
-      <Typography variant="body1" color="text-slate-500 dark:text-slate-400">
+      <Typography variant="body1" color="primary">
         {label}
       </Typography>
       {input()}
       {error && (
-        <Typography variant="body2" color="text-red-500 dark:text-red-500">
+        <Typography variant="body2" color="error">
           {error}
         </Typography>
       )}

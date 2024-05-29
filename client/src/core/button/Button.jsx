@@ -1,9 +1,11 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
+import DataUsageIcon from "@mui/icons-material/DataUsage";
+
 import Typography from "../typography/Typography";
 
-const Button = ({ prefix, variant, fullWidth, onClick, children }) => {
+const Button = ({ prefix, variant, fullWidth, loading, onClick, children }) => {
   let variantClass = "";
 
   switch (variant) {
@@ -32,7 +34,8 @@ const Button = ({ prefix, variant, fullWidth, onClick, children }) => {
     <button className={`${variantClass} ${fullWidth && "w-full"} rounded-lg px-4 h-12`} onClick={onClick}>
       <div className="flex flex-row gap-1 justify-center items-center">
         {prefix ? <span className="text-slate-700 dark:text-white">{prefix}</span> : null}
-        {children ? (
+        {loading && <DataUsageIcon className="text-slate-700 dark:text-white animate-spin" />}
+        {!loading && children ? (
           <Typography variant="body1" color="primary">
             {children}
           </Typography>

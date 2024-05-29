@@ -11,7 +11,7 @@ import { months } from "../calendar/Calendar";
 const DateInput = ({ label, month, date, year, onMonthChange, onDateChange, onYearChange }) => {
   return (
     <div className="flex flex-col gap-2">
-      <Typography variant="body1" color="text-slate-500 dark:text-slate-400">
+      <Typography variant="body1" color="primary">
         {label}
       </Typography>
       <div className="flex flex-row gap-4">

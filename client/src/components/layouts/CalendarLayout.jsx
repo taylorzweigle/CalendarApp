@@ -78,7 +78,7 @@ const CalendarLayout = ({ data }) => {
         month: monthIndex,
         date: 1,
         year: selectedMonth.year,
-        weekday: new Date(selectedDate.year, selectedDate.month, 1).getDay(),
+        weekday: new Date(selectedMonth.year, monthIndex, 1).getDay(),
       },
     });
 

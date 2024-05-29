@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
 import Tab from "../core/tabs/Tab";
+import Typography from "../core/typography/Typography";
 
 import SideNav from "../components/sideNav/SideNav";
 
@@ -23,7 +24,7 @@ const TodosPage = () => {
     <div className="flex flex-col md:flex-row">
       <SideNav selected="Todos" />
       <div className="grid grid-cols-12 m-auto w-full bg-white dark:bg-slate-800 border-t-0 border-r border-b border-l md:border-t md:border-r md:border-b md:border-l-0 border-slate-300 dark:border-slate-600 rounded-tl-none rounded-tr-none rounded-bl-lg rounded-br-lg md:rounded-tl-none md:rounded-tr-lg md:rounded-bl-lg md:rounded-br-lg shadow-md min-h-screen md:min-h-72">
-        <div className="col-span-12 sm:col-span-12 md:col-span-3 md:border-r border-slate-300 dark:border-slate-600 h-0 md:h-fit">
+        <div className="col-span-12 sm:col-span-12 md:col-span-3 md:border-r border-slate-300 dark:border-slate-600">
           <div className="grid grid-cols-12 m-auto w-full">
             <div className="col-span-12">
               <HeaderLayout
@@ -46,14 +47,21 @@ const TodosPage = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col justify-start gap-0 md:gap-8 p-4 md:p-8">
+        <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col justify-start gap-8 p-4 md:p-8">
           <div className="flex flex-row items-center">
             <Tab value="Chores" selected={selected === "Chores"} onClick={() => setSelected("Chores")} />
             <Tab value="Shopping" selected={selected === "Shopping"} onClick={(e) => setSelected("Shopping")} />
           </div>
-          <div className="block md:hidden col-span-12 h-48">
-            <Divider />
-          </div>
+          {selected === "Chores" && (
+            <div className="h-128">
+              <Typography variant="body1">Chores</Typography>
+            </div>
+          )}
+          {selected === "Shopping" && (
+            <div className="h-128">
+              <Typography variant="body1">Shopping</Typography>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -59,6 +59,8 @@ const EditEventPage = () => {
   const [startTimeError, setStartTimeError] = useState("");
   const [endTimeError, setEndTimeError] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const [deleteModal, setDeleteModal] = useState(false);
 
   useEffect(() => {
@@ -115,13 +117,19 @@ const EditEventPage = () => {
   }, [params.id, authUser]);
 
   const handleOnCancel = () => {
-    navigate("/");
+    navigate(-1);
   };
 
   const handleOnSave = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
+
     if (!authUser) {
+      return;
+    }
+
+    if (loading) {
       return;
     }
 
@@ -189,6 +197,8 @@ const EditEventPage = () => {
       if (json.error.includes("endTime")) {
         setEndTimeError("End Time is required");
       }
+
+      setLoading(false);
     }
 
     if (json.json) {
@@ -198,7 +208,7 @@ const EditEventPage = () => {
         dispatch({ type: Actions.GET_EVENTS, payload: events.json });
       }
 
-      navigate("/");
+      navigate(-1);
 
       clearForm();
     }
@@ -210,7 +220,7 @@ const EditEventPage = () => {
     if (event.json) {
       dispatch({ type: Actions.DELETE_EVENT, payload: event.json });
 
-      navigate("/");
+      navigate(-1);
     }
   };
 
@@ -352,7 +362,7 @@ const EditEventPage = () => {
                   </Button>
                 </div>
                 <div className="sm:order-1">
-                  <Button variant="primary" fullWidth onClick={handleOnSave}>
+                  <Button variant="primary" fullWidth loading={loading} onClick={handleOnSave}>
                     Update
                   </Button>
                 </div>

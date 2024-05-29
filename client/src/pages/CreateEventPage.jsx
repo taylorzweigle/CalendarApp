@@ -58,6 +58,8 @@ const CreateEventPage = () => {
   const [startTimeError, setStartTimeError] = useState("");
   const [endTimeError, setEndTimeError] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setStartMonth(months[selectedDate.month]);
     setStartDate(selectedDate.date);
@@ -89,7 +91,13 @@ const CreateEventPage = () => {
   const handleOnSave = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
+
     if (!authUser) {
+      return;
+    }
+
+    if (loading) {
       return;
     }
 
@@ -157,19 +165,21 @@ const CreateEventPage = () => {
       if (json.error.includes("endTime")) {
         setEndTimeError("End Time is required");
       }
+
+      setLoading(false);
     }
 
     if (json.json) {
       dispatch({ type: Actions.CREATE_EVENT, payload: json.json });
 
-      navigate("/");
+      navigate(-1);
 
       clearForm();
     }
   };
 
   const handleOnCancel = () => {
-    navigate("/");
+    navigate(-1);
 
     clearForm();
   };
@@ -310,7 +320,7 @@ const CreateEventPage = () => {
                 </Button>
               </div>
               <div>
-                <Button variant="primary" fullWidth onClick={handleOnSave}>
+                <Button variant="primary" fullWidth loading={loading} onClick={handleOnSave}>
                   Save
                 </Button>
               </div>
