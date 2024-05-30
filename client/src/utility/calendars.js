@@ -7,3 +7,7 @@ export const calendars = [
 ];
 
 export const tags = ["", "chores", "family", "friends", "fun", "holiday", "personal", "sports", "serve", "travel", "work"];
+
+export const choresTags = ["", "Inside", "Outside", "Errands"];
+
+export const shoppingTags = ["", "Home", "Gifts", "Groceries", "Personal"];

@@ -5,6 +5,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 
 import CalendarPage from "./pages/CalendarPage";
 import CreateEventPage from "./pages/CreateEventPage";
+import CreateTodoPage from "./pages/CreateTodoPage";
 import EditEventPage from "./pages/EditEventPage";
 import LoginPage from "./pages/LoginPage";
 import TimelinePage from "./pages/TimelinePage";
@@ -28,6 +29,7 @@ const App = () => {
           )
         }
       />
+      <Route path="/todo" element={user ? <CreateTodoPage /> : <Navigate to="/login" />} />
       <Route path="/event" element={user ? <CreateEventPage /> : <Navigate to="/login" />} />
       <Route path="/todos" element={user ? <TodosPage /> : <Navigate to="/login" />} />
       <Route path="/timeline" element={user ? <TimelinePage /> : <Navigate to="/login" />} />

@@ -12,6 +12,7 @@ import { EventsContextProvider } from "./context/EventsContext";
 import { SelectedDateContextProvider } from "./context/SelectedDateContext";
 import { SelectedStartTimeContextProvider } from "./context/SelectedStartTimeContext";
 import { SelectedThemeContextProvider } from "./context/SelectedThemeContext";
+import { TodosContextProvider } from "./context/TodosContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -19,15 +20,17 @@ root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <EventsContextProvider>
-        <SelectedDateContextProvider>
-          <SelectedStartTimeContextProvider>
-            <SelectedThemeContextProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </SelectedThemeContextProvider>
-          </SelectedStartTimeContextProvider>
-        </SelectedDateContextProvider>
+        <TodosContextProvider>
+          <SelectedDateContextProvider>
+            <SelectedStartTimeContextProvider>
+              <SelectedThemeContextProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </SelectedThemeContextProvider>
+            </SelectedStartTimeContextProvider>
+          </SelectedDateContextProvider>
+        </TodosContextProvider>
       </EventsContextProvider>
     </AuthContextProvider>
   </React.StrictMode>

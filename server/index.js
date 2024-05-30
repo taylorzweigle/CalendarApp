@@ -5,6 +5,7 @@ const cors = require("cors");
 
 require("dotenv").config();
 
+const todoRoutes = require("./routes/todos");
 const eventRoutes = require("./routes/events");
 const userRoutes = require("./routes/users");
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use("/api/todos", todoRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/users", userRoutes);
 

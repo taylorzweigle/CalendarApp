@@ -1,7 +1,15 @@
 //Taylor Zweigle, 2024
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import AddIcon from "@mui/icons-material/Add";
+
+import * as Actions from "../actions";
+
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useTodosContext } from "../hooks/useTodosContext";
+
+import { getTodos } from "../api/todos";
 
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
@@ -13,12 +21,23 @@ import SideNav from "../components/sideNav/SideNav";
 import HeaderLayout from "../components/layouts/HeaderLayout";
 import TodosLayout from "../components/layouts/TodosLayout";
 
-import { useAuthContext } from "../hooks/useAuthContext";
-
 const TodosPage = () => {
   const { user } = useAuthContext();
+  const { todos, dispatch } = useTodosContext();
 
   const [selected, setSelected] = useState("Chores");
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      const todos = await getTodos(user.token);
+
+      dispatch({ type: Actions.GET_TODOS, payload: todos.json });
+    };
+
+    if (user) {
+      fetchTodos();
+    }
+  }, [dispatch, user]);
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -30,10 +49,12 @@ const TodosPage = () => {
               <HeaderLayout
                 editUser={user.username === "calendarapp_edit"}
                 action={
-                  <Button variant="default" prefix={<AddIcon />} onClick={() => {}}>
-                    <span className="inline-flex">Add&nbsp;</span>
-                    <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Todo</span>
-                  </Button>
+                  <Link to="/todo">
+                    <Button variant="default" prefix={<AddIcon />} onClick={() => {}}>
+                      <span className="inline-flex">Add&nbsp;</span>
+                      <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Todo</span>
+                    </Button>
+                  </Link>
                 }
               />
               <Divider />
@@ -54,12 +75,26 @@ const TodosPage = () => {
           </div>
           {selected === "Chores" && (
             <div className="h-128">
-              <Typography variant="body1">Chores</Typography>
+              {todos &&
+                todos
+                  .filter((todo) => todo.type === "Chores")
+                  .map((todo) => (
+                    <Typography key={todo._id} variant="body1">
+                      {todo.todo}
+                    </Typography>
+                  ))}
             </div>
           )}
           {selected === "Shopping" && (
             <div className="h-128">
-              <Typography variant="body1">Shopping</Typography>
+              {todos &&
+                todos
+                  .filter((todo) => todo.type === "Shopping")
+                  .map((todo) => (
+                    <Typography key={todo._id} variant="body1">
+                      {todo.todo}
+                    </Typography>
+                  ))}
             </div>
           )}
         </div>

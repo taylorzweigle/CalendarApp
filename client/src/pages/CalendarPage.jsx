@@ -103,7 +103,6 @@ const CalendarPage = () => {
         <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col gap-0 md:gap-8 p-0 md:p-8">
           <CalendarLayout data={filterEvents(visibleCalendars, events)} />
           <div className="block md:hidden col-span-12">
-            <Divider />
             <LegendLayout visibleCalendars={visibleCalendars} onClick={handleLegendChange} />
           </div>
         </div>

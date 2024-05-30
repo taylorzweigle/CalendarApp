@@ -103,21 +103,6 @@ const CreateEventPage = () => {
 
     clearErrors();
 
-    console.log(
-      startMonth,
-      startDate,
-      startYear,
-      startHours,
-      startMinutes,
-      startPeriod,
-      endMonth,
-      endDate,
-      endYear,
-      endHours,
-      endMinutes,
-      endPeriod
-    );
-
     const newEvent = {
       event: event,
       user: user,
