@@ -9,35 +9,51 @@ import * as Actions from "../actions";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useTodosContext } from "../hooks/useTodosContext";
 
-import { getTodos } from "../api/todos";
+import { getTodos, deleteTodo } from "../api/todos";
 
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
 import Tab from "../core/tabs/Tab";
-import Typography from "../core/typography/Typography";
 
 import SideNav from "../components/sideNav/SideNav";
+
+import TodoCard from "../components/cards/TodoCard";
 
 import HeaderLayout from "../components/layouts/HeaderLayout";
 import TodosLayout from "../components/layouts/TodosLayout";
 
 const TodosPage = () => {
-  const { user } = useAuthContext();
+  const { user: authUser } = useAuthContext();
   const { todos, dispatch } = useTodosContext();
 
   const [selected, setSelected] = useState("Chores");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchTodos = async () => {
-      const todos = await getTodos(user.token);
+      const todos = await getTodos(authUser.token);
 
       dispatch({ type: Actions.GET_TODOS, payload: todos.json });
     };
 
-    if (user) {
+    if (authUser) {
       fetchTodos();
     }
-  }, [dispatch, user]);
+  }, [dispatch, authUser]);
+
+  const handleDelete = async (id) => {
+    setLoading(true);
+
+    const todo = await deleteTodo(id, authUser.token);
+
+    if (todo.json) {
+      dispatch({ type: Actions.DELETE_TODO, payload: todo.json });
+
+      setLoading(false);
+    }
+  };
+
+  const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 86400000;
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -47,7 +63,7 @@ const TodosPage = () => {
           <div className="grid grid-cols-12 m-auto w-full">
             <div className="col-span-12">
               <HeaderLayout
-                editUser={user.username === "calendarapp_edit"}
+                editUser={authUser.username === "calendarapp_edit"}
                 action={
                   <Link to="/todo">
                     <Button variant="default" prefix={<AddIcon />} onClick={() => {}}>
@@ -60,7 +76,7 @@ const TodosPage = () => {
               <Divider />
             </div>
             <div className="col-span-12">
-              <TodosLayout editUser={user.username === "calendarapp_edit"} />
+              <TodosLayout editUser={authUser.username === "calendarapp_edit"} />
               <Divider />
             </div>
             <div className="hidden md:block col-span-12 h-48">
@@ -73,30 +89,20 @@ const TodosPage = () => {
             <Tab value="Chores" selected={selected === "Chores"} onClick={() => setSelected("Chores")} />
             <Tab value="Shopping" selected={selected === "Shopping"} onClick={(e) => setSelected("Shopping")} />
           </div>
-          {selected === "Chores" && (
-            <div className="h-128">
-              {todos &&
-                todos
-                  .filter((todo) => todo.type === "Chores")
-                  .map((todo) => (
-                    <Typography key={todo._id} variant="body1">
-                      {todo.todo}
-                    </Typography>
-                  ))}
-            </div>
-          )}
-          {selected === "Shopping" && (
-            <div className="h-128">
-              {todos &&
-                todos
-                  .filter((todo) => todo.type === "Shopping")
-                  .map((todo) => (
-                    <Typography key={todo._id} variant="body1">
-                      {todo.todo}
-                    </Typography>
-                  ))}
-            </div>
-          )}
+          <div className="flex flex-col gap-2 h-128">
+            {todos &&
+              todos
+                .filter((todo) => todo.type === selected)
+                .map((todo) => (
+                  <TodoCard
+                    key={todo._id}
+                    todo={todo.todo}
+                    badge={() => showBadge(todo.creationTime)}
+                    loading={loading}
+                    onDelete={() => handleDelete(todo._id)}
+                  />
+                ))}
+          </div>
         </div>
       </div>
     </div>
