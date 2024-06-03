@@ -52,6 +52,7 @@ const EditEventPage = () => {
   const [endMinutes, setEndMinutes] = useState("");
   const [endPeriod, setEndPeriod] = useState("");
   const [creationTime, setCreationTime] = useState("");
+  const [creationUser, setCreationUser] = useState("");
 
   const [eventError, setEventError] = useState("");
   const [userError, setUserError] = useState("");
@@ -109,6 +110,7 @@ const EditEventPage = () => {
       );
       setEndPeriod(new Date(event.json.endTime).getHours() >= 12 ? "PM" : "AM");
       setCreationTime(event.json.creationTime);
+      setCreationUser(event.json.creationUser);
     };
 
     if (authUser) {
@@ -177,6 +179,7 @@ const EditEventPage = () => {
               }:${endMinutes}:00`
             ),
       creationTime: creationTime,
+      creationUser: creationUser,
     };
 
     const json = await updateEvent(params.id, newEvent, authUser.token);

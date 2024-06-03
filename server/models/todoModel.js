@@ -28,6 +28,10 @@ const todoSchema = new Schema({
     type: Date,
     required: true,
   },
+  creationUser: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Todo", todoSchema);

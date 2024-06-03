@@ -24,6 +24,8 @@ const App = () => {
             <ViewEventPage />
           ) : user && user.username === "calendarapp_edit" ? (
             <EditEventPage />
+          ) : user && user.username === "calendarapp_testing" ? (
+            <EditEventPage />
           ) : (
             <Navigate to="/login" />
           )

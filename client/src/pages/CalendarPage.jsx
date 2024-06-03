@@ -36,7 +36,10 @@ const CalendarPage = () => {
     const fetchEvents = async () => {
       const events = await getEvents(user.token);
 
-      dispatch({ type: Actions.GET_EVENTS, payload: events.json });
+      dispatch({
+        type: Actions.GET_EVENTS,
+        payload: events.json.filter((event) => event.creationUser === user.username),
+      });
     };
 
     if (user) {
@@ -70,7 +73,7 @@ const CalendarPage = () => {
           <div className="grid grid-cols-12 m-auto w-full">
             <div className="col-span-12">
               <HeaderLayout
-                editUser={user.username === "calendarapp_edit"}
+                editUser={user.username === "calendarapp_edit" || user.username === "calendarapp_testing"}
                 action={
                   <Link to="/event">
                     <Button
@@ -90,7 +93,7 @@ const CalendarPage = () => {
               <DetailsLayout
                 data={filterEvents(visibleCalendars, events)}
                 calendars={calendars}
-                editUser={user.username === "calendarapp_edit"}
+                editUser={user.username === "calendarapp_edit" || user.username === "calendarapp_testing"}
               />
               <Divider />
             </div>

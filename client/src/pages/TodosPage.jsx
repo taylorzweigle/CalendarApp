@@ -33,7 +33,7 @@ const TodosPage = () => {
     const fetchTodos = async () => {
       const todos = await getTodos(authUser.token);
 
-      dispatch({ type: Actions.GET_TODOS, payload: todos.json });
+      dispatch({ type: Actions.GET_TODOS, payload: todos.json.filter((todo) => todo.creationUser === authUser.username) });
     };
 
     if (authUser) {
@@ -63,7 +63,7 @@ const TodosPage = () => {
           <div className="grid grid-cols-12 m-auto w-full">
             <div className="col-span-12">
               <HeaderLayout
-                editUser={authUser.username === "calendarapp_edit"}
+                editUser={authUser.username === "calendarapp_edit" || authUser.username === "calendarapp_testing"}
                 action={
                   <Link to="/todo">
                     <Button variant="default" prefix={<AddIcon />} onClick={() => {}}>
@@ -76,7 +76,7 @@ const TodosPage = () => {
               <Divider />
             </div>
             <div className="col-span-12">
-              <TodosLayout editUser={authUser.username === "calendarapp_edit"} />
+              <TodosLayout editUser={authUser.username === "calendarapp_edit" || authUser.username === "calendarapp_testing"} />
               <Divider />
             </div>
             <div className="hidden md:block col-span-12 h-48">

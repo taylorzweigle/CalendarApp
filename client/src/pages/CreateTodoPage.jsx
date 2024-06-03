@@ -73,6 +73,7 @@ const CreateTodoPage = () => {
       tag: tag,
       date: new Date(`${month} ${date}, ${year}`),
       creationTime: new Date(),
+      creationUser: authUser.username,
     };
 
     const json = await createTodo(newTodo, authUser.token);
