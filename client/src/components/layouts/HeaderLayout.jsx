@@ -7,6 +7,7 @@ import * as Actions from "../../actions";
 
 import { useSelectedThemeContext } from "../../hooks/useSelectedThemeContext";
 
+import AboutModal from "../modals/AboutModal";
 import LogoutModal from "../modals/LogoutModal";
 
 import Button from "../../core/button/Button";
@@ -20,6 +21,7 @@ const HeaderLayout = ({ editUser, action }) => {
   const { selectedTheme, dispatchSelectedTheme } = useSelectedThemeContext();
 
   const [open, setOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
 
   const { logout } = useLogout();
@@ -30,6 +32,11 @@ const HeaderLayout = ({ editUser, action }) => {
     setOpen(false);
 
     document.documentElement.classList.toggle("dark");
+  };
+
+  const handleAboutClick = () => {
+    setAboutOpen(true);
+    setOpen(false);
   };
 
   const handleLogoutClick = () => {
@@ -45,12 +52,14 @@ const HeaderLayout = ({ editUser, action }) => {
 
   return (
     <>
+      <AboutModal open={aboutOpen} onCancelClick={() => setAboutOpen(false)} />
       <LogoutModal open={logoutOpen} onLogoutClick={handleLogoutModalClick} onCancelClick={() => setLogoutOpen(false)} />
       <div className="flex flex-row justify-between items-center p-4 md:p-8">
         <div>
           <Button variant="default" prefix={<MenuIcon />} onClick={() => setOpen(!open)} />
           <Menu open={open}>
             <MenuItem onClick={handleThemeButton}>{selectedTheme === "dark" ? "Set Light Theme" : "Set Dark Theme"}</MenuItem>
+            <MenuItem onClick={handleAboutClick}>About</MenuItem>
             <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
           </Menu>
         </div>

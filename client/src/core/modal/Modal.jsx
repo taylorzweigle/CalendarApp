@@ -30,9 +30,11 @@ const Modal = ({ children, open, title, errorModal, action, onAction, onCancel }
             <Button variant="default" onClick={onCancel}>
               Cancel
             </Button>
-            <Button variant={errorModal ? "error" : "primary"} onClick={onAction}>
-              {action}
-            </Button>
+            {action && (
+              <Button variant={errorModal ? "error" : "primary"} onClick={onAction}>
+                {action}
+              </Button>
+            )}
           </div>
         </Card>
       </div>

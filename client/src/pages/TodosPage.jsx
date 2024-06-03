@@ -97,6 +97,7 @@ const TodosPage = () => {
                   <TodoCard
                     key={todo._id}
                     todo={todo.todo}
+                    tag={todo.tag}
                     badge={() => showBadge(todo.creationTime)}
                     loading={loading}
                     onDelete={() => handleDelete(todo._id)}
