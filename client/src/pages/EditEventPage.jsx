@@ -109,7 +109,7 @@ const EditEventPage = () => {
           : new Date(event.json.endTime).getMinutes()
       );
       setEndPeriod(new Date(event.json.endTime).getHours() >= 12 ? "PM" : "AM");
-      setCreationTime(event.json.creationTime);
+      setCreationTime(new Date());
       setCreationUser(event.json.creationUser);
     };
 
