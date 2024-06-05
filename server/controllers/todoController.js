@@ -4,7 +4,9 @@ const mongoose = require("mongoose");
 const Event = require("../models/todoModel");
 
 const getTodos = async (req, res) => {
-  const todos = await Event.find({});
+  const creationUser = req.user._id;
+
+  const todos = await Event.find({ creationUser });
 
   res.status(200).json(todos);
 };
@@ -26,9 +28,11 @@ const getTodo = async (req, res) => {
 };
 
 const createTodo = async (req, res) => {
-  const { todo, user, type, tag, date, creationTime, creationUser } = req.body;
+  const { todo, user, type, tag, date, creationTime } = req.body;
 
   try {
+    const creationUser = req.user._id;
+
     const newTodo = await Event.create({ todo, user, type, tag, date, creationTime, creationUser });
 
     res.status(200).json(newTodo);

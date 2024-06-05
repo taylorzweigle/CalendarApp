@@ -33,7 +33,7 @@ const TodosPage = () => {
     const fetchTodos = async () => {
       const todos = await getTodos(authUser.token);
 
-      dispatch({ type: Actions.GET_TODOS, payload: todos.json.filter((todo) => todo.creationUser === authUser.username) });
+      dispatch({ type: Actions.GET_TODOS, payload: todos.json });
     };
 
     if (authUser) {
@@ -98,7 +98,7 @@ const TodosPage = () => {
                     key={todo._id}
                     todo={todo.todo}
                     tag={todo.tag}
-                    badge={() => showBadge(todo.creationTime)}
+                    badge={showBadge(todo.creationTime)}
                     loading={loading}
                     onDelete={() => handleDelete(todo._id)}
                   />
