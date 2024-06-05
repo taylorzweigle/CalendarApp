@@ -9,7 +9,7 @@ import * as Actions from "../actions";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useTodosContext } from "../hooks/useTodosContext";
 
-import { getTodos, deleteTodo } from "../api/todos";
+import { getTodos, updateTodo, deleteTodo } from "../api/todos";
 
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
@@ -27,7 +27,7 @@ const TodosPage = () => {
   const { todos, dispatch } = useTodosContext();
 
   const [selected, setSelected] = useState("Chores");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState("");
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -41,15 +41,27 @@ const TodosPage = () => {
     }
   }, [dispatch, authUser]);
 
+  const handleClick = async (todo) => {
+    const json = await updateTodo(todo._id, { ...todo, checked: !todo.checked }, authUser.token);
+
+    if (json.json) {
+      const todos = await getTodos(authUser.token);
+
+      if (todos.json) {
+        dispatch({ type: Actions.GET_TODOS, payload: todos.json });
+      }
+    }
+  };
+
   const handleDelete = async (id) => {
-    setLoading(true);
+    setLoading(id);
 
     const todo = await deleteTodo(id, authUser.token);
 
     if (todo.json) {
       dispatch({ type: Actions.DELETE_TODO, payload: todo.json });
 
-      setLoading(false);
+      setLoading("");
     }
   };
 
@@ -98,8 +110,11 @@ const TodosPage = () => {
                     key={todo._id}
                     todo={todo.todo}
                     tag={todo.tag}
+                    dueDate={todo.date}
+                    checked={todo.checked}
                     badge={showBadge(todo.creationTime)}
-                    loading={loading}
+                    loading={loading === todo._id}
+                    onClick={() => handleClick(todo)}
                     onDelete={() => handleDelete(todo._id)}
                   />
                 ))}

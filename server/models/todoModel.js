@@ -24,6 +24,10 @@ const todoSchema = new Schema({
     type: Date,
     required: true,
   },
+  checked: {
+    type: Boolean,
+    required: true,
+  },
   creationTime: {
     type: Date,
     required: true,

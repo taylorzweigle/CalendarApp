@@ -23,10 +23,10 @@ const Label = ({ size, variant, children }) => {
       variantClass = "bg-slate-300 dark:bg-slate-600";
       break;
     case "primary":
-      variantClass = "bg-sky-300 dark:bg-sky-700";
+      variantClass = "bg-sky-300 dark:bg-sky-500";
       break;
     case "error":
-      variantClass = "bg-rose-300 dark:bg-rose-700";
+      variantClass = "bg-rose-300 dark:bg-rose-500";
       break;
     case "text":
       variantClass = "bg-transparent dark:bg-transparent";

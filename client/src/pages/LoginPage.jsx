@@ -27,7 +27,7 @@ const LoginPage = () => {
       <div className="w-full sm:w-128 p-4 sm:p-8 m-auto">
         <form onSubmit={handleSubmit}>
           <Card border>
-            <div className="flex flex-col gap-8 p-4 sm:p-8">
+            <div className="flex flex-col justify-between sm:gap-8 h-[calc(100vh-32px)] sm:h-fit p-4 sm:p-8">
               <div className="flex flex-col items-center gap-4">
                 <div className="flex flex-col gap-0">
                   <img src={logo} alt="logo" width="128" height="128" />

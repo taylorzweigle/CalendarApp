@@ -31,7 +31,7 @@ const CalendarDay = ({ day, today, outOfMonth, selected, onClick, children }) =>
                 </Label>
               </span>
               <span className="block sm:hidden">
-                <div className="h-4 w-4 bg-slate-300 dark:bg-slate-600 rounded-full">&nbsp;</div>
+                <div className="h-3 w-3 bg-slate-700 dark:bg-slate-200 rounded-full">&nbsp;</div>
               </span>
             </>
           )}

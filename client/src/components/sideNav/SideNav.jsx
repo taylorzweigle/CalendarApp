@@ -9,7 +9,7 @@ import SideNavButton from "./internal/SideNavButton";
 
 const SideNav = ({ selected }) => {
   return (
-    <div className="flex flex-col gap-0">
+    <div className="flex flex-col gap-0 z-50">
       <div className={`flex flex-row md:flex-col justify-center md:justify-start items-center bg-slate-200 dark:bg-slate-950`}>
         <SideNavButton title="Calendar" icon={<DateRangeIcon fontSize="medium" />} selected={selected === "Calendar"} to="/" />
         <SideNavButton

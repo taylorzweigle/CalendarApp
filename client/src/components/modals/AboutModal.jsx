@@ -2,7 +2,6 @@
 import React from "react";
 
 import Modal from "../../core/modal/Modal";
-import Typography from "../../core/typography/Typography";
 
 import Details from "../../components/details/Details";
 
@@ -13,9 +12,7 @@ const AboutModal = ({ open, onCancelClick }) => {
 
   return (
     <Modal title="About" open={open} onCancel={onCancelClick}>
-      <Typography variant="body1" color="primary">
-        <Details label="Username" value={authUser.username} />
-      </Typography>
+      <Details label="Username" value={authUser.username} />
     </Modal>
   );
 };

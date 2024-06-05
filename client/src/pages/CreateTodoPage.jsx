@@ -72,6 +72,7 @@ const CreateTodoPage = () => {
       type: type,
       tag: tag,
       date: new Date(`${month} ${date}, ${year}`),
+      checked: false,
       creationTime: new Date(),
       creationUser: authUser.username,
     };
