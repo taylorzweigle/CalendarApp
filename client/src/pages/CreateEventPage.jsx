@@ -130,7 +130,6 @@ const CreateEventPage = () => {
               }:${endMinutes}:00`
             ),
       creationTime: new Date(),
-      creationUser: authUser.username,
     };
 
     const json = await createEvent(newEvent, authUser.token);

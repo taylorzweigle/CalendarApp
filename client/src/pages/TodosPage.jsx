@@ -1,5 +1,6 @@
 //Taylor Zweigle, 2024
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -23,6 +24,8 @@ import HeaderLayout from "../components/layouts/HeaderLayout";
 import TodosLayout from "../components/layouts/TodosLayout";
 
 const TodosPage = () => {
+  const navigate = useNavigate();
+
   const { user: authUser } = useAuthContext();
   const { todos, dispatch } = useTodosContext();
 
@@ -51,6 +54,10 @@ const TodosPage = () => {
         dispatch({ type: Actions.GET_TODOS, payload: todos.json });
       }
     }
+  };
+
+  const handleEdit = (id) => {
+    navigate(`/todo/${id}`);
   };
 
   const handleDelete = async (id) => {
@@ -101,7 +108,7 @@ const TodosPage = () => {
             <Tab value="Chores" selected={selected === "Chores"} onClick={() => setSelected("Chores")} />
             <Tab value="Shopping" selected={selected === "Shopping"} onClick={(e) => setSelected("Shopping")} />
           </div>
-          <div className="flex flex-col gap-2 h-128">
+          <div className="flex flex-col gap-2 md:gap-4 h-128">
             {todos &&
               todos
                 .filter((todo) => todo.type === selected)
@@ -109,12 +116,13 @@ const TodosPage = () => {
                   <TodoCard
                     key={todo._id}
                     todo={todo.todo}
-                    tag={todo.tag}
+                    user={todo.user}
                     dueDate={todo.date}
                     checked={todo.checked}
                     badge={showBadge(todo.creationTime)}
                     loading={loading === todo._id}
                     onClick={() => handleClick(todo)}
+                    onEdit={() => handleEdit(todo._id)}
                     onDelete={() => handleDelete(todo._id)}
                   />
                 ))}

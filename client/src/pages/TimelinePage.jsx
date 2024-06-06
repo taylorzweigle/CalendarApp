@@ -35,7 +35,7 @@ const TimelinePage = () => {
     const fetchEvents = async () => {
       const events = await getEvents(user.token);
 
-      dispatch({ type: Actions.GET_EVENTS, payload: events.json.filter((event) => event.creationUser === user.username) });
+      dispatch({ type: Actions.GET_EVENTS, payload: events.json });
     };
 
     if (user) {

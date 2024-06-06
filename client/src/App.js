@@ -7,6 +7,7 @@ import CalendarPage from "./pages/CalendarPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import CreateTodoPage from "./pages/CreateTodoPage";
 import EditEventPage from "./pages/EditEventPage";
+import EditTodoPage from "./pages/EditTodoPage";
 import LoginPage from "./pages/LoginPage";
 import TimelinePage from "./pages/TimelinePage";
 import TodosPage from "./pages/TodosPage";
@@ -17,6 +18,18 @@ const App = () => {
 
   return (
     <Routes>
+      <Route
+        path="/todo/:id"
+        element={
+          user && user.username === "calendarapp_edit" ? (
+            <EditTodoPage />
+          ) : user && user.username === "calendarapp_testing" ? (
+            <EditTodoPage />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
       <Route
         path="/event/:id"
         element={

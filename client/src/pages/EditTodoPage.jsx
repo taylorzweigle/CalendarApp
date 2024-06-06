@@ -1,13 +1,13 @@
 //Taylor Zweigle, 2024
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useParams } from "react-router-dom";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import * as Actions from "../actions";
 
 import { useAuthContext } from "../hooks/useAuthContext";
-import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
 import { useTodosContext } from "../hooks/useTodosContext";
 
 import Button from "../core/button/Button";
@@ -19,14 +19,15 @@ import Typography from "../core/typography/Typography";
 import { months } from "../components/calendar/Calendar";
 import DateInput from "../components/inputs/DateInput";
 
-import { createTodo } from "../api/todos";
+import { getTodo, getTodos, updateTodo } from "../api/todos";
 
-const CreateTodoPage = () => {
+const EditTodoPage = () => {
   const navigate = useNavigate();
+
+  const params = useParams();
 
   const { user: authUser } = useAuthContext();
   const { dispatch } = useTodosContext();
-  const { selectedDate } = useSelectedDateContext();
 
   const [todo, setTodo] = useState("");
   const [user, setUser] = useState("");
@@ -34,6 +35,7 @@ const CreateTodoPage = () => {
   const [month, setMonth] = useState("");
   const [date, setDate] = useState("");
   const [year, setYear] = useState("");
+  const [checked, setChecked] = useState(false);
 
   const [todoError, setTodoError] = useState("");
   const [userError, setUserError] = useState("");
@@ -42,10 +44,26 @@ const CreateTodoPage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setMonth(months[selectedDate.month]);
-    setDate(selectedDate.date);
-    setYear(selectedDate.year);
-  }, [selectedDate]);
+    const fetchTodo = async () => {
+      const todo = await getTodo(params.id, authUser.token);
+
+      setTodo(todo.json.todo);
+      setUser(todo.json.user);
+      setType(todo.json.type);
+      setMonth(months[new Date(todo.json.date).getMonth()]);
+      setDate(new Date(todo.json.date).getDate());
+      setYear(new Date(todo.json.date).getFullYear());
+      setChecked(todo.json.checked);
+    };
+
+    if (authUser) {
+      fetchTodo();
+    }
+  }, [params.id, authUser]);
+
+  const handleOnCancel = () => {
+    navigate(-1);
+  };
 
   const handleOnSave = async (e) => {
     e.preventDefault();
@@ -67,11 +85,11 @@ const CreateTodoPage = () => {
       user: user,
       type: type,
       date: new Date(`${month} ${date}, ${year}`),
-      checked: false,
+      checked: checked,
       creationTime: new Date(),
     };
 
-    const json = await createTodo(newTodo, authUser.token);
+    const json = await updateTodo(params.id, newTodo, authUser.token);
 
     if (json.error) {
       if (json.error.includes("todo")) {
@@ -88,18 +106,16 @@ const CreateTodoPage = () => {
     }
 
     if (json.json) {
-      dispatch({ type: Actions.CREATE_TODO, payload: json.json });
+      const todos = await getTodos(authUser.token);
+
+      if (todos.json) {
+        dispatch({ type: Actions.GET_TODOS, payload: todos.json });
+      }
 
       navigate(-1);
 
       clearForm();
     }
-  };
-
-  const handleOnCancel = () => {
-    navigate(-1);
-
-    clearForm();
   };
 
   const clearForm = () => {
@@ -130,7 +146,7 @@ const CreateTodoPage = () => {
               </Button>
             </div>
             <div className="flex flex-1 justify-center">
-              <Typography variant="heading">Add Todo</Typography>
+              <Typography variant="heading">Edit Todo</Typography>
             </div>
             <div className="flex flex-1">&nbsp;</div>
           </div>
@@ -186,4 +202,4 @@ const CreateTodoPage = () => {
   );
 };
 
-export default CreateTodoPage;
+export default EditTodoPage;

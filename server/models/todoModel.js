@@ -16,10 +16,6 @@ const todoSchema = new Schema({
     type: String,
     required: true,
   },
-  tag: {
-    type: String,
-    required: true,
-  },
   date: {
     type: Date,
     required: true,
