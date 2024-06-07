@@ -13,17 +13,19 @@ import Typography from "../../core/typography/Typography";
 
 import { months } from "../calendar/Calendar";
 
-const TodoCard = ({ todo, user, dueDate, checked, badge, loading, onClick, onEdit, onDelete }) => {
+import { getColors } from "../../utility/utility";
+
+const TodoCard = ({ todo, color, dueDate, checked, badge, loading, onClick, onEdit, onDelete }) => {
+  const colors = getColors(color);
+
   const today = new Date();
   const date = new Date(dueDate);
 
   return (
     <div className="relative">
       <div
-        className={`flex flex-row justify-start items-center cursor-pointer h-20 border ${
-          checked
-            ? "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600"
-            : "bg-slate-200 dark:bg-slate-700 border-slate-500 dark:border-slate-400"
+        className={`flex flex-row justify-start items-center cursor-pointer h-14 border ${
+          checked ? "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600" : `${colors.bg} ${colors.border}`
         } rounded-md overflow-clip pl-4 pr-2`}
       >
         {badge && <Badge size="large" />}
@@ -42,9 +44,6 @@ const TodoCard = ({ todo, user, dueDate, checked, badge, loading, onClick, onEdi
               <Typography variant="body2" color={checked ? "secondary" : "primary"} bold truncate>
                 {todo}
               </Typography>
-              <Typography variant="caption" color={checked ? "secondary" : "primary"} truncate>
-                {user}
-              </Typography>
               <div className={`flex flex-row items-center gap-0 ${today >= date ? "-m-1" : "m-0"}`}>
                 <span className={`${today >= date ? "block" : "hidden"} text-rose-600 dark:text-rose-500`}>
                   <PriorityHighIcon sx={{ fontSize: "1rem" }} />
@@ -55,14 +54,16 @@ const TodoCard = ({ todo, user, dueDate, checked, badge, loading, onClick, onEdi
               </div>
             </div>
           </div>
-          <div className="flex flex-row gap-0">
-            <IconButton onClick={onEdit}>
-              <EditIcon />
-            </IconButton>
-            <IconButton loading={loading} onClick={onDelete}>
-              <CloseIcon />
-            </IconButton>
-          </div>
+          {!checked && (
+            <div className="flex flex-row gap-0">
+              <IconButton onClick={onEdit}>
+                <EditIcon />
+              </IconButton>
+              <IconButton loading={loading} onClick={onDelete}>
+                <CloseIcon />
+              </IconButton>
+            </div>
+          )}
         </div>
       </div>
     </div>

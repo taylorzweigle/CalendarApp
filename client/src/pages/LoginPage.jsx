@@ -47,9 +47,9 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 />
-                {error && <Typography color="text-rose-500">{error}</Typography>}
+                {error && <Typography color="error">{error}</Typography>}
               </div>
-              <Button variant="primary" disabled={loading}>
+              <Button variant="primary" loading={loading}>
                 Login
               </Button>
             </div>
