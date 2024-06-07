@@ -14,6 +14,7 @@ import Tab from "../../core/tabs/Tab";
 import TodoCard from "../../components/cards/TodoCard";
 
 import { calendars } from "../../utility/calendars";
+import { sortTodos } from "../../utility/utility";
 
 const TodoLayout = ({ data }) => {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ const TodoLayout = ({ data }) => {
       </div>
       <div className="flex flex-col gap-4">
         {data &&
-          data
+          sortTodos(data)
             .filter((todo) => todo.type === selected)
             .map((todo) => (
               <TodoCard

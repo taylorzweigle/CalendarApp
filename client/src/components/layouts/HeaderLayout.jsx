@@ -17,7 +17,7 @@ import { useLogout } from "../../hooks/useLogout";
 import Menu from "../../core/menu/Menu";
 import MenuItem from "../../core/menu/MenuItem";
 
-const HeaderLayout = ({ editUser, action }) => {
+const HeaderLayout = ({ action }) => {
   const { selectedTheme, dispatchSelectedTheme } = useSelectedThemeContext();
 
   const [open, setOpen] = useState(false);
@@ -63,7 +63,7 @@ const HeaderLayout = ({ editUser, action }) => {
             <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
           </Menu>
         </div>
-        {editUser && action}
+        {action}
       </div>
     </>
   );

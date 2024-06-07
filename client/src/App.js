@@ -11,39 +11,14 @@ import EditEventPage from "./pages/EditEventPage";
 import EditTodoPage from "./pages/EditTodoPage";
 import LoginPage from "./pages/LoginPage";
 import TodosPage from "./pages/TodosPage";
-import ViewEventPage from "./pages/ViewEventPage";
 
 const App = () => {
   const { user } = useAuthContext();
 
   return (
     <Routes>
-      <Route
-        path="/todo/:id"
-        element={
-          user && user.username === "calendarapp_edit" ? (
-            <EditTodoPage />
-          ) : user && user.username === "calendarapp_testing" ? (
-            <EditTodoPage />
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
-      />
-      <Route
-        path="/event/:id"
-        element={
-          user && user.username === "calendarapp" ? (
-            <ViewEventPage />
-          ) : user && user.username === "calendarapp_edit" ? (
-            <EditEventPage />
-          ) : user && user.username === "calendarapp_testing" ? (
-            <EditEventPage />
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
-      />
+      <Route path="/todo/:id" element={user ? <EditTodoPage /> : <Navigate to="/login" />} />
+      <Route path="/event/:id" element={user ? <EditEventPage /> : <Navigate to="/login" />} />
       <Route path="/todo" element={user ? <CreateTodoPage /> : <Navigate to="/login" />} />
       <Route path="/event" element={user ? <CreateEventPage /> : <Navigate to="/login" />} />
       <Route path="/todos" element={user ? <TodosPage /> : <Navigate to="/login" />} />

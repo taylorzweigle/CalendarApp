@@ -5,7 +5,6 @@ import CheckIcon from "@mui/icons-material/Check";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
-import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 
 import Badge from "../../core/badge/Badge";
 import IconButton from "../../core/iconButton/IconButton";
@@ -25,7 +24,11 @@ const TodoCard = ({ todo, color, dueDate, checked, badge, loading, onClick, onEd
     <div className="relative">
       <div
         className={`flex flex-row justify-start items-center cursor-pointer h-14 border ${
-          checked ? "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600" : `${colors.bg} ${colors.border}`
+          checked
+            ? "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600"
+            : today >= date
+            ? `${colors.bg} border-3 border-rose-600 dark:border-rose-500`
+            : `${colors.bg} ${colors.border}`
         } rounded-md overflow-clip pl-4 pr-2`}
       >
         {badge && <Badge size="large" />}
@@ -44,14 +47,9 @@ const TodoCard = ({ todo, color, dueDate, checked, badge, loading, onClick, onEd
               <Typography variant="body2" color={checked ? "secondary" : "primary"} bold truncate>
                 {todo}
               </Typography>
-              <div className={`flex flex-row items-center gap-0 ${today >= date ? "-m-1" : "m-0"}`}>
-                <span className={`${today >= date ? "block" : "hidden"} text-rose-600 dark:text-rose-500`}>
-                  <PriorityHighIcon sx={{ fontSize: "1rem" }} />
-                </span>
-                <Typography variant="caption" color={checked ? "secondary" : "primary"} truncate>
-                  {`${months[date.getMonth()]} ${date.getDate()}`}
-                </Typography>
-              </div>
+              <Typography variant="caption" color={checked ? "secondary" : "primary"} truncate>
+                {`${months[date.getMonth()]} ${date.getDate()}`}
+              </Typography>
             </div>
           </div>
           {!checked && (
