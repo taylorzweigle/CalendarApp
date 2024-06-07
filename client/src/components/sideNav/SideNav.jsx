@@ -12,12 +12,7 @@ const SideNav = ({ selected }) => {
     <div className="flex flex-col gap-0 z-50">
       <div className={`flex flex-row md:flex-col justify-center md:justify-start items-center bg-slate-200 dark:bg-slate-950`}>
         <SideNavButton title="Calendar" icon={<DateRangeIcon fontSize="medium" />} selected={selected === "Calendar"} to="/" />
-        <SideNavButton
-          title="Timeline"
-          icon={<ViewDayIcon fontSize="medium" />}
-          selected={selected === "Timeline"}
-          to="/timeline"
-        />
+        <SideNavButton title="Day" icon={<ViewDayIcon fontSize="medium" />} selected={selected === "Day"} to="/day" />
         <SideNavButton title="Todos" icon={<ChecklistIcon fontSize="medium" />} selected={selected === "Todos"} to="/todos" />
       </div>
       <div className="hidden md:block h-full border-r-0 md:border-r border-slate-300 dark:border-slate-600">&nbsp;</div>

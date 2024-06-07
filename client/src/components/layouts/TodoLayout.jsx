@@ -55,12 +55,12 @@ const TodoLayout = ({ data }) => {
   const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 86400000;
 
   return (
-    <div className="flex flex-col gap-4 md:gap-8 p-4 md:p-0">
+    <div className="flex flex-col gap-4 md:gap-8 p-4 md:p-0 h-fit">
       <div className="flex flex-row items-center">
         <Tab value="Chores" selected={selected === "Chores"} onClick={() => setSelected("Chores")} />
         <Tab value="Shopping" selected={selected === "Shopping"} onClick={(e) => setSelected("Shopping")} />
       </div>
-      <div className="flex flex-col gap-2 md:gap-4 h-128">
+      <div className="flex flex-col gap-4">
         {data &&
           data
             .filter((todo) => todo.type === selected)
@@ -79,6 +79,7 @@ const TodoLayout = ({ data }) => {
               />
             ))}
       </div>
+      <div className="h-48">&nbsp;</div>
     </div>
   );
 };
