@@ -234,7 +234,12 @@ const EditEventPage = () => {
 
   return (
     <>
-      <DeleteConfirmationModal open={deleteModal} onDeleteClick={handleOnDelete} onCancelClick={() => setDeleteModal(false)} />
+      <DeleteConfirmationModal
+        open={deleteModal}
+        type="event"
+        onDeleteClick={handleOnDelete}
+        onCancelClick={() => setDeleteModal(false)}
+      />
       <div className="w-full sm:w-128 m-auto">
         <Card border>
           <div className="flex flex-col">

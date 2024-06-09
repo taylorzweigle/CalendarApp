@@ -7,7 +7,7 @@ import * as Actions from "../../actions";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useTodosContext } from "../../hooks/useTodosContext";
 
-import { getTodos, updateTodo, deleteTodo } from "../../api/todos";
+import { getTodos, updateTodo } from "../../api/todos";
 
 import Tab from "../../core/tabs/Tab";
 
@@ -23,7 +23,6 @@ const TodoLayout = ({ data }) => {
   const { dispatch } = useTodosContext();
 
   const [selected, setSelected] = useState("Chores");
-  const [loading, setLoading] = useState("");
 
   const handleClick = async (todo) => {
     const json = await updateTodo(todo._id, { ...todo, checked: !todo.checked }, authUser.token);
@@ -39,18 +38,6 @@ const TodoLayout = ({ data }) => {
 
   const handleEdit = (id) => {
     navigate(`/todo/${id}`);
-  };
-
-  const handleDelete = async (id) => {
-    setLoading(id);
-
-    const todo = await deleteTodo(id, authUser.token);
-
-    if (todo.json) {
-      dispatch({ type: Actions.DELETE_TODO, payload: todo.json });
-
-      setLoading("");
-    }
   };
 
   const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 86400000;
@@ -73,10 +60,8 @@ const TodoLayout = ({ data }) => {
                 dueDate={todo.date}
                 checked={todo.checked}
                 badge={showBadge(todo.creationTime)}
-                loading={loading === todo._id}
-                onClick={() => handleClick(todo)}
-                onEdit={() => handleEdit(todo._id)}
-                onDelete={() => handleDelete(todo._id)}
+                onClick={() => handleEdit(todo._id)}
+                onCheck={() => handleClick(todo)}
               />
             ))}
       </div>

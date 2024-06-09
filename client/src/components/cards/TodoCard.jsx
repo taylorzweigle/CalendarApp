@@ -3,18 +3,15 @@ import React from "react";
 
 import CheckIcon from "@mui/icons-material/Check";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CloseIcon from "@mui/icons-material/Close";
-import EditIcon from "@mui/icons-material/Edit";
 
 import Badge from "../../core/badge/Badge";
-import IconButton from "../../core/iconButton/IconButton";
 import Typography from "../../core/typography/Typography";
 
 import { months } from "../calendar/Calendar";
 
 import { getColors } from "../../utility/utility";
 
-const TodoCard = ({ todo, color, dueDate, checked, badge, loading, onClick, onEdit, onDelete }) => {
+const TodoCard = ({ todo, color, dueDate, checked, badge, onClick, onCheck }) => {
   const colors = getColors(color);
 
   const today = new Date();
@@ -33,17 +30,19 @@ const TodoCard = ({ todo, color, dueDate, checked, badge, loading, onClick, onEd
       >
         {badge && <Badge size="large" />}
         <div className="flex flex-row justify-between items-center w-full">
-          <div className="flex flex-row items-center gap-2" onClick={onClick}>
-            {checked ? (
-              <span className="text-slate-400 dark:text-slate-500">
-                <CheckIcon />
-              </span>
-            ) : (
-              <span className="text-slate-800 dark:text-slate-100">
-                <CheckBoxOutlineBlankIcon />
-              </span>
-            )}
-            <div className="flex flex-col gap-0 p-1 sm:p-2 line-clamp-1">
+          <div className="flex flex-row items-center w-full gap-2">
+            <div onClick={onCheck}>
+              {checked ? (
+                <span className="text-slate-400 dark:text-slate-500">
+                  <CheckIcon />
+                </span>
+              ) : (
+                <span className="text-slate-800 dark:text-slate-100">
+                  <CheckBoxOutlineBlankIcon />
+                </span>
+              )}
+            </div>
+            <div className="flex flex-col gap-0 p-1 sm:p-2 w-full line-clamp-1" onClick={onClick}>
               <Typography variant="body2" color={checked ? "secondary" : "primary"} bold truncate>
                 {todo}
               </Typography>
@@ -52,16 +51,6 @@ const TodoCard = ({ todo, color, dueDate, checked, badge, loading, onClick, onEd
               </Typography>
             </div>
           </div>
-          {!checked && (
-            <div className="flex flex-row gap-0">
-              <IconButton onClick={onEdit}>
-                <EditIcon />
-              </IconButton>
-              <IconButton loading={loading} onClick={onDelete}>
-                <CloseIcon />
-              </IconButton>
-            </div>
-          )}
         </div>
       </div>
     </div>
