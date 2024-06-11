@@ -56,6 +56,8 @@ const Timeline = ({ data, calendars, onHourClick }) => {
     setDataArray(tempDataArray);
   }, [data]);
 
+  const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 43200000;
+
   const formatTime = (time) => `${time % 12 === 0 ? 12 : time % 12}${time >= 12 ? "pm" : "am"} `;
 
   const renderTableCell = (hour, array) => {
@@ -69,7 +71,8 @@ const Timeline = ({ data, calendars, onHourClick }) => {
       );
     };
 
-    const calculateRowSpan = (event) => new Date(event.endTime).getHours() - new Date(event.startTime).getHours();
+    const calculateRowSpan = (event) =>
+      new Date(event.endTime).getHours() - new Date(event.startTime).getHours();
 
     if (array.length > 0) {
       for (let i = 0; i < array.length; i++) {
@@ -83,6 +86,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
               currentHour={isCurrentTime(hour)}
               startTime={new Date(array[i].startTime)}
               endTime={new Date(array[i].endTime)}
+              badge={showBadge(array[i].creationTime)}
               onClick={() => navigate(`/event/${array[i]._id}`)}
             />
           );
@@ -95,11 +99,15 @@ const Timeline = ({ data, calendars, onHourClick }) => {
           tableCell = null;
           break;
         } else {
-          tableCell = <TimelineCell hover currentHour={isCurrentTime(hour)} onClick={() => onHourClick(hour)} />;
+          tableCell = (
+            <TimelineCell hover currentHour={isCurrentTime(hour)} onClick={() => onHourClick(hour)} />
+          );
         }
       }
     } else {
-      tableCell = <TimelineCell hover currentHour={isCurrentTime(hour)} onClick={() => onHourClick(hour)} />;
+      tableCell = (
+        <TimelineCell hover currentHour={isCurrentTime(hour)} onClick={() => onHourClick(hour)} />
+      );
     }
 
     return tableCell;
@@ -122,7 +130,9 @@ const Timeline = ({ data, calendars, onHourClick }) => {
               </Typography>
             </td>
             {dataArray.length > 0
-              ? dataArray.map((array) => <React.Fragment key={array[0]._id}>{renderTableCell(hour, array)}</React.Fragment>)
+              ? dataArray.map((array) => (
+                  <React.Fragment key={array[0]._id}>{renderTableCell(hour, array)}</React.Fragment>
+                ))
               : renderTableCell(hour, [])}
           </tr>
         ))}

@@ -24,7 +24,11 @@ const TodoLayout = ({ data }) => {
 
   const [selected, setSelected] = useState("Chores");
 
-  const handleClick = async (todo) => {
+  const [loading, setLoading] = useState("");
+
+  const handleCheck = async (todo) => {
+    setLoading(todo._id);
+
     const json = await updateTodo(todo._id, { ...todo, checked: !todo.checked }, authUser.token);
 
     if (json.json) {
@@ -32,6 +36,8 @@ const TodoLayout = ({ data }) => {
 
       if (todos.json) {
         dispatch({ type: Actions.GET_TODOS, payload: todos.json });
+
+        setLoading("");
       }
     }
   };
@@ -40,7 +46,7 @@ const TodoLayout = ({ data }) => {
     navigate(`/todo/${id}`);
   };
 
-  const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 86400000;
+  const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 43200000;
 
   return (
     <div className="flex flex-col gap-4 md:gap-8 p-4 md:p-0 h-fit">
@@ -58,10 +64,12 @@ const TodoLayout = ({ data }) => {
                 todo={todo.todo}
                 color={calendars.find((calendar) => calendar.user === todo.user).color}
                 dueDate={todo.date}
+                notes={todo.notes}
                 checked={todo.checked}
+                loading={loading === todo._id}
                 badge={showBadge(todo.creationTime)}
                 onClick={() => handleEdit(todo._id)}
-                onCheck={() => handleClick(todo)}
+                onCheck={() => handleCheck(todo)}
               />
             ))}
       </div>

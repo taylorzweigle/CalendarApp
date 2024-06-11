@@ -20,6 +20,10 @@ const todoSchema = new Schema({
     type: Date,
     required: true,
   },
+  notes: {
+    type: String,
+    required: false,
+  },
   checked: {
     type: Boolean,
     required: true,

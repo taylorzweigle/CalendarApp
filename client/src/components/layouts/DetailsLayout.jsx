@@ -25,12 +25,14 @@ const DetailsLayout = ({ data, calendars }) => {
       )
     : [];
 
-  const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 86400000;
+  const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 43200000;
 
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8">
       <Typography variant="subheading" color="primary" center>
-        {`${daysOfWeek[selectedDate.weekday]}, ${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`}
+        {`${daysOfWeek[selectedDate.weekday]}, ${months[selectedDate.month]} ${selectedDate.date}, ${
+          selectedDate.year
+        }`}
       </Typography>
       <div className="flex flex-col gap-4">
         {sortEvents(itemsForSelectedDay).map((event) => (

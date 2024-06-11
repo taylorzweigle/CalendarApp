@@ -34,6 +34,7 @@ const CreateTodoPage = () => {
   const [month, setMonth] = useState("");
   const [date, setDate] = useState("");
   const [year, setYear] = useState("");
+  const [notes, setNotes] = useState("");
 
   const [todoError, setTodoError] = useState("");
   const [userError, setUserError] = useState("");
@@ -67,6 +68,7 @@ const CreateTodoPage = () => {
       user: user,
       type: type,
       date: new Date(`${month} ${date}, ${year}`),
+      notes: notes,
       checked: false,
       creationTime: new Date(),
     };
@@ -109,6 +111,7 @@ const CreateTodoPage = () => {
     setMonth("");
     setDate("");
     setYear("");
+    setNotes("");
 
     clearErrors();
   };
@@ -147,7 +150,13 @@ const CreateTodoPage = () => {
                     onDateChange={(e) => setDate(e.target.value)}
                     onYearChange={(e) => setYear(e.target.value)}
                   />
-                  <TextInput label="Todo" error={todoError} value={todo} showLabel onChange={(e) => setTodo(e.target.value)} />
+                  <TextInput
+                    label="Todo"
+                    error={todoError}
+                    value={todo}
+                    showLabel
+                    onChange={(e) => setTodo(e.target.value)}
+                  />
                   <SelectInput
                     label="User"
                     value={user}
@@ -163,6 +172,12 @@ const CreateTodoPage = () => {
                     items={["", "Chores", "Shopping"]}
                     showLabel
                     onChange={(e) => setType(e.target.value)}
+                  />
+                  <TextInput
+                    label="Notes"
+                    value={notes}
+                    showLabel
+                    onChange={(e) => setNotes(e.target.value)}
                   />
                 </div>
               </form>

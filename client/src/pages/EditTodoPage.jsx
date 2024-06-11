@@ -36,6 +36,7 @@ const EditTodoPage = () => {
   const [month, setMonth] = useState("");
   const [date, setDate] = useState("");
   const [year, setYear] = useState("");
+  const [notes, setNotes] = useState("");
   const [checked, setChecked] = useState(false);
 
   const [todoError, setTodoError] = useState("");
@@ -56,6 +57,7 @@ const EditTodoPage = () => {
       setMonth(months[new Date(todo.json.date).getMonth()]);
       setDate(new Date(todo.json.date).getDate());
       setYear(new Date(todo.json.date).getFullYear());
+      setNotes(todo.json.notes);
       setChecked(todo.json.checked);
     };
 
@@ -88,6 +90,7 @@ const EditTodoPage = () => {
       user: user,
       type: type,
       date: new Date(`${month} ${date}, ${year}`),
+      notes: notes,
       checked: checked,
       creationTime: new Date(),
     };
@@ -138,6 +141,7 @@ const EditTodoPage = () => {
     setMonth("");
     setDate("");
     setYear("");
+    setNotes("");
 
     clearErrors();
   };
@@ -206,6 +210,12 @@ const EditTodoPage = () => {
                       showLabel
                       onChange={(e) => setType(e.target.value)}
                     />
+                    <TextInput
+                      label="Notes"
+                      value={notes}
+                      showLabel
+                      onChange={(e) => setNotes(e.target.value)}
+                    />
                   </div>
                 </form>
               </div>
@@ -216,13 +226,13 @@ const EditTodoPage = () => {
                   </Button>
                 </div>
                 <div>
-                  <Button variant="primary" fullWidth loading={loading} onClick={handleOnSave}>
-                    Save
+                  <Button variant="error" fullWidth onClick={() => setDeleteModal(true)}>
+                    Delete
                   </Button>
                 </div>
                 <div>
-                  <Button variant="error" fullWidth onClick={() => setDeleteModal(true)}>
-                    Delete
+                  <Button variant="primary" fullWidth loading={loading} onClick={handleOnSave}>
+                    Save
                   </Button>
                 </div>
               </div>

@@ -48,9 +48,9 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
 
     for (let i = dayOfWeekOfMonthStart - 1; i >= 0; i--) {
       calendarDays.push({
-        key: `${month - 1 < 10 ? "0" : ""}${month === 0 ? 11 : month - 1}${prevMonthLength - i < 10 ? "0" : ""}${
-          prevMonthLength - i
-        }`,
+        key: `${month - 1 < 10 ? "0" : ""}${month === 0 ? 11 : month - 1}${
+          prevMonthLength - i < 10 ? "0" : ""
+        }${prevMonthLength - i}`,
         day: prevMonthLength - i,
       });
     }
@@ -63,7 +63,10 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
 
     if (remainingDays < 7) {
       for (let i = 0; i < remainingDays; i++) {
-        calendarDays.push({ key: `${month + 1 < 10 ? "0" : ""}${month + 1}${i + 1 < 10 ? "0" : ""}${i + 1}`, day: i + 1 });
+        calendarDays.push({
+          key: `${month + 1 < 10 ? "0" : ""}${month + 1}${i + 1 < 10 ? "0" : ""}${i + 1}`,
+          day: i + 1,
+        });
       }
     }
 
@@ -76,7 +79,7 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
     return calendarDaysByWeek;
   };
 
-  const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 86400000;
+  const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 43200000;
 
   return (
     <table className="w-full table-fixed">
@@ -100,7 +103,9 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
                     selectedDate.year === today.getFullYear()
                   }
                   outOfMonth={parseInt(day.key.slice(0, 2)) !== selectedDate.month}
-                  selected={parseInt(day.key.slice(0, 2)) === selectedDate.month && selectedDate.date === day.day}
+                  selected={
+                    parseInt(day.key.slice(0, 2)) === selectedDate.month && selectedDate.date === day.day
+                  }
                   onClick={
                     parseInt(day.key.slice(0, 2)) === selectedDate.month
                       ? () => onSelectDay(selectedDate.year, selectedDate.month, day.day)
