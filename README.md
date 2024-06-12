@@ -33,4 +33,6 @@ The app allows for navigating to the previous and next months using arrow button
 
 ### Mobile
 
+|                                                                                                        |                                                                                                        |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
 | ![Mobile_1](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Mobile_1_Dark.png) | ![Mobile_2](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Mobile_2_Dark.png) | ![Mobile_3](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Mobile_3_Dark.png) | ![Mobile_4](https://github.com/taylorzweigle/CalendarApp/blob/main/img/Calendar_App_Todo_Mobile.png) |
