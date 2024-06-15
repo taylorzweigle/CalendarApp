@@ -24,10 +24,15 @@ const HeaderLayout = ({ action }) => {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const { logout } = useLogout();
 
   const handleThemeButton = () => {
-    dispatchSelectedTheme({ type: Actions.SET_SELECTED_THEME, payload: selectedTheme === "dark" ? "light" : "dark" });
+    dispatchSelectedTheme({
+      type: Actions.SET_SELECTED_THEME,
+      payload: selectedTheme === "dark" ? "light" : "dark",
+    });
 
     setOpen(false);
 
@@ -45,20 +50,35 @@ const HeaderLayout = ({ action }) => {
   };
 
   const handleLogoutModalClick = () => {
+    setLoading(true);
+
+    if (loading) {
+      return;
+    }
+
     logout();
 
     setLogoutOpen(false);
+
+    setLoading(false);
   };
 
   return (
     <>
       <AboutModal open={aboutOpen} onCancelClick={() => setAboutOpen(false)} />
-      <LogoutModal open={logoutOpen} onLogoutClick={handleLogoutModalClick} onCancelClick={() => setLogoutOpen(false)} />
+      <LogoutModal
+        open={logoutOpen}
+        loading={loading}
+        onLogoutClick={handleLogoutModalClick}
+        onCancelClick={() => setLogoutOpen(false)}
+      />
       <div className="flex flex-row justify-between items-center p-4 md:p-8">
         <div>
           <Button variant="default" prefix={<MenuIcon />} onClick={() => setOpen(!open)} />
           <Menu open={open}>
-            <MenuItem onClick={handleThemeButton}>{selectedTheme === "dark" ? "Set Light Theme" : "Set Dark Theme"}</MenuItem>
+            <MenuItem onClick={handleThemeButton}>
+              {selectedTheme === "dark" ? "Set Light Theme" : "Set Dark Theme"}
+            </MenuItem>
             <MenuItem onClick={handleAboutClick}>About</MenuItem>
             <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
           </Menu>

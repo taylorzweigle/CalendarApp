@@ -60,6 +60,7 @@ const EditEventPage = () => {
   const [endTimeError, setEndTimeError] = useState("");
 
   const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const [deleteModal, setDeleteModal] = useState(false);
 
@@ -144,7 +145,11 @@ const EditEventPage = () => {
           ? new Date(`${startMonth} ${startDate}, ${startYear}`)
           : new Date(
               `${startMonth} ${startDate}, ${startYear} ${
-                startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
+                startPeriod === "PM"
+                  ? startHours !== "12"
+                    ? (parseInt(startHours) + 12).toString()
+                    : startHours
+                  : startHours
               }:${startMinutes}:00`
             ),
       endTime:
@@ -153,12 +158,20 @@ const EditEventPage = () => {
           : duration === Actions.MULTIPLE_DAYS
           ? new Date(
               `${endMonth} ${endDate}, ${endYear} ${
-                endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
+                endPeriod === "PM"
+                  ? endHours !== "12"
+                    ? (parseInt(endHours) + 12).toString()
+                    : endHours
+                  : endHours
               }:${endMinutes}:00`
             )
           : new Date(
               `${startMonth} ${startDate}, ${startYear} ${
-                endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
+                endPeriod === "PM"
+                  ? endHours !== "12"
+                    ? (parseInt(endHours) + 12).toString()
+                    : endHours
+                  : endHours
               }:${endMinutes}:00`
             ),
       creationTime: creationTime,
@@ -196,16 +209,26 @@ const EditEventPage = () => {
       navigate(-1);
 
       clearForm();
+
+      setLoading(false);
     }
   };
 
   const handleOnDelete = async () => {
+    setDeleteLoading(true);
+
+    if (deleteLoading) {
+      return;
+    }
+
     const event = await deleteEvent(params.id, authUser.token);
 
     if (event.json) {
       dispatch({ type: Actions.DELETE_EVENT, payload: event.json });
 
       navigate(-1);
+
+      setDeleteLoading(false);
     }
   };
 
@@ -237,6 +260,7 @@ const EditEventPage = () => {
       <DeleteConfirmationModal
         open={deleteModal}
         type="event"
+        loading={deleteLoading}
         onDeleteClick={handleOnDelete}
         onCancelClick={() => setDeleteModal(false)}
       />

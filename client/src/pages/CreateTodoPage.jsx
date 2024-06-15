@@ -138,7 +138,7 @@ const CreateTodoPage = () => {
             <div className="flex flex-1">&nbsp;</div>
           </div>
           <div className="flex flex-col">
-            <div className="h-[calc(100vh-224px)] md:h-fit p-4">
+            <div className="h-fit p-4">
               <form onSubmit={handleOnSave}>
                 <div className="flex flex-col gap-4">
                   <DateInput

@@ -8,7 +8,7 @@ import Card from "../card/Card";
 import Divider from "../divider/Divider";
 import Typography from "../typography/Typography";
 
-const Modal = ({ children, open, title, errorModal, action, onAction, onCancel }) => {
+const Modal = ({ children, open, loading, title, errorModal, action, onAction, onCancel }) => {
   return (
     <div
       className={`${
@@ -31,7 +31,7 @@ const Modal = ({ children, open, title, errorModal, action, onAction, onCancel }
               Cancel
             </Button>
             {action && (
-              <Button variant={errorModal ? "error" : "primary"} onClick={onAction}>
+              <Button variant={errorModal ? "error" : "primary"} onClick={onAction} loading={loading}>
                 {action}
               </Button>
             )}

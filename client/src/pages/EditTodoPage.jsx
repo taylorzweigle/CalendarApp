@@ -44,6 +44,7 @@ const EditTodoPage = () => {
   const [typeError, setTypeError] = useState("");
 
   const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const [deleteModal, setDeleteModal] = useState(false);
 
@@ -121,16 +122,26 @@ const EditTodoPage = () => {
       navigate(-1);
 
       clearForm();
+
+      setLoading(false);
     }
   };
 
   const handleOnDelete = async () => {
+    setDeleteLoading(true);
+
+    if (deleteLoading) {
+      return;
+    }
+
     const todo = await deleteTodo(params.id, authUser.token);
 
     if (todo.json) {
       dispatch({ type: Actions.DELETE_TODO, payload: todo.json });
 
       navigate(-1);
+
+      setDeleteLoading(false);
     }
   };
 
@@ -157,6 +168,7 @@ const EditTodoPage = () => {
       <DeleteConfirmationModal
         open={deleteModal}
         type="todo"
+        loading={deleteLoading}
         onDeleteClick={handleOnDelete}
         onCancelClick={() => setDeleteModal(false)}
       />
@@ -175,7 +187,7 @@ const EditTodoPage = () => {
               <div className="flex flex-1">&nbsp;</div>
             </div>
             <div className="flex flex-col">
-              <div className="h-[calc(100vh-224px)] md:h-fit p-4">
+              <div className="h-fit p-4">
                 <form onSubmit={handleOnSave}>
                   <div className="flex flex-col gap-4">
                     <DateInput
@@ -225,14 +237,14 @@ const EditTodoPage = () => {
                     Cancel
                   </Button>
                 </div>
-                <div>
-                  <Button variant="error" fullWidth onClick={() => setDeleteModal(true)}>
-                    Delete
+                <div className="sm:order-1">
+                  <Button variant="primary" fullWidth loading={loading} onClick={handleOnSave}>
+                    Update
                   </Button>
                 </div>
                 <div>
-                  <Button variant="primary" fullWidth loading={loading} onClick={handleOnSave}>
-                    Save
+                  <Button variant="error" fullWidth onClick={() => setDeleteModal(true)}>
+                    Delete
                   </Button>
                 </div>
               </div>
