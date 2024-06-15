@@ -10,7 +10,7 @@ const EmptyState = ({ type }) => {
     <div className="flex flex-col gap-0 justify-center items-center">
       <EventBusyTwoToneIcon className="text-slate-300 dark:text-slate-600" sx={{ fontSize: "72px" }} />
       <Typography variant="subheading" color="primary">
-        {`No ${type}s Today`}
+        {`No ${type}s`}
       </Typography>
       <Typography variant="body2" color="secondary">
         {`Click "Add ${type}" to create a new ${type.toLowerCase()}.`}

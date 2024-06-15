@@ -35,18 +35,34 @@ const TodoCard = ({ todo, color, dueDate, notes, checked, badge, loading, onClic
         <div className="flex flex-row justify-between items-center w-full">
           <div className="flex flex-row items-center w-full">
             <div onClick={onCheck}>
-              <IconButton loading={loading}>
+              <IconButton color={colors.text} loading={loading}>
                 {checked ? <CheckIcon /> : <CheckBoxOutlineBlankIcon />}
               </IconButton>
             </div>
             <div className="flex flex-col gap-0 p-1 sm:p-2 w-full line-clamp-1" onClick={onClick}>
-              <Typography variant="body2" color={checked ? "secondary" : "primary"} bold truncate>
+              <Typography
+                variant="body2"
+                color={checked ? "secondary" : "custom"}
+                customColor={colors.text}
+                bold
+                truncate
+              >
                 {todo}
               </Typography>
-              <Typography variant="caption" color={checked ? "secondary" : "primary"} truncate>
+              <Typography
+                variant="caption"
+                color={checked ? "secondary" : "custom"}
+                customColor={colors.text}
+                truncate
+              >
                 {notes}
               </Typography>
-              <Typography variant="caption" color={checked ? "secondary" : "primary"} truncate>
+              <Typography
+                variant="caption"
+                color={checked ? "secondary" : "custom"}
+                customColor={colors.text}
+                truncate
+              >
                 {`${months[date.getMonth()]} ${date.getDate()}`}
               </Typography>
             </div>

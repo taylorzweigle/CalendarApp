@@ -1,5 +1,5 @@
 //Taylor Zweigle, 2024
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import * as Actions from "../../actions";
@@ -9,6 +9,7 @@ import { useTodosContext } from "../../hooks/useTodosContext";
 
 import { getTodos, updateTodo } from "../../api/todos";
 
+import EmptyState from "../../core/emptyState/EmptyState";
 import Tab from "../../core/tabs/Tab";
 
 import TodoCard from "../../components/cards/TodoCard";
@@ -22,9 +23,19 @@ const TodoLayout = ({ data }) => {
   const { user: authUser } = useAuthContext();
   const { dispatch } = useTodosContext();
 
+  const [choresTodos, setChoresTodos] = useState([]);
+  const [shoppingTodos, setShoppingTodos] = useState([]);
+
   const [selected, setSelected] = useState("Chores");
 
   const [loading, setLoading] = useState("");
+
+  useEffect(() => {
+    if (data) {
+      setChoresTodos(sortTodos(data.filter((todo) => todo.type === "Chores")));
+      setShoppingTodos(sortTodos(data.filter((todo) => todo.type === "Shopping")));
+    }
+  }, [data]);
 
   const handleCheck = async (todo) => {
     setLoading(todo._id);
@@ -54,24 +65,49 @@ const TodoLayout = ({ data }) => {
         <Tab value="Chores" selected={selected === "Chores"} onClick={() => setSelected("Chores")} />
         <Tab value="Shopping" selected={selected === "Shopping"} onClick={(e) => setSelected("Shopping")} />
       </div>
-      <div className="flex flex-col gap-4">
-        {data &&
-          sortTodos(data)
-            .filter((todo) => todo.type === selected)
-            .map((todo) => (
-              <TodoCard
-                key={todo._id}
-                todo={todo.todo}
-                color={calendars.find((calendar) => calendar.user === todo.user).color}
-                dueDate={todo.date}
-                notes={todo.notes}
-                checked={todo.checked}
-                loading={loading === todo._id}
-                badge={showBadge(todo.creationTime)}
-                onClick={() => handleEdit(todo._id)}
-                onCheck={() => handleCheck(todo)}
-              />
-            ))}
+      <div className={selected === "Chores" ? "flex flex-col gap-4" : "hidden"}>
+        {choresTodos.length > 0 ? (
+          choresTodos.map((todo) => (
+            <TodoCard
+              key={todo._id}
+              todo={todo.todo}
+              color={calendars.find((calendar) => calendar.user === todo.user).color}
+              dueDate={todo.date}
+              notes={todo.notes}
+              checked={todo.checked}
+              loading={loading === todo._id}
+              badge={showBadge(todo.creationTime)}
+              onClick={() => handleEdit(todo._id)}
+              onCheck={() => handleCheck(todo)}
+            />
+          ))
+        ) : (
+          <div className="pt-8">
+            <EmptyState type="Todo" />
+          </div>
+        )}
+      </div>
+      <div className={selected === "Shopping" ? "flex flex-col gap-4" : "hidden"}>
+        {shoppingTodos.length > 0 ? (
+          shoppingTodos.map((todo) => (
+            <TodoCard
+              key={todo._id}
+              todo={todo.todo}
+              color={calendars.find((calendar) => calendar.user === todo.user).color}
+              dueDate={todo.date}
+              notes={todo.notes}
+              checked={todo.checked}
+              loading={loading === todo._id}
+              badge={showBadge(todo.creationTime)}
+              onClick={() => handleEdit(todo._id)}
+              onCheck={() => handleCheck(todo)}
+            />
+          ))
+        ) : (
+          <div className="pt-8">
+            <EmptyState type="Todo" />
+          </div>
+        )}
       </div>
       <div className="h-48">&nbsp;</div>
     </div>

@@ -54,7 +54,9 @@ const CalendarPage = () => {
         setVisibleCalendars(calendars.map((calendar) => calendar.user));
       } else {
         setVisibleCalendars(
-          calendars.map((calendar) => calendar.user).filter((visibleCalendar) => visibleCalendar === calendar)
+          calendars
+            .map((calendar) => calendar.user)
+            .filter((visibleCalendar) => visibleCalendar === calendar)
         );
       }
     } else {
@@ -75,7 +77,9 @@ const CalendarPage = () => {
                     <Button
                       variant="default"
                       prefix={<AddIcon />}
-                      onClick={() => dispatchSelectedStartTime({ type: Actions.SET_SELECTED_START_TIME, payload: "" })}
+                      onClick={() =>
+                        dispatchSelectedStartTime({ type: Actions.SET_SELECTED_START_TIME, payload: "" })
+                      }
                     >
                       <span className="inline-flex">Add&nbsp;</span>
                       <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Event</span>
@@ -90,7 +94,11 @@ const CalendarPage = () => {
               <Divider />
             </div>
             <div className="hidden md:block col-span-12">
-              <LegendLayout visibleCalendars={visibleCalendars} onClick={handleLegendChange} />
+              <LegendLayout
+                calendars={calendars}
+                visibleCalendars={visibleCalendars}
+                onClick={handleLegendChange}
+              />
               <Divider />
             </div>
           </div>
@@ -98,7 +106,11 @@ const CalendarPage = () => {
         <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col gap-0 md:gap-8 p-0 md:p-8">
           <CalendarLayout data={filterEvents(visibleCalendars, events)} />
           <div className="block md:hidden col-span-12">
-            <LegendLayout visibleCalendars={visibleCalendars} onClick={handleLegendChange} />
+            <LegendLayout
+              calendars={calendars}
+              visibleCalendars={visibleCalendars}
+              onClick={handleLegendChange}
+            />
           </div>
         </div>
       </div>

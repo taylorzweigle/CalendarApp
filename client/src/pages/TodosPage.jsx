@@ -51,7 +51,9 @@ const TodosPage = () => {
         setVisibleCalendars(calendars.map((calendar) => calendar.user));
       } else {
         setVisibleCalendars(
-          calendars.map((calendar) => calendar.user).filter((visibleCalendar) => visibleCalendar === calendar)
+          calendars
+            .map((calendar) => calendar.user)
+            .filter((visibleCalendar) => visibleCalendar === calendar)
         );
       }
     } else {
@@ -79,7 +81,11 @@ const TodosPage = () => {
               <Divider />
             </div>
             <div className="hidden md:block col-span-12">
-              <LegendLayout visibleCalendars={visibleCalendars} onClick={handleLegendChange} />
+              <LegendLayout
+                calendars={calendars.filter((calendar) => calendar.user !== "Calendar")}
+                visibleCalendars={visibleCalendars}
+                onClick={handleLegendChange}
+              />
               <Divider />
             </div>
           </div>
@@ -88,7 +94,11 @@ const TodosPage = () => {
           <TodoLayout data={filterEvents(visibleCalendars, todos)} />
           <div className="block md:hidden col-span-12">
             <Divider />
-            <LegendLayout visibleCalendars={visibleCalendars} onClick={handleLegendChange} />
+            <LegendLayout
+              calendars={calendars.filter((calendar) => calendar.user !== "Calendar")}
+              visibleCalendars={visibleCalendars}
+              onClick={handleLegendChange}
+            />
           </div>
         </div>
       </div>

@@ -53,7 +53,9 @@ const DayViewPage = () => {
         setVisibleCalendars(calendars.map((calendar) => calendar.user));
       } else {
         setVisibleCalendars(
-          calendars.map((calendar) => calendar.user).filter((visibleCalendar) => visibleCalendar === calendar)
+          calendars
+            .map((calendar) => calendar.user)
+            .filter((visibleCalendar) => visibleCalendar === calendar)
         );
       }
     } else {
@@ -74,7 +76,9 @@ const DayViewPage = () => {
                     <Button
                       variant="default"
                       prefix={<AddIcon />}
-                      onClick={() => dispatchSelectedStartTime({ type: Actions.SET_SELECTED_START_TIME, payload: "" })}
+                      onClick={() =>
+                        dispatchSelectedStartTime({ type: Actions.SET_SELECTED_START_TIME, payload: "" })
+                      }
                     >
                       <span className="inline-flex">Add&nbsp;</span>
                       <span className="inline-flex sm:inline-flex md:hidden lg:inline-flex">Event</span>
@@ -85,7 +89,11 @@ const DayViewPage = () => {
               <Divider />
             </div>
             <div className="hidden md:block col-span-12">
-              <LegendLayout visibleCalendars={visibleCalendars} onClick={handleLegendChange} />
+              <LegendLayout
+                calendars={calendars}
+                visibleCalendars={visibleCalendars}
+                onClick={handleLegendChange}
+              />
               <Divider />
             </div>
           </div>
@@ -94,7 +102,11 @@ const DayViewPage = () => {
           <TimelineLayout data={filterEvents(visibleCalendars, events)} />
           <div className="block md:hidden col-span-12">
             <Divider />
-            <LegendLayout visibleCalendars={visibleCalendars} onClick={handleLegendChange} />
+            <LegendLayout
+              calendars={calendars}
+              visibleCalendars={visibleCalendars}
+              onClick={handleLegendChange}
+            />
           </div>
         </div>
       </div>
