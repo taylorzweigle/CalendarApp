@@ -27,7 +27,7 @@ const TodoCard = ({ todo, color, dueDate, notes, checked, badge, loading, onClic
           checked
             ? "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600"
             : today >= date
-            ? `${colors.bg} border-3 border-rose-600 dark:border-rose-500`
+            ? `${colors.bg} border-2 border-rose-600 dark:border-rose-500`
             : `${colors.bg} ${colors.border}`
         } rounded-md overflow-clip pl-2 pr-2`}
       >
