@@ -17,7 +17,8 @@ import TextInput from "../core/textInput/TextInput";
 import Typography from "../core/typography/Typography";
 
 import { months } from "../components/calendar/Calendar";
-import DateInput from "../components/inputs/DateInput";
+import DateInput2 from "../components/inputs/DateInput2";
+import DatePickerModal from "../components/modals/DatePickerModal";
 import DeleteConfirmationModal from "../components/modals/DeleteConfirmationModal";
 
 import { getTodo, getTodos, updateTodo, deleteTodo } from "../api/todos";
@@ -46,6 +47,7 @@ const EditTodoPage = () => {
   const [loading, setLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
+  const [modalOpen, setModalOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
   useEffect(() => {
@@ -55,7 +57,7 @@ const EditTodoPage = () => {
       setTodo(todo.json.todo);
       setUser(todo.json.user);
       setType(todo.json.type);
-      setMonth(months[new Date(todo.json.date).getMonth()]);
+      setMonth(new Date(todo.json.date).getMonth());
       setDate(new Date(todo.json.date).getDate());
       setYear(new Date(todo.json.date).getFullYear());
       setNotes(todo.json.notes);
@@ -66,6 +68,14 @@ const EditTodoPage = () => {
       fetchTodo();
     }
   }, [params.id, authUser]);
+
+  const handleOnSaveMonthPicker = (selectedDate) => {
+    setMonth(selectedDate.month);
+    setDate(selectedDate.date);
+    setYear(selectedDate.year);
+
+    setModalOpen(false);
+  };
 
   const handleOnCancel = () => {
     navigate(-1);
@@ -90,7 +100,7 @@ const EditTodoPage = () => {
       todo: todo,
       user: user,
       type: type,
-      date: new Date(`${month} ${date}, ${year}`),
+      date: new Date(`${months[month]} ${date}, ${year}`),
       notes: notes,
       checked: checked,
       creationTime: new Date(),
@@ -165,6 +175,14 @@ const EditTodoPage = () => {
 
   return (
     <>
+      <DatePickerModal
+        open={modalOpen}
+        month={month}
+        date={date}
+        year={year}
+        onSaveClick={handleOnSaveMonthPicker}
+        onCancelClick={() => setModalOpen(false)}
+      />
       <DeleteConfirmationModal
         open={deleteModal}
         type="todo"
@@ -190,14 +208,13 @@ const EditTodoPage = () => {
               <div className="h-fit p-4">
                 <form onSubmit={handleOnSave}>
                   <div className="flex flex-col gap-4">
-                    <DateInput
+                    <DateInput2
                       label="Due Date"
                       month={month}
                       date={date}
                       year={year}
-                      onMonthChange={(e) => setMonth(e.target.value)}
-                      onDateChange={(e) => setDate(e.target.value)}
-                      onYearChange={(e) => setYear(e.target.value)}
+                      showLabel
+                      onClick={() => setModalOpen(true)}
                     />
                     <TextInput
                       label="Todo"
