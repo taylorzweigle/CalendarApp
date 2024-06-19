@@ -8,6 +8,8 @@ import Typography from "../../core/typography/Typography";
 import { months } from "../calendar/Calendar";
 
 const DateInput = ({ label, month, date, year, showLabel, onClick }) => {
+  console.log(month);
+
   const input = () => {
     return (
       <div
@@ -16,7 +18,7 @@ const DateInput = ({ label, month, date, year, showLabel, onClick }) => {
         className="flex flex-row justify-between items-center bg-white dark:bg-slate-950 border-2 border-slate-400 dark:border-slate-600 sm:hover:border-sky-800 sm:hover:dark:border-sky-600 text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12 cursor-pointer"
       >
         <Typography variant="body1" color="primary">
-          {month && date && year ? `${months[month]} ${date}, ${year}` : ""}
+          {month !== undefined && date && year ? `${months[month]} ${date}, ${year}` : ""}
         </Typography>
 
         <DateRangeIcon />
