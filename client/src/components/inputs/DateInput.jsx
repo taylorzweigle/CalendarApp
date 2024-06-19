@@ -1,27 +1,38 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-import SelectInput from "../../core/selectInput/SelectInput";
-import Typography from "../../core/typography/Typography";
+import DateRangeIcon from "@mui/icons-material/DateRange";
 
-import NumberInput from "./NumberInput";
+import Typography from "../../core/typography/Typography";
 
 import { months } from "../calendar/Calendar";
 
-const DateInput = ({ label, month, date, year, onMonthChange, onDateChange, onYearChange }) => {
-  return (
-    <div className="flex flex-col gap-2">
+const DateInput = ({ label, month, date, year, showLabel, onClick }) => {
+  const input = () => {
+    return (
+      <div
+        id={label}
+        onClick={onClick}
+        className="flex flex-row justify-between items-center bg-white dark:bg-slate-950 border-2 border-slate-400 dark:border-slate-600 sm:hover:border-sky-800 sm:hover:dark:border-sky-600 text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12 cursor-pointer"
+      >
+        <Typography variant="body1" color="primary">
+          {month && date && year ? `${months[month]} ${date}, ${year}` : ""}
+        </Typography>
+
+        <DateRangeIcon />
+      </div>
+    );
+  };
+
+  return showLabel ? (
+    <div className="flex flex-col gap-2 w-full">
       <Typography variant="body1" color="primary">
         {label}
       </Typography>
-      <div className="flex flex-row gap-4">
-        <div className="w-256">
-          <SelectInput label="month" value={month} items={["", ...months]} onChange={onMonthChange} />
-        </div>
-        <NumberInput label="date" value={date} maxLength={2} onChange={onDateChange} />
-        <NumberInput label="year" value={year} maxLength={4} onChange={onYearChange} />
-      </div>
+      {input()}
     </div>
+  ) : (
+    input()
   );
 };
 

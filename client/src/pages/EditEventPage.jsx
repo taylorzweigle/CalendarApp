@@ -19,6 +19,7 @@ import Typography from "../core/typography/Typography";
 
 import { months } from "../components/calendar/Calendar";
 import DateInput from "../components/inputs/DateInput";
+import DatePickerModal from "../components/modals/DatePickerModal";
 import DeleteConfirmationModal from "../components/modals/DeleteConfirmationModal";
 import TimeInput from "../components/inputs/TimeInput";
 
@@ -62,6 +63,8 @@ const EditEventPage = () => {
   const [loading, setLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
+  const [startMonthPickerModal, setStartMonthPickerModal] = useState(false);
+  const [endMonthPickerModal, setEndMonthPickerModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
   useEffect(() => {
@@ -81,10 +84,10 @@ const EditEventPage = () => {
       setEvent(event.json.event);
       setUser(event.json.user);
       setTag(event.json.tag);
-      setStartMonth(months[new Date(event.json.startTime).getMonth()]);
+      setStartMonth(new Date(event.json.startTime).getMonth());
       setStartDate(new Date(event.json.startTime).getDate());
       setStartYear(new Date(event.json.startTime).getFullYear());
-      setEndMonth(months[new Date(event.json.endTime).getMonth()]);
+      setEndMonth(new Date(event.json.endTime).getMonth());
       setEndDate(new Date(event.json.endTime).getDate());
       setEndYear(new Date(event.json.endTime).getFullYear());
       setStartHours(
@@ -117,6 +120,22 @@ const EditEventPage = () => {
     }
   }, [params.id, authUser]);
 
+  const handleOnSaveStartMonthPicker = (selectedDate) => {
+    setStartMonth(selectedDate.month);
+    setStartDate(selectedDate.date);
+    setStartYear(selectedDate.year);
+
+    setStartMonthPickerModal(false);
+  };
+
+  const handleOnSaveEndMonthPicker = (selectedDate) => {
+    setEndMonth(selectedDate.month);
+    setEndDate(selectedDate.date);
+    setEndYear(selectedDate.year);
+
+    setEndMonthPickerModal(false);
+  };
+
   const handleOnCancel = () => {
     navigate(-1);
   };
@@ -142,9 +161,9 @@ const EditEventPage = () => {
       tag: tag,
       startTime:
         duration === Actions.ALL_DAY
-          ? new Date(`${startMonth} ${startDate}, ${startYear}`)
+          ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
           : new Date(
-              `${startMonth} ${startDate}, ${startYear} ${
+              `${months[startMonth]} ${startDate}, ${startYear} ${
                 startPeriod === "PM"
                   ? startHours !== "12"
                     ? (parseInt(startHours) + 12).toString()
@@ -154,10 +173,10 @@ const EditEventPage = () => {
             ),
       endTime:
         duration === Actions.ALL_DAY
-          ? new Date(`${startMonth} ${startDate}, ${startYear}`)
+          ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
           : duration === Actions.MULTIPLE_DAYS
           ? new Date(
-              `${endMonth} ${endDate}, ${endYear} ${
+              `${months[endMonth]} ${endDate}, ${endYear} ${
                 endPeriod === "PM"
                   ? endHours !== "12"
                     ? (parseInt(endHours) + 12).toString()
@@ -166,7 +185,7 @@ const EditEventPage = () => {
               }:${endMinutes}:00`
             )
           : new Date(
-              `${startMonth} ${startDate}, ${startYear} ${
+              `${months[startMonth]} ${startDate}, ${startYear} ${
                 endPeriod === "PM"
                   ? endHours !== "12"
                     ? (parseInt(endHours) + 12).toString()
@@ -257,6 +276,22 @@ const EditEventPage = () => {
 
   return (
     <>
+      <DatePickerModal
+        open={startMonthPickerModal}
+        month={startMonth}
+        date={startDate}
+        year={startYear}
+        onSaveClick={handleOnSaveStartMonthPicker}
+        onCancelClick={() => setStartMonthPickerModal(false)}
+      />
+      <DatePickerModal
+        open={endMonthPickerModal}
+        month={endMonth}
+        date={endDate}
+        year={endYear}
+        onSaveClick={handleOnSaveEndMonthPicker}
+        onCancelClick={() => setEndMonthPickerModal(false)}
+      />
       <DeleteConfirmationModal
         open={deleteModal}
         type="event"
@@ -304,9 +339,8 @@ const EditEventPage = () => {
                       month={startMonth}
                       date={startDate}
                       year={startYear}
-                      onMonthChange={(e) => setStartMonth(e.target.value)}
-                      onDateChange={(e) => setStartDate(e.target.value)}
-                      onYearChange={(e) => setStartYear(e.target.value)}
+                      showLabel
+                      onClick={() => setStartMonthPickerModal(true)}
                     />
                     {duration === Actions.MULTIPLE_DAYS && (
                       <DateInput
@@ -314,9 +348,8 @@ const EditEventPage = () => {
                         month={endMonth}
                         date={endDate}
                         year={endYear}
-                        onMonthChange={(e) => setEndMonth(e.target.value)}
-                        onDateChange={(e) => setEndDate(e.target.value)}
-                        onYearChange={(e) => setEndYear(e.target.value)}
+                        showLabel
+                        onClick={() => setEndMonthPickerModal(true)}
                       />
                     )}
                     <TextInput

@@ -20,6 +20,7 @@ import Typography from "../core/typography/Typography";
 
 import { months } from "../components/calendar/Calendar";
 import DateInput from "../components/inputs/DateInput";
+import DatePickerModal from "../components/modals/DatePickerModal";
 import TimeInput from "../components/inputs/TimeInput";
 
 import { createEvent } from "../api/events";
@@ -60,11 +61,14 @@ const CreateEventPage = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const [startMonthPickerModal, setStartMonthPickerModal] = useState(false);
+  const [endMonthPickerModal, setEndMonthPickerModal] = useState(false);
+
   useEffect(() => {
-    setStartMonth(months[selectedDate.month]);
+    setStartMonth(selectedDate.month);
     setStartDate(selectedDate.date);
     setStartYear(selectedDate.year);
-    setEndMonth(months[selectedDate.month]);
+    setEndMonth(selectedDate.month);
     duration === Actions.MULTIPLE_DAYS ? setEndDate(selectedDate.date + 1) : setEndDate(selectedDate.date);
     setEndYear(selectedDate.year);
   }, [selectedDate, duration]);
@@ -74,7 +78,12 @@ const CreateEventPage = () => {
       setStartHours(selectedStartTime % 12 === 0 ? "12" : (selectedStartTime % 12).toString());
       setStartMinutes("00");
       setStartPeriod(selectedStartTime >= 12 ? "PM" : "AM");
-      setEndHours(((parseInt(selectedStartTime) + 1) % 12 === 0 ? "12" : (parseInt(selectedStartTime) + 1) % 12).toString());
+      setEndHours(
+        ((parseInt(selectedStartTime) + 1) % 12 === 0
+          ? "12"
+          : (parseInt(selectedStartTime) + 1) % 12
+        ).toString()
+      );
       setEndMinutes("00");
       setEndPeriod(parseInt(selectedStartTime) + 1 >= 12 ? "PM" : "AM");
     } else if (selectedStartTime === 0) {
@@ -87,6 +96,22 @@ const CreateEventPage = () => {
       setDuration(Actions.ALL_DAY);
     }
   }, [selectedStartTime]);
+
+  const handleOnSaveStartMonthPicker = (selectedDate) => {
+    setStartMonth(selectedDate.month);
+    setStartDate(selectedDate.date);
+    setStartYear(selectedDate.year);
+
+    setStartMonthPickerModal(false);
+  };
+
+  const handleOnSaveEndMonthPicker = (selectedDate) => {
+    setEndMonth(selectedDate.month);
+    setEndDate(selectedDate.date);
+    setEndYear(selectedDate.year);
+
+    setEndMonthPickerModal(false);
+  };
 
   const handleOnSave = async (e) => {
     e.preventDefault();
@@ -109,24 +134,36 @@ const CreateEventPage = () => {
       tag: tag,
       startTime:
         duration === Actions.ALL_DAY
-          ? new Date(`${startMonth} ${startDate}, ${startYear}`)
+          ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
           : new Date(
-              `${startMonth} ${startDate}, ${startYear} ${
-                startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
+              `${months[startMonth]} ${startDate}, ${startYear} ${
+                startPeriod === "PM"
+                  ? startHours !== "12"
+                    ? (parseInt(startHours) + 12).toString()
+                    : startHours
+                  : startHours
               }:${startMinutes}:00`
             ),
       endTime:
         duration === Actions.ALL_DAY
-          ? new Date(`${startMonth} ${startDate}, ${startYear}`)
+          ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
           : duration === Actions.MULTIPLE_DAYS
           ? new Date(
-              `${endMonth} ${endDate}, ${endYear} ${
-                endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
+              `${months[endMonth]} ${endDate}, ${endYear} ${
+                endPeriod === "PM"
+                  ? endHours !== "12"
+                    ? (parseInt(endHours) + 12).toString()
+                    : endHours
+                  : endHours
               }:${endMinutes}:00`
             )
           : new Date(
-              `${startMonth} ${startDate}, ${startYear} ${
-                endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
+              `${months[startMonth]} ${startDate}, ${startYear} ${
+                endPeriod === "PM"
+                  ? endHours !== "12"
+                    ? (parseInt(endHours) + 12).toString()
+                    : endHours
+                  : endHours
               }:${endMinutes}:00`
             ),
       creationTime: new Date(),
@@ -193,127 +230,143 @@ const CreateEventPage = () => {
   };
 
   return (
-    <div className="w-full sm:w-128 m-auto">
-      <Card border>
-        <div className="flex flex-col">
-          <div className="flex flex-row justify-between items-center border-b border-slate-300 dark:border-slate-600 pt-4 pb-4">
-            <div className="flex flex-1 pl-4">
-              <Button variant="text" prefix={<ChevronLeftIcon />} onClick={handleOnCancel}>
-                Back
-              </Button>
-            </div>
-            <div className="flex flex-1 justify-center">
-              <Typography variant="heading">Add Event</Typography>
-            </div>
-            <div className="flex flex-1">&nbsp;</div>
-          </div>
+    <>
+      <DatePickerModal
+        open={startMonthPickerModal}
+        month={startMonth}
+        date={startDate}
+        year={startYear}
+        onSaveClick={handleOnSaveStartMonthPicker}
+        onCancelClick={() => setStartMonthPickerModal(false)}
+      />
+      <DatePickerModal
+        open={endMonthPickerModal}
+        month={endMonth}
+        date={endDate}
+        year={endYear}
+        onSaveClick={handleOnSaveEndMonthPicker}
+        onCancelClick={() => setEndMonthPickerModal(false)}
+      />
+      <div className="w-full sm:w-128 m-auto">
+        <Card border>
           <div className="flex flex-col">
-            <div className={`${duration === "All Day" ? "h-[calc(100vh-224px)] sm:h-fit" : "h-fit"} p-4`}>
-              <form onSubmit={handleOnSave}>
-                <div className="flex flex-col gap-4">
-                  <div className="flex flex-row items-center">
-                    <Tab
-                      value="Partial Day"
-                      selected={duration === Actions.PARTIAL_DAY}
-                      onClick={() => setDuration(Actions.PARTIAL_DAY)}
-                    />
-                    <Tab
-                      value="All Day"
-                      selected={duration === Actions.ALL_DAY}
-                      onClick={(e) => setDuration(Actions.ALL_DAY)}
-                    />
-                    <Tab
-                      value="Multiple Days"
-                      selected={duration === Actions.MULTIPLE_DAYS}
-                      onClick={(e) => setDuration(Actions.MULTIPLE_DAYS)}
-                    />
-                  </div>
-                  <DateInput
-                    label={duration === Actions.MULTIPLE_DAYS ? "Start Date" : "Date"}
-                    month={startMonth}
-                    date={startDate}
-                    year={startYear}
-                    onMonthChange={(e) => setStartMonth(e.target.value)}
-                    onDateChange={(e) => setStartDate(e.target.value)}
-                    onYearChange={(e) => setStartYear(e.target.value)}
-                  />
-                  {duration === Actions.MULTIPLE_DAYS && (
-                    <DateInput
-                      label="End Date"
-                      month={endMonth}
-                      date={endDate}
-                      year={endYear}
-                      onMonthChange={(e) => setEndMonth(e.target.value)}
-                      onDateChange={(e) => setEndDate(e.target.value)}
-                      onYearChange={(e) => setEndYear(e.target.value)}
-                    />
-                  )}
-                  <TextInput
-                    label="Event"
-                    error={eventError}
-                    value={event}
-                    showLabel
-                    onChange={(e) => setEvent(e.target.value)}
-                  />
-                  <SelectInput
-                    label="User"
-                    value={user}
-                    error={userError}
-                    items={["", "Husband", "Wife", "Us", "Calendar"]}
-                    showLabel
-                    onChange={(e) => setUser(e.target.value)}
-                  />
-                  <SelectInput
-                    label="Tag"
-                    value={tag}
-                    error={tagError}
-                    items={tags}
-                    showLabel
-                    onChange={(e) => setTag(e.target.value)}
-                  />
-                  {duration !== Actions.ALL_DAY && (
-                    <>
-                      <TimeInput
-                        label="Start Time"
-                        hour={startHours}
-                        minutes={startMinutes}
-                        period={startPeriod}
-                        error={startTimeError}
-                        onHourChange={(e) => setStartHours(e.target.value)}
-                        onMinutesChange={(e) => setStartMinutes(e.target.value)}
-                        onPeriodChange={(e) => setStartPeriod(e.target.value)}
-                      />
-                      <TimeInput
-                        label="End Time"
-                        hour={endHours}
-                        minutes={endMinutes}
-                        period={endPeriod}
-                        error={endTimeError}
-                        onHourChange={(e) => setEndHours(e.target.value)}
-                        onMinutesChange={(e) => setEndMinutes(e.target.value)}
-                        onPeriodChange={(e) => setEndPeriod(e.target.value)}
-                      />
-                    </>
-                  )}
-                </div>
-              </form>
-            </div>
-            <div className="flex flex-col sm:flex-row sm:justify-end gap-4 border-t p-4 border-slate-300 dark:border-slate-600">
-              <div>
-                <Button variant="default" fullWidth onClick={handleOnCancel}>
-                  Cancel
+            <div className="flex flex-row justify-between items-center border-b border-slate-300 dark:border-slate-600 pt-4 pb-4">
+              <div className="flex flex-1 pl-4">
+                <Button variant="text" prefix={<ChevronLeftIcon />} onClick={handleOnCancel}>
+                  Back
                 </Button>
               </div>
-              <div>
-                <Button variant="primary" fullWidth loading={loading} onClick={handleOnSave}>
-                  Save
-                </Button>
+              <div className="flex flex-1 justify-center">
+                <Typography variant="heading">Add Event</Typography>
+              </div>
+              <div className="flex flex-1">&nbsp;</div>
+            </div>
+            <div className="flex flex-col">
+              <div className={`${duration === "All Day" ? "h-[calc(100vh-224px)] sm:h-fit" : "h-fit"} p-4`}>
+                <form onSubmit={handleOnSave}>
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-row items-center">
+                      <Tab
+                        value="Partial Day"
+                        selected={duration === Actions.PARTIAL_DAY}
+                        onClick={() => setDuration(Actions.PARTIAL_DAY)}
+                      />
+                      <Tab
+                        value="All Day"
+                        selected={duration === Actions.ALL_DAY}
+                        onClick={(e) => setDuration(Actions.ALL_DAY)}
+                      />
+                      <Tab
+                        value="Multiple Days"
+                        selected={duration === Actions.MULTIPLE_DAYS}
+                        onClick={(e) => setDuration(Actions.MULTIPLE_DAYS)}
+                      />
+                    </div>
+                    <DateInput
+                      label={duration === Actions.MULTIPLE_DAYS ? "Start Date" : "Date"}
+                      month={startMonth}
+                      date={startDate}
+                      year={startYear}
+                      showLabel
+                      onClick={() => setStartMonthPickerModal(true)}
+                    />
+                    {duration === Actions.MULTIPLE_DAYS && (
+                      <DateInput
+                        label="End Date"
+                        month={endMonth}
+                        date={endDate}
+                        year={endYear}
+                        showLabel
+                        onClick={() => setEndMonthPickerModal(true)}
+                      />
+                    )}
+                    <TextInput
+                      label="Event"
+                      error={eventError}
+                      value={event}
+                      showLabel
+                      onChange={(e) => setEvent(e.target.value)}
+                    />
+                    <SelectInput
+                      label="User"
+                      value={user}
+                      error={userError}
+                      items={["", "Husband", "Wife", "Us", "Calendar"]}
+                      showLabel
+                      onChange={(e) => setUser(e.target.value)}
+                    />
+                    <SelectInput
+                      label="Tag"
+                      value={tag}
+                      error={tagError}
+                      items={tags}
+                      showLabel
+                      onChange={(e) => setTag(e.target.value)}
+                    />
+                    {duration !== Actions.ALL_DAY && (
+                      <>
+                        <TimeInput
+                          label="Start Time"
+                          hour={startHours}
+                          minutes={startMinutes}
+                          period={startPeriod}
+                          error={startTimeError}
+                          onHourChange={(e) => setStartHours(e.target.value)}
+                          onMinutesChange={(e) => setStartMinutes(e.target.value)}
+                          onPeriodChange={(e) => setStartPeriod(e.target.value)}
+                        />
+                        <TimeInput
+                          label="End Time"
+                          hour={endHours}
+                          minutes={endMinutes}
+                          period={endPeriod}
+                          error={endTimeError}
+                          onHourChange={(e) => setEndHours(e.target.value)}
+                          onMinutesChange={(e) => setEndMinutes(e.target.value)}
+                          onPeriodChange={(e) => setEndPeriod(e.target.value)}
+                        />
+                      </>
+                    )}
+                  </div>
+                </form>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:justify-end gap-4 border-t p-4 border-slate-300 dark:border-slate-600">
+                <div>
+                  <Button variant="default" fullWidth onClick={handleOnCancel}>
+                    Cancel
+                  </Button>
+                </div>
+                <div>
+                  <Button variant="primary" fullWidth loading={loading} onClick={handleOnSave}>
+                    Save
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </Card>
-    </div>
+        </Card>
+      </div>
+    </>
   );
 };
 

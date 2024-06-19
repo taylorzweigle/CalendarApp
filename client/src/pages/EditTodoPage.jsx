@@ -17,7 +17,7 @@ import TextInput from "../core/textInput/TextInput";
 import Typography from "../core/typography/Typography";
 
 import { months } from "../components/calendar/Calendar";
-import DateInput2 from "../components/inputs/DateInput2";
+import DateInput from "../components/inputs/DateInput";
 import DatePickerModal from "../components/modals/DatePickerModal";
 import DeleteConfirmationModal from "../components/modals/DeleteConfirmationModal";
 
@@ -208,7 +208,7 @@ const EditTodoPage = () => {
               <div className="h-fit p-4">
                 <form onSubmit={handleOnSave}>
                   <div className="flex flex-col gap-4">
-                    <DateInput2
+                    <DateInput
                       label="Due Date"
                       month={month}
                       date={date}
