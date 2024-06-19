@@ -38,6 +38,9 @@ const Typography = ({ variant, color, customColor, bold, truncate, wrap, center,
     case "error":
       colorClass = "text-rose-500 dark:text-rose-500";
       break;
+    case "base":
+      colorClass = "text-white dark:text-white";
+      break;
     case "custom":
       colorClass = customColor;
       break;
@@ -47,9 +50,9 @@ const Typography = ({ variant, color, customColor, bold, truncate, wrap, center,
 
   return (
     <p
-      className={`${variantClass} ${colorClass} ${bold ? "font-bold" : null} ${truncate && "line-clamp-1"} ${
-        wrap && "break-normal"
-      } ${center && "text-center"}`}
+      className={`${variantClass} ${colorClass} ${bold ? "font-bold" : null} ${
+        truncate && "line-clamp-1"
+      } ${wrap && "break-normal"} ${center && "text-center"}`}
     >
       {children}
     </p>

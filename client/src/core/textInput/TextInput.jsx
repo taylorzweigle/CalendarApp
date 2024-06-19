@@ -14,7 +14,7 @@ const TextInput = ({ label, value, type, pattern, inputMode, maxLength, error, s
         inputMode={inputMode}
         maxLength={maxLength}
         onChange={onChange}
-        className="bg-white dark:bg-slate-950 border-2 border-slate-400 dark:border-slate-600 sm:hover:border-sky-800 sm:hover:dark:border-sky-600 text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12"
+        className="bg-white dark:bg-slate-950 border-2 border-slate-400 dark:border-slate-600 sm:hover:border-sky-500 sm:hover:dark:border-sky-600 text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12"
       />
     );
   };

@@ -15,11 +15,11 @@ const Button = ({ prefix, variant, fullWidth, loading, onClick, children }) => {
       break;
     case "primary":
       variantClass =
-        "bg-sky-300 dark:bg-sky-700 sm:hover:bg-sky-400 sm:dark:hover:bg-sky-600 active:bg-sky-400 active:dark:bg-sky-600 border border-sky-800 dark:border-sky-500";
+        "bg-sky-500 dark:bg-sky-700 sm:hover:bg-sky-600 sm:dark:hover:bg-sky-600 active:bg-sky-600 active:dark:bg-sky-600 border border-sky-800 dark:border-sky-500";
       break;
     case "error":
       variantClass =
-        "bg-rose-300 dark:bg-rose-700 sm:hover:bg-rose-400 sm:dark:hover:bg-rose-600 active:bg-rose-400 active:dark:bg-rose-600 border border-rose-800 dark:border-rose-500";
+        "bg-rose-500 dark:bg-rose-700 sm:hover:bg-rose-600 sm:dark:hover:bg-rose-600 active:bg-rose-600 active:dark:bg-rose-600 border border-rose-800 dark:border-rose-500";
       break;
     case "text":
       variantClass =
@@ -36,7 +36,10 @@ const Button = ({ prefix, variant, fullWidth, loading, onClick, children }) => {
         {prefix ? <span className="text-slate-700 dark:text-white">{prefix}</span> : null}
         {loading && <DataUsageIcon className="text-slate-700 dark:text-white animate-spin" />}
         {!loading && children ? (
-          <Typography variant="body1" color="primary">
+          <Typography
+            variant="body1"
+            color={variant === "primary" || variant === "error" ? "base" : "primary"}
+          >
             {children}
           </Typography>
         ) : null}

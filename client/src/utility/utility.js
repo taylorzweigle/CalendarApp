@@ -14,43 +14,48 @@ import WorkIcon from "@mui/icons-material/Work";
 import { daysOfWeek, months } from "../components/calendar/Calendar";
 
 export const getColors = (color) => {
-  let colorObject = { bg: "", active: "", border: "", text: "", icon: "" };
+  let colorObject = { bg: "", hover: "", active: "", border: "", text: "", icon: "" };
 
   switch (color) {
     case "emerald":
-      colorObject.bg = "bg-emerald-100 dark:bg-emerald-700";
-      colorObject.active = "active:bg-emerald-200 dark:active:bg-emerald-600";
-      colorObject.border = "border-emerald-600 dark:border-emerald-400";
-      colorObject.text = "text-emerald-700 dark:text-white";
-      colorObject.icon = "text-emerald-700 dark:text-emerald-50";
+      colorObject.bg = "bg-emerald-400 dark:bg-emerald-700";
+      colorObject.hover = "hover:bg-emerald-500 dark:hover:bg-emerald-600";
+      colorObject.active = "active:bg-emerald-600 dark:active:bg-emerald-600";
+      colorObject.border = "border-emerald-600 dark:border-emerald-500";
+      colorObject.text = "text-white dark:text-white";
+      colorObject.icon = "text-white dark:text-white";
       break;
     case "purple":
-      colorObject.bg = "bg-purple-100 dark:bg-purple-700";
-      colorObject.active = "active:bg-purple-200 dark:active:bg-purple-600";
-      colorObject.border = "border-purple-600 dark:border-purple-400";
-      colorObject.text = "text-purple-700 dark:text-white";
-      colorObject.icon = "text-purple-700 dark:text-purple-50";
+      colorObject.bg = "bg-purple-400 dark:bg-purple-700";
+      colorObject.hover = "hover:bg-purple-500 dark:hover:bg-purple-600";
+      colorObject.active = "active:bg-purple-600 dark:active:bg-purple-600";
+      colorObject.border = "border-purple-600 dark:border-purple-500";
+      colorObject.text = "text-white dark:text-white";
+      colorObject.icon = "text-white dark:text-white";
       break;
     case "sky":
-      colorObject.bg = "bg-sky-100 dark:bg-sky-700";
-      colorObject.active = "active:bg-sky-200 dark:active:bg-sky-600";
-      colorObject.border = "border-sky-600 dark:border-sky-400";
-      colorObject.text = "text-sky-700 dark:text-white";
-      colorObject.icon = "text-sky-700 dark:text-sky-50";
+      colorObject.bg = "bg-sky-400 dark:bg-sky-700";
+      colorObject.hover = "hover:bg-sky-500 dark:hover:bg-sky-600";
+      colorObject.active = "active:bg-sky-600 dark:active:bg-sky-600";
+      colorObject.border = "border-sky-600 dark:border-sky-500";
+      colorObject.text = "text-white dark:text-white";
+      colorObject.icon = "text-white dark:text-white";
       break;
     case "stone":
-      colorObject.bg = "bg-stone-100 dark:bg-stone-700";
-      colorObject.active = "active:bg-stone-200 dark:active:bg-stone-600";
-      colorObject.border = "border-stone-600 dark:border-stone-400";
-      colorObject.text = "text-stone-700 dark:text-white";
-      colorObject.icon = "text-stone-700 dark:text-stone-50";
+      colorObject.bg = "bg-stone-500 dark:bg-stone-700";
+      colorObject.hover = "hover:bg-stone-600 dark:hover:bg-stone-600";
+      colorObject.active = "active:bg-stone-600 dark:active:bg-stone-600";
+      colorObject.border = "border-stone-600 dark:border-stone-500";
+      colorObject.text = "text-white dark:text-white";
+      colorObject.icon = "text-white dark:text-white";
       break;
     default:
-      colorObject.bg = "bg-slate-50 dark:bg-slate-700";
-      colorObject.active = "active:bg-slate-100 dark:active:bg-slate-600";
-      colorObject.border = "border-slate-500 dark:border-slate-400";
-      colorObject.text = "text-slate-700 dark:text-white";
-      colorObject.icon = "text-slate-700 dark:text-slate-50";
+      colorObject.bg = "bg-slate-500 dark:bg-slate-700";
+      colorObject.hover = "hover:bg-slate-600 dark:hover:bg-slate-600";
+      colorObject.active = "active:bg-slate-600 dark:active:bg-slate-600";
+      colorObject.border = "border-slate-600 dark:border-slate-500";
+      colorObject.text = "text-white dark:text-white";
+      colorObject.icon = "text-white dark:text-white";
       break;
   }
 
@@ -108,7 +113,9 @@ export const formatTime = (date) => {
 };
 
 export const formatDate = (date) => {
-  return `${daysOfWeek[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+  return `${daysOfWeek[date.getDay()]}, ${
+    months[date.getMonth()]
+  } ${date.getDate()}, ${date.getFullYear()}`;
 };
 
 export const compareStartAndEndTimes = (start, end) => {

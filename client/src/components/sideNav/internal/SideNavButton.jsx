@@ -14,7 +14,9 @@ const SideNavButton = ({ title, icon, selected, to }) => {
             : "bg-slate-200 dark:bg-slate-950 border-b md:border-b-0 border-r-0 md:border-r border-slate-300 dark:border-slate-600"
         } cursor-pointer`}
       >
-        <div className={selected ? "text-slate-800 dark:text-white" : "text-slate-500 dark:text-slate-400"}>{icon}</div>
+        <div className={selected ? "text-slate-800 dark:text-white" : "text-slate-500 dark:text-slate-400"}>
+          {icon}
+        </div>
         <span className="block md:hidden">
           <Typography variant="body1" color={selected ? "primary" : "secondary"}>
             {title}

@@ -59,8 +59,6 @@ const TodoLayout = ({ data }) => {
 
   const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 43200000;
 
-  //calc(100vh-64px-80px-188px-32px-48px)
-
   return (
     <div className="flex flex-col gap-4 md:gap-8 p-4 md:p-0 h-[calc(100vh-412px)] md:h-[calc(100vh-168px)]">
       <div className="flex flex-row items-center">

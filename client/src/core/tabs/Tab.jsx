@@ -6,7 +6,7 @@ import Typography from "../typography/Typography";
 const Tab = ({ value, selected, onClick }) => {
   return (
     <div
-      className={`flex flex-row justify-center items-center h-12 w-full rounded-tl-lg rounded-tr-lg rounded-br-none rounded-bl-none border-b-4 md:hover:bg-slate-50 md:hover:dark:bg-slate-700 active:bg-slate-200 active:dark:bg-slate-700 ${
+      className={`flex flex-row justify-center items-center h-12 w-full rounded-tl-lg rounded-tr-lg rounded-br-none rounded-bl-none border-b-4 md:hover:bg-slate-200 md:hover:dark:bg-slate-700 active:bg-slate-200 active:dark:bg-slate-700 ${
         selected ? "border-sky-500" : "border-transparent"
       } cursor-pointer`}
       onClick={onClick}
