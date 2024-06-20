@@ -17,6 +17,7 @@ import Calendar, { months } from "../calendar/Calendar";
 import MonthPickerModal from "../modals/MonthPickerModal";
 
 import { calendars } from "../../utility/calendars";
+import IconButton from "../../core/iconButton/IconButton";
 
 const CalendarLayout = ({ data }) => {
   const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
@@ -28,7 +29,12 @@ const CalendarLayout = ({ data }) => {
   const handleTodayClick = () => {
     dispatchSelectedDate({
       type: Actions.SET_SELECTED_DATE,
-      payload: { month: today.getMonth(), date: today.getDate(), year: today.getFullYear(), weekday: today.getDay() },
+      payload: {
+        month: today.getMonth(),
+        date: today.getDate(),
+        year: today.getFullYear(),
+        weekday: today.getDay(),
+      },
     });
   };
 
@@ -96,23 +102,31 @@ const CalendarLayout = ({ data }) => {
       />
       <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-8 pt-4 pl-4 pr-4 md:pt-0 md:pl-0 md:pr-0">
         <div
-          className="inline-flex flex-row gap-2 items-center w-fit cursor-pointer"
+          className="inline-flex flex-row gap-0 items-center w-fit cursor-pointer"
           onClick={() => setMonthPicker(!monthPicker)}
         >
           <Typography variant="title" color="primary">
             {`${months[selectedDate.month]} ${selectedDate.year}`}
           </Typography>
-          <span className="text-slate-700 dark:text-white">
+          <IconButton color="text-slate-700 dark:text-white">
             <ArrowDropDownIcon />
-          </span>
+          </IconButton>
         </div>
         <div className="flex flex-row justify-between sm:justify-between md:gap-4 items-center">
           <Button variant="default" prefix={<TodayIcon />} onClick={() => handleTodayClick()}>
             Today
           </Button>
           <div className="flex flex-row gap-4 items-center">
-            <Button variant="default" prefix={<ArrowBackIcon />} onClick={() => handlePreviousButtonClick()} />
-            <Button variant="default" prefix={<ArrowForwardIcon />} onClick={() => handleNextButtonClick()} />
+            <Button
+              variant="default"
+              prefix={<ArrowBackIcon />}
+              onClick={() => handlePreviousButtonClick()}
+            />
+            <Button
+              variant="default"
+              prefix={<ArrowForwardIcon />}
+              onClick={() => handleNextButtonClick()}
+            />
           </div>
         </div>
       </div>

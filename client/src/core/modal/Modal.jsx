@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Button from "../button/Button";
 import Card from "../card/Card";
 import Divider from "../divider/Divider";
+import IconButton from "../iconButton/IconButton";
 import Typography from "../typography/Typography";
 
 const Modal = ({ children, open, loading, title, errorModal, action, onAction, onCancel }) => {
@@ -21,7 +22,9 @@ const Modal = ({ children, open, loading, title, errorModal, action, onAction, o
             <Typography variant="heading" color="primary">
               {title}
             </Typography>
-            <Button variant="text" prefix={<CloseIcon />} onClick={onCancel} />
+            <IconButton color="text-slate-950 dark:text-white">
+              <CloseIcon />
+            </IconButton>
           </div>
           <Divider />
           <div className="p-4 sm:p-8">{children}</div>

@@ -15,7 +15,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
 
   const [dataArray, setDataArray] = useState([]);
 
-  const hours = [0, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+  const hours = [0, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 
   const isCurrentTime = (hour) => {
     return (
@@ -114,7 +114,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
   };
 
   return (
-    <table className="w-full h-192">
+    <table className="w-full">
       <tbody className="h-full">
         {hours.map((hour) => (
           <tr key={hour} className="h-px">

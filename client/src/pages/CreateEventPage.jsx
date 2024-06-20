@@ -333,7 +333,7 @@ const CreateEventPage = () => {
                           error={startTimeError}
                           onHourChange={(e) => setStartHours(e.target.value)}
                           onMinutesChange={(e) => setStartMinutes(e.target.value)}
-                          onPeriodChange={(e) => setStartPeriod(e.target.value)}
+                          onPeriodChange={(value) => setStartPeriod(value)}
                         />
                         <TimeInput
                           label="End Time"
@@ -343,7 +343,7 @@ const CreateEventPage = () => {
                           error={endTimeError}
                           onHourChange={(e) => setEndHours(e.target.value)}
                           onMinutesChange={(e) => setEndMinutes(e.target.value)}
-                          onPeriodChange={(e) => setEndPeriod(e.target.value)}
+                          onPeriodChange={(value) => setEndPeriod(value)}
                         />
                       </>
                     )}
