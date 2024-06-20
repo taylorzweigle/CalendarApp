@@ -24,14 +24,16 @@ const TimeInput = ({
   const Button = ({ children, onClick }) => {
     return (
       <div
-        className={`flex flex-row justify-between items-center bg-white dark:bg-slate-800 ${
+        className={`flex flex-row justify-center items-center w-24 bg-white dark:bg-slate-800 ${
           selected === children
             ? "border-2 border-sky-500 dark:border-sky-600"
-            : "hover:bg-slate-200 dark:hover:bg-slate-700 border-2 border-white dark:border-slate-800"
-        } text-slate-950 dark:text-white text-md w-full rounded-lg px-4 h-12 cursor-pointer`}
+            : "md:hover:bg-slate-200 md:dark:hover:bg-slate-700 active:bg-slate-200 dark:active:bg-slate-700 border-2 border-white dark:border-slate-800"
+        } w-full rounded-lg px-4 h-12 cursor-pointer`}
         onClick={onClick}
       >
-        {children}
+        <Typography variant="body1" color={selected === children ? "primary" : "secondary"}>
+          {children}
+        </Typography>
       </div>
     );
   };
