@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-import Button from "../../core/button/Button";
 import Chip from "../../core/chip/Chip";
+import IconButton from "../../core/iconButton/IconButton";
 import Modal from "../../core/modal/Modal";
 import Typography from "../../core/typography/Typography";
 
@@ -33,19 +33,21 @@ const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => 
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-row justify-between items-center">
-          <Button
-            variant="text"
-            prefix={<ArrowBackIcon />}
+          <IconButton
+            color="text-slate-950 dark:text-white"
             onClick={() => setSelectedMonth({ month: selectedMonth.month, year: selectedMonth.year - 1 })}
-          />
+          >
+            <ArrowBackIcon />
+          </IconButton>
           <Typography variant="heading" color="primary" bold>
             {selectedMonth.year}
           </Typography>
-          <Button
-            variant="text"
-            prefix={<ArrowForwardIcon />}
+          <IconButton
+            color="text-slate-950 dark:text-white"
             onClick={() => setSelectedMonth({ month: selectedMonth.month, year: selectedMonth.year + 1 })}
-          />
+          >
+            <ArrowForwardIcon />
+          </IconButton>
         </div>
         <div className="flex flex-wrap justify-center align-middle gap-4">
           {months.map((m) => (

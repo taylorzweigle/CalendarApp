@@ -29,6 +29,8 @@ const TodosPage = () => {
 
   const [visibleCalendars, setVisibleCalendars] = useState([]);
 
+  const [legendReset, setLegendReset] = useState(false);
+
   useEffect(() => {
     const fetchTodos = async () => {
       const todos = await getTodos(authUser.token);
@@ -49,16 +51,28 @@ const TodosPage = () => {
     if (visibleCalendars.length === 1) {
       if (visibleCalendars.includes(calendar)) {
         setVisibleCalendars(calendars.map((calendar) => calendar.user));
+
+        setLegendReset(false);
       } else {
         setVisibleCalendars(
           calendars
             .map((calendar) => calendar.user)
             .filter((visibleCalendar) => visibleCalendar === calendar)
         );
+
+        setLegendReset(true);
       }
     } else {
       setVisibleCalendars(visibleCalendars.filter((visibleCalendar) => visibleCalendar === calendar));
+
+      setLegendReset(true);
     }
+  };
+
+  const handleLegendReset = () => {
+    setVisibleCalendars(calendars.map((calendar) => calendar.user));
+
+    setLegendReset(false);
   };
 
   return (
@@ -84,7 +98,9 @@ const TodosPage = () => {
               <LegendLayout
                 calendars={calendars.filter((calendar) => calendar.user !== "Calendar")}
                 visibleCalendars={visibleCalendars}
+                showReset={legendReset}
                 onClick={handleLegendChange}
+                onReset={handleLegendReset}
               />
               <Divider />
             </div>
@@ -97,7 +113,9 @@ const TodosPage = () => {
             <LegendLayout
               calendars={calendars.filter((calendar) => calendar.user !== "Calendar")}
               visibleCalendars={visibleCalendars}
+              showReset={legendReset}
               onClick={handleLegendChange}
+              onReset={handleLegendReset}
             />
           </div>
         </div>

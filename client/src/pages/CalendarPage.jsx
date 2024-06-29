@@ -32,6 +32,8 @@ const CalendarPage = () => {
 
   const [visibleCalendars, setVisibleCalendars] = useState([]);
 
+  const [legendReset, setLegendReset] = useState(false);
+
   useEffect(() => {
     const fetchEvents = async () => {
       const events = await getEvents(user.token);
@@ -52,16 +54,28 @@ const CalendarPage = () => {
     if (visibleCalendars.length === 1) {
       if (visibleCalendars.includes(calendar)) {
         setVisibleCalendars(calendars.map((calendar) => calendar.user));
+
+        setLegendReset(false);
       } else {
         setVisibleCalendars(
           calendars
             .map((calendar) => calendar.user)
             .filter((visibleCalendar) => visibleCalendar === calendar)
         );
+
+        setLegendReset(true);
       }
     } else {
       setVisibleCalendars(visibleCalendars.filter((visibleCalendar) => visibleCalendar === calendar));
+
+      setLegendReset(true);
     }
+  };
+
+  const handleLegendReset = () => {
+    setVisibleCalendars(calendars.map((calendar) => calendar.user));
+
+    setLegendReset(false);
   };
 
   return (
@@ -97,7 +111,9 @@ const CalendarPage = () => {
               <LegendLayout
                 calendars={calendars}
                 visibleCalendars={visibleCalendars}
+                showReset={legendReset}
                 onClick={handleLegendChange}
+                onReset={handleLegendReset}
               />
               <Divider />
             </div>
@@ -109,7 +125,9 @@ const CalendarPage = () => {
             <LegendLayout
               calendars={calendars}
               visibleCalendars={visibleCalendars}
+              showReset={legendReset}
               onClick={handleLegendChange}
+              onReset={handleLegendReset}
             />
           </div>
         </div>
