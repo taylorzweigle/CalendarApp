@@ -31,7 +31,6 @@ const CreateTodoPage = () => {
 
   const [todo, setTodo] = useState("");
   const [user, setUser] = useState("");
-  const [type, setType] = useState("");
   const [month, setMonth] = useState("");
   const [date, setDate] = useState("");
   const [year, setYear] = useState("");
@@ -39,7 +38,6 @@ const CreateTodoPage = () => {
 
   const [todoError, setTodoError] = useState("");
   const [userError, setUserError] = useState("");
-  const [typeError, setTypeError] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -80,7 +78,6 @@ const CreateTodoPage = () => {
     const newTodo = {
       todo: todo,
       user: user,
-      type: type,
       date: new Date(`${months[month]} ${date}, ${year}`),
       notes: notes,
       checked: false,
@@ -95,9 +92,6 @@ const CreateTodoPage = () => {
       }
       if (json.error.includes("user")) {
         setUserError("User is required");
-      }
-      if (json.error.includes("type")) {
-        setTypeError("Type is required");
       }
 
       setLoading(false);
@@ -121,7 +115,6 @@ const CreateTodoPage = () => {
   const clearForm = () => {
     setTodo("");
     setUser("");
-    setType("");
     setMonth("");
     setDate("");
     setYear("");
@@ -133,7 +126,6 @@ const CreateTodoPage = () => {
   const clearErrors = () => {
     setTodoError("");
     setUserError("");
-    setTypeError("");
   };
 
   return (
@@ -186,14 +178,6 @@ const CreateTodoPage = () => {
                       items={["", "Husband", "Wife", "Us"]}
                       showLabel
                       onChange={(e) => setUser(e.target.value)}
-                    />
-                    <SelectInput
-                      label="Type"
-                      value={type}
-                      error={typeError}
-                      items={["", "Chores", "Shopping"]}
-                      showLabel
-                      onChange={(e) => setType(e.target.value)}
                     />
                     <TextInput
                       label="Notes"

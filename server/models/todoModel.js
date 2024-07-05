@@ -12,10 +12,6 @@ const todoSchema = new Schema({
     type: String,
     required: true,
   },
-  type: {
-    type: String,
-    required: true,
-  },
   date: {
     type: Date,
     required: true,
@@ -24,10 +20,6 @@ const todoSchema = new Schema({
     type: String,
     required: false,
   },
-  checked: {
-    type: Boolean,
-    required: true,
-  },
   creationTime: {
     type: Date,
     required: true,
@@ -35,6 +27,14 @@ const todoSchema = new Schema({
   creationUser: {
     type: String,
     required: true,
+  },
+  checked: {
+    type: Boolean,
+    required: true,
+  },
+  checkedTime: {
+    type: Date,
+    required: false,
   },
 });
 

@@ -28,12 +28,21 @@ const getTodo = async (req, res) => {
 };
 
 const createTodo = async (req, res) => {
-  const { todo, user, type, date, notes, checked, creationTime } = req.body;
+  const { todo, user, date, notes, creationTime, checked, checkedTime } = req.body;
 
   try {
     const creationUser = req.user._id;
 
-    const newTodo = await Event.create({ todo, user, type, date, notes, checked, creationTime, creationUser });
+    const newTodo = await Event.create({
+      todo,
+      user,
+      date,
+      notes,
+      creationTime,
+      creationUser,
+      checked,
+      checkedTime,
+    });
 
     res.status(200).json(newTodo);
   } catch (error) {

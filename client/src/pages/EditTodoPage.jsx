@@ -33,7 +33,6 @@ const EditTodoPage = () => {
 
   const [todo, setTodo] = useState("");
   const [user, setUser] = useState("");
-  const [type, setType] = useState("");
   const [month, setMonth] = useState("");
   const [date, setDate] = useState("");
   const [year, setYear] = useState("");
@@ -42,7 +41,6 @@ const EditTodoPage = () => {
 
   const [todoError, setTodoError] = useState("");
   const [userError, setUserError] = useState("");
-  const [typeError, setTypeError] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -56,7 +54,6 @@ const EditTodoPage = () => {
 
       setTodo(todo.json.todo);
       setUser(todo.json.user);
-      setType(todo.json.type);
       setMonth(new Date(todo.json.date).getMonth());
       setDate(new Date(todo.json.date).getDate());
       setYear(new Date(todo.json.date).getFullYear());
@@ -99,7 +96,6 @@ const EditTodoPage = () => {
     const newTodo = {
       todo: todo,
       user: user,
-      type: type,
       date: new Date(`${months[month]} ${date}, ${year}`),
       notes: notes,
       checked: checked,
@@ -114,9 +110,6 @@ const EditTodoPage = () => {
       }
       if (json.error.includes("user")) {
         setUserError("User is required");
-      }
-      if (json.error.includes("type")) {
-        setTypeError("Type is required");
       }
 
       setLoading(false);
@@ -158,7 +151,6 @@ const EditTodoPage = () => {
   const clearForm = () => {
     setTodo("");
     setUser("");
-    setType("");
     setMonth("");
     setDate("");
     setYear("");
@@ -170,7 +162,6 @@ const EditTodoPage = () => {
   const clearErrors = () => {
     setTodoError("");
     setUserError("");
-    setTypeError("");
   };
 
   return (
@@ -230,14 +221,6 @@ const EditTodoPage = () => {
                       items={["", "Husband", "Wife", "Us"]}
                       showLabel
                       onChange={(e) => setUser(e.target.value)}
-                    />
-                    <SelectInput
-                      label="Type"
-                      value={type}
-                      error={typeError}
-                      items={["", "Chores", "Shopping"]}
-                      showLabel
-                      onChange={(e) => setType(e.target.value)}
                     />
                     <TextInput
                       label="Notes"

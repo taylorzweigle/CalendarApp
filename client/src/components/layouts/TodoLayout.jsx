@@ -7,10 +7,10 @@ import * as Actions from "../../actions";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useTodosContext } from "../../hooks/useTodosContext";
 
-import { getTodos, updateTodo } from "../../api/todos";
+import { getTodos, updateTodo, deleteTodo } from "../../api/todos";
 
 import EmptyState from "../../core/emptyState/EmptyState";
-import Tab from "../../core/tabs/Tab";
+import Typography from "../../core/typography/Typography";
 
 import TodoCard from "../../components/cards/TodoCard";
 
@@ -23,24 +23,47 @@ const TodoLayout = ({ data }) => {
   const { user: authUser } = useAuthContext();
   const { dispatch } = useTodosContext();
 
-  const [choresTodos, setChoresTodos] = useState([]);
-  const [shoppingTodos, setShoppingTodos] = useState([]);
-
-  const [selected, setSelected] = useState("Chores");
-
   const [loading, setLoading] = useState("");
+
+  const [todosToDelete, setTodosToDelete] = useState([]);
 
   useEffect(() => {
     if (data) {
-      setChoresTodos(sortTodos(data.filter((todo) => todo.type === "Chores")));
-      setShoppingTodos(sortTodos(data.filter((todo) => todo.type === "Shopping")));
+      setTodosToDelete(
+        data.filter(
+          (todo) =>
+            todo.checked &&
+            todo.checkedTime &&
+            new Date().getTime() - new Date(todo.checkedTime).getTime() > 43200000
+        )
+      );
     }
   }, [data]);
+
+  useEffect(() => {
+    const deleteCheckedTodo = async (id) => {
+      const deletedTodo = await deleteTodo(id, authUser.token);
+
+      if (deletedTodo.json) {
+        dispatch({ type: Actions.DELETE_TODO, payload: deletedTodo.json });
+      }
+    };
+
+    if (todosToDelete.length > 0) {
+      for (let i = 0; i < todosToDelete.length; i++) {
+        deleteCheckedTodo(todosToDelete[i]._id);
+      }
+    }
+  }, [todosToDelete, authUser.token, dispatch]);
 
   const handleCheck = async (todo) => {
     setLoading(todo._id);
 
-    const json = await updateTodo(todo._id, { ...todo, checked: !todo.checked }, authUser.token);
+    const json = await updateTodo(
+      todo._id,
+      { ...todo, checked: !todo.checked, checkedTime: new Date() },
+      authUser.token
+    );
 
     if (json.json) {
       const todos = await getTodos(authUser.token);
@@ -61,35 +84,10 @@ const TodoLayout = ({ data }) => {
 
   return (
     <div className="flex flex-col gap-4 md:gap-8 p-4 md:p-0 h-[calc(100vh-412px)] md:h-[calc(100vh-168px)]">
-      <div className="flex flex-row items-center">
-        <Tab value="Chores" selected={selected === "Chores"} onClick={() => setSelected("Chores")} />
-        <Tab value="Shopping" selected={selected === "Shopping"} onClick={(e) => setSelected("Shopping")} />
-      </div>
-      <div className={selected === "Chores" ? "flex flex-col gap-4" : "hidden"}>
-        {choresTodos.length > 0 ? (
-          choresTodos.map((todo) => (
-            <TodoCard
-              key={todo._id}
-              todo={todo.todo}
-              color={calendars.find((calendar) => calendar.user === todo.user).color}
-              dueDate={todo.date}
-              notes={todo.notes}
-              checked={todo.checked}
-              loading={loading === todo._id}
-              badge={showBadge(todo.creationTime)}
-              onClick={() => handleEdit(todo._id)}
-              onCheck={() => handleCheck(todo)}
-            />
-          ))
-        ) : (
-          <div className="pt-8">
-            <EmptyState type="Todo" />
-          </div>
-        )}
-      </div>
-      <div className={selected === "Shopping" ? "flex flex-col gap-4" : "hidden"}>
-        {shoppingTodos.length > 0 ? (
-          shoppingTodos.map((todo) => (
+      <Typography variant="title">Todos</Typography>
+      <div className="flex flex-col gap-4">
+        {data ? (
+          sortTodos(data).map((todo) => (
             <TodoCard
               key={todo._id}
               todo={todo.todo}
