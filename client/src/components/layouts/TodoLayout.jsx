@@ -23,21 +23,12 @@ const TodoLayout = ({ data }) => {
   const { user: authUser } = useAuthContext();
   const { dispatch } = useTodosContext();
 
+  const [todos, setTodos] = useState([]);
+
   const [loading, setLoading] = useState("");
 
-  const [todosToDelete, setTodosToDelete] = useState([]);
-
   useEffect(() => {
-    if (data) {
-      setTodosToDelete(
-        data.filter(
-          (todo) =>
-            todo.checked &&
-            todo.checkedTime &&
-            new Date().getTime() - new Date(todo.checkedTime).getTime() > 43200000
-        )
-      );
-    }
+    setTodos(data && sortTodos(data));
   }, [data]);
 
   useEffect(() => {
@@ -49,12 +40,18 @@ const TodoLayout = ({ data }) => {
       }
     };
 
-    if (todosToDelete.length > 0) {
-      for (let i = 0; i < todosToDelete.length; i++) {
-        deleteCheckedTodo(todosToDelete[i]._id);
+    if (todos) {
+      for (let i = 0; i < todos.length; i++) {
+        if (
+          todos[i].checked &&
+          todos[i].checkedTime &&
+          new Date().getTime() - new Date(todos[i].checkedTime).getTime() > 43200000
+        ) {
+          deleteCheckedTodo(todos[i]._id);
+        }
       }
     }
-  }, [todosToDelete, authUser.token, dispatch]);
+  }, [todos, authUser.token, dispatch]);
 
   const handleCheck = async (todo) => {
     setLoading(todo._id);
@@ -83,11 +80,11 @@ const TodoLayout = ({ data }) => {
   const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 43200000;
 
   return (
-    <div className="flex flex-col gap-4 md:gap-8 p-4 md:p-0 h-[calc(100vh-412px)] md:h-[calc(100vh-168px)]">
+    <div className="flex flex-col gap-4 md:gap-8 p-4 md:p-0 min-h-[calc(100vh-412px)] md:min-h-[calc(100vh-168px)]">
       <Typography variant="title">Todos</Typography>
       <div className="flex flex-col gap-4">
-        {data ? (
-          sortTodos(data).map((todo) => (
+        {todos ? (
+          todos.map((todo) => (
             <TodoCard
               key={todo._id}
               todo={todo.todo}

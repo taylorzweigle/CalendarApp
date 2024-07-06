@@ -10,6 +10,7 @@ import * as Actions from "../actions";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useTodosContext } from "../hooks/useTodosContext";
 
+import AreaTextInput from "../core/areaTextInput/AreaTextInput";
 import Button from "../core/button/Button";
 import Card from "../core/card/Card";
 import SelectInput from "../core/selectInput/SelectInput";
@@ -222,9 +223,10 @@ const EditTodoPage = () => {
                       showLabel
                       onChange={(e) => setUser(e.target.value)}
                     />
-                    <TextInput
+                    <AreaTextInput
                       label="Notes"
                       value={notes}
+                      rows={4}
                       showLabel
                       onChange={(e) => setNotes(e.target.value)}
                     />
