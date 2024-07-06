@@ -22,7 +22,7 @@ const Modal = ({ children, open, loading, title, errorModal, action, onAction, o
             <Typography variant="heading" color="primary">
               {title}
             </Typography>
-            <IconButton color="text-slate-950 dark:text-white" onClick={onCancel}>
+            <IconButton onClick={onCancel}>
               <CloseIcon />
             </IconButton>
           </div>

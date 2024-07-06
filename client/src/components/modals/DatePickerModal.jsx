@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-import Button from "../../core/button/Button";
+import IconButton from "../../core/iconButton/IconButton";
 import Modal from "../../core/modal/Modal";
 import Typography from "../../core/typography/Typography";
 
@@ -97,11 +97,15 @@ const DatePickerModal = ({ open, month, date, year, onSaveClick, onCancelClick }
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-row justify-between items-center">
-          <Button variant="text" prefix={<ArrowBackIcon />} onClick={handlePreviousButtonClick} />
+          <IconButton onClick={handlePreviousButtonClick}>
+            <ArrowBackIcon />
+          </IconButton>
           <Typography variant="heading" color="primary" bold>
             {`${months[selectedDate.month]} ${selectedDate.year}`}
           </Typography>
-          <Button variant="text" prefix={<ArrowForwardIcon />} onClick={handleNextButtonClick} />
+          <IconButton onClick={handleNextButtonClick}>
+            <ArrowForwardIcon />
+          </IconButton>
         </div>
         <table className="table-fixed">
           <thead>

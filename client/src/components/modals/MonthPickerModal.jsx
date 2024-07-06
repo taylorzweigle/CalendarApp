@@ -34,7 +34,6 @@ const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => 
       <div className="flex flex-col gap-4">
         <div className="flex flex-row justify-between items-center">
           <IconButton
-            color="text-slate-950 dark:text-white"
             onClick={() => setSelectedMonth({ month: selectedMonth.month, year: selectedMonth.year - 1 })}
           >
             <ArrowBackIcon />
@@ -43,7 +42,6 @@ const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => 
             {selectedMonth.year}
           </Typography>
           <IconButton
-            color="text-slate-950 dark:text-white"
             onClick={() => setSelectedMonth({ month: selectedMonth.month, year: selectedMonth.year + 1 })}
           >
             <ArrowForwardIcon />

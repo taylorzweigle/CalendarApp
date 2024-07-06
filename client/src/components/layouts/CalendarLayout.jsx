@@ -11,13 +11,13 @@ import * as Actions from "../../actions";
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
 import Button from "../../core/button/Button";
+import IconButton from "../../core/iconButton/IconButton";
 import Typography from "../../core/typography/Typography";
 
 import Calendar, { months } from "../calendar/Calendar";
 import MonthPickerModal from "../modals/MonthPickerModal";
 
 import { calendars } from "../../utility/calendars";
-import IconButton from "../../core/iconButton/IconButton";
 
 const CalendarLayout = ({ data }) => {
   const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
@@ -108,7 +108,7 @@ const CalendarLayout = ({ data }) => {
           <Typography variant="title" color="primary">
             {`${months[selectedDate.month]} ${selectedDate.year}`}
           </Typography>
-          <IconButton color="text-slate-700 dark:text-white">
+          <IconButton>
             <ArrowDropDownIcon />
           </IconButton>
         </div>

@@ -32,7 +32,7 @@ const TodoCard = ({ todo, color, dueDate, notes, checked, badge, loading, onClic
         <div className="flex flex-row justify-between items-center w-full">
           <div className="flex flex-row items-center w-full">
             <div onClick={onCheck}>
-              <IconButton color={colors.text} loading={loading}>
+              <IconButton loading={loading}>
                 {checked ? <CheckIcon /> : <CheckBoxOutlineBlankIcon />}
               </IconButton>
             </div>

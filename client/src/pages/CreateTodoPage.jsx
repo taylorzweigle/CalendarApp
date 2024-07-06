@@ -45,7 +45,7 @@ const CreateTodoPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const date = new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`);
+    const date = new Date();
     date.setDate(date.getDate() + 7);
 
     setMonth(date.getMonth());
