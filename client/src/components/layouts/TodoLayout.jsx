@@ -24,11 +24,13 @@ const TodoLayout = ({ data }) => {
   const { dispatch } = useTodosContext();
 
   const [todos, setTodos] = useState([]);
+  const [dueTodos, setDueTodos] = useState([]);
 
   const [loading, setLoading] = useState("");
 
   useEffect(() => {
-    setTodos(data && sortTodos(data));
+    setTodos(data ? sortTodos(data.filter((todo) => new Date() < new Date(todo.date))) : []);
+    setDueTodos(data ? sortTodos(data.filter((todo) => new Date() >= new Date(todo.date))) : []);
   }, [data]);
 
   useEffect(() => {
@@ -82,22 +84,50 @@ const TodoLayout = ({ data }) => {
   return (
     <div className="flex flex-col gap-4 md:gap-8 p-4 md:p-0 min-h-[calc(100vh-412px)] md:min-h-[calc(100vh-168px)]">
       <Typography variant="title">Todos</Typography>
+      {dueTodos.length > 0 && (
+        <div className="flex flex-col gap-4">
+          <Typography variant="body2" color="secondary">
+            DUE TODAY
+          </Typography>
+          <div className="flex flex-col gap-4">
+            {dueTodos.map((todo) => (
+              <TodoCard
+                key={todo._id}
+                todo={todo.todo}
+                color={calendars.find((calendar) => calendar.user === todo.user).color}
+                dueDate={todo.date}
+                notes={todo.notes}
+                checked={todo.checked}
+                loading={loading === todo._id}
+                badge={showBadge(todo.creationTime)}
+                onClick={() => handleEdit(todo._id)}
+                onCheck={() => handleCheck(todo)}
+              />
+            ))}
+          </div>
+        </div>
+      )}
       <div className="flex flex-col gap-4">
-        {todos ? (
-          todos.map((todo) => (
-            <TodoCard
-              key={todo._id}
-              todo={todo.todo}
-              color={calendars.find((calendar) => calendar.user === todo.user).color}
-              dueDate={todo.date}
-              notes={todo.notes}
-              checked={todo.checked}
-              loading={loading === todo._id}
-              badge={showBadge(todo.creationTime)}
-              onClick={() => handleEdit(todo._id)}
-              onCheck={() => handleCheck(todo)}
-            />
-          ))
+        <Typography variant="body2" color="secondary">
+          ALL TODOS
+        </Typography>
+        {todos.length > 0 ? (
+          <div className="flex flex-col gap-4">
+            {todos.map((todo) => (
+              <TodoCard
+                key={todo._id}
+                todo={todo.todo}
+                color={calendars.find((calendar) => calendar.user === todo.user).color}
+                dueDate={todo.date}
+                notes={todo.notes}
+                checked={todo.checked}
+                loading={loading === todo._id}
+                badge={showBadge(todo.creationTime)}
+                onClick={() => handleEdit(todo._id)}
+                onCheck={() => handleCheck(todo)}
+              />
+            ))}
+          </div>
         ) : (
           <div className="pt-8">
             <EmptyState type="Todo" />

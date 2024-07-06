@@ -15,7 +15,6 @@ import { getColors } from "../../utility/utility";
 const TodoCard = ({ todo, color, dueDate, notes, checked, badge, loading, onClick, onCheck }) => {
   const colors = getColors(color);
 
-  const today = new Date();
   const date = new Date(dueDate);
 
   return (
@@ -26,8 +25,6 @@ const TodoCard = ({ todo, color, dueDate, notes, checked, badge, loading, onClic
         } border ${
           checked
             ? "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600"
-            : today >= date
-            ? `${colors.bg} border-2 border-rose-600 dark:border-rose-500`
             : `${colors.bg} ${colors.border}`
         } rounded-md overflow-clip pl-2 pr-2`}
       >
