@@ -24,11 +24,11 @@ const TimeInput = ({
   const Button = ({ children, onClick }) => {
     return (
       <div
-        className={`flex flex-row justify-center items-center w-24 bg-white dark:bg-slate-800 ${
+        className={`inline-flex justify-center items-center h-12 w-14 rounded-full ${
           selected === children
-            ? "border-2 border-sky-500 dark:border-sky-600"
-            : "md:hover:bg-slate-200 md:dark:hover:bg-slate-700 active:bg-slate-200 dark:active:bg-slate-700 border-2 border-white dark:border-slate-800"
-        } w-full rounded-lg px-4 h-12 cursor-pointer`}
+            ? "bg-sky-500 dark:bg-sky-500"
+            : "active:bg-sky-200 active:dark:bg-slate-700 md:hover:bg-sky-200 md:hover:dark:bg-slate-700"
+        } cursor-pointer`}
         onClick={onClick}
       >
         <Typography variant="body1" color={selected === children ? "primary" : "secondary"}>
@@ -52,7 +52,7 @@ const TimeInput = ({
       <div className="flex flex-row gap-4">
         <NumberInput label="hour" value={hour} maxLength={2} onChange={onHourChange} />
         <NumberInput label="minutes" value={minutes} maxLength={2} onChange={onMinutesChange} />
-        <div className="flex flex-row items-center gap-0">
+        <div className="flex flex-row items-center gap-2">
           <Button onClick={() => handlePeriodChange("AM")}>AM</Button>
           <Button onClick={() => handlePeriodChange("PM")}>PM</Button>
         </div>

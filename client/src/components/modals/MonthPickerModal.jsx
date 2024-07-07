@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-import Chip from "../../core/chip/Chip";
 import IconButton from "../../core/iconButton/IconButton";
 import Modal from "../../core/modal/Modal";
 import Typography from "../../core/typography/Typography";
@@ -27,8 +26,12 @@ const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => 
     <Modal
       title="Select Month"
       action="Select"
+      resetAction="Today"
       open={open}
       onAction={() => onSaveClick(selectedMonth)}
+      onResetAction={() =>
+        setSelectedMonth({ month: months[new Date().getMonth()], year: new Date().getFullYear() })
+      }
       onCancel={handleCancelClick}
     >
       <div className="flex flex-col gap-4">
@@ -49,13 +52,19 @@ const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => 
         </div>
         <div className="flex flex-wrap justify-center align-middle gap-4">
           {months.map((m) => (
-            <Chip
+            <div
               key={m}
-              selected={selectedMonth.month === m}
+              className={`inline-flex justify-center items-center h-12 w-24 md:w-20 rounded-full ${
+                selectedMonth.month === m
+                  ? "bg-sky-500 dark:bg-sky-500"
+                  : "active:bg-sky-200 active:dark:bg-slate-700 md:hover:bg-sky-200 md:hover:dark:bg-slate-700"
+              } cursor-pointer`}
               onClick={() => setSelectedMonth({ month: m, year: selectedMonth.year })}
             >
-              {m.slice(0, 3)}
-            </Chip>
+              <Typography variant="body" color={selectedMonth.month === m ? "white" : "textPrimary"}>
+                {m.slice(0, 3)}
+              </Typography>
+            </div>
           ))}
         </div>
       </div>

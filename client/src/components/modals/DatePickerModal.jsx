@@ -91,8 +91,16 @@ const DatePickerModal = ({ open, month, date, year, onSaveClick, onCancelClick }
     <Modal
       title="Select Date"
       action="Select"
+      resetAction="Today"
       open={open}
       onAction={() => onSaveClick(selectedDate)}
+      onResetAction={() =>
+        setSelectedDate({
+          month: new Date().getMonth(),
+          date: new Date().getDate(),
+          year: new Date().getFullYear(),
+        })
+      }
       onCancel={handleCancelClick}
     >
       <div className="flex flex-col gap-4">
@@ -123,15 +131,15 @@ const DatePickerModal = ({ open, month, date, year, onSaveClick, onCancelClick }
             {populateCalendar(selectedDate.year, selectedDate.month).map((week) => (
               <tr key={week.week}>
                 {week.days.map((date) => (
-                  <td
-                    className={`h-10 w-10 rounded-full text-center ${
-                      date.date === selectedDate.date
-                        ? "bg-sky-500 dark:bg-sky-500"
-                        : "md:hover:bg-sky-100 md:hover:dark:bg-slate-800"
-                    } cursor-pointer`}
-                    key={date.key}
-                  >
-                    <div onClick={() => handleSelectDay(selectedDate.year, selectedDate.month, date.date)}>
+                  <td className="text-center align-middle" key={date.key}>
+                    <div
+                      className={`inline-flex justify-center items-center h-11 w-11 rounded-full ${
+                        date.date === selectedDate.date
+                          ? "bg-sky-500 dark:bg-sky-500"
+                          : "active:bg-sky-200 active:dark:bg-slate-700 md:hover:bg-sky-200 md:hover:dark:bg-slate-700"
+                      } cursor-pointer`}
+                      onClick={() => handleSelectDay(selectedDate.year, selectedDate.month, date.date)}
+                    >
                       <Typography
                         variant="body"
                         color={date.date === selectedDate.date ? "white" : "textPrimary"}

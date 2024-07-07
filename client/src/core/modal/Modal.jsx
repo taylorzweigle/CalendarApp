@@ -9,7 +9,18 @@ import Divider from "../divider/Divider";
 import IconButton from "../iconButton/IconButton";
 import Typography from "../typography/Typography";
 
-const Modal = ({ children, open, loading, title, errorModal, action, onAction, onCancel }) => {
+const Modal = ({
+  children,
+  open,
+  loading,
+  title,
+  errorModal,
+  action,
+  resetAction,
+  onAction,
+  onResetAction,
+  onCancel,
+}) => {
   return (
     <div
       className={`${
@@ -29,15 +40,24 @@ const Modal = ({ children, open, loading, title, errorModal, action, onAction, o
           <Divider />
           <div className="p-4 sm:p-8">{children}</div>
           <Divider />
-          <div className="flex flex-row justify-end gap-4 p-4 sm:p-8">
-            <Button variant="default" onClick={onCancel}>
-              Cancel
-            </Button>
-            {action && (
-              <Button variant={errorModal ? "error" : "primary"} onClick={onAction} loading={loading}>
-                {action}
+          <div className="flex flex-row justify-between items-center p-4 sm:p-8">
+            <div>
+              {resetAction && (
+                <Button variant="default" onClick={onResetAction}>
+                  {resetAction}
+                </Button>
+              )}
+            </div>
+            <div className="flex flex-row justify-end gap-4">
+              <Button variant="default" onClick={onCancel}>
+                Cancel
               </Button>
-            )}
+              {action && (
+                <Button variant={errorModal ? "error" : "primary"} onClick={onAction} loading={loading}>
+                  {action}
+                </Button>
+              )}
+            </div>
           </div>
         </Card>
       </div>

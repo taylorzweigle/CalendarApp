@@ -108,9 +108,16 @@ const TodoLayout = ({ data }) => {
         </div>
       )}
       <div className="flex flex-col gap-4">
-        <Typography variant="body2" color="secondary">
-          ALL TODOS
-        </Typography>
+        {dueTodos.length > 0 && todos.length > 0 && (
+          <Typography variant="body2" color="secondary">
+            ALL TODOS
+          </Typography>
+        )}
+        {dueTodos.length > 0 && todos.length === 0 && (
+          <Typography variant="body2" color="secondary">
+            ALL TODOS
+          </Typography>
+        )}
         {todos.length > 0 ? (
           <div className="flex flex-col gap-4">
             {todos.map((todo) => (
