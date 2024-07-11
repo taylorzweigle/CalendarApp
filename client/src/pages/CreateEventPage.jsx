@@ -148,7 +148,15 @@ const CreateEventPage = () => {
         duration === Actions.ALL_DAY
           ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
           : duration === Actions.MULTIPLE_DAYS
-          ? new Date(`${months[endMonth]} ${endDate}, ${endYear} 23:59:59 GMT-0500 (Central Daylight Time)`)
+          ? new Date(
+              `${months[endMonth]} ${endDate}, ${endYear} ${
+                endPeriod === "PM"
+                  ? endHours !== "12"
+                    ? (parseInt(endHours) + 12).toString()
+                    : endHours
+                  : endHours
+              }:${endMinutes}:00`
+            )
           : new Date(
               `${months[startMonth]} ${startDate}, ${startYear} ${
                 endPeriod === "PM"
@@ -189,40 +197,6 @@ const CreateEventPage = () => {
       navigate(-1);
 
       clearForm();
-    }
-
-    if (duration === Actions.MULTIPLE_DAYS) {
-      const eventLength =
-        new Date(`${months[endMonth]} ${endDate}, ${endYear}`).getDate() -
-        new Date(`${months[startMonth]} ${startDate}, ${startYear}`).getDate();
-
-      for (let i = 1; i <= eventLength; i++) {
-        const newEvent = {
-          event: event,
-          user: user,
-          tag: tag,
-          startTime: new Date(`${months[startMonth]} ${startDate + i}, ${startYear}`),
-          endTime:
-            i === eventLength
-              ? new Date(
-                  `${months[endMonth]} ${endDate}, ${endYear} ${
-                    endPeriod === "PM"
-                      ? endHours !== "12"
-                        ? (parseInt(endHours) + 12).toString()
-                        : endHours
-                      : endHours
-                  }:${endMinutes}:00`
-                )
-              : new Date(`${months[startMonth]} ${startDate + i}, ${startYear}`),
-          creationTime: new Date(),
-        };
-
-        const json = await createEvent(newEvent, authUser.token);
-
-        if (json.json) {
-          dispatch({ type: Actions.CREATE_EVENT, payload: json.json });
-        }
-      }
     }
   };
 
