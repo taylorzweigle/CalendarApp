@@ -46,7 +46,7 @@ const CreateTodoPage = () => {
 
   useEffect(() => {
     const date = new Date();
-    date.setDate(date.getDate() + 7);
+    date.setDate(date.getDate() + 1);
 
     setMonth(date.getMonth());
     setDate(date.getDate());

@@ -11,6 +11,8 @@ import Typography from "../../core/typography/Typography";
 import { months } from "../calendar/Calendar";
 
 const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => {
+  const today = new Date();
+
   const [selectedMonth, setSelectedMonth] = useState({});
 
   useEffect(() => {
@@ -57,6 +59,8 @@ const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => 
               className={`inline-flex justify-center items-center h-12 w-24 md:w-20 rounded-full ${
                 selectedMonth.month === m
                   ? "bg-sky-500 dark:bg-sky-500"
+                  : months.indexOf(m) === today.getMonth() && selectedMonth.year === today.getFullYear()
+                  ? "border-2 border-sky-500 dark:border-sky-500"
                   : "active:bg-sky-200 active:dark:bg-slate-700 md:hover:bg-sky-200 md:hover:dark:bg-slate-700"
               } cursor-pointer`}
               onClick={() => setSelectedMonth({ month: m, year: selectedMonth.year })}

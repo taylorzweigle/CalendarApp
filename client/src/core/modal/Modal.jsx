@@ -29,7 +29,7 @@ const Modal = ({
     >
       <div className="m-auto p-4 sm:p-8 w-full sm:w-128">
         <Card>
-          <div className="flex flex-row justify-between items-center p-4 sm:p-8">
+          <div className="flex flex-row justify-between items-center pt-4 pl-4 pb-4 pr-4 sm:pt-4 sm:pr-8 sm:pb-4 sm:pl-8">
             <Typography variant="heading" color="primary">
               {title}
             </Typography>

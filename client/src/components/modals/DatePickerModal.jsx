@@ -11,6 +11,8 @@ import Typography from "../../core/typography/Typography";
 import { months, daysOfWeek } from "../calendar/Calendar";
 
 const DatePickerModal = ({ open, month, date, year, onSaveClick, onCancelClick }) => {
+  const today = new Date();
+
   const [selectedDate, setSelectedDate] = useState({});
 
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
@@ -136,6 +138,10 @@ const DatePickerModal = ({ open, month, date, year, onSaveClick, onCancelClick }
                       className={`inline-flex justify-center items-center h-11 w-11 rounded-full ${
                         date.date === selectedDate.date
                           ? "bg-sky-500 dark:bg-sky-500"
+                          : date.date === today.getDate() &&
+                            selectedDate.month === today.getMonth() &&
+                            selectedDate.year === today.getFullYear()
+                          ? "border-2 border-sky-500 dark:border-sky-500"
                           : "active:bg-sky-200 active:dark:bg-slate-700 md:hover:bg-sky-200 md:hover:dark:bg-slate-700"
                       } cursor-pointer`}
                       onClick={() => handleSelectDay(selectedDate.year, selectedDate.month, date.date)}
