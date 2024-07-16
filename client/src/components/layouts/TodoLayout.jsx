@@ -42,18 +42,18 @@ const TodoLayout = ({ data }) => {
       }
     };
 
-    if (todos) {
-      for (let i = 0; i < todos.length; i++) {
+    if (data) {
+      for (let i = 0; i < data.length; i++) {
         if (
-          todos[i].checked &&
-          todos[i].checkedTime &&
-          new Date().getTime() - new Date(todos[i].checkedTime).getTime() > 43200000
+          data[i].checked &&
+          data[i].checkedTime &&
+          new Date().getTime() - new Date(data[i].checkedTime).getTime() > 43200000
         ) {
-          deleteCheckedTodo(todos[i]._id);
+          deleteCheckedTodo(data[i]._id);
         }
       }
     }
-  }, [todos, authUser.token, dispatch]);
+  }, [data, authUser.token, dispatch]);
 
   const handleCheck = async (todo) => {
     setLoading(todo._id);
