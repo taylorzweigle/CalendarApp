@@ -18,8 +18,8 @@ const CalendarDay = ({ day, today, outOfMonth, selected, onClick, children }) =>
       }`}
       onClick={onClick}
     >
-      <div className="flex flex-col gap-1 sm:gap-2 p-1 sm:p-2 h-full">
-        <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-col gap-1 sm:gap-2 h-full">
+        <div className="flex flex-row justify-between items-center pl-1 pr-1 pt-1 sm:pl-2 sm:pr-2 sm:pt-2">
           <Typography variant="body1" color={outOfMonth ? "secondary" : "primary"}>
             {day}
           </Typography>

@@ -39,6 +39,7 @@ const populateEvents = (events) => {
               59,
               999
             ),
+            type: "start",
             creationTime: events[i].creationTime,
             creationUser: events[i].creationUser,
           };
@@ -61,6 +62,7 @@ const populateEvents = (events) => {
               0
             ),
             endTime: events[i].endTime,
+            type: "end",
             creationTime: events[i].creationTime,
             creationUser: events[i].creationUser,
           };
@@ -83,6 +85,7 @@ const populateEvents = (events) => {
               new Date(events[i].startTime).getMonth(),
               new Date(events[i].startTime).getDate() + j
             ),
+            type: "middle",
             creationTime: events[i].creationTime,
             creationUser: events[i].creationUser,
           };

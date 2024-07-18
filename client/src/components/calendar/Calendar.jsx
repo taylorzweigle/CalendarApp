@@ -127,6 +127,7 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
                           event={event.event}
                           color={calendars.find((calendar) => calendar.user === event.user).color}
                           tag={event.tag}
+                          type={event.type}
                           badge={showBadge(event.creationTime)}
                         />
                       ))}
