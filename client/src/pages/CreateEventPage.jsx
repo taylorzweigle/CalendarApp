@@ -13,6 +13,7 @@ import { useSelectedStartTimeContext } from "../hooks/useSelectedStartTimeContex
 
 import Button from "../core/button/Button";
 import Card from "../core/card/Card";
+import Checkbox from "../core/checkbox/Checkbox";
 import SelectInput from "../core/selectInput/SelectInput";
 import Tab from "../core/tabs/Tab";
 import TextInput from "../core/textInput/TextInput";
@@ -35,6 +36,7 @@ const CreateEventPage = () => {
   const { selectedDate } = useSelectedDateContext();
   const { selectedStartTime } = useSelectedStartTimeContext();
 
+  const [allDay, setAllDay] = useState(false);
   const [duration, setDuration] = useState(Actions.PARTIAL_DAY);
 
   const [event, setEvent] = useState("");
@@ -93,7 +95,7 @@ const CreateEventPage = () => {
       setEndHours(0);
       setEndMinutes("00");
       setEndPeriod("AM");
-      setDuration(Actions.ALL_DAY);
+      setDuration(allDay);
     }
   }, [selectedStartTime]);
 
@@ -132,40 +134,38 @@ const CreateEventPage = () => {
       event: event,
       user: user,
       tag: tag,
-      startTime:
-        duration === Actions.ALL_DAY
-          ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
-          : new Date(
-              `${months[startMonth]} ${startDate}, ${startYear} ${
-                startPeriod === "PM"
-                  ? startHours !== "12"
-                    ? (parseInt(startHours) + 12).toString()
-                    : startHours
+      startTime: allDay
+        ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
+        : new Date(
+            `${months[startMonth]} ${startDate}, ${startYear} ${
+              startPeriod === "PM"
+                ? startHours !== "12"
+                  ? (parseInt(startHours) + 12).toString()
                   : startHours
-              }:${startMinutes}:00`
-            ),
-      endTime:
-        duration === Actions.ALL_DAY
-          ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
-          : duration === Actions.MULTIPLE_DAYS
-          ? new Date(
-              `${months[endMonth]} ${endDate}, ${endYear} ${
-                endPeriod === "PM"
-                  ? endHours !== "12"
-                    ? (parseInt(endHours) + 12).toString()
-                    : endHours
+                : startHours
+            }:${startMinutes}:00`
+          ),
+      endTime: allDay
+        ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
+        : duration === Actions.MULTIPLE_DAYS
+        ? new Date(
+            `${months[endMonth]} ${endDate}, ${endYear} ${
+              endPeriod === "PM"
+                ? endHours !== "12"
+                  ? (parseInt(endHours) + 12).toString()
                   : endHours
-              }:${endMinutes}:00`
-            )
-          : new Date(
-              `${months[startMonth]} ${startDate}, ${startYear} ${
-                endPeriod === "PM"
-                  ? endHours !== "12"
-                    ? (parseInt(endHours) + 12).toString()
-                    : endHours
+                : endHours
+            }:${endMinutes}:00`
+          )
+        : new Date(
+            `${months[startMonth]} ${startDate}, ${startYear} ${
+              endPeriod === "PM"
+                ? endHours !== "12"
+                  ? (parseInt(endHours) + 12).toString()
                   : endHours
-              }:${endMinutes}:00`
-            ),
+                : endHours
+            }:${endMinutes}:00`
+          ),
       creationTime: new Date(),
     };
 
@@ -229,6 +229,24 @@ const CreateEventPage = () => {
     setEndTimeError("");
   };
 
+  const handleStartPeriodChange = (value) => {
+    setStartPeriod(value);
+
+    if (value === "AM") {
+      setEndPeriod("AM");
+    } else if (value === "PM") {
+      setEndPeriod("PM");
+    }
+  };
+
+  const handleEndPeriodChange = (value) => {
+    setEndPeriod(value);
+
+    if (value === "AM") {
+      setStartPeriod("AM");
+    }
+  };
+
   return (
     <>
       <DatePickerModal
@@ -262,7 +280,7 @@ const CreateEventPage = () => {
               <div className="flex flex-1">&nbsp;</div>
             </div>
             <div className="flex flex-col">
-              <div className={`${duration === "All Day" ? "h-[calc(100vh-224px)] sm:h-fit" : "h-fit"} p-4`}>
+              <div className={`${allDay ? "h-[calc(100vh-224px)] sm:h-fit" : "h-fit"} p-4`}>
                 <form onSubmit={handleOnSave}>
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-row items-center">
@@ -272,14 +290,9 @@ const CreateEventPage = () => {
                         onClick={() => setDuration(Actions.PARTIAL_DAY)}
                       />
                       <Tab
-                        value="All Day"
-                        selected={duration === Actions.ALL_DAY}
-                        onClick={(e) => setDuration(Actions.ALL_DAY)}
-                      />
-                      <Tab
                         value="Multiple Days"
                         selected={duration === Actions.MULTIPLE_DAYS}
-                        onClick={(e) => setDuration(Actions.MULTIPLE_DAYS)}
+                        onClick={() => setDuration(Actions.MULTIPLE_DAYS)}
                       />
                     </div>
                     <DateInput
@@ -323,7 +336,8 @@ const CreateEventPage = () => {
                       showLabel
                       onChange={(e) => setTag(e.target.value)}
                     />
-                    {duration !== Actions.ALL_DAY && (
+                    <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
+                    {!allDay && (
                       <>
                         <TimeInput
                           label="Start Time"
@@ -333,7 +347,7 @@ const CreateEventPage = () => {
                           error={startTimeError}
                           onHourChange={(e) => setStartHours(e.target.value)}
                           onMinutesChange={(e) => setStartMinutes(e.target.value)}
-                          onPeriodChange={(value) => setStartPeriod(value)}
+                          onPeriodChange={(value) => handleStartPeriodChange(value)}
                         />
                         <TimeInput
                           label="End Time"
@@ -343,7 +357,7 @@ const CreateEventPage = () => {
                           error={endTimeError}
                           onHourChange={(e) => setEndHours(e.target.value)}
                           onMinutesChange={(e) => setEndMinutes(e.target.value)}
-                          onPeriodChange={(value) => setEndPeriod(value)}
+                          onPeriodChange={(value) => handleEndPeriodChange(value)}
                         />
                       </>
                     )}

@@ -17,7 +17,6 @@ export const GET_SELECTED_THEME = "GET_SELECTED_THEME";
 export const SET_SELECTED_THEME = "SET_SELECTED_THEME";
 
 export const PARTIAL_DAY = "PARTIAL_DAY";
-export const ALL_DAY = "ALL_DAY";
 export const MULTIPLE_DAYS = "MULTIPLE_DAYS";
 
 export const LOGIN = "LOGIN";
