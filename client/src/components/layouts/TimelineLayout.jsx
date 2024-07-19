@@ -166,7 +166,7 @@ const TimelineLayout = ({ data }) => {
         <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-8 pt-4 pl-4 pr-4 md:pt-0 md:pl-0 md:pr-0">
           <div className="flex flex-row justify-between md:justify-start items-end gap-4 h-14">
             <div className="flex flex-col gap-0">
-              <div className="flex flex-row items-center gap-2">
+              <div className="flex flex-row items-center gap-2 h-10">
                 <Typography variant="body2" color="secondary">
                   {daysOfWeek[selectedDate.weekday]}
                 </Typography>

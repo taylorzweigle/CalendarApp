@@ -1,18 +1,25 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-const Chip = ({ selected, onClick, children }) => {
+import Typography from "../typography/Typography";
+
+const Chip = ({ selected, secondarySelected, onClick, children }) => {
   return (
-    <button
-      className={`flex items-center justify-center sm:hover:bg-slate-200 sm:hover:dark:bg-slate-700 active:bg-slate-200 active:dark:bg-slate-700 rounded-lg w-20 h-12 ${
+    <div
+      className={`inline-flex justify-center items-center h-12 w-20 rounded-full ${
         selected
-          ? "bg-transparent text-slate-900 dark:text-white border-2 border-sky-600 dark:border-sky-400"
-          : "text-slate-700 dark:text-slate-300"
-      }`}
+          ? "bg-sky-500 dark:bg-sky-500"
+          : secondarySelected
+          ? "border-2 border-sky-500 dark:border-sky-500"
+          : "active:bg-sky-200 active:dark:bg-slate-700 md:hover:bg-sky-200 md:hover:dark:bg-slate-700"
+      } cursor-pointer`}
       onClick={onClick}
     >
-      {children}
-    </button>
+      <Typography variant="body" color={selected ? "white" : "textPrimary"}>
+        {children}
+      </Typography>
+    </div>
   );
 };
+
 export default Chip;

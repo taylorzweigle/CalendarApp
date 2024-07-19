@@ -104,6 +104,28 @@ const CreateEventPage = () => {
     setStartDate(selectedDate.date);
     setStartYear(selectedDate.year);
 
+    setEndMonth(
+      new Date(
+        new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).setDate(
+          new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).getDate() + 1
+        )
+      ).getMonth()
+    );
+    setEndDate(
+      new Date(
+        new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).setDate(
+          new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).getDate() + 1
+        )
+      ).getDate()
+    );
+    setEndYear(
+      new Date(
+        new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).setDate(
+          new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).getDate() + 1
+        )
+      ).getFullYear()
+    );
+
     setStartMonthPickerModal(false);
   };
 
@@ -262,6 +284,9 @@ const CreateEventPage = () => {
         month={endMonth}
         date={endDate}
         year={endYear}
+        minDate={new Date(`${months[startMonth]} ${startDate}, ${startYear}`).setDate(
+          new Date(`${months[startMonth]} ${startDate}, ${startYear}`).getDate() + 1
+        )}
         onSaveClick={handleOnSaveEndMonthPicker}
         onCancelClick={() => setEndMonthPickerModal(false)}
       />

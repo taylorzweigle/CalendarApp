@@ -18,7 +18,6 @@ const DateInput = ({ label, month, date, year, showLabel, onClick }) => {
         <Typography variant="body1" color="primary">
           {month !== undefined && date && year ? `${months[month]} ${date}, ${year}` : ""}
         </Typography>
-
         <DateRangeIcon />
       </div>
     );

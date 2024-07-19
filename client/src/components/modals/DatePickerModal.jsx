@@ -148,7 +148,7 @@ const DatePickerModal = ({ open, month, date, year, onSaveClick, onCancelClick }
                     >
                       <Typography
                         variant="body"
-                        color={date.date === selectedDate.date ? "white" : "textPrimary"}
+                        color={date.date === selectedDate.date ? "white" : "primary"}
                       >
                         {date.date}
                       </Typography>

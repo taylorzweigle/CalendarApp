@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
+import Chip from "../../core/chip/Chip";
 import IconButton from "../../core/iconButton/IconButton";
 import Modal from "../../core/modal/Modal";
 import Typography from "../../core/typography/Typography";
@@ -54,21 +55,16 @@ const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => 
         </div>
         <div className="flex flex-wrap justify-center align-middle gap-4">
           {months.map((m) => (
-            <div
+            <Chip
               key={m}
-              className={`inline-flex justify-center items-center h-12 w-24 md:w-20 rounded-full ${
-                selectedMonth.month === m
-                  ? "bg-sky-500 dark:bg-sky-500"
-                  : months.indexOf(m) === today.getMonth() && selectedMonth.year === today.getFullYear()
-                  ? "border-2 border-sky-500 dark:border-sky-500"
-                  : "active:bg-sky-200 active:dark:bg-slate-700 md:hover:bg-sky-200 md:hover:dark:bg-slate-700"
-              } cursor-pointer`}
+              selected={selectedMonth.month === m}
+              secondarySelected={
+                months.indexOf(m) === today.getMonth() && selectedMonth.year === today.getFullYear()
+              }
               onClick={() => setSelectedMonth({ month: m, year: selectedMonth.year })}
             >
-              <Typography variant="body" color={selectedMonth.month === m ? "white" : "textPrimary"}>
-                {m.slice(0, 3)}
-              </Typography>
-            </div>
+              {m.slice(0, 3)}
+            </Chip>
           ))}
         </div>
       </div>
