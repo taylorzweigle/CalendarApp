@@ -14,6 +14,7 @@ const DatePickerModal = ({ open, month, date, year, minDate, onSaveClick, onCanc
   const today = new Date();
 
   const [selectedDate, setSelectedDate] = useState({});
+  const [minimumDate, setMinimumDate] = useState({});
 
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
 
@@ -22,6 +23,22 @@ const DatePickerModal = ({ open, month, date, year, minDate, onSaveClick, onCanc
   useEffect(() => {
     setSelectedDate({ month: month, date: date, year: year });
   }, [month, date, year]);
+
+  useEffect(() => {
+    setMinimumDate(
+      minDate
+        ? {
+            month: new Date(minDate).getMonth(),
+            date: new Date(minDate).getDate(),
+            year: new Date(minDate).getFullYear(),
+          }
+        : {
+            month: new Date(1970, 0, 1).getMonth(),
+            date: new Date(1970, 0, 1).getDate(),
+            year: new Date(1970, 0, 1).getFullYear(),
+          }
+    );
+  }, [minDate]);
 
   const handleCancelClick = () => {
     setSelectedDate({ month: month, date: date, year: year });
@@ -43,20 +60,38 @@ const DatePickerModal = ({ open, month, date, year, minDate, onSaveClick, onCanc
 
     for (let i = dayOfWeekOfMonthStart - 1; i >= 0; i--) {
       calendarDays.push({
-        key: `${month - 1 < 10 ? "0" : ""}${month === 0 ? 11 : month - 1}${prevMonthLength - i}`,
-        date: "",
+        key: `${(month - 1).toString().length === 1 ? "0" : ""}${month === 0 ? 11 : month - 1}${
+          (prevMonthLength - i).toString().length === 1 ? "0" : ""
+        }${prevMonthLength - i}${month === 0 ? year - 1 : year}`,
+        month: month === 0 ? 11 : month - 1,
+        day: prevMonthLength - i,
+        year: month === 0 ? year - 1 : year,
       });
     }
 
     for (let i = 1; i <= monthLength; i++) {
-      calendarDays.push({ key: `${month < 10 ? "0" : ""}${month}${i}`, date: i });
+      calendarDays.push({
+        key: `${month.toString().length === 1 ? "0" : ""}${month}${
+          i.toString().length === 1 ? "0" : ""
+        }${i}${year}`,
+        month: month,
+        day: i,
+        year: year,
+      });
     }
 
     remainingDays = 7 - (calendarDays.length % 7);
 
     if (remainingDays < 7) {
       for (let i = 0; i < remainingDays; i++) {
-        calendarDays.push({ key: `${month + 1 < 10 ? "0" : ""}${month + 1}${i}`, date: "" });
+        calendarDays.push({
+          key: `${(month + 1).toString().length === 1 ? "0" : ""}${month + 1 > 11 ? 0 : month + 1}${
+            (i + 1).toString().length === 1 ? "0" : ""
+          }${i + 1}${month === 11 ? year + 1 : year}`,
+          month: month + 1 > 11 ? 0 : month + 1,
+          day: i + 1,
+          year: month === 11 ? year + 1 : year,
+        });
       }
     }
 
@@ -87,6 +122,28 @@ const DatePickerModal = ({ open, month, date, year, minDate, onSaveClick, onCanc
       date: 1,
       year: selectedDate.month === 11 ? selectedDate.year + 1 : selectedDate.year,
     });
+  };
+
+  const selectDate = (date) => {
+    return (
+      date.day === selectedDate.date && date.month === selectedDate.month && date.year === selectedDate.year
+    );
+  };
+
+  const todayDate = (date) => {
+    return (
+      date.day === today.getDate() &&
+      selectedDate.month === today.getMonth() &&
+      selectedDate.year === today.getFullYear()
+    );
+  };
+
+  const disableDate = (date) => {
+    return (
+      new Date(date.year, date.month, date.day) -
+        new Date(minimumDate.year, minimumDate.month, minimumDate.date) <
+      0
+    );
   };
 
   return (
@@ -134,25 +191,29 @@ const DatePickerModal = ({ open, month, date, year, minDate, onSaveClick, onCanc
               <tr key={week.week}>
                 {week.days.map((date) => (
                   <td className="text-center align-middle" key={date.key}>
-                    <div
-                      className={`inline-flex justify-center items-center h-11 w-11 rounded-full ${
-                        date.date === selectedDate.date
-                          ? "bg-sky-500 dark:bg-sky-500"
-                          : date.date === today.getDate() &&
-                            selectedDate.month === today.getMonth() &&
-                            selectedDate.year === today.getFullYear()
-                          ? "border-2 border-sky-500 dark:border-sky-500"
-                          : "active:bg-sky-200 active:dark:bg-slate-700 md:hover:bg-sky-200 md:hover:dark:bg-slate-700"
-                      } cursor-pointer`}
-                      onClick={() => handleSelectDay(selectedDate.year, selectedDate.month, date.date)}
-                    >
-                      <Typography
-                        variant="body"
-                        color={date.date === selectedDate.date ? "white" : "primary"}
+                    {date.month === selectedDate.month && (
+                      <div
+                        className={`inline-flex justify-center items-center h-11 w-11 rounded-full ${
+                          selectDate(date)
+                            ? "bg-sky-500 dark:bg-sky-500 cursor-pointer"
+                            : todayDate(date)
+                            ? "border-2 border-sky-500 dark:border-sky-500 cursor-pointer"
+                            : disableDate(date)
+                            ? ""
+                            : "active:bg-sky-200 active:dark:bg-slate-700 md:hover:bg-sky-200 md:hover:dark:bg-slate-700 cursor-pointer"
+                        }`}
+                        onClick={
+                          disableDate(date) ? null : () => handleSelectDay(date.year, date.month, date.day)
+                        }
                       >
-                        {date.date}
-                      </Typography>
-                    </div>
+                        <Typography
+                          variant="body"
+                          color={selectDate(date) ? "white" : disableDate(date) ? "secondary" : "primary"}
+                        >
+                          {date.day}
+                        </Typography>
+                      </div>
+                    )}
                   </td>
                 ))}
               </tr>
