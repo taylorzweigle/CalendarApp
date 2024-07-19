@@ -305,7 +305,7 @@ const CreateEventPage = () => {
               <div className="flex flex-1">&nbsp;</div>
             </div>
             <div className="flex flex-col">
-              <div className={`${allDay ? "h-[calc(100vh-224px)] sm:h-fit" : "h-fit"} p-4`}>
+              <div className="h-fit p-4">
                 <form onSubmit={handleOnSave}>
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-row items-center">
@@ -361,7 +361,9 @@ const CreateEventPage = () => {
                       showLabel
                       onChange={(e) => setTag(e.target.value)}
                     />
-                    <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
+                    <div className="flex items-center h-12">
+                      <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
+                    </div>
                     {!allDay && (
                       <>
                         <TimeInput

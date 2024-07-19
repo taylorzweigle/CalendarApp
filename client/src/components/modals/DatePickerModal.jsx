@@ -10,7 +10,7 @@ import Typography from "../../core/typography/Typography";
 
 import { months, daysOfWeek } from "../calendar/Calendar";
 
-const DatePickerModal = ({ open, month, date, year, onSaveClick, onCancelClick }) => {
+const DatePickerModal = ({ open, month, date, year, minDate, onSaveClick, onCancelClick }) => {
   const today = new Date();
 
   const [selectedDate, setSelectedDate] = useState({});

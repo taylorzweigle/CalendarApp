@@ -126,6 +126,28 @@ const EditEventPage = () => {
     setStartDate(selectedDate.date);
     setStartYear(selectedDate.year);
 
+    setEndMonth(
+      new Date(
+        new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).setDate(
+          new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).getDate() + 1
+        )
+      ).getMonth()
+    );
+    setEndDate(
+      new Date(
+        new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).setDate(
+          new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).getDate() + 1
+        )
+      ).getDate()
+    );
+    setEndYear(
+      new Date(
+        new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).setDate(
+          new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`).getDate() + 1
+        )
+      ).getFullYear()
+    );
+
     setStartMonthPickerModal(false);
   };
 
@@ -306,6 +328,9 @@ const EditEventPage = () => {
         month={endMonth}
         date={endDate}
         year={endYear}
+        minDate={new Date(`${months[startMonth]} ${startDate}, ${startYear}`).setDate(
+          new Date(`${months[startMonth]} ${startDate}, ${startYear}`).getDate() + 1
+        )}
         onSaveClick={handleOnSaveEndMonthPicker}
         onCancelClick={() => setEndMonthPickerModal(false)}
       />
@@ -331,7 +356,7 @@ const EditEventPage = () => {
               <div className="flex flex-1">&nbsp;</div>
             </div>
             <div className="flex flex-col">
-              <div className={`${allDay ? "h-[calc(100vh-288px)] sm:h-fit" : "h-fit"} p-4`}>
+              <div className="h-fit p-4">
                 <form onSubmit={handleOnSave}>
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-row items-center">
@@ -387,7 +412,9 @@ const EditEventPage = () => {
                       showLabel
                       onChange={(e) => setTag(e.target.value)}
                     />
-                    <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
+                    <div className="flex items-center h-12">
+                      <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
+                    </div>
                     {!allDay && (
                       <>
                         <TimeInput
