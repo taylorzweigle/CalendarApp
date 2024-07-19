@@ -14,8 +14,8 @@ const CalendarDay = ({ day, today, outOfMonth, selected, onClick, children }) =>
       } ${
         outOfMonth
           ? "bg-slate-100 dark:bg-slate-950"
-          : "bg-white dark:bg-slate-800 active:bg-slate-50 active:dark:bg-slate-700 cursor-pointer"
-      }`}
+          : "bg-white dark:bg-slate-800 active:bg-slate-50 active:dark:bg-slate-700"
+      }  cursor-pointer`}
       onClick={onClick}
     >
       <div className="flex flex-col gap-1 sm:gap-2 h-full">

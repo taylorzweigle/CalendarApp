@@ -97,7 +97,7 @@ const CreateEventPage = () => {
       setEndPeriod("AM");
       setDuration(allDay);
     }
-  }, [selectedStartTime]);
+  }, [allDay, selectedStartTime]);
 
   const handleOnSaveStartMonthPicker = (selectedDate) => {
     setStartMonth(selectedDate.month);

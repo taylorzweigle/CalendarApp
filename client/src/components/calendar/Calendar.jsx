@@ -48,15 +48,24 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
 
     for (let i = dayOfWeekOfMonthStart - 1; i >= 0; i--) {
       calendarDays.push({
-        key: `${month - 1 < 10 ? "0" : ""}${month === 0 ? 11 : month - 1}${
-          prevMonthLength - i < 10 ? "0" : ""
-        }${prevMonthLength - i}`,
+        key: `${(month - 1).toString().length === 1 ? "0" : ""}${month === 0 ? 11 : month - 1}${
+          (prevMonthLength - i).toString().length === 1 ? "0" : ""
+        }${prevMonthLength - i}${month === 0 ? year - 1 : year}`,
+        month: month === 0 ? 11 : month - 1,
         day: prevMonthLength - i,
+        year: month === 0 ? year - 1 : year,
       });
     }
 
     for (let i = 1; i <= monthLength; i++) {
-      calendarDays.push({ key: `${month < 10 ? "0" : ""}${month}${i < 10 ? "0" : ""}${i}`, day: i });
+      calendarDays.push({
+        key: `${month.toString().length === 1 ? "0" : ""}${month}${
+          i.toString().length === 1 ? "0" : ""
+        }${i}${year}`,
+        month: month,
+        day: i,
+        year: year,
+      });
     }
 
     remainingDays = 7 - (calendarDays.length % 7);
@@ -64,8 +73,12 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
     if (remainingDays < 7) {
       for (let i = 0; i < remainingDays; i++) {
         calendarDays.push({
-          key: `${month + 1 < 10 ? "0" : ""}${month + 1}${i + 1 < 10 ? "0" : ""}${i + 1}`,
+          key: `${(month + 1).toString().length === 1 ? "0" : ""}${month + 1 > 11 ? 0 : month + 1}${
+            (i + 1).toString().length === 1 ? "0" : ""
+          }${i + 1}${month === 11 ? year + 1 : year}`,
+          month: month + 1 > 11 ? 0 : month + 1,
           day: i + 1,
+          year: month === 11 ? year + 1 : year,
         });
       }
     }
@@ -98,27 +111,21 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
                 <CalendarDay
                   day={day.day}
                   today={
-                    parseInt(day.key.slice(0, 2)) === today.getMonth() &&
+                    day.month === today.getMonth() &&
                     day.day === today.getDate() &&
                     selectedDate.year === today.getFullYear()
                   }
-                  outOfMonth={parseInt(day.key.slice(0, 2)) !== selectedDate.month}
-                  selected={
-                    parseInt(day.key.slice(0, 2)) === selectedDate.month && selectedDate.date === day.day
-                  }
-                  onClick={
-                    parseInt(day.key.slice(0, 2)) === selectedDate.month
-                      ? () => onSelectDay(selectedDate.year, selectedDate.month, day.day)
-                      : null
-                  }
+                  outOfMonth={day.month !== selectedDate.month}
+                  selected={day.month === selectedDate.month && selectedDate.date === day.day}
+                  onClick={() => onSelectDay(day.year, day.month, day.day)}
                 >
                   <div className="flex flex-col gap-1 sm:gap-1 md:gap-2 h-full">
                     {data &&
                       sortEvents(
                         data.filter(
                           (item) =>
-                            parseInt(day.key.slice(0, 2)) === new Date(item.startTime).getMonth() &&
-                            selectedDate.year === new Date(item.startTime).getFullYear() &&
+                            day.month === new Date(item.startTime).getMonth() &&
+                            day.year === new Date(item.startTime).getFullYear() &&
                             day.day === new Date(item.startTime).getDate()
                         )
                       ).map((event) => (
