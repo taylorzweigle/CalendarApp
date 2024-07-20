@@ -42,7 +42,8 @@ const DetailsLayout = ({ data, calendars }) => {
               color={calendars.find((calendar) => calendar.user === event.user).color}
               tag={event.tag}
               startTime={new Date(event.startTime)}
-              endTime={new Date(event.endTime)}
+              endTime={event.actualEndTime ? new Date(event.actualEndTime) : new Date(event.endTime)}
+              showDate={event.actualEndTime}
               badge={showBadge(event.creationTime)}
             />
           </Link>

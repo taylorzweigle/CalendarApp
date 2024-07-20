@@ -40,6 +40,7 @@ const populateEvents = (events) => {
               999
             ),
             type: "start",
+            actualEndTime: events[i].endTime,
             creationTime: events[i].creationTime,
             creationUser: events[i].creationUser,
           };
@@ -63,6 +64,7 @@ const populateEvents = (events) => {
             ),
             endTime: events[i].endTime,
             type: "end",
+            actualEndTime: events[i].endTime,
             creationTime: events[i].creationTime,
             creationUser: events[i].creationUser,
           };
@@ -86,6 +88,7 @@ const populateEvents = (events) => {
               new Date(events[i].startTime).getDate() + j
             ),
             type: "middle",
+            actualEndTime: events[i].endTime,
             creationTime: events[i].creationTime,
             creationUser: events[i].creationUser,
           };
