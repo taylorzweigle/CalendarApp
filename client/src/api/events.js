@@ -1,5 +1,8 @@
 //Taylor Zweigle, 2024
-const API_URL = process.env.NODE_ENV === "production" ? "https://calendar-app-server-sage.vercel.app" : "http://localhost:5000";
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://calendar-app-server-sage.vercel.app"
+    : "http://localhost:5000";
 
 export const getEvents = async (token) => {
   const res = await fetch(`${API_URL}/api/events`, {

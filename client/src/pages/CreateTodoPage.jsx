@@ -33,7 +33,7 @@ const CreateTodoPage = () => {
   const [todo, setTodo] = useState("");
   const [user, setUser] = useState("");
   const [month, setMonth] = useState("");
-  const [date, setDate] = useState("");
+  const [dueDate, setDueDate] = useState("");
   const [year, setYear] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -49,13 +49,13 @@ const CreateTodoPage = () => {
     date.setDate(date.getDate() + 1);
 
     setMonth(date.getMonth());
-    setDate(date.getDate());
+    setDueDate(date.getDate());
     setYear(date.getFullYear());
   }, [selectedDate]);
 
   const handleOnSaveMonthPicker = (selectedDate) => {
     setMonth(selectedDate.month);
-    setDate(selectedDate.date);
+    setDueDate(selectedDate.date);
     setYear(selectedDate.year);
 
     setModalOpen(false);
@@ -79,7 +79,7 @@ const CreateTodoPage = () => {
     const newTodo = {
       todo: todo,
       user: user,
-      date: new Date(`${months[month]} ${date}, ${year}`),
+      dueDate: new Date(`${months[month]} ${dueDate}, ${year}`),
       notes: notes,
       checked: false,
       creationTime: new Date(),
@@ -117,7 +117,7 @@ const CreateTodoPage = () => {
     setTodo("");
     setUser("");
     setMonth("");
-    setDate("");
+    setDueDate("");
     setYear("");
     setNotes("");
 
@@ -134,7 +134,7 @@ const CreateTodoPage = () => {
       <DatePickerModal
         open={modalOpen}
         month={month}
-        date={date}
+        date={dueDate}
         year={year}
         onSaveClick={handleOnSaveMonthPicker}
         onCancelClick={() => setModalOpen(false)}
@@ -160,7 +160,7 @@ const CreateTodoPage = () => {
                     <DateInput
                       label="Due Date"
                       month={month}
-                      date={date}
+                      date={dueDate}
                       year={year}
                       showLabel
                       onClick={() => setModalOpen(true)}

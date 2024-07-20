@@ -35,7 +35,7 @@ const EditTodoPage = () => {
   const [todo, setTodo] = useState("");
   const [user, setUser] = useState("");
   const [month, setMonth] = useState("");
-  const [date, setDate] = useState("");
+  const [dueDate, setDueDate] = useState("");
   const [year, setYear] = useState("");
   const [notes, setNotes] = useState("");
   const [checked, setChecked] = useState(false);
@@ -55,9 +55,9 @@ const EditTodoPage = () => {
 
       setTodo(todo.json.todo);
       setUser(todo.json.user);
-      setMonth(new Date(todo.json.date).getMonth());
-      setDate(new Date(todo.json.date).getDate());
-      setYear(new Date(todo.json.date).getFullYear());
+      setMonth(new Date(todo.json.dueDate).getMonth());
+      setDueDate(new Date(todo.json.dueDate).getDate());
+      setYear(new Date(todo.json.dueDate).getFullYear());
       setNotes(todo.json.notes);
       setChecked(todo.json.checked);
     };
@@ -69,7 +69,7 @@ const EditTodoPage = () => {
 
   const handleOnSaveMonthPicker = (selectedDate) => {
     setMonth(selectedDate.month);
-    setDate(selectedDate.date);
+    setDueDate(selectedDate.date);
     setYear(selectedDate.year);
 
     setModalOpen(false);
@@ -97,7 +97,7 @@ const EditTodoPage = () => {
     const newTodo = {
       todo: todo,
       user: user,
-      date: new Date(`${months[month]} ${date}, ${year}`),
+      dueDate: new Date(`${months[month]} ${dueDate}, ${year}`),
       notes: notes,
       checked: checked,
       creationTime: new Date(),
@@ -153,7 +153,7 @@ const EditTodoPage = () => {
     setTodo("");
     setUser("");
     setMonth("");
-    setDate("");
+    setDueDate("");
     setYear("");
     setNotes("");
 
@@ -170,7 +170,7 @@ const EditTodoPage = () => {
       <DatePickerModal
         open={modalOpen}
         month={month}
-        date={date}
+        date={dueDate}
         year={year}
         onSaveClick={handleOnSaveMonthPicker}
         onCancelClick={() => setModalOpen(false)}
@@ -203,7 +203,7 @@ const EditTodoPage = () => {
                     <DateInput
                       label="Due Date"
                       month={month}
-                      date={date}
+                      date={dueDate}
                       year={year}
                       showLabel
                       onClick={() => setModalOpen(true)}

@@ -29,8 +29,8 @@ const TodoLayout = ({ data }) => {
   const [loading, setLoading] = useState("");
 
   useEffect(() => {
-    setTodos(data ? sortTodos(data.filter((todo) => new Date() < new Date(todo.date))) : []);
-    setDueTodos(data ? sortTodos(data.filter((todo) => new Date() >= new Date(todo.date))) : []);
+    setTodos(data ? sortTodos(data.filter((todo) => new Date() < new Date(todo.dueDate))) : []);
+    setDueTodos(data ? sortTodos(data.filter((todo) => new Date() >= new Date(todo.dueDate))) : []);
   }, [data]);
 
   useEffect(() => {
@@ -95,7 +95,7 @@ const TodoLayout = ({ data }) => {
                 key={todo._id}
                 todo={todo.todo}
                 color={calendars.find((calendar) => calendar.user === todo.user).color}
-                dueDate={todo.date}
+                dueDate={todo.dueDate}
                 notes={todo.notes}
                 checked={todo.checked}
                 loading={loading === todo._id}
@@ -125,7 +125,7 @@ const TodoLayout = ({ data }) => {
                 key={todo._id}
                 todo={todo.todo}
                 color={calendars.find((calendar) => calendar.user === todo.user).color}
-                dueDate={todo.date}
+                dueDate={todo.dueDate}
                 notes={todo.notes}
                 checked={todo.checked}
                 loading={loading === todo._id}

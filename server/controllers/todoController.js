@@ -28,7 +28,7 @@ const getTodo = async (req, res) => {
 };
 
 const createTodo = async (req, res) => {
-  const { todo, user, date, notes, creationTime, checked, checkedTime } = req.body;
+  const { todo, user, dueDate, notes, creationTime, checked, checkedTime } = req.body;
 
   try {
     const creationUser = req.user._id;
@@ -36,7 +36,7 @@ const createTodo = async (req, res) => {
     const newTodo = await Event.create({
       todo,
       user,
-      date,
+      dueDate,
       notes,
       creationTime,
       creationUser,
