@@ -1,5 +1,5 @@
 //Taylor Zweigle, 2024
-import React from "react";
+import React, { useEffect } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -21,6 +21,28 @@ const Modal = ({
   onResetAction,
   onCancel,
 }) => {
+  useEffect(() => {
+    open && document.body.classList.add("overflow-hidden");
+  }, [open]);
+
+  const handleAction = () => {
+    document.body.classList.remove("overflow-hidden");
+
+    onAction && onAction();
+  };
+
+  const handleResetAction = () => {
+    document.body.classList.remove("overflow-hidden");
+
+    onResetAction && onResetAction();
+  };
+
+  const handleCancel = () => {
+    document.body.classList.remove("overflow-hidden");
+
+    onCancel && onCancel();
+  };
+
   return (
     <div
       className={`${
@@ -33,7 +55,7 @@ const Modal = ({
             <Typography variant="heading" color="primary">
               {title}
             </Typography>
-            <IconButton onClick={onCancel}>
+            <IconButton onClick={handleCancel}>
               <CloseIcon />
             </IconButton>
           </div>
@@ -43,17 +65,17 @@ const Modal = ({
           <div className="flex flex-row justify-between items-center p-4 sm:p-8">
             <div>
               {resetAction && (
-                <Button variant="default" onClick={onResetAction}>
+                <Button variant="default" onClick={handleResetAction}>
                   {resetAction}
                 </Button>
               )}
             </div>
             <div className="flex flex-row justify-end gap-4">
-              <Button variant="default" onClick={onCancel}>
+              <Button variant="default" onClick={handleCancel}>
                 Cancel
               </Button>
               {action && (
-                <Button variant={errorModal ? "error" : "primary"} onClick={onAction} loading={loading}>
+                <Button variant={errorModal ? "error" : "primary"} onClick={handleAction} loading={loading}>
                   {action}
                 </Button>
               )}

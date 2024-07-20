@@ -58,7 +58,7 @@ const populateEvents = (events) => {
               new Date(events[i].endTime).getFullYear(),
               new Date(events[i].endTime).getMonth(),
               new Date(events[i].endTime).getDate(),
-              0,
+              6,
               0,
               0,
               0

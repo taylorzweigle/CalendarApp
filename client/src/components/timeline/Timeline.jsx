@@ -84,8 +84,14 @@ const Timeline = ({ data, calendars, onHourClick }) => {
               tag={array[i].tag}
               color={calendars.find((calendar) => calendar.user === array[i].user).color}
               currentHour={isCurrentTime(hour)}
-              startTime={new Date(array[i].startTime)}
-              endTime={new Date(array[i].endTime)}
+              startTime={
+                array[i].actualStartTime ? new Date(array[i].actualStartTime) : new Date(array[i].startTime)
+              }
+              endTime={
+                array[i].actualEndTime ? new Date(array[i].actualEndTime) : new Date(array[i].endTime)
+              }
+              showStartDate={array[i].actualStartTime}
+              showEndDate={array[i].actualEndTime}
               badge={showBadge(array[i].creationTime)}
               onClick={() => navigate(`/event/${array[i]._id}`)}
             />

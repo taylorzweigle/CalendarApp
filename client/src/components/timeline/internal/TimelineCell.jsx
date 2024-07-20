@@ -6,6 +6,8 @@ import AddIcon from "@mui/icons-material/Add";
 import Badge from "../../../core/badge/Badge";
 import Typography from "../../../core/typography/Typography";
 
+import { months } from "../../calendar/Calendar";
+
 import { compareStartAndEndTimes, formatTime, getColors, getIcons } from "../../../utility/utility";
 
 const TimelineCell = ({
@@ -16,6 +18,8 @@ const TimelineCell = ({
   currentHour,
   startTime,
   endTime,
+  showStartDate,
+  showEndDate,
   badge,
   hover,
   onClick,
@@ -50,7 +54,16 @@ const TimelineCell = ({
             </Typography>
             {!compareStartAndEndTimes(startTime, endTime) && (
               <Typography variant="caption" color="custom" customColor={colors.text} truncate>
-                {`${formatTime(startTime)} - ${formatTime(endTime)}`}
+                <span className="inline-flex justify-start items-center gap-1">
+                  {showStartDate && (
+                    <span>{`${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()}`}</span>
+                  )}
+                  <span>{`${formatTime(startTime)} -`}</span>
+                  {showEndDate && (
+                    <span>{`${months[endTime.getMonth()].slice(0, 3)} ${endTime.getDate()}`}</span>
+                  )}
+                  <span>{formatTime(endTime)}</span>
+                </span>
               </Typography>
             )}
           </div>
