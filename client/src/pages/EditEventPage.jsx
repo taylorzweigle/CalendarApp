@@ -37,7 +37,7 @@ const EditEventPage = () => {
   const { dispatch } = useEventsContext();
 
   const [allDay, setAllDay] = useState(false);
-  const [duration, setDuration] = useState(Actions.PARTIAL_DAY);
+  const [duration, setDuration] = useState(Actions.SINGLE_DAY);
 
   const [event, setEvent] = useState("");
   const [user, setUser] = useState("");
@@ -78,7 +78,7 @@ const EditEventPage = () => {
         new Date(event.json.startTime).getMonth() === new Date(event.json.endTime).getMonth() &&
           new Date(event.json.startTime).getDate() === new Date(event.json.endTime).getDate() &&
           new Date(event.json.startTime).getFullYear() === new Date(event.json.endTime).getFullYear()
-          ? Actions.PARTIAL_DAY
+          ? Actions.SINGLE_DAY
           : Actions.MULTIPLE_DAYS
       );
 
@@ -193,27 +193,30 @@ const EditEventPage = () => {
                 : startHours
             }:${startMinutes}:00`
           ),
-      endTime: allDay
-        ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
-        : duration === Actions.MULTIPLE_DAYS
-        ? new Date(
-            `${months[endMonth]} ${endDate}, ${endYear} ${
-              endPeriod === "PM"
-                ? endHours !== "12"
-                  ? (parseInt(endHours) + 12).toString()
+      endTime:
+        duration === Actions.SINGLE_DAY && allDay
+          ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
+          : duration === Actions.MULTIPLE_DAYS && !allDay
+          ? new Date(
+              `${months[endMonth]} ${endDate}, ${endYear} ${
+                endPeriod === "PM"
+                  ? endHours !== "12"
+                    ? (parseInt(endHours) + 12).toString()
+                    : endHours
                   : endHours
-                : endHours
-            }:${endMinutes}:00`
-          )
-        : new Date(
-            `${months[startMonth]} ${startDate}, ${startYear} ${
-              endPeriod === "PM"
-                ? endHours !== "12"
-                  ? (parseInt(endHours) + 12).toString()
+              }:${endMinutes}:00`
+            )
+          : duration === Actions.MULTIPLE_DAYS && allDay
+          ? new Date(`${months[endMonth]} ${endDate}, ${endDate}`)
+          : new Date(
+              `${months[startMonth]} ${startDate}, ${startYear} ${
+                endPeriod === "PM"
+                  ? endHours !== "12"
+                    ? (parseInt(endHours) + 12).toString()
+                    : endHours
                   : endHours
-                : endHours
-            }:${endMinutes}:00`
-          ),
+              }:${endMinutes}:00`
+            ),
       creationTime: creationTime,
     };
 
@@ -273,7 +276,7 @@ const EditEventPage = () => {
   };
 
   const clearForm = () => {
-    setDuration(Actions.PARTIAL_DAY);
+    setDuration(Actions.SINGLE_DAY);
     setEvent("");
     setUser("");
     setTag("");
@@ -361,9 +364,9 @@ const EditEventPage = () => {
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-row items-center">
                       <Tab
-                        value="Partial Day"
-                        selected={duration === Actions.PARTIAL_DAY}
-                        onClick={() => setDuration(Actions.PARTIAL_DAY)}
+                        value="Single Day"
+                        selected={duration === Actions.SINGLE_DAY}
+                        onClick={() => setDuration(Actions.SINGLE_DAY)}
                       />
                       <Tab
                         value="Multiple Days"

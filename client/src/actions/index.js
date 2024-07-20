@@ -16,7 +16,7 @@ export const SET_SELECTED_START_TIME = "SET_SELECTED_START_TIME";
 export const GET_SELECTED_THEME = "GET_SELECTED_THEME";
 export const SET_SELECTED_THEME = "SET_SELECTED_THEME";
 
-export const PARTIAL_DAY = "PARTIAL_DAY";
+export const SINGLE_DAY = "SINGLE_DAY";
 export const MULTIPLE_DAYS = "MULTIPLE_DAYS";
 
 export const LOGIN = "LOGIN";

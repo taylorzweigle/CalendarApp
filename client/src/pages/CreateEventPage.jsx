@@ -37,7 +37,7 @@ const CreateEventPage = () => {
   const { selectedStartTime } = useSelectedStartTimeContext();
 
   const [allDay, setAllDay] = useState(false);
-  const [duration, setDuration] = useState(Actions.PARTIAL_DAY);
+  const [duration, setDuration] = useState(Actions.SINGLE_DAY);
 
   const [event, setEvent] = useState("");
   const [user, setUser] = useState("");
@@ -167,27 +167,30 @@ const CreateEventPage = () => {
                 : startHours
             }:${startMinutes}:00`
           ),
-      endTime: allDay
-        ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
-        : duration === Actions.MULTIPLE_DAYS
-        ? new Date(
-            `${months[endMonth]} ${endDate}, ${endYear} ${
-              endPeriod === "PM"
-                ? endHours !== "12"
-                  ? (parseInt(endHours) + 12).toString()
+      endTime:
+        duration === Actions.SINGLE_DAY && allDay
+          ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
+          : duration === Actions.MULTIPLE_DAYS && !allDay
+          ? new Date(
+              `${months[endMonth]} ${endDate}, ${endYear} ${
+                endPeriod === "PM"
+                  ? endHours !== "12"
+                    ? (parseInt(endHours) + 12).toString()
+                    : endHours
                   : endHours
-                : endHours
-            }:${endMinutes}:00`
-          )
-        : new Date(
-            `${months[startMonth]} ${startDate}, ${startYear} ${
-              endPeriod === "PM"
-                ? endHours !== "12"
-                  ? (parseInt(endHours) + 12).toString()
+              }:${endMinutes}:00`
+            )
+          : duration === Actions.MULTIPLE_DAYS && allDay
+          ? new Date(`${months[endMonth]} ${endDate}, ${endDate}`)
+          : new Date(
+              `${months[startMonth]} ${startDate}, ${startYear} ${
+                endPeriod === "PM"
+                  ? endHours !== "12"
+                    ? (parseInt(endHours) + 12).toString()
+                    : endHours
                   : endHours
-                : endHours
-            }:${endMinutes}:00`
-          ),
+              }:${endMinutes}:00`
+            ),
       creationTime: new Date(),
     };
 
@@ -229,7 +232,7 @@ const CreateEventPage = () => {
   };
 
   const clearForm = () => {
-    setDuration(Actions.PARTIAL_DAY);
+    setDuration(Actions.SINGLE_DAY);
     setEvent("");
     setUser("");
     setTag("");
@@ -310,9 +313,9 @@ const CreateEventPage = () => {
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-row items-center">
                       <Tab
-                        value="Partial Day"
-                        selected={duration === Actions.PARTIAL_DAY}
-                        onClick={() => setDuration(Actions.PARTIAL_DAY)}
+                        value="Single Day"
+                        selected={duration === Actions.SINGLE_DAY}
+                        onClick={() => setDuration(Actions.SINGLE_DAY)}
                       />
                       <Tab
                         value="Multiple Days"

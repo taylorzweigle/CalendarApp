@@ -164,7 +164,10 @@ const DatePickerModal = ({ open, month, date, year, minDate, onSaveClick, onCanc
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-row justify-between items-center">
-          <IconButton onClick={handlePreviousButtonClick}>
+          <IconButton
+            color={minDate ? "disabled" : "default"}
+            onClick={minDate ? null : handlePreviousButtonClick}
+          >
             <ArrowBackIcon />
           </IconButton>
           <Typography variant="heading" color="primary" bold>
