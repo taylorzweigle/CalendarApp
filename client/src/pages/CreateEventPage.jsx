@@ -137,6 +137,17 @@ const CreateEventPage = () => {
     setEndMonthPickerModal(false);
   };
 
+  const handleAllDayClick = () => {
+    setStartHours(allDay ? "7" : "0");
+    setStartMinutes("00");
+    setStartPeriod(allDay ? "PM" : "AM");
+    setEndHours(allDay ? "9" : "00");
+    setEndMinutes("00");
+    setEndPeriod(allDay ? "PM" : "AM");
+
+    setAllDay(!allDay);
+  };
+
   const handleOnSave = async (e) => {
     e.preventDefault();
 
@@ -156,33 +167,18 @@ const CreateEventPage = () => {
       event: event,
       user: user,
       tag: tag,
-      startTime: allDay
-        ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
-        : new Date(
-            `${months[startMonth]} ${startDate}, ${startYear} ${
-              startPeriod === "PM"
-                ? startHours !== "12"
-                  ? (parseInt(startHours) + 12).toString()
-                  : startHours
-                : startHours
-            }:${startMinutes}:00`
-          ),
+      startTime: new Date(
+        `${months[startMonth]} ${startDate}, ${startYear} ${
+          startPeriod === "PM"
+            ? startHours !== "12"
+              ? (parseInt(startHours) + 12).toString()
+              : startHours
+            : startHours
+        }:${startMinutes}:00`
+      ),
       endTime:
-        duration === Actions.SINGLE_DAY && allDay
-          ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
-          : duration === Actions.MULTIPLE_DAYS && !allDay
+        duration === Actions.SINGLE_DAY
           ? new Date(
-              `${months[endMonth]} ${endDate}, ${endYear} ${
-                endPeriod === "PM"
-                  ? endHours !== "12"
-                    ? (parseInt(endHours) + 12).toString()
-                    : endHours
-                  : endHours
-              }:${endMinutes}:00`
-            )
-          : duration === Actions.MULTIPLE_DAYS && allDay
-          ? new Date(`${months[endMonth]} ${endDate}, ${endDate}`)
-          : new Date(
               `${months[startMonth]} ${startDate}, ${startYear} ${
                 endPeriod === "PM"
                   ? endHours !== "12"
@@ -190,7 +186,17 @@ const CreateEventPage = () => {
                     : endHours
                   : endHours
               }:${endMinutes}:00`
+            )
+          : new Date(
+              `${months[endMonth]} ${endDate}, ${endYear} ${
+                endPeriod === "PM"
+                  ? endHours !== "12"
+                    ? (parseInt(endHours) + 12).toString()
+                    : endHours
+                  : endHours
+              }:${endMinutes}:00`
             ),
+      allDay: allDay,
       creationTime: new Date(),
     };
 
@@ -365,7 +371,7 @@ const CreateEventPage = () => {
                       onChange={(e) => setTag(e.target.value)}
                     />
                     <div className="flex items-center h-12">
-                      <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
+                      <Checkbox selected={allDay} onClick={handleAllDayClick} />
                     </div>
                     {!allDay && (
                       <>

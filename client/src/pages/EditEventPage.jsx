@@ -73,7 +73,6 @@ const EditEventPage = () => {
     const fetchEvent = async () => {
       const event = await getEvent(params.id, authUser.token);
 
-      setAllDay(event.json.startTime === event.json.endTime ? true : false);
       setDuration(
         new Date(event.json.startTime).getMonth() === new Date(event.json.endTime).getMonth() &&
           new Date(event.json.startTime).getDate() === new Date(event.json.endTime).getDate() &&
@@ -113,6 +112,7 @@ const EditEventPage = () => {
           : new Date(event.json.endTime).getMinutes()
       );
       setEndPeriod(new Date(event.json.endTime).getHours() >= 12 ? "PM" : "AM");
+      setAllDay(event.json.allDay);
       setCreationTime(new Date());
     };
 
@@ -163,6 +163,17 @@ const EditEventPage = () => {
     navigate(-1);
   };
 
+  const handleAllDayClick = () => {
+    setStartHours(allDay ? "7" : "0");
+    setStartMinutes("00");
+    setStartPeriod(allDay ? "PM" : "AM");
+    setEndHours(allDay ? "9" : "00");
+    setEndMinutes("00");
+    setEndPeriod(allDay ? "PM" : "AM");
+
+    setAllDay(!allDay);
+  };
+
   const handleOnSave = async (e) => {
     e.preventDefault();
 
@@ -182,33 +193,18 @@ const EditEventPage = () => {
       event: event,
       user: user,
       tag: tag,
-      startTime: allDay
-        ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
-        : new Date(
-            `${months[startMonth]} ${startDate}, ${startYear} ${
-              startPeriod === "PM"
-                ? startHours !== "12"
-                  ? (parseInt(startHours) + 12).toString()
-                  : startHours
-                : startHours
-            }:${startMinutes}:00`
-          ),
+      startTime: new Date(
+        `${months[startMonth]} ${startDate}, ${startYear} ${
+          startPeriod === "PM"
+            ? startHours !== "12"
+              ? (parseInt(startHours) + 12).toString()
+              : startHours
+            : startHours
+        }:${startMinutes}:00`
+      ),
       endTime:
-        duration === Actions.SINGLE_DAY && allDay
-          ? new Date(`${months[startMonth]} ${startDate}, ${startYear}`)
-          : duration === Actions.MULTIPLE_DAYS && !allDay
+        duration === Actions.SINGLE_DAY
           ? new Date(
-              `${months[endMonth]} ${endDate}, ${endYear} ${
-                endPeriod === "PM"
-                  ? endHours !== "12"
-                    ? (parseInt(endHours) + 12).toString()
-                    : endHours
-                  : endHours
-              }:${endMinutes}:00`
-            )
-          : duration === Actions.MULTIPLE_DAYS && allDay
-          ? new Date(`${months[endMonth]} ${endDate}, ${endDate}`)
-          : new Date(
               `${months[startMonth]} ${startDate}, ${startYear} ${
                 endPeriod === "PM"
                   ? endHours !== "12"
@@ -216,7 +212,17 @@ const EditEventPage = () => {
                     : endHours
                   : endHours
               }:${endMinutes}:00`
+            )
+          : new Date(
+              `${months[endMonth]} ${endDate}, ${endYear} ${
+                endPeriod === "PM"
+                  ? endHours !== "12"
+                    ? (parseInt(endHours) + 12).toString()
+                    : endHours
+                  : endHours
+              }:${endMinutes}:00`
             ),
+      allDay: allDay,
       creationTime: creationTime,
     };
 
@@ -416,7 +422,7 @@ const EditEventPage = () => {
                       onChange={(e) => setTag(e.target.value)}
                     />
                     <div className="flex items-center h-12">
-                      <Checkbox selected={allDay} onClick={() => setAllDay(!allDay)} />
+                      <Checkbox selected={allDay} onClick={handleAllDayClick} />
                     </div>
                     {!allDay && (
                       <>

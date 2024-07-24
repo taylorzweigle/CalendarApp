@@ -47,6 +47,7 @@ const DetailsLayout = ({ data, calendars }) => {
               endTime={event.actualEndTime ? new Date(event.actualEndTime) : new Date(event.endTime)}
               showStartDate={event.actualStartTime}
               showEndDate={event.actualEndTime}
+              allDay={event.allDay}
               badge={showBadge(event.creationTime)}
             />
           </Link>

@@ -42,6 +42,7 @@ const populateEvents = (events) => {
             type: "start",
             actualStartTime: events[i].startTime,
             actualEndTime: events[i].endTime,
+            allDay: events[i].allDay,
             creationTime: events[i].creationTime,
             creationUser: events[i].creationUser,
           };
@@ -67,6 +68,7 @@ const populateEvents = (events) => {
             type: "end",
             actualStartTime: events[i].startTime,
             actualEndTime: events[i].endTime,
+            allDay: events[i].allDay,
             creationTime: events[i].creationTime,
             creationUser: events[i].creationUser,
           };
@@ -92,6 +94,7 @@ const populateEvents = (events) => {
             type: "middle",
             actualStartTime: events[i].startTime,
             actualEndTime: events[i].endTime,
+            allDay: events[i].allDay,
             creationTime: events[i].creationTime,
             creationUser: events[i].creationUser,
           };

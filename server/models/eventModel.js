@@ -24,6 +24,10 @@ const eventSchema = new Schema({
     type: Date,
     required: true,
   },
+  allDay: {
+    type: Boolean,
+    required: true,
+  },
   creationTime: {
     type: Date,
     required: true,

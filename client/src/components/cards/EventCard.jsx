@@ -8,7 +8,17 @@ import { months } from "../calendar/Calendar";
 
 import { compareStartAndEndTimes, formatTime, getColors, getIcons } from "../../utility/utility";
 
-const EventCard = ({ event, startTime, endTime, showStartDate, showEndDate, color, tag, badge }) => {
+const EventCard = ({
+  event,
+  startTime,
+  endTime,
+  showStartDate,
+  showEndDate,
+  allDay,
+  color,
+  tag,
+  badge,
+}) => {
   const colors = getColors(color);
   const icon = getIcons(tag);
 
@@ -29,11 +39,12 @@ const EventCard = ({ event, startTime, endTime, showStartDate, showEndDate, colo
                 {showStartDate && (
                   <span>{`${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()}`}</span>
                 )}
-                <span>{`${formatTime(startTime)} -`}</span>
+                {!allDay && <span>{formatTime(startTime)}</span>}
+                <span>{" - "}</span>
                 {showEndDate && (
                   <span>{`${months[endTime.getMonth()].slice(0, 3)} ${endTime.getDate()}`}</span>
                 )}
-                <span>{formatTime(endTime)}</span>
+                {!allDay && <span>{formatTime(endTime)}</span>}
               </span>
             </Typography>
           )}
