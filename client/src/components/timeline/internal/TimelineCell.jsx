@@ -20,6 +20,7 @@ const TimelineCell = ({
   endTime,
   showStartDate,
   showEndDate,
+  allDay,
   badge,
   hover,
   onClick,
@@ -58,11 +59,12 @@ const TimelineCell = ({
                   {showStartDate && (
                     <span>{`${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()}`}</span>
                   )}
-                  <span>{`${formatTime(startTime)} -`}</span>
+                  {!allDay && <span>{formatTime(startTime)}</span>}
+                  <span>{" - "}</span>
                   {showEndDate && (
                     <span>{`${months[endTime.getMonth()].slice(0, 3)} ${endTime.getDate()}`}</span>
                   )}
-                  <span>{formatTime(endTime)}</span>
+                  {!allDay && <span>{formatTime(endTime)}</span>}
                 </span>
               </Typography>
             )}

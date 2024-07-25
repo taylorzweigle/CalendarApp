@@ -40,8 +40,9 @@ const Timeline = ({ data, calendars, onHourClick }) => {
           if (
             (new Date(data[i].startTime).getHours() >= new Date(tempDataArray[0][j].startTime).getHours() &&
               new Date(data[i].startTime).getHours() < new Date(tempDataArray[0][j].endTime).getHours()) ||
-            (new Date(data[i].endTime).getHours() > new Date(tempDataArray[0][j].startTime).getHours() &&
-              new Date(data[i].endTime).getHours() <= new Date(tempDataArray[0][j].endTime).getHours())
+            (new Date(data[i].endTime).getHours() >= new Date(tempDataArray[0][j].startTime).getHours() &&
+              new Date(data[i].endTime).getHours() < new Date(tempDataArray[0][j].endTime).getHours()) ||
+            data[i].allDay === tempDataArray[0][j].allDay
           ) {
             conflict = true;
           } else {
@@ -90,6 +91,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
               endTime={
                 array[i].actualEndTime ? new Date(array[i].actualEndTime) : new Date(array[i].endTime)
               }
+              allDay={array[i].allDay}
               showStartDate={array[i].actualStartTime}
               showEndDate={array[i].actualEndTime}
               badge={showBadge(array[i].creationTime)}
