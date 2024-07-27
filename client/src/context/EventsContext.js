@@ -29,16 +29,36 @@ const populateEvents = (events) => {
             event: events[i].event,
             user: events[i].user,
             tag: events[i].tag,
-            startTime: events[i].startTime,
-            endTime: new Date(
-              new Date(events[i].startTime).getFullYear(),
-              new Date(events[i].startTime).getMonth(),
-              new Date(events[i].startTime).getDate(),
-              23,
-              59,
-              59,
-              999
-            ),
+            startTime: events[i].allDay
+              ? new Date(
+                  new Date(events[i].startTime).getFullYear(),
+                  new Date(events[i].startTime).getMonth(),
+                  new Date(events[i].startTime).getDate(),
+                  0,
+                  0,
+                  0,
+                  0
+                )
+              : events[i].startTime,
+            endTime: events[i].allDay
+              ? new Date(
+                  new Date(events[i].startTime).getFullYear(),
+                  new Date(events[i].startTime).getMonth(),
+                  new Date(events[i].startTime).getDate(),
+                  0,
+                  0,
+                  0,
+                  0
+                )
+              : new Date(
+                  new Date(events[i].startTime).getFullYear(),
+                  new Date(events[i].startTime).getMonth(),
+                  new Date(events[i].startTime).getDate(),
+                  23,
+                  59,
+                  59,
+                  999
+                ),
             type: "start",
             actualStartTime: events[i].startTime,
             actualEndTime: events[i].endTime,
@@ -94,7 +114,7 @@ const populateEvents = (events) => {
             type: "middle",
             actualStartTime: events[i].startTime,
             actualEndTime: events[i].endTime,
-            allDay: events[i].allDay,
+            allDay: true,
             creationTime: events[i].creationTime,
             creationUser: events[i].creationUser,
           };

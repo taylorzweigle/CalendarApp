@@ -15,7 +15,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
 
   const [dataArray, setDataArray] = useState([]);
 
-  const hours = [0, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+  const hours = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 
   const isCurrentTime = (hour) => {
     return (
@@ -77,7 +77,11 @@ const Timeline = ({ data, calendars, onHourClick }) => {
 
     if (array.length > 0) {
       for (let i = 0; i < array.length; i++) {
-        if (isEventInDay(array[i], selectedDate) && hour === new Date(array[i].startTime).getHours()) {
+        if (
+          isEventInDay(array[i], selectedDate) &&
+          hour === new Date(array[i].startTime).getHours() &&
+          !array[i].allDay
+        ) {
           tableCell = (
             <TimelineCell
               rowSpan={calculateRowSpan(array[i]) === 0 ? 1 : calculateRowSpan(array[i])}
@@ -121,9 +125,65 @@ const Timeline = ({ data, calendars, onHourClick }) => {
     return tableCell;
   };
 
+  const renderAllDayTableCell = (array) => {
+    let tableCell = null;
+
+    const isEventInDay = (event, selectedDate) => {
+      return (
+        new Date(event.startTime).getMonth() === selectedDate.month &&
+        new Date(event.startTime).getDate() === selectedDate.date &&
+        new Date(event.startTime).getFullYear() === selectedDate.year
+      );
+    };
+
+    if (array.length > 0) {
+      for (let i = 0; i < array.length; i++) {
+        if (isEventInDay(array[i], selectedDate) && array[i].allDay) {
+          tableCell = (
+            <TimelineCell
+              event={array[i].event}
+              tag={array[i].tag}
+              color={calendars.find((calendar) => calendar.user === array[i].user).color}
+              startTime={
+                array[i].actualStartTime ? new Date(array[i].actualStartTime) : new Date(array[i].startTime)
+              }
+              endTime={
+                array[i].actualEndTime ? new Date(array[i].actualEndTime) : new Date(array[i].endTime)
+              }
+              allDay={array[i].allDay}
+              showStartDate={array[i].actualStartTime}
+              showEndDate={array[i].actualEndTime}
+              badge={showBadge(array[i].creationTime)}
+              onClick={() => navigate(`/event/${array[i]._id}`)}
+            />
+          );
+          break;
+        } else {
+          tableCell = <TimelineCell hover onClick={() => onHourClick(0)} />;
+        }
+      }
+    } else {
+      tableCell = <TimelineCell hover onClick={() => onHourClick(0)} />;
+    }
+
+    return tableCell;
+  };
+
   return (
     <table className="w-full">
       <tbody className="h-full">
+        <tr className="h-px">
+          <td className="h-12 w-16 pl-2 md:pl-0 border-t border-slate-300 dark:border-slate-600 align-text-top">
+            <Typography variant="body1" color="primary">
+              All Day
+            </Typography>
+          </td>
+          {dataArray.length > 0
+            ? dataArray.map((array) => (
+                <React.Fragment key={array[0]._id}>{renderAllDayTableCell(array)}</React.Fragment>
+              ))
+            : renderAllDayTableCell([])}
+        </tr>
         {hours.map((hour) => (
           <tr key={hour} className="h-px">
             <td
@@ -134,7 +194,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
               } align-text-top`}
             >
               <Typography variant="body1" color="primary">
-                {hour === 0 ? "All Day" : formatTime(hour)}
+                {formatTime(hour)}
               </Typography>
             </td>
             {dataArray.length > 0
