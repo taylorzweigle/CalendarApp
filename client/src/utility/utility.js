@@ -8,6 +8,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FlightIcon from "@mui/icons-material/Flight";
 import GroupsIcon from "@mui/icons-material/Groups";
 import StadiumIcon from "@mui/icons-material/Stadium";
+import StarIcon from "@mui/icons-material/Star";
 import TodayIcon from "@mui/icons-material/Today";
 import WorkIcon from "@mui/icons-material/Work";
 
@@ -68,6 +69,9 @@ export const getIcons = (tag) => {
   let icon = null;
 
   switch (tag) {
+    case "calendar":
+      icon = <CalendarMonthIcon fontSize={size} />;
+      break;
     case "chores":
       icon = <ConstructionIcon fontSize={size} />;
       break;
@@ -81,7 +85,7 @@ export const getIcons = (tag) => {
       icon = <CameraAltIcon fontSize={size} />;
       break;
     case "holiday":
-      icon = <CalendarMonthIcon fontSize={size} />;
+      icon = <StarIcon fontSize={size} />;
       break;
     case "personal":
       icon = <FaceIcon fontSize={size} />;
