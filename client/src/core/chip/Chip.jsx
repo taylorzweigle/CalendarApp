@@ -15,7 +15,7 @@ const Chip = ({ selected, secondarySelected, onClick, children }) => {
       } cursor-pointer`}
       onClick={onClick}
     >
-      <Typography variant="body" color={selected ? "white" : "textPrimary"}>
+      <Typography variant="body" color={selected ? "white" : "primary"}>
         {children}
       </Typography>
     </div>
