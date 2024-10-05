@@ -7,7 +7,7 @@ import * as Actions from "../../actions";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useTodosContext } from "../../hooks/useTodosContext";
 
-import { getTodos, updateTodo, deleteTodo } from "../../api/todos";
+import { getTodos, updateTodo } from "../../api/todos";
 
 import EmptyState from "../../core/emptyState/EmptyState";
 import Typography from "../../core/typography/Typography";
@@ -32,28 +32,6 @@ const TodoLayout = ({ data }) => {
     setTodos(data ? sortTodos(data.filter((todo) => new Date() < new Date(todo.dueDate))) : []);
     setDueTodos(data ? sortTodos(data.filter((todo) => new Date() >= new Date(todo.dueDate))) : []);
   }, [data]);
-
-  useEffect(() => {
-    const deleteCheckedTodo = async (id) => {
-      const deletedTodo = await deleteTodo(id, authUser.token);
-
-      if (deletedTodo.json) {
-        dispatch({ type: Actions.DELETE_TODO, payload: deletedTodo.json });
-      }
-    };
-
-    if (data) {
-      for (let i = 0; i < data.length; i++) {
-        if (
-          data[i].checked &&
-          data[i].checkedTime &&
-          new Date().getTime() - new Date(data[i].checkedTime).getTime() > 43200000
-        ) {
-          deleteCheckedTodo(data[i]._id);
-        }
-      }
-    }
-  }, [data, authUser.token, dispatch]);
 
   const handleCheck = async (todo) => {
     setLoading(todo._id);
