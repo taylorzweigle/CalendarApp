@@ -63,7 +63,7 @@ const CalendarPage = () => {
         if (
           todos[i].checked &&
           todos[i].checkedTime &&
-          new Date().getTime() - new Date(todos[i].checkedTime).getTime() > 43200000
+          new Date().getTime() - new Date(todos[i].checkedTime).getTime() > 21600000
         ) {
           deleteCheckedTodo(todos[i]._id);
         }
