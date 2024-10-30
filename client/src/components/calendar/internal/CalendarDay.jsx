@@ -7,7 +7,7 @@ import Typography from "../../../core/typography/Typography";
 const CalendarDay = ({ day, today, outOfMonth, selected, onClick, children }) => {
   return (
     <td
-      className={`border border-separate h-24 sm:h-24 md:h-44 ${
+      className={`border border-separate h-24 sm:h-24 md:h-44 align-top ${
         selected
           ? "active:bg-slate-50 active:dark:bg-slate-700 border-2 border-slate-700 dark:border-slate-300"
           : "border-solid border-slate-300 dark:border-slate-600"
@@ -18,7 +18,7 @@ const CalendarDay = ({ day, today, outOfMonth, selected, onClick, children }) =>
       }  cursor-pointer`}
       onClick={onClick}
     >
-      <div className="flex flex-col gap-1 sm:gap-2 h-full">
+      <div className="flex flex-col gap-1 sm:gap-2 h-max pb-1 sm:pb-2">
         <div className="flex flex-row justify-between items-center pl-1 pr-1 pt-1 sm:pl-2 sm:pr-2 sm:pt-2">
           <Typography variant="body1" color={outOfMonth ? "secondary" : "primary"}>
             {day}
