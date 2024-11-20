@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
+import Chip from "../../core/chip/Chip";
 import IconButton from "../../core/iconButton/IconButton";
 import Modal from "../../core/modal/Modal";
 import Typography from "../../core/typography/Typography";
@@ -150,7 +151,7 @@ const DatePickerModal = ({ open, month, date, year, minDate, onSaveClick, onCanc
     <Modal
       title="Select Date"
       action="Select"
-      resetAction="Today"
+      resetAction={minDate ? null : "Today"}
       open={open}
       onAction={() => onSaveClick(selectedDate)}
       onResetAction={() =>
@@ -195,27 +196,18 @@ const DatePickerModal = ({ open, month, date, year, minDate, onSaveClick, onCanc
                 {week.days.map((date) => (
                   <td className="text-center align-middle" key={date.key}>
                     {date.month === selectedDate.month && (
-                      <div
-                        className={`inline-flex justify-center items-center h-11 w-11 rounded-full ${
-                          selectDate(date)
-                            ? "bg-sky-500 dark:bg-sky-500 cursor-pointer"
-                            : todayDate(date)
-                            ? "border-2 border-sky-500 dark:border-sky-500 cursor-pointer"
-                            : disableDate(date)
-                            ? ""
-                            : "active:bg-sky-200 active:dark:bg-slate-700 md:hover:bg-sky-200 md:hover:dark:bg-slate-700 cursor-pointer"
-                        }`}
+                      <Chip
+                        circle
+                        size="small"
+                        selected={selectDate(date)}
+                        secondarySelected={todayDate(date)}
+                        disabled={disableDate(date)}
                         onClick={
                           disableDate(date) ? null : () => handleSelectDay(date.year, date.month, date.day)
                         }
                       >
-                        <Typography
-                          variant="body"
-                          color={selectDate(date) ? "white" : disableDate(date) ? "secondary" : "primary"}
-                        >
-                          {date.day}
-                        </Typography>
-                      </div>
+                        {date.day}
+                      </Chip>
                     )}
                   </td>
                 ))}

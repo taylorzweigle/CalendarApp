@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Typography from "../../core/typography/Typography";
 
 import NumberInput from "./NumberInput";
+import Chip from "../../core/chip/Chip";
 
 const TimeInput = ({
   label,
@@ -21,23 +22,6 @@ const TimeInput = ({
     period && setSelected(period);
   }, [period]);
 
-  const Button = ({ children, onClick }) => {
-    return (
-      <div
-        className={`inline-flex justify-center items-center h-12 w-14 rounded-full ${
-          selected === children
-            ? "bg-sky-500 dark:bg-sky-500"
-            : "active:bg-sky-200 active:dark:bg-slate-700 md:hover:bg-sky-200 md:hover:dark:bg-slate-700"
-        } cursor-pointer`}
-        onClick={onClick}
-      >
-        <Typography variant="body1" color={selected === children ? "primary" : "secondary"}>
-          {children}
-        </Typography>
-      </div>
-    );
-  };
-
   const handlePeriodChange = (value) => {
     onPeriodChange(value);
 
@@ -53,8 +37,12 @@ const TimeInput = ({
         <NumberInput label="hour" value={hour} maxLength={2} onChange={onHourChange} />
         <NumberInput label="minutes" value={minutes} maxLength={2} onChange={onMinutesChange} />
         <div className="flex flex-row items-center gap-2">
-          <Button onClick={() => handlePeriodChange("AM")}>AM</Button>
-          <Button onClick={() => handlePeriodChange("PM")}>PM</Button>
+          <Chip circle selected={selected === "AM"} onClick={() => handlePeriodChange("AM")}>
+            AM
+          </Chip>
+          <Chip circle selected={selected === "PM"} onClick={() => handlePeriodChange("PM")}>
+            PM
+          </Chip>
         </div>
       </div>
       {error && (
