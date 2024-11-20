@@ -1,11 +1,11 @@
 //Taylor Zweigle, 2024
-import React from "react";
+import React, { forwardRef } from "react";
 
 import DataUsageIcon from "@mui/icons-material/DataUsage";
 
 import Typography from "../typography/Typography";
 
-const IconButton = ({ color, loading, onClick, children }) => {
+const IconButton = forwardRef(({ color, loading, onClick, children }, ref) => {
   let colorClass = "";
 
   switch (color) {
@@ -21,6 +21,7 @@ const IconButton = ({ color, loading, onClick, children }) => {
 
   return (
     <button
+      ref={ref}
       className={`bg-transparent dark:bg-transparent ${
         color === "default" &&
         "md:hover:bg-slate-950/15 md:dark:hover:bg-slate-50/15 active:bg-slate-950/15 active:dark:bg-slate-50/15"
@@ -37,6 +38,6 @@ const IconButton = ({ color, loading, onClick, children }) => {
       </div>
     </button>
   );
-};
+});
 
 export default IconButton;

@@ -1,11 +1,12 @@
 //Taylor Zweigle, 2024
-import React from "react";
+import React, { forwardRef } from "react";
 
 import Typography from "../typography/Typography";
 
-const Chip = ({ selected, secondarySelected, onClick, children }) => {
+const Chip = forwardRef(({ selected, secondarySelected, onClick, children }, ref) => {
   return (
     <div
+      ref={ref}
       className={`inline-flex justify-center items-center h-12 w-20 rounded-full ${
         selected
           ? "bg-sky-500 dark:bg-sky-500"
@@ -20,6 +21,6 @@ const Chip = ({ selected, secondarySelected, onClick, children }) => {
       </Typography>
     </div>
   );
-};
+});
 
 export default Chip;

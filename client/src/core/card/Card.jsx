@@ -1,9 +1,10 @@
 //Taylor Zweigle, 2024
-import React from "react";
+import React, { forwardRef } from "react";
 
-const Card = ({ border, children }) => {
+const Card = forwardRef(({ border, children }, ref) => {
   return (
     <div
+      ref={ref}
       className={`bg-white dark:bg-slate-800 ${
         border ? "border border-slate-300 dark:border-slate-600" : null
       } rounded-lg shadow-md`}
@@ -11,6 +12,6 @@ const Card = ({ border, children }) => {
       {children}
     </div>
   );
-};
+});
 
 export default Card;

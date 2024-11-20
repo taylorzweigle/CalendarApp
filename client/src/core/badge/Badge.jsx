@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2024
-import React from "react";
+import React, { forwardRef } from "react";
 
-const Badge = ({ size, inset }) => {
+const Badge = forwardRef(({ size, inset }, ref) => {
   let positionClass = "";
   let rippleClass = "";
   let sizeClass = "";
@@ -25,13 +25,13 @@ const Badge = ({ size, inset }) => {
   }
 
   return (
-    <span className={`absolute ${positionClass} flex ${sizeClass} ${rippleClass}`}>
+    <span ref={ref} className={`absolute ${positionClass} flex ${sizeClass} ${rippleClass}`}>
       <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-rose-800 dark:bg-rose-200 opacity-75"></span>
       <span
         className={`relative inline-flex rounded-full ${sizeClass} bg-rose-400 dark:bg-rose-500 border border-rose-800 dark:border-rose-200`}
       ></span>
     </span>
   );
-};
+});
 
 export default Badge;

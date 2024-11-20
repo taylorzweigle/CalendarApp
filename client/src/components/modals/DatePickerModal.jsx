@@ -173,7 +173,7 @@ const DatePickerModal = ({ open, month, date, year, minDate, onSaveClick, onCanc
           <Typography variant="heading" color="primary" bold>
             {`${months[selectedDate.month]} ${selectedDate.year}`}
           </Typography>
-          <IconButton onClick={handleNextButtonClick}>
+          <IconButton color="default" onClick={handleNextButtonClick}>
             <ArrowForwardIcon />
           </IconButton>
         </div>

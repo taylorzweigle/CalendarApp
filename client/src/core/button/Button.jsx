@@ -1,12 +1,12 @@
 //Taylor Zweigle, 2024
-import React from "react";
+import React, { forwardRef } from "react";
 import { cva } from "class-variance-authority";
 
 import DataUsageIcon from "@mui/icons-material/DataUsage";
 
 import Typography from "../typography/Typography";
 
-const Button = ({ variant, fullWidth, prefix, loading, onClick, children }) => {
+const Button = forwardRef(({ variant, fullWidth, prefix, loading, onClick, children }, ref) => {
   const buttonVariants = cva("rounded-lg px-4 h-12", {
     variants: {
       variant: {
@@ -45,7 +45,7 @@ const Button = ({ variant, fullWidth, prefix, loading, onClick, children }) => {
   });
 
   return (
-    <button className={buttonVariants({ variant, fullWidth })} onClick={onClick}>
+    <button ref={ref} className={buttonVariants({ variant, fullWidth })} onClick={onClick}>
       <div className="flex flex-row gap-1 justify-center items-center">
         {prefix ? <span className="text-slate-700 dark:text-white">{prefix}</span> : null}
         {loading && <DataUsageIcon className="text-slate-700 dark:text-white animate-spin" />}
@@ -60,6 +60,6 @@ const Button = ({ variant, fullWidth, prefix, loading, onClick, children }) => {
       </div>
     </button>
   );
-};
+});
 
 export default Button;

@@ -1,10 +1,10 @@
 //Taylor Zweigle, 2024
-import React from "react";
+import React, { forwardRef } from "react";
 import { cva } from "class-variance-authority";
 
 import Typography from "../typography/Typography";
 
-const Label = ({ size, variant, children }) => {
+const Label = forwardRef(({ size, variant, children }, ref) => {
   const labelVariants = cva("flex flex-row justify-center items-center rounded-full", {
     variants: {
       size: {
@@ -25,12 +25,12 @@ const Label = ({ size, variant, children }) => {
   });
 
   return (
-    <div className={labelVariants(size, variant)}>
+    <div ref={ref} className={labelVariants(size, variant)}>
       <Typography variant={size === "small" ? "caption" : "body1"} color="primary">
         {children}
       </Typography>
     </div>
   );
-};
+});
 
 export default Label;

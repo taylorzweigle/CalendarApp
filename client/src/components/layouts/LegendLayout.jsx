@@ -16,7 +16,7 @@ const LegendLayout = ({ calendars, visibleCalendars, showReset, onClick, onReset
             Calendars
           </Typography>
           <span className={showReset ? "block" : "hidden"}>
-            <IconButton onClick={onReset}>
+            <IconButton color="default" onClick={onReset}>
               <ReplayIcon />
             </IconButton>
           </span>

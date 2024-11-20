@@ -1,5 +1,5 @@
 //Taylor Zweigle, 2024
-import React from "react";
+import React, { forwardRef } from "react";
 
 import CheckIcon from "@mui/icons-material/Check";
 
@@ -7,11 +7,15 @@ import Typography from "../typography/Typography";
 
 import { getColors } from "../../utility/utility";
 
-const Legend = ({ color, label, selected, onClick }) => {
+const Legend = forwardRef(({ color, label, selected, onClick }, ref) => {
   const colors = getColors(color);
 
   return (
-    <div className="flex flex-row justify-between items-center w-full h-8 cursor-pointer" onClick={onClick}>
+    <div
+      ref={ref}
+      className="flex flex-row justify-between items-center w-full h-8 cursor-pointer"
+      onClick={onClick}
+    >
       <div className="flex flex-row items-center gap-2">
         <div
           className={`${selected ? colors.bg : "bg-white dark:bg-slate-800"} border ${
@@ -31,6 +35,6 @@ const Legend = ({ color, label, selected, onClick }) => {
       )}
     </div>
   );
-};
+});
 
 export default Legend;

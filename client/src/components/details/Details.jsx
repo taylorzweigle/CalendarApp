@@ -10,9 +10,7 @@ const Details = ({ label, value, color, icon }) => {
 
   return (
     <div className="flex flex-row justify-between items-center">
-      <Typography variant="body2" color="text-slate-700 dark:text-slate-300">
-        {label}
-      </Typography>
+      <Typography variant="body2">{label}</Typography>
       <div className="flex flex-row gap-2 items-center">
         {color && <div className={`h-5 w-5 rounded-sm border ${colors.bg} ${colors.border}`}>&nbsp;</div>}
         {icon && <div className="text-slate-950 dark:text-white">{getIcons(icon)}</div>}
