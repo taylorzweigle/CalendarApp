@@ -3,9 +3,7 @@ import React, { useState } from "react";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
-import * as Actions from "../../actions";
-
-import { useSelectedThemeContext } from "../../hooks/useSelectedThemeContext";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 import AboutModal from "../modals/AboutModal";
 import LogoutModal from "../modals/LogoutModal";
@@ -18,7 +16,7 @@ import Menu from "../../core/menu/Menu";
 import MenuItem from "../../core/menu/MenuItem";
 
 const HeaderLayout = ({ action }) => {
-  const { selectedTheme, dispatchSelectedTheme } = useSelectedThemeContext();
+  const [theme, setTheme] = useLocalStorage("theme", "dark");
 
   const [open, setOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -29,10 +27,7 @@ const HeaderLayout = ({ action }) => {
   const { logout } = useLogout();
 
   const handleThemeButton = () => {
-    dispatchSelectedTheme({
-      type: Actions.SET_SELECTED_THEME,
-      payload: selectedTheme === "dark" ? "light" : "dark",
-    });
+    setTheme(theme === "dark" ? "light" : "dark");
 
     setOpen(false);
 
@@ -77,7 +72,7 @@ const HeaderLayout = ({ action }) => {
           <Button variant="default" prefix={<MenuIcon />} onClick={() => setOpen(!open)} />
           <Menu open={open}>
             <MenuItem onClick={handleThemeButton}>
-              {selectedTheme === "dark" ? "Set Light Theme" : "Set Dark Theme"}
+              {theme === "dark" ? "Set Light Theme" : "Set Dark Theme"}
             </MenuItem>
             <MenuItem onClick={handleAboutClick}>About</MenuItem>
             <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>

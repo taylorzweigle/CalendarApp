@@ -1,7 +1,9 @@
 //Taylor Zweigle, 2024
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router";
+
 import { useAuthContext } from "./hooks/useAuthContext";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 import ScrollToTop from "./ScrollToTop";
 
@@ -16,6 +18,11 @@ import TodosPage from "./pages/TodosPage";
 
 const App = () => {
   const { user } = useAuthContext();
+  const [theme] = useLocalStorage("theme", "dark");
+
+  useEffect(() => {
+    theme === "dark" && document.documentElement.classList.add("dark");
+  });
 
   return (
     <ScrollToTop>
