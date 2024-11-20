@@ -25,7 +25,7 @@ const Label = forwardRef(({ size, variant, children }, ref) => {
   });
 
   return (
-    <div ref={ref} className={labelVariants(size, variant)}>
+    <div ref={ref} className={labelVariants({ size, variant })}>
       <Typography variant={size === "small" ? "caption" : "body1"} color="primary">
         {children}
       </Typography>
