@@ -42,7 +42,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
               new Date(data[i].startTime).getHours() < new Date(tempDataArray[0][j].endTime).getHours()) ||
             (new Date(data[i].endTime).getHours() >= new Date(tempDataArray[0][j].startTime).getHours() &&
               new Date(data[i].endTime).getHours() < new Date(tempDataArray[0][j].endTime).getHours()) ||
-            data[i].allDay === tempDataArray[0][j].allDay
+            (data[i].allDay === true && tempDataArray[0][j].allDay === true)
           ) {
             conflict = true;
           } else {
