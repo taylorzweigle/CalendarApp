@@ -15,7 +15,6 @@ import Typography from "../../core/typography/Typography";
 import TodoCard from "../../components/cards/TodoCard";
 
 import { calendars } from "../../utility/calendars";
-import { sortTodos } from "../../utility/utility";
 
 const TodoLayout = ({ data }) => {
   const navigate = useNavigate();
@@ -29,8 +28,8 @@ const TodoLayout = ({ data }) => {
   const [loading, setLoading] = useState("");
 
   useEffect(() => {
-    setTodos(data ? sortTodos(data.filter((todo) => new Date() < new Date(todo.dueDate))) : []);
-    setDueTodos(data ? sortTodos(data.filter((todo) => new Date() >= new Date(todo.dueDate))) : []);
+    setTodos(data ? data.filter((todo) => new Date() < new Date(todo.dueDate)) : []);
+    setDueTodos(data ? data.filter((todo) => new Date() >= new Date(todo.dueDate)) : []);
   }, [data]);
 
   const handleCheck = async (todo) => {

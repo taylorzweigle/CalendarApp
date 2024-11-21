@@ -152,20 +152,6 @@ export const sortEvents = (events) => {
   return events;
 };
 
-export const sortTodos = (todos) => {
-  for (let i = 0; i < todos.length; i++) {
-    for (let j = 0; j < todos.length; j++) {
-      if (new Date(todos[i].date).getTime() - new Date(todos[j].date).getTime() < 0) {
-        let temp = todos[i];
-        todos[i] = todos[j];
-        todos[j] = temp;
-      }
-    }
-  }
-
-  return todos;
-};
-
 export const filterEvents = (query, array) => {
   if (array) {
     let filteredArray = [];

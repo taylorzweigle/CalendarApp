@@ -6,7 +6,7 @@ const Event = require("../models/todoModel");
 const getTodos = async (req, res) => {
   const creationUser = req.user._id;
 
-  const todos = await Event.find({ creationUser });
+  const todos = await Event.find({ creationUser }).sort({ dueDate: 1 });
 
   res.status(200).json(todos);
 };
