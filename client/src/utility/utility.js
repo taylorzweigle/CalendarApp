@@ -23,40 +23,40 @@ export const getColors = (color) => {
       colorObject.hover = "md:hover:bg-emerald-200 md:dark:hover:bg-emerald-600";
       colorObject.active = "active:bg-emerald-200 dark:active:bg-emerald-600";
       colorObject.border = "border-emerald-500 dark:border-emerald-500";
-      colorObject.text = "text-emerald-800 dark:text-white";
-      colorObject.icon = "text-emerald-800 dark:text-white";
+      colorObject.text = "text-emerald-700 dark:text-white";
+      colorObject.icon = "text-emerald-600 dark:text-white";
       break;
     case "purple":
       colorObject.bg = "bg-purple-100 dark:bg-purple-700";
       colorObject.hover = "md:hover:bg-purple-200 md:dark:hover:bg-purple-600";
       colorObject.active = "active:bg-purple-200 dark:active:bg-purple-600";
       colorObject.border = "border-purple-500 dark:border-purple-500";
-      colorObject.text = "text-purple-800 dark:text-white";
-      colorObject.icon = "text-purple-800 dark:text-white";
+      colorObject.text = "text-purple-700 dark:text-white";
+      colorObject.icon = "text-purple-600 dark:text-white";
       break;
     case "sky":
       colorObject.bg = "bg-sky-100 dark:bg-sky-700";
       colorObject.hover = "md:hover:bg-sky-200 md:dark:hover:bg-sky-600";
       colorObject.active = "active:bg-sky-200 dark:active:bg-sky-600";
       colorObject.border = "border-sky-500 dark:border-sky-500";
-      colorObject.text = "text-sky-800 dark:text-white";
-      colorObject.icon = "text-sky-800 dark:text-white";
+      colorObject.text = "text-sky-700 dark:text-white";
+      colorObject.icon = "text-sky-600 dark:text-white";
       break;
     case "stone":
       colorObject.bg = "bg-stone-100 dark:bg-stone-700";
       colorObject.hover = "md:hover:bg-stone-200 md:dark:hover:bg-stone-600";
       colorObject.active = "active:bg-stone-200 dark:active:bg-stone-600";
       colorObject.border = "border-stone-500 dark:border-stone-500";
-      colorObject.text = "text-stone-800 dark:text-white";
-      colorObject.icon = "text-stone-800 dark:text-white";
+      colorObject.text = "text-stone-700 dark:text-white";
+      colorObject.icon = "text-stone-600 dark:text-white";
       break;
     default:
       colorObject.bg = "bg-slate-100 dark:bg-slate-700";
       colorObject.hover = "md:hover:bg-slate-200 md:dark:hover:bg-slate-600";
       colorObject.active = "active:bg-slate-200 dark:active:bg-slate-600";
       colorObject.border = "border-slate-500 dark:border-slate-500";
-      colorObject.text = "text-slate-800 dark:text-white";
-      colorObject.icon = "text-slate-800 dark:text-white";
+      colorObject.text = "text-slate-700 dark:text-white";
+      colorObject.icon = "text-slate-600 dark:text-white";
       break;
   }
 
