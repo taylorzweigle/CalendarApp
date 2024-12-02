@@ -9,10 +9,8 @@ import * as Actions from "../actions";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEventsContext } from "../hooks/useEventsContext";
 import { useSelectedStartTimeContext } from "../hooks/useSelectedStartTimeContext";
-import { useTodosContext } from "../hooks/useTodosContext";
 
 import { getEvents } from "../api/events";
-import { deleteTodo } from "../api/todos";
 
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
@@ -31,7 +29,6 @@ const CalendarPage = () => {
   const { user } = useAuthContext();
   const { events, dispatch } = useEventsContext();
   const { dispatchSelectedStartTime } = useSelectedStartTimeContext();
-  const { todos } = useTodosContext();
 
   const [visibleCalendars, setVisibleCalendars] = useState([]);
 
@@ -48,28 +45,6 @@ const CalendarPage = () => {
       fetchEvents();
     }
   }, [dispatch, user]);
-
-  useEffect(() => {
-    const deleteCheckedTodo = async (id) => {
-      const deletedTodo = await deleteTodo(id, user.token);
-
-      if (deletedTodo.json) {
-        dispatch({ type: Actions.DELETE_TODO, payload: deletedTodo.json });
-      }
-    };
-
-    if (todos) {
-      for (let i = 0; i < todos.length; i++) {
-        if (
-          todos[i].checked &&
-          todos[i].checkedTime &&
-          new Date().getTime() - new Date(todos[i].checkedTime).getTime() > 21600000
-        ) {
-          deleteCheckedTodo(todos[i]._id);
-        }
-      }
-    }
-  }, [todos, user.token, dispatch]);
 
   useEffect(() => {
     setVisibleCalendars(calendars.map((calendar) => calendar.user));
