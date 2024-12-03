@@ -63,6 +63,10 @@ const TodoLayout = ({ data }) => {
     }
 
     setDeletedTodoCount(deleteCount);
+
+    setTimeout(() => {
+      setDeletedTodoCount(0);
+    }, 3000);
   };
 
   const handleCheck = async (todo) => {

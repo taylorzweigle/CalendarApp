@@ -15,7 +15,7 @@ const Toast = ({ children, open }) => {
 
       setTimeout(() => {
         setVisible(false);
-      }, 2500);
+      }, 3000);
     }
 
     return () => {
