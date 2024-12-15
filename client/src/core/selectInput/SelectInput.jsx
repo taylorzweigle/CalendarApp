@@ -28,7 +28,7 @@ const SelectInput = forwardRef(({ label, value, showIcon, error, items, showLabe
           value={value}
           onChange={onChange}
           className={`bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-600 sm:hover:border-sky-500 sm:hover:dark:border-sky-600 text-slate-950 dark:text-white text-md text-left w-full rounded-lg ${
-            showIcon ? "indent-5" : "indent-2"
+            showIcon ? "px-10" : "px-4"
           } h-12 w-full`}
         >
           {items.map((item) => (
