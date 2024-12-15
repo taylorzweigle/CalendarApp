@@ -366,6 +366,7 @@ const CreateEventPage = () => {
                     <SelectInput
                       label="Tag"
                       value={tag}
+                      showIcon
                       error={tagError}
                       items={tags}
                       showLabel

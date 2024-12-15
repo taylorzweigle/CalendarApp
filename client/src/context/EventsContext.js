@@ -19,7 +19,21 @@ const populateEvents = (events) => {
       let startDate = new Date(events[i].startTime).getDate();
       let endDate = new Date(events[i].endTime).getDate();
 
-      let difference = endDate - startDate;
+      let difference = 0;
+
+      if (new Date(events[i].startTime).getMonth() !== new Date(events[i].endTime).getMonth()) {
+        difference =
+          32 -
+          new Date(
+            new Date(events[i].startTime).getFullYear(),
+            new Date(events[i].startTime).getMonth(),
+            32
+          ).getDate() +
+          endDate -
+          startDate;
+      } else {
+        difference = endDate - startDate;
+      }
 
       for (let j = 0; j <= difference; j++) {
         if (j === 0) {
