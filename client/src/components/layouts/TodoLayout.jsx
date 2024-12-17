@@ -54,9 +54,22 @@ const TodoLayout = ({ data }) => {
         if (
           todos[i].checked &&
           todos[i].checkedTime &&
-          new Date().getTime() - new Date(todos[i].checkedTime).getTime() > 10
+          new Date().getTime() - new Date(todos[i].checkedTime).getTime() > 43200000
         ) {
           deleteCheckedTodo(todos[i]._id);
+          deleteCount++;
+        }
+      }
+    }
+
+    if (dueTodos) {
+      for (let i = 0; i < dueTodos.length; i++) {
+        if (
+          dueTodos[i].checked &&
+          dueTodos[i].checkedTime &&
+          new Date().getTime() - new Date(dueTodos[i].checkedTime).getTime() > 43200000
+        ) {
+          deleteCheckedTodo(dueTodos[i]._id);
           deleteCount++;
         }
       }

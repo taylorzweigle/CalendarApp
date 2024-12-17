@@ -93,7 +93,7 @@ const EditEventPage = () => {
       setStartHours(
         new Date(event.json.startTime).getHours() > 12
           ? (new Date(event.json.startTime).getHours() - 12).toString()
-          : new Date(event.json.startTime).getHours()
+          : new Date(event.json.startTime).getHours().toString()
       );
       setStartMinutes(
         new Date(event.json.startTime).getMinutes() < 10
@@ -104,7 +104,7 @@ const EditEventPage = () => {
       setEndHours(
         new Date(event.json.endTime).getHours() > 12
           ? (new Date(event.json.endTime).getHours() - 12).toString()
-          : new Date(event.json.endTime).getHours()
+          : new Date(event.json.endTime).getHours().toString()
       );
       setEndMinutes(
         new Date(event.json.endTime).getMinutes() < 10
