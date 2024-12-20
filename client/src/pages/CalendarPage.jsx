@@ -82,7 +82,7 @@ const CalendarPage = () => {
     <div className="flex flex-col md:flex-row">
       <SideNav selected="Calendar" />
       <div className="grid grid-cols-12 m-auto w-full bg-white dark:bg-slate-800 border-t-0 border-r border-b border-l md:border-t md:border-r md:border-b md:border-l-0 border-slate-300 dark:border-slate-600 rounded-tl-none rounded-tr-none rounded-bl-lg rounded-br-lg md:rounded-tl-none md:rounded-tr-lg md:rounded-bl-lg md:rounded-br-lg shadow-md min-h-fit md:min-h-72">
-        <div className="col-span-12 sm:col-span-12 md:col-span-3 md:border-r border-slate-300 dark:border-slate-600 h-fit">
+        <div className="col-span-12 sm:col-span-12 md:col-span-3 md:border-r border-slate-300 dark:border-slate-600">
           <div className="grid grid-cols-12 m-auto w-full">
             <div className="col-span-12">
               <HeaderLayout

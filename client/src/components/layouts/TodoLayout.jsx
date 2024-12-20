@@ -113,7 +113,7 @@ const TodoLayout = ({ data }) => {
       <Toast open={deletedTodoCount > 0}>{`${deletedTodoCount} Todo${
         deletedTodoCount > 1 ? "s" : ""
       } successfully deleted`}</Toast>
-      <div className="min-h-[calc(100vh-412px)] md:min-h-[calc(100vh-168px)]">
+      <div className="flex flex-col gap-0 md:gap-4 min-h-[calc(100vh-412px)] md:min-h-[calc(100vh-168px)]">
         <div className="flex flex-row justify-between items-center p-4 md:p-0">
           <Typography variant="title">Todos</Typography>
           <Button prefix={<CachedIcon />} onClick={handleRefreshClick} />

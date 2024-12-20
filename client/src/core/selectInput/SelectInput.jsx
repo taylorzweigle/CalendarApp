@@ -15,11 +15,11 @@ const SelectInput = forwardRef(({ label, value, showIcon, error, items, showLabe
           {label}
         </Typography>
       )}
-      <span>
+      <span className="relative w-full">
         {showIcon && value !== "" && (
           <span className="absolute text-slate-950 dark:text-white px-4 py-2.5">{getIcons(value)}</span>
         )}
-        <span className="absolute text-slate-950 dark:text-white right-0 px-8 py-2.5">
+        <span className="absolute w-full text-right text-slate-950 dark:text-white px-2 py-2.5">
           <ArrowDropDownIcon />
         </span>
         <select

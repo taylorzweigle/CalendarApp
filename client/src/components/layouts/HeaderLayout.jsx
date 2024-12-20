@@ -69,7 +69,7 @@ const HeaderLayout = ({ action }) => {
       />
       <div className="flex flex-row justify-between items-center p-4 md:p-8">
         <div>
-          <Button variant="default" prefix={<MenuIcon />} onClick={() => setOpen(!open)} />
+          <Button variant="outline" prefix={<MenuIcon />} onClick={() => setOpen(!open)} />
           <Menu open={open}>
             <MenuItem onClick={handleThemeButton}>
               {theme === "dark" ? "Set Light Theme" : "Set Dark Theme"}
