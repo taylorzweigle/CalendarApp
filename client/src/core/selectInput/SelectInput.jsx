@@ -1,8 +1,6 @@
 //Taylor Zweigle, 2024
 import React, { forwardRef } from "react";
 
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-
 import Typography from "../typography/Typography";
 
 import { getIcons } from "../../utility/utility";
@@ -19,9 +17,6 @@ const SelectInput = forwardRef(({ label, value, showIcon, error, items, showLabe
         {showIcon && value !== "" && (
           <span className="absolute text-slate-950 dark:text-white px-4 py-2.5">{getIcons(value)}</span>
         )}
-        <span className="absolute w-full text-right text-slate-950 dark:text-white px-2 py-2.5">
-          <ArrowDropDownIcon />
-        </span>
         <select
           id={label}
           ref={ref}
