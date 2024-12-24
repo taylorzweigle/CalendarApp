@@ -33,6 +33,9 @@ const CalendarLayout = ({ data }) => {
         date: today.getDate(),
         year: today.getFullYear(),
         weekday: today.getDay(),
+        hour: "",
+        minute: "",
+        period: "",
       },
     });
   };
@@ -40,7 +43,15 @@ const CalendarLayout = ({ data }) => {
   const handleSelectDay = (year, month, day) => {
     dispatchSelectedDate({
       type: Actions.SET_SELECTED_DATE,
-      payload: { month: month, date: day, year: year, weekday: new Date(year, month, day).getDay() },
+      payload: {
+        month: month,
+        date: day,
+        year: year,
+        weekday: new Date(year, month, day).getDay(),
+        hour: "",
+        minute: "",
+        period: "",
+      },
     });
   };
 
@@ -52,6 +63,9 @@ const CalendarLayout = ({ data }) => {
         date: 1,
         year: selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year,
         weekday: new Date(selectedDate.year, selectedDate.month - 1, 1).getDay(),
+        hour: "",
+        minute: "",
+        period: "",
       },
     });
   };
@@ -64,6 +78,9 @@ const CalendarLayout = ({ data }) => {
         date: 1,
         year: selectedDate.month === 11 ? selectedDate.year + 1 : selectedDate.year,
         weekday: new Date(selectedDate.year, selectedDate.month + 1, 1).getDay(),
+        hour: "",
+        minute: "",
+        period: "",
       },
     });
   };
@@ -84,6 +101,9 @@ const CalendarLayout = ({ data }) => {
         date: 1,
         year: selectedMonth.year,
         weekday: new Date(selectedMonth.year, monthIndex, 1).getDay(),
+        hour: "",
+        minute: "",
+        period: "",
       },
     });
 

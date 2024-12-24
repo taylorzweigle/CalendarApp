@@ -4,12 +4,7 @@ import { Link } from "react-router-dom";
 
 import AddIcon from "@mui/icons-material/Add";
 
-import * as Actions from "../actions";
-
-import { useAuthContext } from "../hooks/useAuthContext";
 import { useTodosContext } from "../hooks/useTodosContext";
-
-import { getTodos } from "../api/todos";
 
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
@@ -24,24 +19,11 @@ import { calendars } from "../utility/calendars";
 import { filterEvents } from "../utility/utility";
 
 const TodosPage = () => {
-  const { user: authUser } = useAuthContext();
-  const { todos, dispatch } = useTodosContext();
+  const { todos } = useTodosContext();
 
   const [visibleCalendars, setVisibleCalendars] = useState([]);
 
   const [legendReset, setLegendReset] = useState(false);
-
-  useEffect(() => {
-    const fetchTodos = async () => {
-      const todos = await getTodos(authUser.token);
-
-      dispatch({ type: Actions.GET_TODOS, payload: todos.json });
-    };
-
-    if (authUser) {
-      fetchTodos();
-    }
-  }, [dispatch, authUser]);
 
   useEffect(() => {
     setVisibleCalendars(calendars.map((calendar) => calendar.user));

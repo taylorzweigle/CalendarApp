@@ -19,9 +19,9 @@ export const todosReducer = (state, action) => {
 };
 
 export const TodosContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(todosReducer, {
-    todos: null,
+  const [todos, dispatchTodos] = useReducer(todosReducer, {
+    todos: [],
   });
 
-  return <TodosContext.Provider value={{ ...state, dispatch }}>{children}</TodosContext.Provider>;
+  return <TodosContext.Provider value={{ ...todos, dispatchTodos }}>{children}</TodosContext.Provider>;
 };

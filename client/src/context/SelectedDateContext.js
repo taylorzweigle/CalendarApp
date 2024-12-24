@@ -24,7 +24,14 @@ export const SelectedDateContextProvider = ({ children }) => {
     date: today.getDate(),
     year: today.getFullYear(),
     weekday: today.getDay(),
+    hour: today.getHours(),
+    minute: today.getMinutes(),
+    period: today.getHours() < 12 ? "AM" : "PM",
   });
 
-  return <SelectedDateContext.Provider value={{ selectedDate, dispatchSelectedDate }}>{children}</SelectedDateContext.Provider>;
+  return (
+    <SelectedDateContext.Provider value={{ selectedDate, dispatchSelectedDate }}>
+      {children}
+    </SelectedDateContext.Provider>
+  );
 };

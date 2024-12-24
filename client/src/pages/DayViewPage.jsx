@@ -6,11 +6,8 @@ import AddIcon from "@mui/icons-material/Add";
 
 import * as Actions from "../actions";
 
-import { useAuthContext } from "../hooks/useAuthContext";
 import { useEventsContext } from "../hooks/useEventsContext";
-import { useSelectedStartTimeContext } from "../hooks/useSelectedStartTimeContext";
-
-import { getEvents } from "../api/events";
+import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
 
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
@@ -25,25 +22,12 @@ import { calendars } from "../utility/calendars";
 import { filterEvents } from "../utility/utility";
 
 const DayViewPage = () => {
-  const { user } = useAuthContext();
-  const { events, dispatch } = useEventsContext();
-  const { dispatchSelectedStartTime } = useSelectedStartTimeContext();
+  const { events } = useEventsContext();
+  const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
 
   const [visibleCalendars, setVisibleCalendars] = useState([]);
 
   const [legendReset, setLegendReset] = useState(false);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      const events = await getEvents(user.token);
-
-      dispatch({ type: Actions.GET_EVENTS, payload: events.json });
-    };
-
-    if (user) {
-      fetchEvents();
-    }
-  }, [dispatch, user]);
 
   useEffect(() => {
     setVisibleCalendars(calendars.map((calendar) => calendar.user));
@@ -91,7 +75,17 @@ const DayViewPage = () => {
                       variant="default"
                       prefix={<AddIcon />}
                       onClick={() =>
-                        dispatchSelectedStartTime({ type: Actions.SET_SELECTED_START_TIME, payload: "" })
+                        dispatchSelectedDate({
+                          type: Actions.SET_SELECTED_DATE,
+                          payload: {
+                            month: selectedDate.month,
+                            date: selectedDate.date,
+                            year: selectedDate.year,
+                            hour: "",
+                            minute: "",
+                            period: "",
+                          },
+                        })
                       }
                     >
                       <span className="inline-flex">Add&nbsp;</span>

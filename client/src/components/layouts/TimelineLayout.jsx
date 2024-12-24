@@ -10,7 +10,6 @@ import TodayIcon from "@mui/icons-material/Today";
 import * as Actions from "../../actions";
 
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
-import { useSelectedStartTimeContext } from "../../hooks/useSelectedStartTimeContext";
 
 import Button from "../../core/button/Button";
 import Label from "../../core/label/Label";
@@ -26,7 +25,6 @@ const TimelineLayout = ({ data }) => {
   const navigate = useNavigate();
 
   const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
-  const { dispatchSelectedStartTime } = useSelectedStartTimeContext();
 
   const today = new Date();
 
@@ -64,6 +62,9 @@ const TimelineLayout = ({ data }) => {
         date: date.date,
         year: date.year,
         weekday: new Date(`${months[date.month]} ${date.date} ${date.year}`).getDay(),
+        hour: "",
+        minute: "",
+        period: "",
       },
     });
 
@@ -78,6 +79,9 @@ const TimelineLayout = ({ data }) => {
         date: today.getDate(),
         year: today.getFullYear(),
         weekday: today.getDay(),
+        hour: "",
+        minute: "",
+        period: "",
       },
     });
   };
@@ -109,6 +113,9 @@ const TimelineLayout = ({ data }) => {
             ? getMonthLength(selectedDate.year, selectedDate.month - 1)
             : selectedDate.date - 1
         ).getDay(),
+        hour: "",
+        minute: "",
+        period: "",
       },
     });
   };
@@ -142,12 +149,25 @@ const TimelineLayout = ({ data }) => {
             ? 1
             : selectedDate.date + 1
         ).getDay(),
+        hour: "",
+        minute: "",
+        period: "",
       },
     });
   };
 
   const handleHourClick = (hour) => {
-    dispatchSelectedStartTime({ type: Actions.SET_SELECTED_START_TIME, payload: hour });
+    dispatchSelectedDate({
+      type: Actions.SET_SELECTED_DATE,
+      payload: {
+        month: selectedDate.month,
+        date: selectedDate.date,
+        year: selectedDate.year,
+        hour: hour,
+        minute: "00",
+        period: hour > 12 ? "PM" : "AM",
+      },
+    });
 
     navigate("/event");
   };

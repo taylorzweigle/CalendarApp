@@ -9,7 +9,6 @@ import * as Actions from "../actions";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEventsContext } from "../hooks/useEventsContext";
 import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
-import { useSelectedStartTimeContext } from "../hooks/useSelectedStartTimeContext";
 
 import Button from "../core/button/Button";
 import Card from "../core/card/Card";
@@ -34,7 +33,6 @@ const CreateEventPage = () => {
   const { user: authUser } = useAuthContext();
   const { dispatch } = useEventsContext();
   const { selectedDate } = useSelectedDateContext();
-  const { selectedStartTime } = useSelectedStartTimeContext();
 
   const [allDay, setAllDay] = useState(false);
   const [duration, setDuration] = useState(Actions.SINGLE_DAY);
@@ -67,38 +65,40 @@ const CreateEventPage = () => {
   const [endMonthPickerModal, setEndMonthPickerModal] = useState(false);
 
   useEffect(() => {
-    setStartMonth(selectedDate.month);
-    setStartDate(selectedDate.date);
-    setStartYear(selectedDate.year);
-    setEndMonth(selectedDate.month);
-    duration === Actions.MULTIPLE_DAYS ? setEndDate(selectedDate.date + 1) : setEndDate(selectedDate.date);
-    setEndYear(selectedDate.year);
-  }, [selectedDate, duration]);
+    if (selectedDate) {
+      setStartMonth(selectedDate.month);
+      setStartDate(selectedDate.date);
+      setStartYear(selectedDate.year);
+      setEndMonth(selectedDate.month);
+      duration === Actions.MULTIPLE_DAYS
+        ? setEndDate(selectedDate.date + 1)
+        : setEndDate(selectedDate.date);
+      setEndYear(selectedDate.year);
 
-  useEffect(() => {
-    if (selectedStartTime) {
-      setStartHours(selectedStartTime % 12 === 0 ? "12" : (selectedStartTime % 12).toString());
-      setStartMinutes("00");
-      setStartPeriod(selectedStartTime >= 12 ? "PM" : "AM");
-      setEndHours(
-        ((parseInt(selectedStartTime) + 1) % 12 === 0
-          ? "12"
-          : (parseInt(selectedStartTime) + 1) % 12
-        ).toString()
-      );
-      setEndMinutes("00");
-      setEndPeriod(parseInt(selectedStartTime) + 1 >= 12 ? "PM" : "AM");
-    } else if (selectedStartTime === 0) {
-      setStartHours(0);
-      setStartMinutes("00");
-      setStartPeriod("AM");
-      setEndHours(0);
-      setEndMinutes("00");
-      setEndPeriod("AM");
-      setDuration(Actions.SINGLE_DAY);
-      setAllDay(true);
+      if (selectedDate.hour > 0) {
+        setStartHours(selectedDate.hour % 12 === 0 ? "12" : (selectedDate.hour % 12).toString());
+        setStartMinutes("00");
+        setStartPeriod(selectedDate.hour >= 12 ? "PM" : "AM");
+        setEndHours(
+          ((parseInt(selectedDate.hour) + 1) % 12 === 0
+            ? "12"
+            : (parseInt(selectedDate.hour) + 1) % 12
+          ).toString()
+        );
+        setEndMinutes("00");
+        setEndPeriod(parseInt(selectedDate.hour) + 1 >= 12 ? "PM" : "AM");
+      } else if (selectedDate.hour === 0) {
+        setStartHours(0);
+        setStartMinutes("00");
+        setStartPeriod("AM");
+        setEndHours(0);
+        setEndMinutes("00");
+        setEndPeriod("AM");
+        setDuration(Actions.SINGLE_DAY);
+        setAllDay(true);
+      }
     }
-  }, [selectedStartTime]);
+  }, [selectedDate, duration]);
 
   const handleOnSaveStartMonthPicker = (selectedDate) => {
     setStartMonth(selectedDate.month);

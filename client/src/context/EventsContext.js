@@ -156,9 +156,9 @@ export const eventsReducer = (state, action) => {
 };
 
 export const EventsContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(eventsReducer, {
-    events: null,
+  const [events, dispatchEvents] = useReducer(eventsReducer, {
+    events: [],
   });
 
-  return <EventsContext.Provider value={{ ...state, dispatch }}>{children}</EventsContext.Provider>;
+  return <EventsContext.Provider value={{ ...events, dispatchEvents }}>{children}</EventsContext.Provider>;
 };
