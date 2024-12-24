@@ -34,7 +34,7 @@ const EditEventPage = () => {
   const params = useParams();
 
   const { user: authUser } = useAuthContext();
-  const { dispatch } = useEventsContext();
+  const { dispatchEvents } = useEventsContext();
 
   const [allDay, setAllDay] = useState(false);
   const [duration, setDuration] = useState(Actions.SINGLE_DAY);
@@ -252,7 +252,7 @@ const EditEventPage = () => {
       const events = await getEvents(authUser.token);
 
       if (events.json) {
-        dispatch({ type: Actions.GET_EVENTS, payload: events.json });
+        dispatchEvents({ type: Actions.GET_EVENTS, payload: events.json });
       }
 
       navigate(-1);
@@ -273,7 +273,7 @@ const EditEventPage = () => {
     const event = await deleteEvent(params.id, authUser.token);
 
     if (event.json) {
-      dispatch({ type: Actions.DELETE_EVENT, payload: event.json });
+      dispatchEvents({ type: Actions.DELETE_EVENT, payload: event.json });
 
       navigate(-1);
 

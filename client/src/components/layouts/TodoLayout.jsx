@@ -25,7 +25,7 @@ const TodoLayout = ({ data }) => {
   const navigate = useNavigate();
 
   const { user: authUser } = useAuthContext();
-  const { dispatch } = useTodosContext();
+  const { dispatchTodos } = useTodosContext();
 
   const [todos, setTodos] = useState([]);
   const [dueTodos, setDueTodos] = useState([]);
@@ -45,7 +45,7 @@ const TodoLayout = ({ data }) => {
       const deletedTodo = await deleteTodo(id, authUser.token);
 
       if (deletedTodo.json) {
-        dispatch({ type: Actions.DELETE_TODO, payload: deletedTodo.json });
+        dispatchTodos({ type: Actions.DELETE_TODO, payload: deletedTodo.json });
       }
     };
 
@@ -95,7 +95,7 @@ const TodoLayout = ({ data }) => {
       const todos = await getTodos(authUser.token);
 
       if (todos.json) {
-        dispatch({ type: Actions.GET_TODOS, payload: todos.json });
+        dispatchTodos({ type: Actions.GET_TODOS, payload: todos.json });
 
         setLoading("");
       }

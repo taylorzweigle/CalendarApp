@@ -30,7 +30,7 @@ const EditTodoPage = () => {
   const params = useParams();
 
   const { user: authUser } = useAuthContext();
-  const { dispatch } = useTodosContext();
+  const { dispatchTodos } = useTodosContext();
 
   const [todo, setTodo] = useState("");
   const [user, setUser] = useState("");
@@ -120,7 +120,7 @@ const EditTodoPage = () => {
       const todos = await getTodos(authUser.token);
 
       if (todos.json) {
-        dispatch({ type: Actions.GET_TODOS, payload: todos.json });
+        dispatchTodos({ type: Actions.GET_TODOS, payload: todos.json });
       }
 
       navigate(-1);
@@ -141,7 +141,7 @@ const EditTodoPage = () => {
     const todo = await deleteTodo(params.id, authUser.token);
 
     if (todo.json) {
-      dispatch({ type: Actions.DELETE_TODO, payload: todo.json });
+      dispatchTodos({ type: Actions.DELETE_TODO, payload: todo.json });
 
       navigate(-1);
 

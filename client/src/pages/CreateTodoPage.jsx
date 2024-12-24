@@ -27,7 +27,7 @@ const CreateTodoPage = () => {
   const navigate = useNavigate();
 
   const { user: authUser } = useAuthContext();
-  const { dispatch } = useTodosContext();
+  const { dispatchTodos } = useTodosContext();
   const { selectedDate } = useSelectedDateContext();
 
   const [todo, setTodo] = useState("");
@@ -99,7 +99,7 @@ const CreateTodoPage = () => {
     }
 
     if (json.json) {
-      dispatch({ type: Actions.CREATE_TODO, payload: json.json });
+      dispatchTodos({ type: Actions.CREATE_TODO, payload: json.json });
 
       navigate(-1);
 

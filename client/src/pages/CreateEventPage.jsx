@@ -31,7 +31,7 @@ const CreateEventPage = () => {
   const navigate = useNavigate();
 
   const { user: authUser } = useAuthContext();
-  const { dispatch } = useEventsContext();
+  const { dispatchEvent } = useEventsContext();
   const { selectedDate } = useSelectedDateContext();
 
   const [allDay, setAllDay] = useState(false);
@@ -224,7 +224,7 @@ const CreateEventPage = () => {
     }
 
     if (json.json) {
-      dispatch({ type: Actions.CREATE_EVENT, payload: json.json });
+      dispatchEvent({ type: Actions.CREATE_EVENT, payload: json.json });
 
       navigate(-1);
 

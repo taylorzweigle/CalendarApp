@@ -163,6 +163,7 @@ const TimelineLayout = ({ data }) => {
         month: selectedDate.month,
         date: selectedDate.date,
         year: selectedDate.year,
+        weekday: selectedDate.weekday,
         hour: hour,
         minute: "00",
         period: hour > 12 ? "PM" : "AM",
