@@ -16,13 +16,11 @@ import { getTodos } from "./api/todos";
 import ScrollToTop from "./ScrollToTop";
 
 import CalendarPage from "./pages/CalendarPage";
-import CreateEventPage from "./pages/CreateEventPage";
-import CreateTodoPage from "./pages/CreateTodoPage";
+import EventFormPage from "./pages/EventFormPage";
 import DayViewPage from "./pages/DayViewPage";
-import EditEventPage from "./pages/EditEventPage";
-import EditTodoPage from "./pages/EditTodoPage";
 import LoginPage from "./pages/LoginPage";
 import TodosPage from "./pages/TodosPage";
+import TodoFormPage from "./pages/TodoFormPage";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -79,10 +77,10 @@ const App = () => {
   return (
     <ScrollToTop>
       <Routes>
-        <Route path="/todo/:id" element={user ? <EditTodoPage /> : <Navigate to="/login" />} />
-        <Route path="/event/:id" element={user ? <EditEventPage /> : <Navigate to="/login" />} />
-        <Route path="/todo" element={user ? <CreateTodoPage /> : <Navigate to="/login" />} />
-        <Route path="/event" element={user ? <CreateEventPage /> : <Navigate to="/login" />} />
+        <Route path="/todo/:id" element={user ? <TodoFormPage /> : <Navigate to="/login" />} />
+        <Route path="/event/:id" element={user ? <EventFormPage /> : <Navigate to="/login" />} />
+        <Route path="/todo" element={user ? <TodoFormPage /> : <Navigate to="/login" />} />
+        <Route path="/event" element={user ? <EventFormPage /> : <Navigate to="/login" />} />
         <Route path="/todos" element={user ? <TodosPage /> : <Navigate to="/login" />} />
         <Route path="/day" element={user ? <DayViewPage /> : <Navigate to="/login" />} />
         <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />} />
