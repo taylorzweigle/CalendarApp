@@ -33,9 +33,11 @@ const TodoCard = ({ todo, color, dueDate, notes, checked, badge, loading, onClic
         {badge && <Badge size="large" />}
         <div className="flex flex-col w-full">
           <div className="flex flex-row justify-between items-center w-full h-14">
-            <IconButton color="default" loading={loading} onClick={onCheck}>
-              {checked ? <CheckIcon /> : <CheckBoxOutlineBlankIcon />}
-            </IconButton>
+            {onCheck && (
+              <IconButton color="default" loading={loading} onClick={onCheck}>
+                {checked ? <CheckIcon /> : <CheckBoxOutlineBlankIcon />}
+              </IconButton>
+            )}
             <div className="flex flex-col gap-0 p-1 sm:p-2 w-full line-clamp-1" onClick={onClick}>
               <Typography
                 variant="body2"

@@ -173,7 +173,7 @@ const TodoLayout = ({ data }) => {
               </div>
             ) : (
               <div className="pt-8">
-                <EmptyState type="Todo" />
+                <EmptyState type="Todo" subtext={`Click "Add Todo" to create a new todo.`} />
               </div>
             )}
           </div>

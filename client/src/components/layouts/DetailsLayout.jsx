@@ -52,7 +52,9 @@ const DetailsLayout = ({ data, calendars }) => {
             />
           </Link>
         ))}
-        {itemsForSelectedDay.length > 0 ? null : <EmptyState type="Event" />}
+        {itemsForSelectedDay.length > 0 ? null : (
+          <EmptyState type="Event" subtext={`Click "Add Event" to create a new event.`} />
+        )}
       </div>
     </div>
   );

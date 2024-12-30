@@ -1,30 +1,52 @@
 //Taylor Zweigle, 2024
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
+import { useEventsContext } from "../../hooks/useEventsContext";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useLogout } from "../../hooks/useLogout";
+import { useTodosContext } from "../../hooks/useTodosContext";
 
 import AboutModal from "../modals/AboutModal";
 import LogoutModal from "../modals/LogoutModal";
+import RecentlyAddedModal from "../modals/RecentlyAddedModal";
 
+import Badge from "../../core/badge/Badge";
 import Button from "../../core/button/Button";
-
-import { useLogout } from "../../hooks/useLogout";
-
+import Divider from "../../core/divider/Divider";
 import Menu from "../../core/menu/Menu";
 import MenuItem from "../../core/menu/MenuItem";
 
 const HeaderLayout = ({ action }) => {
+  const { events } = useEventsContext();
   const [theme, setTheme] = useLocalStorage("theme", "dark");
+  const { logout } = useLogout();
+  const { todos } = useTodosContext();
+
+  const [recentlyAddedEvents, setRecentlyAddedEvents] = useState([]);
+  const [recentlyAddedTodos, setRecentlyAddedTodos] = useState([]);
 
   const [open, setOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
+  const [recentlyAddedOpen, setRecentlyAddedOpen] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
-  const { logout } = useLogout();
+  useEffect(() => {
+    if (events) {
+      setRecentlyAddedEvents(
+        events.filter((event) => new Date().getTime() - new Date(event.creationTime).getTime() < 43200000)
+      );
+    }
+
+    if (todos) {
+      setRecentlyAddedTodos(
+        todos.filter((todo) => new Date().getTime() - new Date(todo.creationTime).getTime() < 43200000)
+      );
+    }
+  }, [events, todos]);
 
   const handleThemeButton = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -32,6 +54,11 @@ const HeaderLayout = ({ action }) => {
     setOpen(false);
 
     document.documentElement.classList.toggle("dark");
+  };
+
+  const handleRecentlyAddedClick = () => {
+    setRecentlyAddedOpen(true);
+    setOpen(false);
   };
 
   const handleAboutClick = () => {
@@ -58,8 +85,28 @@ const HeaderLayout = ({ action }) => {
     setLoading(false);
   };
 
+  const getBadgeCount = (events, todos) => {
+    let count = null;
+
+    if (events) {
+      count += events;
+    }
+
+    if (todos) {
+      count += todos;
+    }
+
+    return count;
+  };
+
   return (
     <>
+      <RecentlyAddedModal
+        open={recentlyAddedOpen}
+        events={recentlyAddedEvents}
+        todos={recentlyAddedTodos}
+        onCancelClick={() => setRecentlyAddedOpen(false)}
+      />
       <AboutModal open={aboutOpen} onCancelClick={() => setAboutOpen(false)} />
       <LogoutModal
         open={logoutOpen}
@@ -69,8 +116,18 @@ const HeaderLayout = ({ action }) => {
       />
       <div className="flex flex-row justify-between items-center p-4 md:p-8">
         <div>
-          <Button variant="outline" prefix={<MenuIcon />} onClick={() => setOpen(!open)} />
+          <div className="relative">
+            {(recentlyAddedEvents.length > 0 || recentlyAddedTodos.length > 0) && <Badge size="large" />}
+            <Button variant="outline" prefix={<MenuIcon />} onClick={() => setOpen(!open)} />
+          </div>
           <Menu open={open}>
+            <MenuItem
+              badge={getBadgeCount(recentlyAddedEvents.length, recentlyAddedTodos.length)}
+              onClick={handleRecentlyAddedClick}
+            >
+              Recently Added
+            </MenuItem>
+            <Divider padding />
             <MenuItem onClick={handleThemeButton}>
               {theme === "dark" ? "Set Light Theme" : "Set Dark Theme"}
             </MenuItem>

@@ -5,7 +5,7 @@ import EventBusyTwoToneIcon from "@mui/icons-material/EventBusyTwoTone";
 
 import Typography from "../typography/Typography";
 
-const EmptyState = forwardRef(({ type }, ref) => {
+const EmptyState = forwardRef(({ type, subtext }, ref) => {
   return (
     <div ref={ref} className="flex flex-col gap-0 justify-center items-center">
       <EventBusyTwoToneIcon className="text-slate-300 dark:text-slate-600" sx={{ fontSize: "72px" }} />
@@ -13,7 +13,7 @@ const EmptyState = forwardRef(({ type }, ref) => {
         {`No ${type}s`}
       </Typography>
       <Typography variant="body2" color="secondary">
-        {`Click "Add ${type}" to create a new ${type.toLowerCase()}.`}
+        {subtext}
       </Typography>
     </div>
   );
