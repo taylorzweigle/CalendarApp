@@ -6,8 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import * as Actions from "../actions";
 
-import { calendars } from "../api/calendars";
-
+import { useCalendarsContext } from "../hooks/useCalendarsContext";
 import { useEventsContext } from "../hooks/useEventsContext";
 import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
 
@@ -23,6 +22,7 @@ import TimelineLayout from "../components/layouts/TimelineLayout";
 import { filterEvents } from "../utility/utility";
 
 const DayViewPage = () => {
+  const { calendars } = useCalendarsContext();
   const { events } = useEventsContext();
   const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
 
@@ -31,18 +31,22 @@ const DayViewPage = () => {
   const [legendReset, setLegendReset] = useState(false);
 
   useEffect(() => {
-    setVisibleCalendars(calendars.map((calendar) => calendar));
-  }, []);
+    if (calendars.length > 0) {
+      setVisibleCalendars(calendars.map((calendar) => calendar.calendar));
+    }
+  }, [calendars]);
 
   const handleLegendChange = (calendar) => {
     if (visibleCalendars.length === 1) {
       if (visibleCalendars.includes(calendar)) {
-        setVisibleCalendars(calendars.map((calendar) => calendar));
+        setVisibleCalendars(calendars.map((calendar) => calendar.calendar));
 
         setLegendReset(false);
       } else {
         setVisibleCalendars(
-          calendars.map((calendar) => calendar).filter((visibleCalendar) => visibleCalendar === calendar)
+          calendars
+            .map((calendar) => calendar.calendar)
+            .filter((visibleCalendar) => visibleCalendar === calendar)
         );
 
         setLegendReset(true);
@@ -55,7 +59,7 @@ const DayViewPage = () => {
   };
 
   const handleLegendReset = () => {
-    setVisibleCalendars(calendars.map((calendar) => calendar));
+    setVisibleCalendars(calendars.map((calendar) => calendar.calendar));
 
     setLegendReset(false);
   };

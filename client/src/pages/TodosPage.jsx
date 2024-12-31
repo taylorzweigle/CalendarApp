@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 
 import AddIcon from "@mui/icons-material/Add";
 
-import { calendars } from "../api/calendars";
-
+import { useCalendarsContext } from "../hooks/useCalendarsContext";
 import { useTodosContext } from "../hooks/useTodosContext";
 
 import Button from "../core/button/Button";
@@ -20,6 +19,7 @@ import TodoLayout from "../components/layouts/TodoLayout";
 import { filterEvents } from "../utility/utility";
 
 const TodosPage = () => {
+  const { calendars } = useCalendarsContext();
   const { todos } = useTodosContext();
 
   const [visibleCalendars, setVisibleCalendars] = useState([]);
@@ -27,18 +27,22 @@ const TodosPage = () => {
   const [legendReset, setLegendReset] = useState(false);
 
   useEffect(() => {
-    setVisibleCalendars(calendars.map((calendar) => calendar));
-  }, []);
+    if (calendars.length > 0) {
+      setVisibleCalendars(calendars.map((calendar) => calendar.calendar));
+    }
+  }, [calendars]);
 
   const handleLegendChange = (calendar) => {
     if (visibleCalendars.length === 1) {
       if (visibleCalendars.includes(calendar)) {
-        setVisibleCalendars(calendars.map((calendar) => calendar));
+        setVisibleCalendars(calendars.map((calendar) => calendar.calendar));
 
         setLegendReset(false);
       } else {
         setVisibleCalendars(
-          calendars.map((calendar) => calendar).filter((visibleCalendar) => visibleCalendar === calendar)
+          calendars
+            .map((calendar) => calendar.calendar)
+            .filter((visibleCalendar) => visibleCalendar === calendar)
         );
 
         setLegendReset(true);
@@ -51,7 +55,7 @@ const TodosPage = () => {
   };
 
   const handleLegendReset = () => {
-    setVisibleCalendars(calendars.map((calendar) => calendar));
+    setVisibleCalendars(calendars.map((calendar) => calendar.calendar));
 
     setLegendReset(false);
   };
@@ -77,7 +81,7 @@ const TodosPage = () => {
             </div>
             <div className="hidden md:block col-span-12">
               <LegendLayout
-                calendars={calendars.filter((calendar) => calendar !== "Calendar")}
+                calendars={calendars.filter((calendar) => calendar.calendar !== "Calendar")}
                 visibleCalendars={visibleCalendars}
                 showReset={legendReset}
                 onClick={handleLegendChange}
@@ -92,7 +96,7 @@ const TodosPage = () => {
           <div className="block md:hidden col-span-12">
             <Divider />
             <LegendLayout
-              calendars={calendars.filter((calendar) => calendar !== "Calendar")}
+              calendars={calendars.filter((calendar) => calendar.calendar !== "Calendar")}
               visibleCalendars={visibleCalendars}
               showReset={legendReset}
               onClick={handleLegendChange}

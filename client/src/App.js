@@ -5,11 +5,13 @@ import { Route, Routes, Navigate } from "react-router";
 import * as Actions from "./actions";
 
 import { useAuthContext } from "./hooks/useAuthContext";
+import { useCalendarsContext } from "./hooks/useCalendarsContext";
 import { useEventsContext } from "./hooks/useEventsContext";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useSelectedDateContext } from "./hooks/useSelectedDateContext";
 import { useTodosContext } from "./hooks/useTodosContext";
 
+import { getCalendars } from "./api/calendars";
 import { getEvents } from "./api/events";
 import { getTodos } from "./api/todos";
 
@@ -24,6 +26,7 @@ import TodoFormPage from "./pages/TodoFormPage";
 
 const App = () => {
   const { user } = useAuthContext();
+  const { dispatchCalendars } = useCalendarsContext();
   const { dispatchEvents } = useEventsContext();
   const [theme] = useLocalStorage("theme", "dark");
   const { dispatchSelectedDate } = useSelectedDateContext();
@@ -32,6 +35,18 @@ const App = () => {
   useEffect(() => {
     theme === "dark" && document.documentElement.classList.add("dark");
   });
+
+  useEffect(() => {
+    const fetchCalendars = async () => {
+      const calendars = await getCalendars(user.token);
+
+      dispatchCalendars({ type: Actions.GET_CALENDARS, payload: calendars.json });
+    };
+
+    if (user) {
+      fetchCalendars();
+    }
+  }, [dispatchCalendars, user]);
 
   useEffect(() => {
     const fetchEvents = async () => {

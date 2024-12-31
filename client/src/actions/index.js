@@ -7,6 +7,10 @@ export const GET_TODOS = "GET_TODOS";
 export const CREATE_TODO = "CREATE_TODO";
 export const DELETE_TODO = "DELETE_TODO";
 
+export const GET_CALENDARS = "GET_CALENDARS";
+export const CREATE_CALENDAR = "CREATE_CALENDAR";
+export const DELETE_CALENDAR = "DELETE_CALENDAR";
+
 export const GET_SELECTED_DATE = "GET_SELECTED_DATE";
 export const SET_SELECTED_DATE = "SET_SELECTED_DATE";
 

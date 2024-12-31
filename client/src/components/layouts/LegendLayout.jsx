@@ -6,7 +6,6 @@ import ReplayIcon from "@mui/icons-material/Replay";
 import Legend from "../../core/legend/Legend";
 import Typography from "../../core/typography/Typography";
 import IconButton from "../../core/iconButton/IconButton";
-import { getCalendarColor } from "../../utility/utility";
 
 const LegendLayout = ({ calendars, visibleCalendars, showReset, onClick, onReset }) => {
   return (
@@ -28,11 +27,11 @@ const LegendLayout = ({ calendars, visibleCalendars, showReset, onClick, onReset
           {calendars &&
             calendars.map((calendar) => (
               <Legend
-                key={calendar}
-                color={getCalendarColor(calendar)}
-                label={calendar}
-                selected={visibleCalendars && visibleCalendars.includes(calendar)}
-                onClick={() => onClick(calendar)}
+                key={calendar.calendar}
+                color={calendar.color}
+                label={calendar.calendar}
+                selected={visibleCalendars && visibleCalendars.includes(calendar.calendar)}
+                onClick={() => onClick(calendar.calendar)}
               />
             ))}
         </div>

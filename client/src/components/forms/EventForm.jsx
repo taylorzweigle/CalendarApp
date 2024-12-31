@@ -5,11 +5,11 @@ import { useParams } from "react-router-dom";
 
 import * as Actions from "../../actions";
 
-import { calendars } from "../../api/calendars";
 import { getEvents, getEvent, createEvent, updateEvent, deleteEvent } from "../../api/events";
 import { tags } from "../../api/tags";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 import { useEventsContext } from "../../hooks/useEventsContext";
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
@@ -30,6 +30,7 @@ const EventForm = ({ isEditEventForm }) => {
   const params = useParams();
 
   const { user: authUser } = useAuthContext();
+  const { calendars } = useCalendarsContext();
   const { dispatchEvents } = useEventsContext();
   const { selectedDate } = useSelectedDateContext();
 
@@ -468,7 +469,7 @@ const EventForm = ({ isEditEventForm }) => {
                 label="User"
                 value={user}
                 error={userError}
-                items={["", ...calendars]}
+                items={["", ...calendars.map((calendar) => calendar.calendar)]}
                 showLabel
                 onChange={(e) => setUser(e.target.value)}
               />
