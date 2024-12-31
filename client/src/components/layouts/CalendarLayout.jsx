@@ -16,8 +16,6 @@ import Typography from "../../core/typography/Typography";
 import Calendar, { months } from "../calendar/Calendar";
 import MonthPickerModal from "../modals/MonthPickerModal";
 
-import { calendars } from "../../utility/calendars";
-
 const CalendarLayout = ({ data }) => {
   const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
 
@@ -145,7 +143,7 @@ const CalendarLayout = ({ data }) => {
         </div>
       </div>
       <div className="p-0">
-        <Calendar data={data} calendars={calendars} today={today} onSelectDay={handleSelectDay} />
+        <Calendar data={data} today={today} onSelectDay={handleSelectDay} />
       </div>
     </div>
   );

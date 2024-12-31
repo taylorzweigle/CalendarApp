@@ -5,11 +5,13 @@ import { useParams } from "react-router-dom";
 
 import * as Actions from "../../actions";
 
+import { calendars } from "../../api/calendars";
+import { getEvents, getEvent, createEvent, updateEvent, deleteEvent } from "../../api/events";
+import { tags } from "../../api/tags";
+
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEventsContext } from "../../hooks/useEventsContext";
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
-
-import { getEvents, getEvent, createEvent, updateEvent, deleteEvent } from "../../api/events";
 
 import Button from "../../core/button/Button";
 import Checkbox from "../../core/checkbox/Checkbox";
@@ -22,8 +24,6 @@ import DateInput from "../inputs/DateInput";
 import DatePickerModal from "../modals/DatePickerModal";
 import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
 import TimeInput from "../inputs/TimeInput";
-
-import { tags } from "../../utility/calendars";
 
 const EventForm = ({ isEditEventForm }) => {
   const navigate = useNavigate();
@@ -466,7 +466,7 @@ const EventForm = ({ isEditEventForm }) => {
                 label="User"
                 value={user}
                 error={userError}
-                items={["", "Husband", "Wife", "Us", "Calendar"]}
+                items={["", ...calendars]}
                 showLabel
                 onChange={(e) => setUser(e.target.value)}
               />
@@ -475,7 +475,7 @@ const EventForm = ({ isEditEventForm }) => {
                 value={tag}
                 showIcon
                 error={tagError}
-                items={tags}
+                items={["", ...tags]}
                 showLabel
                 onChange={(e) => setTag(e.target.value)}
               />

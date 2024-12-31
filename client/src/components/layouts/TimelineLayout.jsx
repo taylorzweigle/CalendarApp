@@ -19,8 +19,6 @@ import DatePickerModal from "../modals/DatePickerModal";
 import { months, daysOfWeek } from "../calendar/Calendar";
 import Timeline from "../timeline/Timeline";
 
-import { calendars } from "../../utility/calendars";
-
 const TimelineLayout = ({ data }) => {
   const navigate = useNavigate();
 
@@ -229,7 +227,7 @@ const TimelineLayout = ({ data }) => {
           </div>
         </div>
         <div className="p-0">
-          <Timeline data={dayData} calendars={calendars} onHourClick={handleHourClick} />
+          <Timeline data={dayData} onHourClick={handleHourClick} />
         </div>
       </div>
     </>

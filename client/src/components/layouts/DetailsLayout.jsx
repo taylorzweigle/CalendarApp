@@ -11,9 +11,9 @@ import { daysOfWeek, months } from "../calendar/Calendar";
 
 import EventCard from "../cards/EventCard";
 
-import { isRecentlyAdded, sortEvents } from "../../utility/utility";
+import { getCalendarColor, isRecentlyAdded, sortEvents } from "../../utility/utility";
 
-const DetailsLayout = ({ data, calendars }) => {
+const DetailsLayout = ({ data }) => {
   const { selectedDate } = useSelectedDateContext();
 
   const itemsForSelectedDay = data
@@ -37,7 +37,7 @@ const DetailsLayout = ({ data, calendars }) => {
           <Link key={event._id} to={`/event/${event._id}`}>
             <EventCard
               event={event.event}
-              color={calendars.find((calendar) => calendar.user === event.user).color}
+              color={getCalendarColor(event.user)}
               tag={event.tag}
               startTime={
                 event.actualStartTime ? new Date(event.actualStartTime) : new Date(event.startTime)

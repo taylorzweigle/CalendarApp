@@ -14,6 +14,30 @@ import WorkIcon from "@mui/icons-material/Work";
 
 import { daysOfWeek, months } from "../components/calendar/Calendar";
 
+export const getCalendarColor = (user) => {
+  let color = "";
+
+  switch (user) {
+    case "Husband":
+      color = "emerald";
+      break;
+    case "Wife":
+      color = "purple";
+      break;
+    case "Us":
+      color = "sky";
+      break;
+    case "Calendar":
+      color = "stone";
+      break;
+    default:
+      color = "stone";
+      break;
+  }
+
+  return color;
+};
+
 export const getColors = (color) => {
   let colorObject = { bg: "", hover: "", active: "", border: "", text: "", icon: "" };
 
@@ -93,37 +117,37 @@ export const getIcons = (tag) => {
   let icon = null;
 
   switch (tag) {
-    case "calendar":
+    case "Calendar":
       icon = <CalendarMonthIcon fontSize={size} />;
       break;
-    case "chores":
+    case "Chores":
       icon = <ConstructionIcon fontSize={size} />;
       break;
-    case "family":
+    case "Family":
       icon = <FavoriteIcon fontSize={size} />;
       break;
-    case "friends":
+    case "Friends":
       icon = <GroupsIcon fontSize={size} />;
       break;
-    case "fun":
+    case "Fun":
       icon = <CameraAltIcon fontSize={size} />;
       break;
-    case "holiday":
+    case "Holiday":
       icon = <StarIcon fontSize={size} />;
       break;
-    case "personal":
+    case "Personal":
       icon = <FaceIcon fontSize={size} />;
       break;
-    case "sports":
+    case "Sports":
       icon = <StadiumIcon fontSize={size} />;
       break;
-    case "serve":
+    case "Serve":
       icon = <EscalatorWarningIcon fontSize={size} />;
       break;
-    case "travel":
+    case "Travel":
       icon = <FlightIcon fontSize={size} />;
       break;
-    case "work":
+    case "Work":
       icon = <WorkIcon fontSize={size} />;
       break;
     default:

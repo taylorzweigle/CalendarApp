@@ -8,6 +8,8 @@ import TimelineCell from "./internal/TimelineCell";
 
 import Typography from "../../core/typography/Typography";
 
+import { getCalendarColor } from "../../utility/utility";
+
 const Timeline = ({ data, calendars, onHourClick }) => {
   const navigate = useNavigate();
 
@@ -87,7 +89,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
               rowSpan={calculateRowSpan(array[i]) === 0 ? 1 : calculateRowSpan(array[i])}
               event={array[i].event}
               tag={array[i].tag}
-              color={calendars.find((calendar) => calendar.user === array[i].user).color}
+              color={getCalendarColor(array[i].user)}
               currentHour={isCurrentTime(hour)}
               startTime={
                 array[i].actualStartTime ? new Date(array[i].actualStartTime) : new Date(array[i].startTime)
@@ -143,7 +145,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
             <TimelineCell
               event={array[i].event}
               tag={array[i].tag}
-              color={calendars.find((calendar) => calendar.user === array[i].user).color}
+              color={getCalendarColor(array[i].user)}
               startTime={
                 array[i].actualStartTime ? new Date(array[i].actualStartTime) : new Date(array[i].startTime)
               }

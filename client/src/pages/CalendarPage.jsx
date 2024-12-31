@@ -6,6 +6,8 @@ import AddIcon from "@mui/icons-material/Add";
 
 import * as Actions from "../actions";
 
+import { calendars } from "../api/calendars";
+
 import { useEventsContext } from "../hooks/useEventsContext";
 import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
 
@@ -19,7 +21,6 @@ import DetailsLayout from "../components/layouts/DetailsLayout";
 import HeaderLayout from "../components/layouts/HeaderLayout";
 import LegendLayout from "../components/layouts/LegendLayout";
 
-import { calendars } from "../utility/calendars";
 import { filterEvents } from "../utility/utility";
 
 const CalendarPage = () => {
@@ -31,20 +32,18 @@ const CalendarPage = () => {
   const [legendReset, setLegendReset] = useState(false);
 
   useEffect(() => {
-    setVisibleCalendars(calendars.map((calendar) => calendar.user));
+    setVisibleCalendars(calendars.map((calendar) => calendar));
   }, []);
 
   const handleLegendChange = (calendar) => {
     if (visibleCalendars.length === 1) {
       if (visibleCalendars.includes(calendar)) {
-        setVisibleCalendars(calendars.map((calendar) => calendar.user));
+        setVisibleCalendars(calendars.map((calendar) => calendar));
 
         setLegendReset(false);
       } else {
         setVisibleCalendars(
-          calendars
-            .map((calendar) => calendar.user)
-            .filter((visibleCalendar) => visibleCalendar === calendar)
+          calendars.map((calendar) => calendar).filter((visibleCalendar) => visibleCalendar === calendar)
         );
 
         setLegendReset(true);
@@ -57,7 +56,7 @@ const CalendarPage = () => {
   };
 
   const handleLegendReset = () => {
-    setVisibleCalendars(calendars.map((calendar) => calendar.user));
+    setVisibleCalendars(calendars.map((calendar) => calendar));
 
     setLegendReset(false);
   };
@@ -99,7 +98,7 @@ const CalendarPage = () => {
               <Divider />
             </div>
             <div className="col-span-12">
-              <DetailsLayout data={filterEvents(visibleCalendars, events)} calendars={calendars} />
+              <DetailsLayout data={filterEvents(visibleCalendars, events)} />
               <Divider />
             </div>
             <div className="hidden md:block col-span-12">

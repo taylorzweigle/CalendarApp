@@ -17,11 +17,10 @@ import Typography from "../../core/typography/Typography";
 
 import TodoCard from "../../components/cards/TodoCard";
 
-import { calendars } from "../../utility/calendars";
 import Divider from "../../core/divider/Divider";
 import Toast from "../../core/toast/Toast";
 
-import { isRecentlyAdded } from "../../utility/utility";
+import { getCalendarColor, isRecentlyAdded } from "../../utility/utility";
 
 const TodoLayout = ({ data }) => {
   const navigate = useNavigate();
@@ -130,7 +129,7 @@ const TodoLayout = ({ data }) => {
                   <TodoCard
                     key={todo._id}
                     todo={todo.todo}
-                    color={calendars.find((calendar) => calendar.user === todo.user).color}
+                    color={getCalendarColor(todo.user)}
                     dueDate={todo.dueDate}
                     notes={todo.notes}
                     checked={todo.checked}
@@ -160,7 +159,7 @@ const TodoLayout = ({ data }) => {
                   <TodoCard
                     key={todo._id}
                     todo={todo.todo}
-                    color={calendars.find((calendar) => calendar.user === todo.user).color}
+                    color={getCalendarColor(todo.user)}
                     dueDate={todo.dueDate}
                     notes={todo.notes}
                     checked={todo.checked}

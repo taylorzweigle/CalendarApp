@@ -8,7 +8,7 @@ import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
 import CalendarCard from "../cards/CalendarCard";
 
-import { sortEvents } from "../../utility/utility";
+import { getCalendarColor, sortEvents } from "../../utility/utility";
 
 export const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -27,7 +27,7 @@ export const months = [
   "December",
 ];
 
-const Calendar = ({ data, calendars, today, onSelectDay }) => {
+const Calendar = ({ data, today, onSelectDay }) => {
   const { selectedDate } = useSelectedDateContext();
 
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
@@ -132,7 +132,7 @@ const Calendar = ({ data, calendars, today, onSelectDay }) => {
                         <CalendarCard
                           key={event._id}
                           event={event.event}
-                          color={calendars.find((calendar) => calendar.user === event.user).color}
+                          color={getCalendarColor(event.user)}
                           tag={event.tag}
                           type={event.type}
                           badge={showBadge(event.creationTime)}

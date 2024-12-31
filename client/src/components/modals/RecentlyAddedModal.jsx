@@ -8,7 +8,7 @@ import Tab from "../../core/tabs/Tab";
 import EventCard from "../cards/EventCard";
 import TodoCard from "../cards/TodoCard";
 
-import { calendars } from "../../utility/calendars";
+import { getCalendarColor } from "../../utility/utility";
 
 const RecentlyAddedModal = ({ open, events, todos, onCancelClick }) => {
   const [selected, setSelected] = useState("Events");
@@ -38,7 +38,7 @@ const RecentlyAddedModal = ({ open, events, todos, onCancelClick }) => {
               <EventCard
                 key={event._id}
                 event={event.event}
-                color={calendars.find((calendar) => calendar.user === event.user).color}
+                color={getCalendarColor(event.user)}
                 tag={event.tag}
                 startTime={
                   event.actualStartTime ? new Date(event.actualStartTime) : new Date(event.startTime)
@@ -61,7 +61,7 @@ const RecentlyAddedModal = ({ open, events, todos, onCancelClick }) => {
               <TodoCard
                 key={todo._id}
                 todo={todo.todo}
-                color={calendars.find((calendar) => calendar.user === todo.user).color}
+                color={getCalendarColor(todo.user)}
                 dueDate={todo.dueDate}
               />
             ))
