@@ -37,7 +37,20 @@ const HeaderLayout = ({ action }) => {
 
   useEffect(() => {
     if (events) {
-      setRecentlyAddedEvents(events.filter((event) => isRecentlyAdded(event.creationTime)));
+      const allRecentEvents = events.filter((event) => isRecentlyAdded(event.creationTime));
+      const filteredEvents = [];
+
+      let uniqueEvents = [];
+
+      for (let i = 0; i < allRecentEvents.length; i++) {
+        if (!uniqueEvents.includes(allRecentEvents[i].event)) {
+          uniqueEvents.push(allRecentEvents[i].event);
+
+          filteredEvents.push(allRecentEvents[i]);
+        }
+      }
+
+      setRecentlyAddedEvents(filteredEvents);
     }
 
     if (todos) {

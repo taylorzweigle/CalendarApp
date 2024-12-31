@@ -347,18 +347,22 @@ const EventForm = ({ isEditEventForm }) => {
   const handleStartPeriodChange = (value) => {
     setStartPeriod(value);
 
-    if (value === "AM") {
-      setEndPeriod("AM");
-    } else if (value === "PM") {
-      setEndPeriod("PM");
+    if (duration === Actions.SINGLE_DAY) {
+      if (value === "AM") {
+        setEndPeriod("AM");
+      } else if (value === "PM") {
+        setEndPeriod("PM");
+      }
     }
   };
 
   const handleEndPeriodChange = (value) => {
     setEndPeriod(value);
 
-    if (value === "AM") {
-      setStartPeriod("AM");
+    if (duration === Actions.SINGLE_DAY) {
+      if (value === "AM") {
+        setStartPeriod("AM");
+      }
     }
   };
 
