@@ -310,14 +310,12 @@ const EventForm = ({ isEditEventForm }) => {
     }
 
     if (json.json) {
-      if (isEditEventForm) {
-        const events = await getEvents(authUser.token);
+      dispatchEvents({ type: Actions.CREATE_EVENT, payload: json.json });
 
-        if (events.json) {
-          dispatchEvents({ type: Actions.GET_EVENTS, payload: events.json });
-        }
-      } else {
-        dispatchEvents({ type: Actions.CREATE_EVENT, payload: json.json });
+      const events = await getEvents(authUser.token);
+
+      if (events.json) {
+        dispatchEvents({ type: Actions.GET_EVENTS, payload: events.json });
       }
 
       navigate(-1);

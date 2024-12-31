@@ -114,7 +114,9 @@ const HeaderLayout = ({ action }) => {
           <Menu open={open}>
             <MenuItem
               rightSlot={
-                <Label>{getBadgeCount(recentlyAddedEvents.length, recentlyAddedTodos.length)}</Label>
+                (recentlyAddedEvents.length > 0 || recentlyAddedTodos.length > 0) && (
+                  <Label>{getBadgeCount(recentlyAddedEvents.length, recentlyAddedTodos.length)}</Label>
+                )
               }
               onClick={handleRecentlyAddedClick}
             >
