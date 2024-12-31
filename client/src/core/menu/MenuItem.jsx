@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 
 import Typography from "../typography/Typography";
 
-const MenuItem = forwardRef(({ children, badge, onClick }, ref) => {
+const MenuItem = forwardRef(({ children, rightSlot, onClick }, ref) => {
   return (
     <div
       ref={ref}
@@ -11,13 +11,7 @@ const MenuItem = forwardRef(({ children, badge, onClick }, ref) => {
       onClick={onClick}
     >
       <Typography variant="body1">{children}</Typography>
-      {badge && (
-        <span className="flex justify-center items-center w-5 h-5 bg-rose-400 dark:bg-rose-500 text-white rounded-full">
-          <Typography variant="caption" bold>
-            {badge}
-          </Typography>
-        </span>
-      )}
+      {rightSlot && rightSlot}
     </div>
   );
 });

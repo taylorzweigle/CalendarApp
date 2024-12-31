@@ -18,6 +18,14 @@ export const getColors = (color) => {
   let colorObject = { bg: "", hover: "", active: "", border: "", text: "", icon: "" };
 
   switch (color) {
+    case "yellow":
+      colorObject.bg = "bg-yellow-100 dark:bg-yellow-700";
+      colorObject.hover = "md:hover:bg-yellow-200 md:dark:hover:bg-yellow-600";
+      colorObject.active = "active:bg-yellow-200 dark:active:bg-yellow-600";
+      colorObject.border = "border-yellow-500 dark:border-yellow-500";
+      colorObject.text = "text-yellow-700 dark:text-white";
+      colorObject.icon = "text-yellow-600 dark:text-white";
+      break;
     case "emerald":
       colorObject.bg = "bg-emerald-100 dark:bg-emerald-700";
       colorObject.hover = "md:hover:bg-emerald-200 md:dark:hover:bg-emerald-600";
@@ -25,6 +33,14 @@ export const getColors = (color) => {
       colorObject.border = "border-emerald-500 dark:border-emerald-500";
       colorObject.text = "text-emerald-700 dark:text-white";
       colorObject.icon = "text-emerald-600 dark:text-white";
+      break;
+    case "pink":
+      colorObject.bg = "bg-pink-100 dark:bg-pink-700";
+      colorObject.hover = "md:hover:bg-pink-200 md:dark:hover:bg-pink-600";
+      colorObject.active = "active:bg-pink-200 dark:active:bg-pink-600";
+      colorObject.border = "border-pink-500 dark:border-pink-500";
+      colorObject.text = "text-pink-700 dark:text-white";
+      colorObject.icon = "text-pink-600 dark:text-white";
       break;
     case "purple":
       colorObject.bg = "bg-purple-100 dark:bg-purple-700";
@@ -49,6 +65,14 @@ export const getColors = (color) => {
       colorObject.border = "border-stone-500 dark:border-stone-500";
       colorObject.text = "text-stone-700 dark:text-white";
       colorObject.icon = "text-stone-600 dark:text-white";
+      break;
+    case "slate":
+      colorObject.bg = "bg-slate-100 dark:bg-slate-600";
+      colorObject.hover = "md:hover:bg-slate-200 md:dark:hover:bg-slate-600";
+      colorObject.active = "active:bg-slate-200 dark:active:bg-slate-600";
+      colorObject.border = "border-slate-500 dark:border-slate-500";
+      colorObject.text = "text-slate-700 dark:text-white";
+      colorObject.icon = "text-slate-600 dark:text-white";
       break;
     default:
       colorObject.bg = "bg-slate-100 dark:bg-slate-700";
@@ -136,6 +160,10 @@ export const compareStartAndEndTimes = (start, end) => {
   }
 
   return result;
+};
+
+export const isRecentlyAdded = (time) => {
+  return new Date().getTime() - new Date(time).getTime() < 43200000 ? true : false;
 };
 
 export const sortEvents = (events) => {

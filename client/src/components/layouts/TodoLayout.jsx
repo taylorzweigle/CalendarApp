@@ -21,6 +21,8 @@ import { calendars } from "../../utility/calendars";
 import Divider from "../../core/divider/Divider";
 import Toast from "../../core/toast/Toast";
 
+import { isRecentlyAdded } from "../../utility/utility";
+
 const TodoLayout = ({ data }) => {
   const navigate = useNavigate();
 
@@ -106,8 +108,6 @@ const TodoLayout = ({ data }) => {
     navigate(`/todo/${id}`);
   };
 
-  const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 43200000;
-
   return (
     <>
       <Toast open={deletedTodoCount > 0}>{`${deletedTodoCount} Todo${
@@ -135,7 +135,7 @@ const TodoLayout = ({ data }) => {
                     notes={todo.notes}
                     checked={todo.checked}
                     loading={loading === todo._id}
-                    badge={showBadge(todo.creationTime)}
+                    badge={isRecentlyAdded(todo.creationTime)}
                     onClick={() => handleEdit(todo._id)}
                     onCheck={() => handleCheck(todo)}
                   />
@@ -165,7 +165,7 @@ const TodoLayout = ({ data }) => {
                     notes={todo.notes}
                     checked={todo.checked}
                     loading={loading === todo._id}
-                    badge={showBadge(todo.creationTime)}
+                    badge={isRecentlyAdded(todo.creationTime)}
                     onClick={() => handleEdit(todo._id)}
                     onCheck={() => handleCheck(todo)}
                   />

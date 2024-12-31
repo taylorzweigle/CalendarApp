@@ -51,10 +51,7 @@ const RecentlyAddedModal = ({ open, events, todos, onCancelClick }) => {
             ))
           ) : (
             <span className="pt-8 pb-8 sm:pt-4 sm:pb-4">
-              <EmptyState
-                type="Recently Added Event"
-                subtext="Events added in the last 12 hours will show here."
-              />
+              <EmptyState type="Event" subtext="Events added in the last 12 hours will show here." />
             </span>
           )}
         </span>
@@ -70,10 +67,7 @@ const RecentlyAddedModal = ({ open, events, todos, onCancelClick }) => {
             ))
           ) : (
             <span className="pt-8 pb-8 sm:pt-4 sm:pb-4">
-              <EmptyState
-                type="Recently Added Todo"
-                subtext="Todos added in the last 12 hours will show here."
-              />
+              <EmptyState type="Todo" subtext="Todos added in the last 12 hours will show here." />
             </span>
           )}
         </span>

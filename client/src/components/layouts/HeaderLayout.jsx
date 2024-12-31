@@ -8,15 +8,17 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useLogout } from "../../hooks/useLogout";
 import { useTodosContext } from "../../hooks/useTodosContext";
 
-import AboutModal from "../modals/AboutModal";
 import LogoutModal from "../modals/LogoutModal";
 import RecentlyAddedModal from "../modals/RecentlyAddedModal";
 
 import Badge from "../../core/badge/Badge";
 import Button from "../../core/button/Button";
 import Divider from "../../core/divider/Divider";
+import Label from "../../core/label/Label";
 import Menu from "../../core/menu/Menu";
 import MenuItem from "../../core/menu/MenuItem";
+
+import { isRecentlyAdded } from "../../utility/utility";
 
 const HeaderLayout = ({ action }) => {
   const { events } = useEventsContext();
@@ -28,7 +30,6 @@ const HeaderLayout = ({ action }) => {
   const [recentlyAddedTodos, setRecentlyAddedTodos] = useState([]);
 
   const [open, setOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
   const [recentlyAddedOpen, setRecentlyAddedOpen] = useState(false);
 
@@ -36,15 +37,11 @@ const HeaderLayout = ({ action }) => {
 
   useEffect(() => {
     if (events) {
-      setRecentlyAddedEvents(
-        events.filter((event) => new Date().getTime() - new Date(event.creationTime).getTime() < 43200000)
-      );
+      setRecentlyAddedEvents(events.filter((event) => isRecentlyAdded(event.creationTime)));
     }
 
     if (todos) {
-      setRecentlyAddedTodos(
-        todos.filter((todo) => new Date().getTime() - new Date(todo.creationTime).getTime() < 43200000)
-      );
+      setRecentlyAddedTodos(todos.filter((todo) => isRecentlyAdded(todo.creationTime)));
     }
   }, [events, todos]);
 
@@ -58,11 +55,6 @@ const HeaderLayout = ({ action }) => {
 
   const handleRecentlyAddedClick = () => {
     setRecentlyAddedOpen(true);
-    setOpen(false);
-  };
-
-  const handleAboutClick = () => {
-    setAboutOpen(true);
     setOpen(false);
   };
 
@@ -107,7 +99,6 @@ const HeaderLayout = ({ action }) => {
         todos={recentlyAddedTodos}
         onCancelClick={() => setRecentlyAddedOpen(false)}
       />
-      <AboutModal open={aboutOpen} onCancelClick={() => setAboutOpen(false)} />
       <LogoutModal
         open={logoutOpen}
         loading={loading}
@@ -122,7 +113,9 @@ const HeaderLayout = ({ action }) => {
           </div>
           <Menu open={open}>
             <MenuItem
-              badge={getBadgeCount(recentlyAddedEvents.length, recentlyAddedTodos.length)}
+              rightSlot={
+                <Label>{getBadgeCount(recentlyAddedEvents.length, recentlyAddedTodos.length)}</Label>
+              }
               onClick={handleRecentlyAddedClick}
             >
               Recently Added
@@ -131,7 +124,6 @@ const HeaderLayout = ({ action }) => {
             <MenuItem onClick={handleThemeButton}>
               {theme === "dark" ? "Set Light Theme" : "Set Dark Theme"}
             </MenuItem>
-            <MenuItem onClick={handleAboutClick}>About</MenuItem>
             <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
           </Menu>
         </div>

@@ -11,7 +11,7 @@ import { daysOfWeek, months } from "../calendar/Calendar";
 
 import EventCard from "../cards/EventCard";
 
-import { sortEvents } from "../../utility/utility";
+import { isRecentlyAdded, sortEvents } from "../../utility/utility";
 
 const DetailsLayout = ({ data, calendars }) => {
   const { selectedDate } = useSelectedDateContext();
@@ -24,8 +24,6 @@ const DetailsLayout = ({ data, calendars }) => {
           selectedDate.date === new Date(item.startTime).getDate()
       )
     : [];
-
-  const showBadge = (time) => new Date().getTime() - new Date(time).getTime() < 43200000;
 
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8">
@@ -48,7 +46,7 @@ const DetailsLayout = ({ data, calendars }) => {
               showStartDate={event.actualStartTime}
               showEndDate={event.actualEndTime}
               allDay={event.allDay}
-              badge={showBadge(event.creationTime)}
+              badge={isRecentlyAdded(event.creationTime)}
             />
           </Link>
         ))}
