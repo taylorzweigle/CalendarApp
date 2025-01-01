@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router";
 
@@ -10,6 +10,7 @@ import { useEventsContext } from "./hooks/useEventsContext";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useSelectedDateContext } from "./hooks/useSelectedDateContext";
 import { useTodosContext } from "./hooks/useTodosContext";
+import { useVisibleCalendarsContext } from "./hooks/useVisibleCalendarsContext";
 
 import { getCalendars } from "./api/calendars";
 import { getEvents } from "./api/events";
@@ -31,6 +32,7 @@ const App = () => {
   const [theme] = useLocalStorage("theme", "dark");
   const { dispatchSelectedDate } = useSelectedDateContext();
   const { dispatchTodos } = useTodosContext();
+  const { dispatchVisibleCalendars } = useVisibleCalendarsContext();
 
   useEffect(() => {
     theme === "dark" && document.documentElement.classList.add("dark");
@@ -41,12 +43,17 @@ const App = () => {
       const calendars = await getCalendars(user.token);
 
       dispatchCalendars({ type: Actions.GET_CALENDARS, payload: calendars.json });
+
+      dispatchVisibleCalendars({
+        type: Actions.SET_VISIBLE_CALENDARS,
+        payload: calendars.json.map((calendar) => calendar.calendar),
+      });
     };
 
     if (user) {
       fetchCalendars();
     }
-  }, [dispatchCalendars, user]);
+  }, [dispatchCalendars, dispatchVisibleCalendars, user]);
 
   useEffect(() => {
     const fetchEvents = async () => {

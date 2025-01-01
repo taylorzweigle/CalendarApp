@@ -1,5 +1,5 @@
-//Taylor Zweigle, 2024
-import React, { useState, useEffect } from "react";
+//Taylor Zweigle, 2025
+import React from "react";
 import { Link } from "react-router-dom";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -9,6 +9,7 @@ import * as Actions from "../actions";
 import { useCalendarsContext } from "../hooks/useCalendarsContext";
 import { useEventsContext } from "../hooks/useEventsContext";
 import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
+import { useVisibleCalendarsContext } from "../hooks/useVisibleCalendarsContext";
 
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
@@ -26,44 +27,7 @@ const CalendarPage = () => {
   const { calendars } = useCalendarsContext();
   const { events } = useEventsContext();
   const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
-
-  const [visibleCalendars, setVisibleCalendars] = useState([]);
-
-  const [legendReset, setLegendReset] = useState(false);
-
-  useEffect(() => {
-    if (calendars.length > 0) {
-      setVisibleCalendars(calendars.map((calendar) => calendar.calendar));
-    }
-  }, [calendars]);
-
-  const handleLegendChange = (calendar) => {
-    if (visibleCalendars.length === 1) {
-      if (visibleCalendars.includes(calendar)) {
-        setVisibleCalendars(calendars.map((calendar) => calendar.calendar));
-
-        setLegendReset(false);
-      } else {
-        setVisibleCalendars(
-          calendars
-            .map((calendar) => calendar.calendar)
-            .filter((visibleCalendar) => visibleCalendar === calendar)
-        );
-
-        setLegendReset(true);
-      }
-    } else {
-      setVisibleCalendars(visibleCalendars.filter((visibleCalendar) => visibleCalendar === calendar));
-
-      setLegendReset(true);
-    }
-  };
-
-  const handleLegendReset = () => {
-    setVisibleCalendars(calendars.map((calendar) => calendar.calendar));
-
-    setLegendReset(false);
-  };
+  const { visibleCalendars } = useVisibleCalendarsContext();
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -106,13 +70,7 @@ const CalendarPage = () => {
               <Divider />
             </div>
             <div className="hidden md:block col-span-12">
-              <LegendLayout
-                calendars={calendars}
-                visibleCalendars={visibleCalendars}
-                showReset={legendReset}
-                onClick={handleLegendChange}
-                onReset={handleLegendReset}
-              />
+              <LegendLayout calendars={calendars} />
               <Divider />
             </div>
           </div>
@@ -120,13 +78,7 @@ const CalendarPage = () => {
         <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col gap-0 md:gap-8 p-0 md:p-8">
           <CalendarLayout data={filterEvents(visibleCalendars, events)} />
           <div className="block md:hidden col-span-12">
-            <LegendLayout
-              calendars={calendars}
-              visibleCalendars={visibleCalendars}
-              showReset={legendReset}
-              onClick={handleLegendChange}
-              onReset={handleLegendReset}
-            />
+            <LegendLayout calendars={calendars} />
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 export const GET_EVENTS = "GET_EVENTS";
 export const CREATE_EVENT = "CREATE_EVENT";
 export const DELETE_EVENT = "DELETE_EVENT";
@@ -13,6 +13,9 @@ export const DELETE_CALENDAR = "DELETE_CALENDAR";
 
 export const GET_SELECTED_DATE = "GET_SELECTED_DATE";
 export const SET_SELECTED_DATE = "SET_SELECTED_DATE";
+
+export const GET_VISIBLE_CALENDARS = "GET_VISIBLE_CALENDARS";
+export const SET_VISIBLE_CALENDARS = "SET_VISIBLE_CALENDARS";
 
 export const SINGLE_DAY = "SINGLE_DAY";
 export const MULTIPLE_DAYS = "MULTIPLE_DAYS";
