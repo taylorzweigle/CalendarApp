@@ -21,9 +21,7 @@ const LegendLayout = ({ calendars, visibleCalendars, showReset, onClick, onReset
             </IconButton>
           </span>
         </div>
-        <div
-          className={`flex flex-col sm:flex-row md:flex-col sm:w-full sm:justify-between gap-2 sm:gap-8 md:gap-2`}
-        >
+        <div className="flex flex-col sm:flex-row md:flex-col sm:w-full sm:justify-between gap-2 sm:gap-8 md:gap-2">
           {calendars &&
             calendars.map((calendar) => (
               <Legend

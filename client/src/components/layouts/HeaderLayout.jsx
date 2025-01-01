@@ -3,11 +3,13 @@ import React, { useState, useEffect } from "react";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
+import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 import { useEventsContext } from "../../hooks/useEventsContext";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useLogout } from "../../hooks/useLogout";
 import { useTodosContext } from "../../hooks/useTodosContext";
 
+import CalendarsModal from "../modals/CalendarsModal";
 import LogoutModal from "../modals/LogoutModal";
 import RecentlyAddedModal from "../modals/RecentlyAddedModal";
 
@@ -21,6 +23,7 @@ import MenuItem from "../../core/menu/MenuItem";
 import { isRecentlyAdded } from "../../utility/utility";
 
 const HeaderLayout = ({ action }) => {
+  const { calendars } = useCalendarsContext();
   const { events } = useEventsContext();
   const [theme, setTheme] = useLocalStorage("theme", "dark");
   const { logout } = useLogout();
@@ -29,8 +32,9 @@ const HeaderLayout = ({ action }) => {
   const [recentlyAddedEvents, setRecentlyAddedEvents] = useState([]);
   const [recentlyAddedTodos, setRecentlyAddedTodos] = useState([]);
 
-  const [open, setOpen] = useState(false);
+  const [calendarsOpen, setCalendarsOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [recentlyAddedOpen, setRecentlyAddedOpen] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -58,17 +62,22 @@ const HeaderLayout = ({ action }) => {
     }
   }, [events, todos]);
 
-  const handleThemeButton = () => {
+  const handleRecentlyAddedClick = () => {
+    setRecentlyAddedOpen(true);
+    setOpen(false);
+  };
+
+  const handleCalendarsClick = () => {
+    setCalendarsOpen(true);
+    setOpen(false);
+  };
+
+  const handleThemeClick = () => {
     setTheme(theme === "dark" ? "light" : "dark");
 
     setOpen(false);
 
     document.documentElement.classList.toggle("dark");
-  };
-
-  const handleRecentlyAddedClick = () => {
-    setRecentlyAddedOpen(true);
-    setOpen(false);
   };
 
   const handleLogoutClick = () => {
@@ -112,6 +121,11 @@ const HeaderLayout = ({ action }) => {
         todos={recentlyAddedTodos}
         onCancelClick={() => setRecentlyAddedOpen(false)}
       />
+      <CalendarsModal
+        open={calendarsOpen}
+        calendars={calendars}
+        onCancelClick={() => setCalendarsOpen(false)}
+      />
       <LogoutModal
         open={logoutOpen}
         loading={loading}
@@ -135,8 +149,9 @@ const HeaderLayout = ({ action }) => {
             >
               Recently Added
             </MenuItem>
+            <MenuItem onClick={handleCalendarsClick}>Calendars</MenuItem>
             <Divider padding />
-            <MenuItem onClick={handleThemeButton}>
+            <MenuItem onClick={handleThemeClick}>
               {theme === "dark" ? "Set Light Theme" : "Set Dark Theme"}
             </MenuItem>
             <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>

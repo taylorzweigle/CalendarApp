@@ -28,7 +28,7 @@ const Legend = forwardRef(({ color, label, selected, onClick }, ref) => {
           {label}
         </Typography>
       </div>
-      {selected && (
+      {selected && onClick && (
         <span className="text-slate-700 dark:text-white">
           <CheckIcon />
         </span>
