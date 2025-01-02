@@ -28,7 +28,7 @@ const getCalendar = async (req, res) => {
 };
 
 const createCalendar = async (req, res) => {
-  const { calendar, color } = req.body;
+  const { calendar, color, visible } = req.body;
 
   try {
     const creationUser = req.user._id;
@@ -36,6 +36,7 @@ const createCalendar = async (req, res) => {
     const newCalendar = await Calendar.create({
       calendar,
       color,
+      visible,
       creationUser,
     });
 

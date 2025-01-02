@@ -12,6 +12,10 @@ const calendarSchema = new Schema({
     type: String,
     required: true,
   },
+  visible: {
+    type: Boolean,
+    required: true,
+  },
   creationUser: {
     type: String,
     required: true,

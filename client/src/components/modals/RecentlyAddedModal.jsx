@@ -1,5 +1,7 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useState } from "react";
+
+import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 
 import EmptyState from "../../core/emptyState/EmptyState";
 import Modal from "../../core/modal/Modal";
@@ -11,6 +13,8 @@ import TodoCard from "../cards/TodoCard";
 import { getCalendarColor } from "../../utility/utility";
 
 const RecentlyAddedModal = ({ open, events, todos, onCancelClick }) => {
+  const { calendars } = useCalendarsContext();
+
   const [selected, setSelected] = useState("Events");
 
   const showEndDate = (startTime, endTime) => {
@@ -38,7 +42,7 @@ const RecentlyAddedModal = ({ open, events, todos, onCancelClick }) => {
               <EventCard
                 key={event._id}
                 event={event.event}
-                color={getCalendarColor(event.user)}
+                color={getCalendarColor(calendars, event.user)}
                 tag={event.tag}
                 startTime={
                   event.actualStartTime ? new Date(event.actualStartTime) : new Date(event.startTime)
@@ -61,7 +65,7 @@ const RecentlyAddedModal = ({ open, events, todos, onCancelClick }) => {
               <TodoCard
                 key={todo._id}
                 todo={todo.todo}
-                color={getCalendarColor(todo.user)}
+                color={getCalendarColor(calendars, todo.user)}
                 dueDate={todo.dueDate}
               />
             ))

@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useState } from "react";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -8,6 +8,7 @@ import TodayIcon from "@mui/icons-material/Today";
 
 import * as Actions from "../../actions";
 
+import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
 import Button from "../../core/button/Button";
@@ -17,6 +18,7 @@ import Calendar, { months } from "../calendar/Calendar";
 import MonthPickerModal from "../modals/MonthPickerModal";
 
 const CalendarLayout = ({ data }) => {
+  const { calendars } = useCalendarsContext();
   const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
 
   const today = new Date();
@@ -143,7 +145,7 @@ const CalendarLayout = ({ data }) => {
         </div>
       </div>
       <div className="p-0">
-        <Calendar data={data} today={today} onSelectDay={handleSelectDay} />
+        <Calendar data={data} calendars={calendars} today={today} onSelectDay={handleSelectDay} />
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
 import EmptyState from "../../core/emptyState/EmptyState";
@@ -14,6 +15,7 @@ import EventCard from "../cards/EventCard";
 import { getCalendarColor, isRecentlyAdded, sortEvents } from "../../utility/utility";
 
 const DetailsLayout = ({ data }) => {
+  const { calendars } = useCalendarsContext();
   const { selectedDate } = useSelectedDateContext();
 
   const itemsForSelectedDay = data
@@ -37,7 +39,7 @@ const DetailsLayout = ({ data }) => {
           <Link key={event._id} to={`/event/${event._id}`}>
             <EventCard
               event={event.event}
-              color={getCalendarColor(event.user)}
+              color={getCalendarColor(calendars, event.user)}
               tag={event.tag}
               startTime={
                 event.actualStartTime ? new Date(event.actualStartTime) : new Date(event.startTime)

@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ConstructionIcon from "@mui/icons-material/Construction";
@@ -7,6 +7,7 @@ import FaceIcon from "@mui/icons-material/Face";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FlightIcon from "@mui/icons-material/Flight";
 import GroupsIcon from "@mui/icons-material/Groups";
+import PetsIcon from "@mui/icons-material/Pets";
 import StadiumIcon from "@mui/icons-material/Stadium";
 import StarIcon from "@mui/icons-material/Star";
 import TodayIcon from "@mui/icons-material/Today";
@@ -14,25 +15,13 @@ import WorkIcon from "@mui/icons-material/Work";
 
 import { daysOfWeek, months } from "../components/calendar/Calendar";
 
-export const getCalendarColor = (user) => {
+export const getCalendarColor = (calendars, user) => {
   let color = "";
 
-  switch (user) {
-    case "Husband":
-      color = "emerald";
-      break;
-    case "Wife":
-      color = "purple";
-      break;
-    case "Us":
-      color = "sky";
-      break;
-    case "Calendar":
-      color = "stone";
-      break;
-    default:
-      color = "stone";
-      break;
+  for (let i = 0; i < calendars.length; i++) {
+    if (calendars[i].calendar === user) {
+      color = calendars[i].color;
+    }
   }
 
   return color;
@@ -138,6 +127,9 @@ export const getIcons = (tag) => {
     case "Personal":
       icon = <FaceIcon fontSize={size} />;
       break;
+    case "Pet":
+      icon = <PetsIcon fontSize={size} />;
+      break;
     case "Sports":
       icon = <StadiumIcon fontSize={size} />;
       break;
@@ -205,12 +197,16 @@ export const sortEvents = (events) => {
 };
 
 export const filterEvents = (query, array) => {
+  let visibleCalendars = query
+    .filter((calendar) => calendar.visible === true)
+    .map((calendar) => calendar.calendar);
+
   if (array) {
     let filteredArray = [];
 
     for (let i = 0; i < array.length; i++) {
-      for (let j = 0; j < query.length; j++) {
-        if (array[i].user === query[j]) {
+      for (let j = 0; j < visibleCalendars.length; j++) {
+        if (array[i].user === visibleCalendars[j]) {
           filteredArray = [...filteredArray, array[i]];
         }
       }

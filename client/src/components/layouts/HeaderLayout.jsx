@@ -1,15 +1,13 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useState, useEffect } from "react";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
-import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 import { useEventsContext } from "../../hooks/useEventsContext";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useLogout } from "../../hooks/useLogout";
 import { useTodosContext } from "../../hooks/useTodosContext";
 
-import CalendarsModal from "../modals/CalendarsModal";
 import LogoutModal from "../modals/LogoutModal";
 import RecentlyAddedModal from "../modals/RecentlyAddedModal";
 
@@ -23,7 +21,6 @@ import MenuItem from "../../core/menu/MenuItem";
 import { isRecentlyAdded } from "../../utility/utility";
 
 const HeaderLayout = ({ action }) => {
-  const { calendars } = useCalendarsContext();
   const { events } = useEventsContext();
   const [theme, setTheme] = useLocalStorage("theme", "dark");
   const { logout } = useLogout();
@@ -32,7 +29,6 @@ const HeaderLayout = ({ action }) => {
   const [recentlyAddedEvents, setRecentlyAddedEvents] = useState([]);
   const [recentlyAddedTodos, setRecentlyAddedTodos] = useState([]);
 
-  const [calendarsOpen, setCalendarsOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [recentlyAddedOpen, setRecentlyAddedOpen] = useState(false);
@@ -47,8 +43,8 @@ const HeaderLayout = ({ action }) => {
       let uniqueEvents = [];
 
       for (let i = 0; i < allRecentEvents.length; i++) {
-        if (!uniqueEvents.includes(allRecentEvents[i].event)) {
-          uniqueEvents.push(allRecentEvents[i].event);
+        if (!uniqueEvents.includes(allRecentEvents[i]._id)) {
+          uniqueEvents.push(allRecentEvents[i]._id);
 
           filteredEvents.push(allRecentEvents[i]);
         }
@@ -64,11 +60,6 @@ const HeaderLayout = ({ action }) => {
 
   const handleRecentlyAddedClick = () => {
     setRecentlyAddedOpen(true);
-    setOpen(false);
-  };
-
-  const handleCalendarsClick = () => {
-    setCalendarsOpen(true);
     setOpen(false);
   };
 
@@ -121,11 +112,6 @@ const HeaderLayout = ({ action }) => {
         todos={recentlyAddedTodos}
         onCancelClick={() => setRecentlyAddedOpen(false)}
       />
-      <CalendarsModal
-        open={calendarsOpen}
-        calendars={calendars}
-        onCancelClick={() => setCalendarsOpen(false)}
-      />
       <LogoutModal
         open={logoutOpen}
         loading={loading}
@@ -149,7 +135,6 @@ const HeaderLayout = ({ action }) => {
             >
               Recently Added
             </MenuItem>
-            <MenuItem onClick={handleCalendarsClick}>Calendars</MenuItem>
             <Divider padding />
             <MenuItem onClick={handleThemeClick}>
               {theme === "dark" ? "Set Light Theme" : "Set Dark Theme"}

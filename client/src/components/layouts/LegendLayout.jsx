@@ -5,43 +5,42 @@ import ReplayIcon from "@mui/icons-material/Replay";
 
 import * as Actions from "../../actions";
 
-import { useVisibleCalendarsContext } from "../../hooks/useVisibleCalendarsContext";
+import { getCalendars, updateCalendar } from "../../api/calendars";
 
-import Legend from "../../core/legend/Legend";
-import Typography from "../../core/typography/Typography";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useCalendarsContext } from "../../hooks/useCalendarsContext";
+
+import Legend from "../legend/Legend";
+
 import IconButton from "../../core/iconButton/IconButton";
+import Typography from "../../core/typography/Typography";
 
-const LegendLayout = ({ calendars }) => {
-  const { visibleCalendars, dispatchVisibleCalendars } = useVisibleCalendarsContext();
+const LegendLayout = () => {
+  const { user: authUser } = useAuthContext();
+  const { calendars, dispatchCalendars } = useCalendarsContext();
 
-  const handleLegendChange = (calendar) => {
-    if (visibleCalendars.length === 1) {
-      if (visibleCalendars.includes(calendar)) {
-        dispatchVisibleCalendars({
-          type: Actions.SET_VISIBLE_CALENDARS,
-          payload: calendars.map((calendar) => calendar.calendar),
-        });
-      } else {
-        dispatchVisibleCalendars({
-          type: Actions.SET_VISIBLE_CALENDARS,
-          payload: calendars
-            .map((calendar) => calendar.calendar)
-            .filter((visibleCalendar) => visibleCalendar === calendar),
-        });
-      }
-    } else {
-      dispatchVisibleCalendars({
-        type: Actions.SET_VISIBLE_CALENDARS,
-        payload: visibleCalendars.filter((visibleCalendar) => visibleCalendar === calendar),
-      });
+  const handleLegendChange = async (calendar) => {
+    toggleCalendarVisibility(calendar, !calendar.visible);
+  };
+
+  const handleLegendReset = async () => {
+    for (let i = 0; i < calendars.length; i++) {
+      toggleCalendarVisibility(calendars[i], true);
     }
   };
 
-  const handleLegendReset = () => {
-    dispatchVisibleCalendars({
-      type: Actions.SET_VISIBLE_CALENDARS,
-      payload: calendars.map((calendar) => calendar.calendar),
-    });
+  const toggleCalendarVisibility = async (calendar, visible) => {
+    const newCalendar = { ...calendar, visible: visible };
+
+    const json = await updateCalendar(calendar._id, newCalendar, authUser.token);
+
+    if (json.json) {
+      const calendars = await getCalendars(authUser.token);
+
+      if (calendars.json) {
+        dispatchCalendars({ type: Actions.GET_CALENDARS, payload: calendars.json });
+      }
+    }
   };
 
   return (
@@ -51,7 +50,7 @@ const LegendLayout = ({ calendars }) => {
           <Typography variant="subheading" color="primary">
             Calendars
           </Typography>
-          <span className={visibleCalendars.length < calendars.length ? "block" : "hidden"}>
+          <span className={true ? "block" : "hidden"}>
             <IconButton color="default" onClick={handleLegendReset}>
               <ReplayIcon />
             </IconButton>
@@ -61,11 +60,11 @@ const LegendLayout = ({ calendars }) => {
           {calendars &&
             calendars.map((calendar) => (
               <Legend
-                key={calendar.calendar}
+                key={calendar._id}
                 color={calendar.color}
                 label={calendar.calendar}
-                selected={visibleCalendars.includes(calendar.calendar)}
-                onClick={() => handleLegendChange(calendar.calendar)}
+                selected={calendar.visible}
+                onClick={() => handleLegendChange(calendar)}
               />
             ))}
         </div>

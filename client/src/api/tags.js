@@ -7,6 +7,7 @@ export const tags = [
   "Fun",
   "Holiday",
   "Personal",
+  "Pet",
   "Sports",
   "Serve",
   "Travel",

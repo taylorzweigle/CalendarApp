@@ -9,7 +9,6 @@ import * as Actions from "../actions";
 import { useCalendarsContext } from "../hooks/useCalendarsContext";
 import { useEventsContext } from "../hooks/useEventsContext";
 import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
-import { useVisibleCalendarsContext } from "../hooks/useVisibleCalendarsContext";
 
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
@@ -27,7 +26,6 @@ const CalendarPage = () => {
   const { calendars } = useCalendarsContext();
   const { events } = useEventsContext();
   const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
-  const { visibleCalendars } = useVisibleCalendarsContext();
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -66,19 +64,19 @@ const CalendarPage = () => {
               <Divider />
             </div>
             <div className="col-span-12">
-              <DetailsLayout data={filterEvents(visibleCalendars, events)} />
+              <DetailsLayout data={filterEvents(calendars, events)} />
               <Divider />
             </div>
             <div className="hidden md:block col-span-12">
-              <LegendLayout calendars={calendars} />
+              <LegendLayout />
               <Divider />
             </div>
           </div>
         </div>
         <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col gap-0 md:gap-8 p-0 md:p-8">
-          <CalendarLayout data={filterEvents(visibleCalendars, events)} />
+          <CalendarLayout data={filterEvents(calendars, events)} />
           <div className="block md:hidden col-span-12">
-            <LegendLayout calendars={calendars} />
+            <LegendLayout />
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ export const months = [
   "December",
 ];
 
-const Calendar = ({ data, today, onSelectDay }) => {
+const Calendar = ({ data, calendars, today, onSelectDay }) => {
   const { selectedDate } = useSelectedDateContext();
 
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
@@ -132,7 +132,7 @@ const Calendar = ({ data, today, onSelectDay }) => {
                         <CalendarCard
                           key={event._id}
                           event={event.event}
-                          color={getCalendarColor(event.user)}
+                          color={getCalendarColor(calendars, event.user)}
                           tag={event.tag}
                           type={event.type}
                           badge={showBadge(event.creationTime)}

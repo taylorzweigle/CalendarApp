@@ -1,13 +1,15 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { forwardRef } from "react";
 
 import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 
-import Typography from "../typography/Typography";
+import Typography from "../../core/typography/Typography";
 
 import { getColors } from "../../utility/utility";
+import IconButton from "../../core/iconButton/IconButton";
 
-const Legend = forwardRef(({ color, label, selected, onClick }, ref) => {
+const Legend = forwardRef(({ color, label, selected, deleteable, onClick, onDelete }, ref) => {
   const colors = getColors(color);
 
   return (
@@ -32,6 +34,11 @@ const Legend = forwardRef(({ color, label, selected, onClick }, ref) => {
         <span className="text-slate-700 dark:text-white">
           <CheckIcon />
         </span>
+      )}
+      {deleteable && (
+        <IconButton color="default" onClick={onDelete}>
+          <CloseIcon />
+        </IconButton>
       )}
     </div>
   );

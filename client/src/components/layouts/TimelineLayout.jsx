@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
@@ -9,6 +9,7 @@ import TodayIcon from "@mui/icons-material/Today";
 
 import * as Actions from "../../actions";
 
+import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
 import Button from "../../core/button/Button";
@@ -22,6 +23,7 @@ import Timeline from "../timeline/Timeline";
 const TimelineLayout = ({ data }) => {
   const navigate = useNavigate();
 
+  const { calendars } = useCalendarsContext();
   const { selectedDate, dispatchSelectedDate } = useSelectedDateContext();
 
   const today = new Date();
@@ -227,7 +229,7 @@ const TimelineLayout = ({ data }) => {
           </div>
         </div>
         <div className="p-0">
-          <Timeline data={dayData} onHourClick={handleHourClick} />
+          <Timeline data={dayData} calendars={calendars} onHourClick={handleHourClick} />
         </div>
       </div>
     </>

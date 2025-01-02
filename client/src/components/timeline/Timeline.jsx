@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
@@ -89,7 +89,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
               rowSpan={calculateRowSpan(array[i]) === 0 ? 1 : calculateRowSpan(array[i])}
               event={array[i].event}
               tag={array[i].tag}
-              color={getCalendarColor(array[i].user)}
+              color={getCalendarColor(calendars, array[i].user)}
               currentHour={isCurrentTime(hour)}
               startTime={
                 array[i].actualStartTime ? new Date(array[i].actualStartTime) : new Date(array[i].startTime)
@@ -145,7 +145,7 @@ const Timeline = ({ data, calendars, onHourClick }) => {
             <TimelineCell
               event={array[i].event}
               tag={array[i].tag}
-              color={getCalendarColor(array[i].user)}
+              color={getCalendarColor(calendars, array[i].user)}
               startTime={
                 array[i].actualStartTime ? new Date(array[i].actualStartTime) : new Date(array[i].startTime)
               }

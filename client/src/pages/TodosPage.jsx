@@ -6,7 +6,6 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { useCalendarsContext } from "../hooks/useCalendarsContext";
 import { useTodosContext } from "../hooks/useTodosContext";
-import { useVisibleCalendarsContext } from "../hooks/useVisibleCalendarsContext";
 
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
@@ -22,7 +21,6 @@ import { filterEvents } from "../utility/utility";
 const TodosPage = () => {
   const { calendars } = useCalendarsContext();
   const { todos } = useTodosContext();
-  const { visibleCalendars } = useVisibleCalendarsContext();
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -44,16 +42,16 @@ const TodosPage = () => {
               <Divider />
             </div>
             <div className="hidden md:block col-span-12">
-              <LegendLayout calendars={calendars} />
+              <LegendLayout />
               <Divider />
             </div>
           </div>
         </div>
         <div className="col-span-12 sm:col-span-12 md:col-span-9 flex flex-col gap-0 md:gap-8 p-0 md:p-8">
-          <TodoLayout data={filterEvents(visibleCalendars, todos)} />
+          <TodoLayout data={filterEvents(calendars, todos)} />
           <div className="block md:hidden col-span-12">
             <Divider />
-            <LegendLayout calendars={calendars} />
+            <LegendLayout />
           </div>
         </div>
       </div>

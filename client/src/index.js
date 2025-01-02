@@ -12,7 +12,6 @@ import { CalendarsContextProvider } from "./context/CalendarsContext";
 import { EventsContextProvider } from "./context/EventsContext";
 import { SelectedDateContextProvider } from "./context/SelectedDateContext";
 import { TodosContextProvider } from "./context/TodosContext";
-import { VisibleCalendarsContextProvider } from "./context/VisibleCalendarsContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -23,11 +22,9 @@ root.render(
         <EventsContextProvider>
           <SelectedDateContextProvider>
             <TodosContextProvider>
-              <VisibleCalendarsContextProvider>
-                <BrowserRouter>
-                  <App />
-                </BrowserRouter>
-              </VisibleCalendarsContextProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
             </TodosContextProvider>
           </SelectedDateContextProvider>
         </EventsContextProvider>

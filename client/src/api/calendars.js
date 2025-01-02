@@ -19,59 +19,6 @@ export const getCalendars = async (token) => {
   }
 };
 
-export const getCalendar = async (id, token) => {
-  const res = await fetch(`${API_URL}/api/calendars/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  const json = await res.json();
-
-  if (!res.ok) {
-    return { json: null, error: json.error };
-  }
-  if (res.ok) {
-    return { json: json, error: "" };
-  }
-};
-
-export const createCalendar = async (body, token) => {
-  const res = await fetch(`${API_URL}/api/calendars`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(body),
-  });
-
-  const json = await res.json();
-
-  if (!res.ok) {
-    return { json: null, error: json.error };
-  }
-  if (res.ok) {
-    return { json: json, error: "" };
-  }
-};
-
-export const deleteCalendar = async (id, token) => {
-  const res = await fetch(`${API_URL}/api/calendars/${id}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  const json = await res.json();
-
-  if (!res.ok) {
-    return { json: null, error: json.error };
-  }
-  if (res.ok) {
-    return { json: json, error: "" };
-  }
-};
-
 export const updateCalendar = async (id, body, token) => {
   const res = await fetch(`${API_URL}/api/calendars/${id}`, {
     method: "PATCH",

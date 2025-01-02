@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
@@ -7,6 +7,7 @@ import CachedIcon from "@mui/icons-material/Cached";
 import * as Actions from "../../actions";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 import { useTodosContext } from "../../hooks/useTodosContext";
 
 import { getTodos, updateTodo, deleteTodo } from "../../api/todos";
@@ -26,6 +27,7 @@ const TodoLayout = ({ data }) => {
   const navigate = useNavigate();
 
   const { user: authUser } = useAuthContext();
+  const { calendars } = useCalendarsContext();
   const { dispatchTodos } = useTodosContext();
 
   const [todos, setTodos] = useState([]);
@@ -129,7 +131,7 @@ const TodoLayout = ({ data }) => {
                   <TodoCard
                     key={todo._id}
                     todo={todo.todo}
-                    color={getCalendarColor(todo.user)}
+                    color={getCalendarColor(calendars, todo.user)}
                     dueDate={todo.dueDate}
                     notes={todo.notes}
                     checked={todo.checked}
@@ -159,7 +161,7 @@ const TodoLayout = ({ data }) => {
                   <TodoCard
                     key={todo._id}
                     todo={todo.todo}
-                    color={getCalendarColor(todo.user)}
+                    color={getCalendarColor(calendars, todo.user)}
                     dueDate={todo.dueDate}
                     notes={todo.notes}
                     checked={todo.checked}
