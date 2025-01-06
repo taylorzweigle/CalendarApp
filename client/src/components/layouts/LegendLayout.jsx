@@ -43,6 +43,18 @@ const LegendLayout = () => {
     }
   };
 
+  const hiddenCalendars = () => {
+    let hidden = 0;
+
+    for (let i = 0; i < calendars.length; i++) {
+      if (!calendars[i].visible) {
+        hidden++;
+      }
+    }
+
+    return hidden;
+  };
+
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8">
       <div className="flex flex-col gap-4">
@@ -50,7 +62,7 @@ const LegendLayout = () => {
           <Typography variant="subheading" color="primary">
             Calendars
           </Typography>
-          <span className={true ? "block" : "hidden"}>
+          <span className={hiddenCalendars() ? "block" : "hidden"}>
             <IconButton color="default" onClick={handleLegendReset}>
               <ReplayIcon />
             </IconButton>

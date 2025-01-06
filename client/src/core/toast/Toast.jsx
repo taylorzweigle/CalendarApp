@@ -1,10 +1,7 @@
 //Taylor Zweigle, 2024
 import React, { useState, useEffect } from "react";
 
-import CloseIcon from "@mui/icons-material/Close";
-
 import Typography from "../typography/Typography";
-import IconButton from "../iconButton/IconButton";
 
 const Toast = ({ children, open }) => {
   const [visible, setVisible] = useState(false);
@@ -29,9 +26,6 @@ const Toast = ({ children, open }) => {
         <Typography variant="body1" color="primary">
           {children}
         </Typography>
-        <IconButton color="default" onClick={() => setVisible(false)}>
-          <CloseIcon />
-        </IconButton>
       </div>
     </div>
   );
