@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useState, useEffect } from "react";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -165,10 +165,7 @@ const DatePickerModal = ({ open, month, date, year, minDate, onSaveClick, onCanc
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-row justify-between items-center">
-          <IconButton
-            color={minDate ? "disabled" : "default"}
-            onClick={minDate ? null : handlePreviousButtonClick}
-          >
+          <IconButton disabled={minDate ? true : false} onClick={handlePreviousButtonClick}>
             <ArrowBackIcon />
           </IconButton>
           <Typography variant="heading" color="primary" bold>

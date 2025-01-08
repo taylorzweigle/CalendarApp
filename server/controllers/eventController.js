@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 const mongoose = require("mongoose");
 
 const Event = require("../models/eventModel");
@@ -28,7 +28,7 @@ const getEvent = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const { event, user, tag, startTime, endTime, allDay, creationTime } = req.body;
+  const { event, user, tag, startTime, endTime, allDay, recurring, creationTime } = req.body;
 
   try {
     const creationUser = req.user._id;
@@ -40,6 +40,7 @@ const createEvent = async (req, res) => {
       startTime,
       endTime,
       allDay,
+      recurring,
       creationTime,
       creationUser,
     });

@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { forwardRef, useEffect } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
@@ -49,7 +49,7 @@ const Modal = forwardRef(
               <Typography variant="heading" color="primary">
                 {title}
               </Typography>
-              <IconButton color="default" onClick={handleCancel}>
+              <IconButton onClick={handleCancel}>
                 <CloseIcon />
               </IconButton>
             </div>

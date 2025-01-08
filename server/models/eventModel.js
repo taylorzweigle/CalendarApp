@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
@@ -25,6 +25,10 @@ const eventSchema = new Schema({
     required: true,
   },
   allDay: {
+    type: Boolean,
+    required: true,
+  },
+  recurring: {
     type: Boolean,
     required: true,
   },

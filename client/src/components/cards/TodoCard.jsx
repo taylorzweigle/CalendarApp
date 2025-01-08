@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useState } from "react";
 
 import CheckIcon from "@mui/icons-material/Check";
@@ -34,7 +34,7 @@ const TodoCard = ({ todo, color, dueDate, notes, checked, badge, loading, onClic
         <div className="flex flex-col w-full">
           <div className="flex flex-row justify-between items-center w-full h-14">
             {onCheck && (
-              <IconButton color="default" loading={loading} onClick={onCheck}>
+              <IconButton loading={loading} onClick={onCheck}>
                 {checked ? <CheckIcon /> : <CheckBoxOutlineBlankIcon />}
               </IconButton>
             )}

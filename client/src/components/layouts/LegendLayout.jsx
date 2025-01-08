@@ -63,7 +63,7 @@ const LegendLayout = () => {
             Calendars
           </Typography>
           <span className={hiddenCalendars() ? "block" : "hidden"}>
-            <IconButton color="default" onClick={handleLegendReset}>
+            <IconButton onClick={handleLegendReset}>
               <ReplayIcon />
             </IconButton>
           </span>

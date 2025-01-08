@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
@@ -7,6 +7,7 @@ import * as Actions from "../../actions";
 
 import { getEvents, getEvent, createEvent, updateEvent, deleteEvent } from "../../api/events";
 import { tags } from "../../api/tags";
+import { years } from "../../api/years";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCalendarsContext } from "../../hooks/useCalendarsContext";
@@ -18,6 +19,7 @@ import Checkbox from "../../core/checkbox/Checkbox";
 import SelectInput from "../../core/selectInput/SelectInput";
 import Tab from "../../core/tabs/Tab";
 import TextInput from "../../core/textInput/TextInput";
+import Typography from "../../core/typography/Typography";
 
 import { months } from "../calendar/Calendar";
 import DateInput from "../inputs/DateInput";
@@ -35,6 +37,7 @@ const EventForm = ({ isEditEventForm }) => {
   const { selectedDate } = useSelectedDateContext();
 
   const [allDay, setAllDay] = useState(false);
+  const [recurring, setRecurring] = useState(false);
 
   const [duration, setDuration] = useState(Actions.SINGLE_DAY);
 
@@ -112,6 +115,7 @@ const EventForm = ({ isEditEventForm }) => {
       );
       setEndPeriod(new Date(event.json.endTime).getHours() >= 12 ? "PM" : "AM");
       setAllDay(event.json.allDay);
+      setRecurring(event.json.recurring !== undefined ? event.json.recurring : false);
       setCreationTime(new Date());
     };
 
@@ -234,7 +238,23 @@ const EventForm = ({ isEditEventForm }) => {
     setAllDay(!allDay);
   };
 
-  const handleOnSave = async (e) => {
+  const handleRecurringClick = () => {
+    setRecurring(!recurring);
+  };
+
+  const handleOnSave = (e) => {
+    if (recurring) {
+      const recurringYears = years[years.length - 1] - parseInt(startYear);
+
+      for (let i = 0; i <= recurringYears; i++) {
+        onSubmit(e, startYear + i, true, i === recurringYears);
+      }
+    } else {
+      onSubmit(e, startYear, false, true);
+    }
+  };
+
+  const onSubmit = async (e, year, recurringEvent, canNavigate) => {
     e.preventDefault();
 
     setLoading(true);
@@ -247,14 +267,12 @@ const EventForm = ({ isEditEventForm }) => {
       return;
     }
 
-    clearErrors();
-
     const newEvent = {
       event: event,
       user: user,
       tag: tag,
       startTime: new Date(
-        `${months[startMonth]} ${startDate}, ${startYear} ${
+        `${months[startMonth]} ${startDate}, ${year} ${
           startPeriod === "PM"
             ? startHours !== "12"
               ? (parseInt(startHours) + 12).toString()
@@ -265,7 +283,7 @@ const EventForm = ({ isEditEventForm }) => {
       endTime:
         duration === Actions.SINGLE_DAY
           ? new Date(
-              `${months[startMonth]} ${startDate}, ${startYear} ${
+              `${months[startMonth]} ${startDate}, ${year} ${
                 endPeriod === "PM"
                   ? endHours !== "12"
                     ? (parseInt(endHours) + 12).toString()
@@ -283,6 +301,7 @@ const EventForm = ({ isEditEventForm }) => {
               }:${endMinutes}:00`
             ),
       allDay: allDay,
+      recurring: recurringEvent,
       creationTime: isEditEventForm ? creationTime : new Date(),
     };
 
@@ -319,11 +338,13 @@ const EventForm = ({ isEditEventForm }) => {
         dispatchEvents({ type: Actions.GET_EVENTS, payload: events.json });
       }
 
-      navigate(-1);
+      if (canNavigate) {
+        navigate(-1);
 
-      clearForm();
+        clearForm();
 
-      setLoading(false);
+        setLoading(false);
+      }
     }
   };
 
@@ -483,8 +504,18 @@ const EventForm = ({ isEditEventForm }) => {
                 onChange={(e) => setTag(e.target.value)}
               />
               <div className="flex items-center h-12">
-                <Checkbox selected={allDay} onClick={handleAllDayClick} />
+                <Checkbox label="All Day" selected={allDay} onClick={handleAllDayClick} />
               </div>
+              {allDay && duration === Actions.SINGLE_DAY && (
+                <div className="flex items-center h-12">
+                  <Checkbox
+                    label="Recurring"
+                    selected={recurring}
+                    disabled={isEditEventForm}
+                    onClick={handleRecurringClick}
+                  />
+                </div>
+              )}
               {!allDay && (
                 <>
                   <TimeInput
@@ -508,6 +539,13 @@ const EventForm = ({ isEditEventForm }) => {
                     onPeriodChange={(value) => handleEndPeriodChange(value)}
                   />
                 </>
+              )}
+              {recurring && (
+                <Typography variant="body2" color="primary">
+                  {isEditEventForm
+                    ? `Event repeats every year on ${months[startMonth]} ${startDate} starting from ${startYear}.`
+                    : `Event will repeat every year on ${months[startMonth]} ${startDate} starting in ${startYear}.`}
+                </Typography>
               )}
             </div>
           </form>

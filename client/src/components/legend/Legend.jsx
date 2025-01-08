@@ -36,7 +36,7 @@ const Legend = forwardRef(({ color, label, selected, deleteable, onClick, onDele
         </span>
       )}
       {deleteable && (
-        <IconButton color="default" onClick={onDelete}>
+        <IconButton onClick={onDelete}>
           <CloseIcon />
         </IconButton>
       )}

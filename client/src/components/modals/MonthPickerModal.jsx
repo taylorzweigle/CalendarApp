@@ -1,8 +1,10 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useState, useEffect } from "react";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+
+import { years } from "../../api/years";
 
 import Chip from "../../core/chip/Chip";
 import IconButton from "../../core/iconButton/IconButton";
@@ -40,7 +42,7 @@ const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => 
       <div className="flex flex-col gap-4">
         <div className="flex flex-row justify-between items-center">
           <IconButton
-            color="default"
+            disabled={selectedMonth.year === years[0]}
             onClick={() => setSelectedMonth({ month: selectedMonth.month, year: selectedMonth.year - 1 })}
           >
             <ArrowBackIcon />
@@ -49,7 +51,7 @@ const MonthPickerModal = ({ open, month, year, onSaveClick, onCancelClick }) => 
             {selectedMonth.year}
           </Typography>
           <IconButton
-            color="default"
+            disabled={selectedMonth.year === years[years.length - 1]}
             onClick={() => setSelectedMonth({ month: selectedMonth.month, year: selectedMonth.year + 1 })}
           >
             <ArrowForwardIcon />

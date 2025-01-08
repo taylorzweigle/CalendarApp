@@ -37,7 +37,7 @@ export const getColors = (color) => {
   colorObject.active = clsx(`active:bg-${color}-200 dark:active:bg-${color}-600`);
   colorObject.border = clsx(`border-${color}-500 dark:border-${color}-500`);
   colorObject.text = clsx(`text-${color}-700 dark:text-white`);
-  colorObject.icon = clsx(`icon-${color}-600 dark:text-white`);
+  colorObject.icon = clsx(`text-${color}-600 dark:text-white`);
 
   return colorObject;
 };
