@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React from "react";
 
 import Badge from "../../core/badge/Badge";
@@ -18,6 +18,7 @@ const EventCard = ({
   color,
   tag,
   badge,
+  showYear,
 }) => {
   const colors = getColors(color);
   const icon = getIcons(tag);
@@ -37,7 +38,9 @@ const EventCard = ({
             <Typography variant="caption" color="custom" customColor={colors.text} truncate>
               <span className="inline-flex justify-start items-center gap-1">
                 {showStartDate && (
-                  <span>{`${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()}`}</span>
+                  <span>{`${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()} ${
+                    showYear && startTime.getFullYear()
+                  }`}</span>
                 )}
                 {!allDay && <span>{formatTime(startTime)}</span>}
                 <span>{" - "}</span>
@@ -46,6 +49,14 @@ const EventCard = ({
                 )}
                 {!allDay && <span>{formatTime(endTime)}</span>}
               </span>
+            </Typography>
+          )}
+          {compareStartAndEndTimes(startTime, endTime) && showYear && (
+            <Typography variant="caption" color="custom" customColor={colors.text} truncate>
+              <span>{`${months[startTime.getMonth()].slice(
+                0,
+                3
+              )} ${startTime.getDate()} ${startTime.getFullYear()}`}</span>
             </Typography>
           )}
         </div>

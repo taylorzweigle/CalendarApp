@@ -51,6 +51,7 @@ const RecentlyAddedModal = ({ open, events, todos, onCancelClick }) => {
                 showStartDate={event.actualStartTime ? event.actualStartTime : event.startTime}
                 showEndDate={event.actualEndTime ? event.actualEndTime : showEndDate(event.endTime)}
                 allDay={event.allDay}
+                showYear
               />
             ))
           ) : (
