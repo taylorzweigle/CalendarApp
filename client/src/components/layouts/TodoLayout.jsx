@@ -35,6 +35,7 @@ const TodoLayout = ({ data }) => {
   const [deletedTodoCount, setDeletedTodoCount] = useState(0);
 
   const [loading, setLoading] = useState("");
+  const [refreshLoading, setRefreshLoading] = useState(false);
 
   useEffect(() => {
     setTodos(data ? data.filter((todo) => new Date() < new Date(todo.dueDate)) : []);
@@ -43,6 +44,12 @@ const TodoLayout = ({ data }) => {
 
   const handleRefreshClick = async () => {
     let deleteCount = 0;
+
+    setRefreshLoading(true);
+
+    setTimeout(() => {
+      setRefreshLoading(false);
+    }, 1000);
 
     const deleteCheckedTodo = async (id) => {
       const deletedTodo = await deleteTodo(id, authUser.token);
@@ -117,7 +124,10 @@ const TodoLayout = ({ data }) => {
       <div className="flex flex-col gap-0 md:gap-4 min-h-[calc(100vh-412px)] md:min-h-[calc(100vh-168px)]">
         <div className="flex flex-row justify-between items-center p-4 md:p-0">
           <Typography variant="title">Todos</Typography>
-          <Button prefix={<CachedIcon />} onClick={handleRefreshClick} />
+          <Button
+            prefix={<CachedIcon className={`${refreshLoading && "animate-spin"}`} />}
+            onClick={handleRefreshClick}
+          />
         </div>
         <Divider />
         <div className="flex flex-col gap-4 md:gap-8 p-4 md:p-0">
