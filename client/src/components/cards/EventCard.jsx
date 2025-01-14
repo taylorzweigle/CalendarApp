@@ -18,7 +18,6 @@ const EventCard = ({
   color,
   tag,
   badge,
-  showYear,
 }) => {
   const colors = getColors(color);
   const icon = getIcons(tag);
@@ -38,9 +37,7 @@ const EventCard = ({
             <Typography variant="caption" color="custom" customColor={colors.text} truncate>
               <span className="inline-flex justify-start items-center gap-1">
                 {showStartDate && (
-                  <span>{`${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()} ${
-                    showYear && startTime.getFullYear()
-                  }`}</span>
+                  <span>{`${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()}`}</span>
                 )}
                 {!allDay && <span>{formatTime(startTime)}</span>}
                 <span>{" - "}</span>
@@ -51,12 +48,9 @@ const EventCard = ({
               </span>
             </Typography>
           )}
-          {compareStartAndEndTimes(startTime, endTime) && showYear && (
+          {compareStartAndEndTimes(startTime, endTime) && (
             <Typography variant="caption" color="custom" customColor={colors.text} truncate>
-              <span>{`${months[startTime.getMonth()].slice(
-                0,
-                3
-              )} ${startTime.getDate()} ${startTime.getFullYear()}`}</span>
+              <span>{`${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()}`}</span>
             </Typography>
           )}
         </div>

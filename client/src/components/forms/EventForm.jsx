@@ -7,7 +7,6 @@ import * as Actions from "../../actions";
 
 import { getEvents, getEvent, createEvent, updateEvent, deleteEvent } from "../../api/events";
 import { tags } from "../../api/tags";
-import { years } from "../../api/years";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCalendarsContext } from "../../hooks/useCalendarsContext";
@@ -242,19 +241,7 @@ const EventForm = ({ isEditEventForm }) => {
     setRecurring(!recurring);
   };
 
-  const handleOnSave = (e) => {
-    if (recurring) {
-      const recurringYears = years[years.length - 1] - parseInt(startYear);
-
-      for (let i = 0; i <= recurringYears; i++) {
-        onSubmit(e, startYear + i, true, i === recurringYears);
-      }
-    } else {
-      onSubmit(e, startYear, false, true);
-    }
-  };
-
-  const onSubmit = async (e, year, recurringEvent, canNavigate) => {
+  const handleOnSave = async (e) => {
     e.preventDefault();
 
     setLoading(true);
@@ -272,7 +259,7 @@ const EventForm = ({ isEditEventForm }) => {
       user: user,
       tag: tag,
       startTime: new Date(
-        `${months[startMonth]} ${startDate}, ${year} ${
+        `${months[startMonth]} ${startDate}, ${startYear} ${
           startPeriod === "PM"
             ? startHours !== "12"
               ? (parseInt(startHours) + 12).toString()
@@ -283,7 +270,7 @@ const EventForm = ({ isEditEventForm }) => {
       endTime:
         duration === Actions.SINGLE_DAY
           ? new Date(
-              `${months[startMonth]} ${startDate}, ${year} ${
+              `${months[startMonth]} ${startDate}, ${startYear} ${
                 endPeriod === "PM"
                   ? endHours !== "12"
                     ? (parseInt(endHours) + 12).toString()
@@ -301,7 +288,7 @@ const EventForm = ({ isEditEventForm }) => {
               }:${endMinutes}:00`
             ),
       allDay: allDay,
-      recurring: recurringEvent,
+      recurring: recurring,
       creationTime: isEditEventForm ? creationTime : new Date(),
     };
 
@@ -338,13 +325,11 @@ const EventForm = ({ isEditEventForm }) => {
         dispatchEvents({ type: Actions.GET_EVENTS, payload: events.json });
       }
 
-      if (canNavigate) {
-        navigate(-1);
+      navigate(-1);
 
-        clearForm();
+      clearForm();
 
-        setLoading(false);
-      }
+      setLoading(false);
     }
   };
 
@@ -543,8 +528,8 @@ const EventForm = ({ isEditEventForm }) => {
               {recurring && (
                 <Typography variant="body2" color="primary">
                   {isEditEventForm
-                    ? `Event repeats every year on ${months[startMonth]} ${startDate} starting from ${startYear}.`
-                    : `Event will repeat every year on ${months[startMonth]} ${startDate} starting in ${startYear}.`}
+                    ? `Event repeats every year on ${months[startMonth]} ${startDate}.`
+                    : `Event will repeat every year on ${months[startMonth]} ${startDate}.`}
                 </Typography>
               )}
             </div>

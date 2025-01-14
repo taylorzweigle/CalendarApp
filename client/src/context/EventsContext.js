@@ -3,12 +3,50 @@ import React, { createContext, useReducer } from "react";
 
 import * as Actions from "../actions";
 
+import { years } from "../api/years";
+
 export const EventsContext = createContext();
 
 const populateEvents = (events) => {
   let newEvents = [];
 
   for (let i = 0; i < events.length; i++) {
+    if (events[i].recurring) {
+      for (let j = 1; j <= years[years.length - 1] - new Date(events[i].startTime).getFullYear(); j++) {
+        let temp = {
+          _id: events[i]._id,
+          key: events[i]._id + j,
+          event: events[i].event,
+          user: events[i].user,
+          tag: events[i].tag,
+          startTime: new Date(
+            new Date(events[i].startTime).getFullYear() + j,
+            new Date(events[i].startTime).getMonth(),
+            new Date(events[i].startTime).getDate(),
+            new Date(events[i].startTime).getHours(),
+            new Date(events[i].startTime).getMinutes(),
+            new Date(events[i].startTime).getSeconds(),
+            new Date(events[i].startTime).getMilliseconds()
+          ),
+          endTime: new Date(
+            new Date(events[i].endTime).getFullYear() + j,
+            new Date(events[i].endTime).getMonth(),
+            new Date(events[i].endTime).getDate(),
+            new Date(events[i].endTime).getHours(),
+            new Date(events[i].endTime).getMinutes(),
+            new Date(events[i].endTime).getSeconds(),
+            new Date(events[i].endTime).getMilliseconds()
+          ),
+          allDay: events[i].allDay,
+          recurring: events[i].recurring,
+          creationTime: events[i].creationTime,
+          creationUser: events[i].creationUser,
+        };
+
+        newEvents.push(temp);
+      }
+    }
+
     if (
       new Date(events[i].startTime).getMonth() === new Date(events[i].endTime).getMonth() &&
       new Date(events[i].startTime).getDate() === new Date(events[i].endTime).getDate() &&

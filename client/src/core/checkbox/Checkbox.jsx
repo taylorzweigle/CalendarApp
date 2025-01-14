@@ -7,7 +7,11 @@ import Typography from "../typography/Typography";
 
 const Checkbox = forwardRef(({ label, selected, disabled, onClick }, ref) => {
   return (
-    <label className="block relative pl-10 text-base text-slate-700 dark:text-white cursor-pointer">
+    <label
+      className={`block relative pl-10 text-base text-slate-700 dark:text-white ${
+        !disabled && "cursor-pointer"
+      }`}
+    >
       <Typography variant="body1" color={disabled ? "secondary" : "primary"}>
         {label}
       </Typography>
@@ -20,7 +24,9 @@ const Checkbox = forwardRef(({ label, selected, disabled, onClick }, ref) => {
         onChange={onClick}
       />
       <span
-        className={`absolute flex justify-center items-center top-0 left-0 h-7 w-7 border-2 border-slate-300 dark:border-slate-600 sm:hover:border-sky-800 sm:hover:dark:border-sky-600 rounded-lg ${
+        className={`absolute flex justify-center items-center top-0 left-0 h-7 w-7 border-2 border-slate-300 dark:border-slate-600 ${
+          !disabled && "sm:hover:border-sky-800 sm:hover:dark:border-sky-600"
+        } rounded-lg ${
           selected
             ? disabled
               ? "bg-slate-200 dark:bg-slate-600"
