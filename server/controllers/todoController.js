@@ -28,7 +28,8 @@ const getTodo = async (req, res) => {
 };
 
 const createTodo = async (req, res) => {
-  const { todo, user, dueDate, notes, creationTime, checked, checkedTime } = req.body;
+  const { todo, user, dueDate, notes, recurring, every, frequency, creationTime, checked, checkedTime } =
+    req.body;
 
   try {
     const creationUser = req.user._id;
@@ -38,6 +39,9 @@ const createTodo = async (req, res) => {
       user,
       dueDate,
       notes,
+      recurring,
+      every,
+      frequency,
       creationTime,
       creationUser,
       checked,

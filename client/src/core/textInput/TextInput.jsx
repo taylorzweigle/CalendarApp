@@ -14,6 +14,7 @@ const TextInput = forwardRef(
         )}
         <input
           id={label}
+          ref={ref}
           value={value}
           type={type}
           pattern={pattern}

@@ -87,7 +87,7 @@ const EventForm = ({ isEditEventForm }) => {
       setTag(event.json.tag);
       setStartMonth(new Date(event.json.startTime).getMonth());
       setStartDate(new Date(event.json.startTime).getDate());
-      setStartYear(new Date(event.json.startTime).getFullYear());
+      setStartYear(event.json.recurring ? selectedDate.year : new Date(event.json.startTime).getFullYear());
       setEndMonth(new Date(event.json.endTime).getMonth());
       setEndDate(new Date(event.json.endTime).getDate());
       setEndYear(new Date(event.json.endTime).getFullYear());
@@ -123,7 +123,7 @@ const EventForm = ({ isEditEventForm }) => {
         fetchEventData();
       }
     }
-  }, [params.id, authUser, isEditEventForm]);
+  }, [params.id, authUser, isEditEventForm, selectedDate]);
 
   useEffect(() => {
     if (!isEditEventForm) {
@@ -452,6 +452,7 @@ const EventForm = ({ isEditEventForm }) => {
                 date={startDate}
                 year={startYear}
                 showLabel
+                disabled={isEditEventForm && recurring}
                 onClick={() => setStartMonthPickerModal(true)}
               />
               {duration === Actions.MULTIPLE_DAYS && (

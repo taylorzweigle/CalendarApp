@@ -144,6 +144,9 @@ const TodoLayout = ({ data }) => {
                     color={getCalendarColor(calendars, todo.user)}
                     dueDate={todo.dueDate}
                     notes={todo.notes}
+                    recurring={todo.recurring}
+                    every={todo.every}
+                    frequency={todo.frequency}
                     checked={todo.checked}
                     loading={loading === todo._id}
                     badge={isRecentlyAdded(todo.creationTime)}
@@ -174,6 +177,9 @@ const TodoLayout = ({ data }) => {
                     color={getCalendarColor(calendars, todo.user)}
                     dueDate={todo.dueDate}
                     notes={todo.notes}
+                    recurring={todo.recurring}
+                    every={todo.every}
+                    frequency={todo.frequency}
                     checked={todo.checked}
                     loading={loading === todo._id}
                     badge={isRecentlyAdded(todo.creationTime)}

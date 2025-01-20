@@ -20,6 +20,18 @@ const todoSchema = new Schema({
     type: String,
     required: false,
   },
+  recurring: {
+    type: Boolean,
+    required: true,
+  },
+  every: {
+    type: String,
+    required: false,
+  },
+  frequency: {
+    type: String,
+    required: false,
+  },
   creationTime: {
     type: Date,
     required: true,

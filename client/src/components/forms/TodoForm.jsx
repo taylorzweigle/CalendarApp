@@ -13,6 +13,7 @@ import { getTodos, getTodo, createTodo, updateTodo, deleteTodo } from "../../api
 
 import AreaTextInput from "../../core/areaTextInput/AreaTextInput";
 import Button from "../../core/button/Button";
+import Checkbox from "../../core/checkbox/Checkbox";
 import SelectInput from "../../core/selectInput/SelectInput";
 import TextInput from "../../core/textInput/TextInput";
 
@@ -35,6 +36,9 @@ const TodoForm = ({ isEditTodoForm }) => {
   const [dueDate, setDueDate] = useState("");
   const [year, setYear] = useState("");
   const [notes, setNotes] = useState("");
+  const [recurring, setRecurring] = useState(false);
+  const [every, setEvery] = useState("");
+  const [frequency, setFrequency] = useState("Day(s)");
   const [checked, setChecked] = useState(false);
 
   const [todoError, setTodoError] = useState("");
@@ -56,6 +60,9 @@ const TodoForm = ({ isEditTodoForm }) => {
       setDueDate(new Date(todo.json.dueDate).getDate());
       setYear(new Date(todo.json.dueDate).getFullYear());
       setNotes(todo.json.notes);
+      setRecurring(todo.json.recurring);
+      setEvery(todo.json.every);
+      setFrequency(todo.json.frequency);
       setChecked(todo.json.checked);
     };
 
@@ -103,6 +110,9 @@ const TodoForm = ({ isEditTodoForm }) => {
       user: user,
       dueDate: new Date(`${months[month]} ${dueDate}, ${year}`),
       notes: notes,
+      recurring: recurring,
+      every: recurring ? every : "",
+      frequency: recurring ? frequency : "",
       checked: checked,
       creationTime: new Date(),
     };
@@ -170,6 +180,9 @@ const TodoForm = ({ isEditTodoForm }) => {
     setDueDate("");
     setYear("");
     setNotes("");
+    setRecurring("");
+    setEvery("");
+    setFrequency("Day(s)");
 
     clearErrors();
   };
@@ -230,6 +243,23 @@ const TodoForm = ({ isEditTodoForm }) => {
                 showLabel
                 onChange={(e) => setNotes(e.target.value)}
               />
+              <div className="flex items-center h-12">
+                <Checkbox label="Recurring" selected={recurring} onClick={() => setRecurring(!recurring)} />
+              </div>
+              <div className={`flex flex-row items-end gap-4 ${recurring ? "block" : "hidden"}`}>
+                <TextInput
+                  label="Every"
+                  value={every}
+                  showLabel
+                  onChange={(e) => setEvery(e.target.value)}
+                />
+                <SelectInput
+                  label="Frequency"
+                  value={frequency}
+                  items={["Day(s)", "Week(s)", "Month(s)"]}
+                  onChange={(e) => setFrequency(e.target.value)}
+                />
+              </div>
             </div>
           </form>
         </div>

@@ -5,6 +5,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import RepeatIcon from "@mui/icons-material/Repeat";
 
 import Badge from "../../core/badge/Badge";
 import IconButton from "../../core/iconButton/IconButton";
@@ -14,7 +15,20 @@ import { months } from "../calendar/Calendar";
 
 import { getColors } from "../../utility/utility";
 
-const TodoCard = ({ todo, color, dueDate, notes, checked, badge, loading, onClick, onCheck }) => {
+const TodoCard = ({
+  todo,
+  color,
+  dueDate,
+  notes,
+  recurring,
+  every,
+  frequency,
+  checked,
+  badge,
+  loading,
+  onClick,
+  onCheck,
+}) => {
   const colors = getColors(color);
 
   const date = new Date(dueDate);
@@ -46,7 +60,10 @@ const TodoCard = ({ todo, color, dueDate, notes, checked, badge, loading, onClic
                 bold
                 truncate
               >
-                {todo}
+                <span className="inline-flex flex-row items-center gap-1">
+                  {todo}
+                  {recurring && <RepeatIcon fontSize="small" />}
+                </span>
               </Typography>
               <Typography
                 variant="caption"
