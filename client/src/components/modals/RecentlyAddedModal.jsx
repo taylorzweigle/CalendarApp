@@ -67,6 +67,7 @@ const RecentlyAddedModal = ({ open, events, todos, onCancelClick }) => {
                 todo={todo.todo}
                 color={getCalendarColor(calendars, todo.user)}
                 dueDate={todo.dueDate}
+                recurring={todo.recurring}
               />
             ))
           ) : (

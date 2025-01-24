@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import * as Actions from "../../actions";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 import { useTodosContext } from "../../hooks/useTodosContext";
 
@@ -27,6 +28,7 @@ const TodoForm = ({ isEditTodoForm }) => {
   const params = useParams();
 
   const { user: authUser } = useAuthContext();
+  const { calendars } = useCalendarsContext();
   const { selectedDate } = useSelectedDateContext();
   const { dispatchTodos } = useTodosContext();
 
@@ -232,7 +234,12 @@ const TodoForm = ({ isEditTodoForm }) => {
                 label="User"
                 value={user}
                 error={userError}
-                items={["", "Husband", "Wife", "Us"]}
+                items={[
+                  "",
+                  ...calendars
+                    .filter((calendar) => calendar.calendar !== "Calendar")
+                    .map((calendar) => calendar.calendar),
+                ]}
                 showLabel
                 onChange={(e) => setUser(e.target.value)}
               />

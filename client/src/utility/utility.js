@@ -17,6 +17,8 @@ import WorkIcon from "@mui/icons-material/Work";
 
 import { daysOfWeek, months } from "../components/calendar/Calendar";
 
+const TIME = 43200000;
+
 export const getCalendarColor = (calendars, user) => {
   let color = "";
 
@@ -121,7 +123,11 @@ export const compareStartAndEndTimes = (start, end) => {
 };
 
 export const isRecentlyAdded = (time) => {
-  return new Date().getTime() - new Date(time).getTime() < 43200000 ? true : false;
+  return new Date().getTime() - new Date(time).getTime() < TIME ? true : false;
+};
+
+export const isDeleteable = (time) => {
+  return new Date().getTime() - new Date(time).getTime() > TIME ? true : false;
 };
 
 export const sortEvents = (events) => {
