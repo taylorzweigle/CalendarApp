@@ -32,8 +32,18 @@ const TimeInput = ({
     period && setSelected(period);
   }, [period]);
 
-  const handleTimeChange = (value) => {
-    setValue(value.length === 2 ? value + ":" : value);
+  const handleTimeChange = (event) => {
+    let value = event.target.value;
+
+    if (event.nativeEvent.inputType === "deleteContentBackward") {
+      if (value.length === 3 && value[2] === ":") {
+        value = value.slice(0, 2);
+      }
+    } else {
+      value = value.length === 2 ? value + ":" : value;
+    }
+
+    setValue(value);
 
     if (value.length === 5) {
       const [hour, minutes] = value.split(":");
@@ -55,12 +65,7 @@ const TimeInput = ({
         {label}
       </Typography>
       <div className="relative inline-block">
-        <TextInput
-          label="time"
-          placeholder="HH:MM"
-          value={value}
-          onChange={(e) => handleTimeChange(e.target.value)}
-        />
+        <TextInput label="time" placeholder="HH:MM" value={value} onChange={(e) => handleTimeChange(e)} />
         <div className="absolute top-0 right-0 flex flex-row items-center gap-0 h-12 px-2">
           <div
             className="flex justify-center items-center h-11 w-12 sm:hover:bg-slate-100 sm:hover:dark:bg-slate-800 active:bg-slate-100 active:dark:bg-slate-800 cursor-pointer"
