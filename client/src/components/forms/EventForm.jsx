@@ -510,8 +510,8 @@ const EventForm = ({ isEditEventForm }) => {
                     minutes={startMinutes}
                     period={startPeriod}
                     error={startTimeError}
-                    onHourChange={(e) => setStartHours(e.target.value)}
-                    onMinutesChange={(e) => setStartMinutes(e.target.value)}
+                    onHourChange={(value) => setStartHours(value)}
+                    onMinutesChange={(value) => setStartMinutes(value)}
                     onPeriodChange={(value) => handleStartPeriodChange(value)}
                   />
                   <TimeInput
@@ -520,8 +520,8 @@ const EventForm = ({ isEditEventForm }) => {
                     minutes={endMinutes}
                     period={endPeriod}
                     error={endTimeError}
-                    onHourChange={(e) => setEndHours(e.target.value)}
-                    onMinutesChange={(e) => setEndMinutes(e.target.value)}
+                    onHourChange={(value) => setEndHours(value)}
+                    onMinutesChange={(value) => setEndMinutes(value)}
                     onPeriodChange={(value) => handleEndPeriodChange(value)}
                   />
                 </>

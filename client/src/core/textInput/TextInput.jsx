@@ -4,7 +4,7 @@ import React, { forwardRef } from "react";
 import Typography from "../typography/Typography";
 
 const TextInput = forwardRef(
-  ({ label, value, type, pattern, inputMode, maxLength, error, showLabel, onChange }, ref) => {
+  ({ label, value, type, placeholder, pattern, inputMode, maxLength, error, showLabel, onChange }, ref) => {
     return (
       <div className="flex flex-col gap-2 w-full">
         {showLabel && (
@@ -17,6 +17,7 @@ const TextInput = forwardRef(
           ref={ref}
           value={value}
           type={type}
+          placeholder={placeholder}
           pattern={pattern}
           inputMode={inputMode}
           maxLength={maxLength}
