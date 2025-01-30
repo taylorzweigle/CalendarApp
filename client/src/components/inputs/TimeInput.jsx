@@ -1,9 +1,8 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { useState, useEffect } from "react";
 
-import Typography from "../../core/typography/Typography";
-
 import TextInput from "../../core/textInput/TextInput";
+import Typography from "../../core/typography/Typography";
 
 const TimeInput = ({
   label,
@@ -65,7 +64,15 @@ const TimeInput = ({
         {label}
       </Typography>
       <div className="relative inline-block">
-        <TextInput label="time" placeholder="HH:MM" value={value} onChange={(e) => handleTimeChange(e)} />
+        <TextInput
+          label="time"
+          placeholder="HH:MM"
+          value={value}
+          type="text"
+          pattern="[0-9]*"
+          inputMode="numeric"
+          onChange={(e) => handleTimeChange(e)}
+        />
         <div className="absolute top-0 right-0 flex flex-row items-center gap-0 h-12 px-2">
           <div
             className="flex justify-center items-center h-11 w-12 sm:hover:bg-slate-100 sm:hover:dark:bg-slate-800 active:bg-slate-100 active:dark:bg-slate-800 cursor-pointer"

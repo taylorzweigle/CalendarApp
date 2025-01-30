@@ -22,6 +22,7 @@ import { months } from "../calendar/Calendar";
 import DateInput from "../inputs/DateInput";
 import DatePickerModal from "../modals/DatePickerModal";
 import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
+import NumberInput from "../../components/inputs/NumberInput";
 
 const TodoForm = ({ isEditTodoForm }) => {
   const navigate = useNavigate();
@@ -254,7 +255,7 @@ const TodoForm = ({ isEditTodoForm }) => {
                 <Checkbox label="Recurring" selected={recurring} onClick={() => setRecurring(!recurring)} />
               </div>
               <div className={`flex flex-row items-end gap-4 ${recurring ? "block" : "hidden"}`}>
-                <TextInput
+                <NumberInput
                   label="Every"
                   value={every}
                   showLabel

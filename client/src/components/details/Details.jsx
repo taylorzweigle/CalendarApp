@@ -1,9 +1,9 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React from "react";
 
-import Typography from "../../core/typography/Typography";
-
 import { getColors, getIcons } from "../../utility/utility";
+
+import Typography from "../../core/typography/Typography";
 
 const Details = ({ label, value, color, icon }) => {
   const colors = getColors(color);

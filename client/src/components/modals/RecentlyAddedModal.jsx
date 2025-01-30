@@ -3,14 +3,14 @@ import React, { useState } from "react";
 
 import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 
+import { getCalendarColor } from "../../utility/utility";
+
 import EmptyState from "../../core/emptyState/EmptyState";
 import Modal from "../../core/modal/Modal";
 import Tab from "../../core/tabs/Tab";
 
 import EventCard from "../cards/EventCard";
 import TodoCard from "../cards/TodoCard";
-
-import { getCalendarColor } from "../../utility/utility";
 
 const RecentlyAddedModal = ({ open, events, todos, onCancelClick }) => {
   const { calendars } = useCalendarsContext();

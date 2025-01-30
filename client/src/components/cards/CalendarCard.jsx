@@ -1,10 +1,10 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React from "react";
+
+import { getColors, getIcons } from "../../utility/utility";
 
 import Badge from "../../core/badge/Badge";
 import Typography from "../../core/typography/Typography";
-
-import { getColors, getIcons } from "../../utility/utility";
 
 const CalendarCard = ({ event, color, tag, type, badge }) => {
   let borderClass = "";

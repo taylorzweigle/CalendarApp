@@ -10,17 +10,16 @@ import { useCalendarsContext } from "../hooks/useCalendarsContext";
 import { useEventsContext } from "../hooks/useEventsContext";
 import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
 
+import { filterEvents } from "../utility/utility";
+
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
-
-import SideNav from "../components/sideNav/SideNav";
 
 import CalendarLayout from "../components/layouts/CalendarLayout";
 import DetailsLayout from "../components/layouts/DetailsLayout";
 import HeaderLayout from "../components/layouts/HeaderLayout";
 import LegendLayout from "../components/layouts/LegendLayout";
-
-import { filterEvents } from "../utility/utility";
+import SideNav from "../components/sideNav/SideNav";
 
 const CalendarPage = () => {
   const { calendars } = useCalendarsContext();

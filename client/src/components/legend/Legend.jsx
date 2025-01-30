@@ -4,10 +4,10 @@ import React, { forwardRef } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 
-import Typography from "../../core/typography/Typography";
-
 import { getColors } from "../../utility/utility";
+
 import IconButton from "../../core/iconButton/IconButton";
+import Typography from "../../core/typography/Typography";
 
 const Legend = forwardRef(({ color, label, selected, deleteable, onClick, onDelete }, ref) => {
   const colors = getColors(color);

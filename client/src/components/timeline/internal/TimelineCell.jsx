@@ -1,14 +1,14 @@
-//Taylor Zweigle, 2023
+//Taylor Zweigle, 2025
 import React from "react";
 
 import AddIcon from "@mui/icons-material/Add";
+
+import { compareStartAndEndTimes, formatTime, getColors, getIcons } from "../../../utility/utility";
 
 import Badge from "../../../core/badge/Badge";
 import Typography from "../../../core/typography/Typography";
 
 import { months } from "../../calendar/Calendar";
-
-import { compareStartAndEndTimes, formatTime, getColors, getIcons } from "../../../utility/utility";
 
 const TimelineCell = ({
   rowSpan,

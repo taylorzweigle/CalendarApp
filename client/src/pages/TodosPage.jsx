@@ -7,16 +7,15 @@ import AddIcon from "@mui/icons-material/Add";
 import { useCalendarsContext } from "../hooks/useCalendarsContext";
 import { useTodosContext } from "../hooks/useTodosContext";
 
+import { filterEvents } from "../utility/utility";
+
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
 
-import SideNav from "../components/sideNav/SideNav";
-
 import HeaderLayout from "../components/layouts/HeaderLayout";
 import LegendLayout from "../components/layouts/LegendLayout";
+import SideNav from "../components/sideNav/SideNav";
 import TodoLayout from "../components/layouts/TodoLayout";
-
-import { filterEvents } from "../utility/utility";
 
 const TodosPage = () => {
   const { calendars } = useCalendarsContext();

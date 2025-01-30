@@ -1,9 +1,9 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React, { forwardRef } from "react";
 
-import Typography from "../typography/Typography";
-
 import { getIcons } from "../../utility/utility";
+
+import Typography from "../typography/Typography";
 
 const SelectInput = forwardRef(({ label, value, showIcon, error, items, showLabel, onChange }, ref) => {
   return (

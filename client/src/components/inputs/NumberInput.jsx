@@ -3,11 +3,13 @@ import React from "react";
 
 import TextInput from "../../core/textInput/TextInput";
 
-const NumberInput = ({ label, value, maxLength, onChange }) => {
+const NumberInput = ({ label, value, showLabel, maxLength, onChange }) => {
   return (
     <TextInput
       id={label}
+      label={label}
       value={value}
+      showLabel={showLabel}
       type="text"
       pattern="[0-9]*"
       inputMode="numeric"

@@ -10,10 +10,10 @@ import { getCalendars, updateCalendar } from "../../api/calendars";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 
-import Legend from "../legend/Legend";
-
 import IconButton from "../../core/iconButton/IconButton";
 import Typography from "../../core/typography/Typography";
+
+import Legend from "../legend/Legend";
 
 const LegendLayout = () => {
   const { user: authUser } = useAuthContext();

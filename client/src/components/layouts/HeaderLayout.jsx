@@ -8,8 +8,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useLogout } from "../../hooks/useLogout";
 import { useTodosContext } from "../../hooks/useTodosContext";
 
-import LogoutModal from "../modals/LogoutModal";
-import RecentlyAddedModal from "../modals/RecentlyAddedModal";
+import { isRecentlyAdded } from "../../utility/utility";
 
 import Badge from "../../core/badge/Badge";
 import Button from "../../core/button/Button";
@@ -18,7 +17,8 @@ import Label from "../../core/label/Label";
 import Menu from "../../core/menu/Menu";
 import MenuItem from "../../core/menu/MenuItem";
 
-import { isRecentlyAdded } from "../../utility/utility";
+import LogoutModal from "../modals/LogoutModal";
+import RecentlyAddedModal from "../modals/RecentlyAddedModal";
 
 const HeaderLayout = ({ action }) => {
   const { events } = useEventsContext();

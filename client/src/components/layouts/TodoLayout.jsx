@@ -12,16 +12,15 @@ import { useTodosContext } from "../../hooks/useTodosContext";
 
 import { getTodos, getTodo, updateTodo, deleteTodo } from "../../api/todos";
 
+import { getCalendarColor, isDeleteable, isRecentlyAdded } from "../../utility/utility";
+
 import Button from "../../core/button/Button";
+import Divider from "../../core/divider/Divider";
 import EmptyState from "../../core/emptyState/EmptyState";
+import Toast from "../../core/toast/Toast";
 import Typography from "../../core/typography/Typography";
 
 import TodoCard from "../../components/cards/TodoCard";
-
-import Divider from "../../core/divider/Divider";
-import Toast from "../../core/toast/Toast";
-
-import { getCalendarColor, isDeleteable, isRecentlyAdded } from "../../utility/utility";
 
 const TodoLayout = ({ data }) => {
   const navigate = useNavigate();
@@ -160,9 +159,13 @@ const TodoLayout = ({ data }) => {
 
   return (
     <>
-      <Toast open={deletedTodoCount > 0 || updatedTodoCount > 0}>{`${
-        deletedTodoCount + updatedTodoCount
-      } Todo${deletedTodoCount + updatedTodoCount > 1 ? "s" : ""} successfully updated`}</Toast>
+      <Toast open={deletedTodoCount > 0 || updatedTodoCount > 0}>
+        {deletedTodoCount > 0 &&
+          `${deletedTodoCount} Todo${deletedTodoCount > 1 ? "s" : ""} successfully deleted.`}
+        <br />
+        {updatedTodoCount > 0 &&
+          `${updatedTodoCount} Todo${updatedTodoCount > 1 ? "s" : ""} successfully updated.`}
+      </Toast>
       <div className="flex flex-col gap-0 md:gap-4 min-h-[calc(100vh-412px)] md:min-h-[calc(100vh-168px)]">
         <div className="flex flex-row justify-between items-center p-4 md:p-0">
           <Typography variant="title">Todos</Typography>

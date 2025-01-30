@@ -15,7 +15,7 @@ import { getCalendars } from "./api/calendars";
 import { getEvents } from "./api/events";
 import { getTodos } from "./api/todos";
 
-import ScrollToTop from "./ScrollToTop";
+import ScrollToTop from "./utility/ScrollToTop";
 
 import CalendarPage from "./pages/CalendarPage";
 import EventFormPage from "./pages/EventFormPage";

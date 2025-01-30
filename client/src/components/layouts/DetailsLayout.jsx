@@ -5,14 +5,13 @@ import { Link } from "react-router-dom";
 import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
+import { getCalendarColor, isRecentlyAdded, sortEvents } from "../../utility/utility";
+
 import EmptyState from "../../core/emptyState/EmptyState";
 import Typography from "../../core/typography/Typography";
 
 import { daysOfWeek, months } from "../calendar/Calendar";
-
 import EventCard from "../cards/EventCard";
-
-import { getCalendarColor, isRecentlyAdded, sortEvents } from "../../utility/utility";
 
 const DetailsLayout = ({ data }) => {
   const { calendars } = useCalendarsContext();

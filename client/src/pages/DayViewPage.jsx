@@ -10,16 +10,15 @@ import { useCalendarsContext } from "../hooks/useCalendarsContext";
 import { useEventsContext } from "../hooks/useEventsContext";
 import { useSelectedDateContext } from "../hooks/useSelectedDateContext";
 
+import { filterEvents } from "../utility/utility";
+
 import Button from "../core/button/Button";
 import Divider from "../core/divider/Divider";
 
-import SideNav from "../components/sideNav/SideNav";
-
 import HeaderLayout from "../components/layouts/HeaderLayout";
 import LegendLayout from "../components/layouts/LegendLayout";
+import SideNav from "../components/sideNav/SideNav";
 import TimelineLayout from "../components/layouts/TimelineLayout";
-
-import { filterEvents } from "../utility/utility";
 
 const DayViewPage = () => {
   const { calendars } = useCalendarsContext();

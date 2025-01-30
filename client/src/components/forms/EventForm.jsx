@@ -5,13 +5,13 @@ import { useParams } from "react-router-dom";
 
 import * as Actions from "../../actions";
 
-import { getEvents, getEvent, createEvent, updateEvent, deleteEvent } from "../../api/events";
-import { tags } from "../../api/tags";
-
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCalendarsContext } from "../../hooks/useCalendarsContext";
 import { useEventsContext } from "../../hooks/useEventsContext";
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
+
+import { getEvents, getEvent, createEvent, updateEvent, deleteEvent } from "../../api/events";
+import { tags } from "../../api/tags";
 
 import Button from "../../core/button/Button";
 import Checkbox from "../../core/checkbox/Checkbox";

@@ -4,11 +4,11 @@ import { useNavigate } from "react-router";
 
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
-import TimelineCell from "./internal/TimelineCell";
+import { getCalendarColor } from "../../utility/utility";
 
 import Typography from "../../core/typography/Typography";
 
-import { getCalendarColor } from "../../utility/utility";
+import TimelineCell from "./internal/TimelineCell";
 
 const Timeline = ({ data, calendars, onHourClick }) => {
   const navigate = useNavigate();

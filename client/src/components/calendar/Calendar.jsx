@@ -1,14 +1,14 @@
-//Taylor Zweigle, 2024
+//Taylor Zweigle, 2025
 import React from "react";
 
 import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
 
-import CalendarDay from "./internal/CalendarDay";
-import CalendarHeaderDay from "./internal/CalendarHeaderDay";
+import { getCalendarColor, sortEvents } from "../../utility/utility";
 
 import CalendarCard from "../cards/CalendarCard";
 
-import { getCalendarColor, sortEvents } from "../../utility/utility";
+import CalendarDay from "./internal/CalendarDay";
+import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
 export const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 

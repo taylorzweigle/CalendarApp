@@ -7,13 +7,13 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RepeatIcon from "@mui/icons-material/Repeat";
 
+import { getColors } from "../../utility/utility";
+
 import Badge from "../../core/badge/Badge";
 import IconButton from "../../core/iconButton/IconButton";
 import Typography from "../../core/typography/Typography";
 
 import { months } from "../calendar/Calendar";
-
-import { getColors } from "../../utility/utility";
 
 const TodoCard = ({
   todo,
