@@ -13,7 +13,7 @@ import Badge from "../../core/badge/Badge";
 import IconButton from "../../core/iconButton/IconButton";
 import Typography from "../../core/typography/Typography";
 
-import { months } from "../calendar/Calendar";
+import { daysOfWeek, months } from "../calendar/Calendar";
 
 const TodoCard = ({
   todo,
@@ -71,7 +71,7 @@ const TodoCard = ({
                 customColor={colors.text}
                 truncate
               >
-                {`${months[date.getMonth()]} ${date.getDate()}`}
+                {`${daysOfWeek[date.getDay()].slice(0, 3)}, ${months[date.getMonth()]} ${date.getDate()}`}
               </Typography>
             </div>
             {notes && (
