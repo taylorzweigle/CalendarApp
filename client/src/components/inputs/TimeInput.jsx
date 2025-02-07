@@ -39,7 +39,11 @@ const TimeInput = ({
         value = value.slice(0, 2);
       }
     } else {
-      value = value.length === 2 ? value + ":" : value;
+      if (value.length === 3 && value[2] !== ":") {
+        value = value.slice(0, 2) + ":" + value.slice(2);
+      } else {
+        value = value.length === 2 ? value + ":" : value;
+      }
     }
 
     setValue(value);
@@ -71,6 +75,7 @@ const TimeInput = ({
           type="text"
           pattern="[0-9]*"
           inputMode="numeric"
+          maxLength={5}
           onChange={(e) => handleTimeChange(e)}
         />
         <div className="absolute top-0 right-0 flex flex-row items-center gap-0 h-12 px-2">
