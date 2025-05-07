@@ -22,10 +22,38 @@ const EventCard = ({
   const colors = getColors(color);
   const icon = getIcons(tag);
 
+  const renderTime = () => {
+    let time = "";
+
+    const startTimeString = `${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()} `;
+    const allDayStartTimeString = formatTime(startTime);
+    const divier = " - ";
+    const endTimeString = `${months[endTime.getMonth()].slice(0, 3)} ${endTime.getDate()} `;
+    const allDayEndTimeString = formatTime(endTime);
+
+    if (showStartDate) {
+      time += startTimeString;
+    }
+    if (!allDay) {
+      time += allDayStartTimeString;
+    }
+
+    time += divier;
+
+    if (showEndDate) {
+      time += endTimeString;
+    }
+    if (!allDay) {
+      time += allDayEndTimeString;
+    }
+
+    return time;
+  };
+
   return (
     <div className="relative">
       <div
-        className={`flex flex-row justify-start items-center cursor-pointer h-14 ${colors.bg} ${colors.hover} ${colors.active} border ${colors.border} rounded-md overflow-clip px-2`}
+        className={`flex flex-row justify-start items-center cursor-pointer h-14 ${colors.bg} ${colors.hover} ${colors.active} border ${colors.border} rounded-md px-2`}
       >
         {badge && <Badge size="large" />}
         <div className={`flex justify-center items-center ${colors.icon} rounded w-6 h-6`}>{icon}</div>
@@ -34,23 +62,19 @@ const EventCard = ({
             {event}
           </Typography>
           {!compareStartAndEndTimes(startTime, endTime) && (
-            <Typography variant="caption" color="custom" customColor={colors.text} truncate>
-              <span className="inline-flex justify-start items-center gap-1">
-                {showStartDate && (
-                  <span>{`${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()}`}</span>
-                )}
-                {!allDay && <span>{formatTime(startTime)}</span>}
-                <span>{" - "}</span>
-                {showEndDate && (
-                  <span>{`${months[endTime.getMonth()].slice(0, 3)} ${endTime.getDate()}`}</span>
-                )}
-                {!allDay && <span>{formatTime(endTime)}</span>}
-              </span>
+            <Typography
+              variant="caption"
+              color="custom"
+              customColor={colors.text}
+              truncate
+              additionalClasses="inline-flex justify-start items-center gap-1"
+            >
+              {renderTime()}
             </Typography>
           )}
           {compareStartAndEndTimes(startTime, endTime) && (
             <Typography variant="caption" color="custom" customColor={colors.text} truncate>
-              <span>{`${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()}`}</span>
+              {`${months[startTime.getMonth()].slice(0, 3)} ${startTime.getDate()}`}
             </Typography>
           )}
         </div>

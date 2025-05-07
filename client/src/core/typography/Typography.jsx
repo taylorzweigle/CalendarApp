@@ -3,8 +3,8 @@ import React, { forwardRef } from "react";
 import { cva } from "class-variance-authority";
 
 const Typography = forwardRef(
-  ({ variant, color, customColor, bold, truncate, wrap, center, children }, ref) => {
-    const typographyVariants = cva("", {
+  ({ variant, color, customColor, bold, truncate, wrap, center, additionalClasses, children }, ref) => {
+    const typographyVariants = cva(`${additionalClasses}`, {
       variants: {
         variant: {
           title: "text-3xl",
@@ -25,7 +25,7 @@ const Typography = forwardRef(
           true: "font-bold",
         },
         truncate: {
-          true: "line-clamp-1",
+          true: "w-full overflow-hidden whitespace-nowrap text-ellipsis",
         },
         wrap: {
           true: "break-normal",

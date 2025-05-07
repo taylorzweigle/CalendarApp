@@ -45,14 +45,21 @@ const CalendarCard = ({ event, color, tag, type, badge }) => {
   return (
     <div className="relative">
       <div
-        className={`flex flex-row gap-1 p-1 sm:p-2 justify-start items-center h-6 md:h-8 ${colors.bg} ${borderClass} ${colors.border} ${roundedClass} ${marginClass} overflow-clip line-clamp-1`}
+        className={`flex flex-row gap-1 p-1 sm:p-2 justify-start items-center h-6 md:h-8 ${colors.bg} ${borderClass} ${colors.border} ${roundedClass} ${marginClass}`}
       >
         {badge && renderElement("end") && <Badge size="small" inset={false} />}
         {renderElement("start") && (
           <>
             <div className={`flex justify-center items-center ${colors.icon} rounded w-6 h-6`}>{icon}</div>
-            <Typography variant="body2" color="custom" customColor={colors.text} bold truncate>
-              <span className="hidden sm:hidden md:block">{event}</span>
+            <Typography
+              variant="body2"
+              color="custom"
+              customColor={colors.text}
+              bold
+              truncate
+              additionalClasses="hidden sm:hidden md:block"
+            >
+              {event}
             </Typography>
           </>
         )}

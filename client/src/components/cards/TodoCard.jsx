@@ -21,8 +21,6 @@ const TodoCard = ({
   dueDate,
   notes,
   recurring,
-  every,
-  frequency,
   checked,
   badge,
   loading,
@@ -52,18 +50,17 @@ const TodoCard = ({
                 {checked ? <CheckIcon /> : <CheckBoxOutlineBlankIcon />}
               </IconButton>
             )}
-            <div className="flex flex-col gap-0 p-1 sm:p-2 w-full line-clamp-1" onClick={onClick}>
+            <div className="flex flex-col gap-0 p-1 sm:p-2 w-full" onClick={onClick}>
               <Typography
                 variant="body2"
                 color={checked ? "secondary" : "custom"}
                 customColor={colors.text}
                 bold
                 truncate
+                additionalClasses="inline-flex flex-row items-center gap-1"
               >
-                <span className="inline-flex flex-row items-center gap-1">
-                  {todo}
-                  {recurring && <RepeatIcon fontSize="small" />}
-                </span>
+                {todo}
+                {recurring && <RepeatIcon fontSize="small" />}
               </Typography>
               <Typography
                 variant="caption"
